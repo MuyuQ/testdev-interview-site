@@ -20,6 +20,18 @@
 
 ## 自动部署配置步骤
 
+### 方式 A: 在 Vercel Dashboard 连接 GitHub 仓库（推荐）
+
+1. 打开 https://vercel.com/mcodes-projects-37b8a4cb/temp-site/settings/git
+2. 在 **Git Repository** 部分，点击 **Connect Git Repository**
+3. 选择 GitHub，找到 `MuyuQ/testdev-interview-site`
+4. 配置：
+   - **Production Branch**: `codex/testdev-interview-site`
+   - **Root Directory**: `temp-site`
+5. 保存后，每次推送代码会自动触发部署
+
+### 方式 B: 创建新项目时连接
+
 ### 步骤 1: 连接 GitHub 仓库到 Vercel
 
 1. 登录 [Vercel Dashboard](https://vercel.com/dashboard)
@@ -49,8 +61,8 @@
 
 1. 进入项目 → **Settings** → **Git**
 2. 在 **Production Branch** 部分：
-   - 设置生产分支为 `main`（或你希望的主分支）
-   - 当前分支 `codex/testdev-interview-site` 可设置为预览分支
+   - 设置生产分支为 `codex/testdev-interview-site`（这是当前仓库的默认分支）
+   - 其他分支将作为预览分支
 
 ### 步骤 4: 自动部署机制说明
 

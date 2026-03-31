@@ -3,6 +3,7 @@ import { getSearchIndex } from "@/content";
 import { categoryConfig, orderedCategories } from "@/lib/site-config";
 import { MobileNav } from "@/components/client/mobile-nav";
 import { SearchLauncher } from "@/components/client/search-launcher";
+import { ThemeToggle } from "@/components/client/theme-toggle";
 
 export function SiteHeader() {
   return (
@@ -24,10 +25,10 @@ export function SiteHeader() {
           </Link>
         </div>
         <div className="site-header-tools">
+          <ThemeToggle />
           <SearchLauncher searchIndex={getSearchIndex()} />
         </div>
       </div>
     </header>
   );
 }
-

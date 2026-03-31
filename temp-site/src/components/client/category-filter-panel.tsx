@@ -19,6 +19,9 @@ export function CategoryFilterPanel({
   const [tag, setTag] = useState<string>("all");
   const deferredQuery = useDeferredValue(query);
 
+  // 术语体系不需要筛选维度，只保留搜索
+  const isGlossary = category === "glossary";
+
   const tags = useMemo(
     () => Array.from(new Set(topics.flatMap((topic) => topic.tags))).slice(0, 12),
     [topics],
@@ -26,6 +29,14 @@ export function CategoryFilterPanel({
 
   const filteredTopics = useMemo(() => {
     const normalized = deferredQuery.trim().toLowerCase();
+
+    // 术语体系只按搜索词筛选
+    if (isGlossary) {
+      return topics.filter((topic) =>
+        !normalized ||
+        `${topic.title} ${topic.summary} ${topic.tags.join(" ")}`.toLowerCase().includes(normalized)
+      );
+    }
 
     return topics.filter((topic) => {
       const matchesQuery =
@@ -38,7 +49,41 @@ export function CategoryFilterPanel({
 
       return matchesQuery && matchesDifficulty && matchesWeight && matchesTag;
     });
-  }, [deferredQuery, difficulty, tag, topics, weight]);
+  }, [deferredQuery, difficulty, tag, topics, weight, isGlossary]);
+
+  // 术语体系简化渲染
+  if (isGlossary) {
+    return (
+      <div className="content-block-body">
+        <div className="filter-controls">
+          <input
+            className="search-input"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="按标题、摘要或标签筛选"
+          />
+        </div>
+
+        <div className="topic-list">
+          {filteredTopics.map((topic) => (
+            <Link key={topic.slug} href={`/${category}/${topic.slug}`} className="topic-list-item">
+              <div>
+                <div className="topic-list-head">
+                  <strong>{topic.title}</strong>
+                </div>
+                <p>{topic.summary}</p>
+              </div>
+              <div className="topic-list-tags">
+                {topic.tags.slice(0, 4).map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="content-block-body">

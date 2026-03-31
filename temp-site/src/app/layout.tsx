@@ -2,6 +2,23 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 
+const themeInitScript = `
+(() => {
+  try {
+    const storageKey = "testdev:theme";
+    const storedTheme = localStorage.getItem(storageKey);
+    const theme =
+      storedTheme === "light" || storedTheme === "dark"
+        ? storedTheme
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+  } catch {}
+})();
+`;
+
 const notoSansSC = Noto_Sans_SC({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -32,9 +49,13 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
+      suppressHydrationWarning
       className={`${notoSansSC.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {children}
+      </body>
     </html>
   );
 }

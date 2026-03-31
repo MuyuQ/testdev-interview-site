@@ -25,9 +25,17 @@ export type MixedTerm = {
   difference: string;
 };
 
+// 常见考点项，包含标题和详细解释
+export type CommonMistakeItem = {
+  title: string;
+  detail: string;
+};
+
 export type RichTextToken =
   | { type: "text"; content: string }
   | { type: "term"; slug: string; label: string };
+
+export type InlineRichText = string | RichTextToken[];
 
 export type TopicSection =
   | {
@@ -42,14 +50,14 @@ export type TopicSection =
       title: string;
       description?: string;
       kind: "list";
-      items: string[];
+      items: InlineRichText[];
     }
   | {
       id: string;
       title: string;
       description?: string;
       kind: "qa-list";
-      items: Array<{ question: string; answer: string }>;
+      items: Array<{ question: string; answer: InlineRichText }>;
     };
 
 export type StandardTopic = TopicMeta & {
@@ -60,8 +68,11 @@ export type GlossaryTerm = TopicMeta & {
   term: string;
   shortDefinition: string;
   definition: string;
+  popoverExample?: string;
   whyItMatters: string;
-  commonMistakes: string[];
+  projectExample?: string;
+  examples?: string[];
+  commonMistakes: CommonMistakeItem[];
   confusingTerms: MixedTerm[];
   frequentQuestions: string[];
   answerHints: string[];
@@ -76,6 +87,7 @@ export type AILearningGuide = TopicMeta & {
   practicalUseCases: string[];
   commonMistakes: string[];
   interviewTalkingPoints: string[];
+  sections?: TopicSection[];
 };
 
 export type PracticeTemplate = TopicMeta & {
@@ -84,6 +96,7 @@ export type PracticeTemplate = TopicMeta & {
   includes: string[];
   howToUse: string[];
   extensionIdeas: string[];
+  sections?: TopicSection[];
 };
 
 export type ContentTopic =
@@ -97,11 +110,18 @@ export type SearchRecord = Pick<
   "slug" | "title" | "summary" | "category" | "tags" | "difficulty" | "interviewWeight"
 >;
 
+export type HomeQuestionGuide = {
+  slug: string;
+  ask: string;
+  answerLead: string;
+};
+
 export type GlossaryLookup = Record<
   string,
   {
     term: string;
     shortDefinition: string;
+    definition?: string;
+    popoverExample?: string;
   }
 >;
-

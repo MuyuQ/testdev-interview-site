@@ -6,13 +6,17 @@ import { useState } from "react";
 type GlossaryPopoverProps = {
   slug: string;
   label: string;
-  definition: string;
+  shortDefinition: string;
+  definition?: string;
+  example?: string;
 };
 
 export function GlossaryPopover({
   slug,
   label,
-  definition,
+  shortDefinition,
+  definition = "",
+  example = "",
 }: GlossaryPopoverProps) {
   const [open, setOpen] = useState(false);
 
@@ -32,11 +36,15 @@ export function GlossaryPopover({
       {open ? (
         <span className="glossary-panel" role="note">
           <strong>{label}</strong>
-          <span>{definition}</span>
+          <span className="glossary-brief">{shortDefinition}</span>
+          <span className="glossary-detail">{definition}</span>
+          <span className="glossary-example">
+            <b>例子：</b>
+            {example}
+          </span>
           <Link href={`/glossary/${slug}`}>查看详情</Link>
         </span>
       ) : null}
     </span>
   );
 }
-

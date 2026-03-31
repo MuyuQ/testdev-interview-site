@@ -1,12 +1,43 @@
 import Link from "next/link";
 import { StudyDashboard } from "@/components/client/study-dashboard";
-import { getAllTopics, getPopularTopics, getRoadmapHighlights } from "@/content";
+import { getAllTopics, getHomeQuestionGuides, getRoadmapHighlights } from "@/content";
 import { categoryConfig, orderedCategories } from "@/lib/site-config";
 
 export default function HomePage() {
   const allTopics = getAllTopics();
-  const popularTopics = getPopularTopics();
   const roadmapHighlights = getRoadmapHighlights();
+  const hotQuestionSlugs = [
+    "api-testing",
+    "payment-callback",
+    "pytest",
+    "playwright",
+    "idempotency",
+    "ci-cd",
+  ];
+  const hotQuestions = hotQuestionSlugs
+    .map((slug) => allTopics.find((topic) => topic.slug === slug))
+    .filter((topic): topic is (typeof allTopics)[number] => Boolean(topic));
+  const questionGuides = getHomeQuestionGuides();
+  const quickStarts = [
+    {
+      title: "先讲清核心概念",
+      summary: "如果你一开口就容易卡在术语、接口测试分层或 Pytest/Playwright 基础，这里应该先补。",
+      href: "/glossary",
+      action: "进入术语与基础专题",
+    },
+    {
+      title: "先收口项目表达",
+      summary: "如果你做过项目但说不清亮点、指标和测试策略，应该先整理项目讲法和表达模板。",
+      href: "/practice-template/project-story-template",
+      action: "先看项目表达模板",
+    },
+    {
+      title: "先练高频追问回答",
+      summary: "如果你最怕面试官继续深挖支付回调、登录鉴权、重试和幂等，就先练场景题骨架。",
+      href: "/scenario/payment-callback",
+      action: "进入场景题模块",
+    },
+  ];
 
   return (
     <main className="home-page">
@@ -67,15 +98,42 @@ export default function HomePage() {
       <section className="home-section">
         <div className="section-head">
           <p className="eyebrow">高频问题总览</p>
-          <h2>这些节点最容易进入追问。</h2>
-          <p>建议先看权重 3 的内容，再回头补细节和关联知识。</p>
+          <h2>先拿下最常被追问的 6 个问题。</h2>
+          <p>这一组不要按模块看，而要按“面试官最容易继续深挖什么”来准备。</p>
         </div>
         <div className="question-list">
-          {popularTopics.map((item) => (
-            <Link key={item.slug} href={`/${item.category}/${item.slug}`} className="question-item">
+          {hotQuestions.map((item, index) => {
+            const guide = questionGuides.find((entry) => entry.slug === item.slug);
+
+            return (
+              <Link key={item.slug} href={`/${item.category}/${item.slug}`} className="question-item">
+              <span className="question-index">0{index + 1}</span>
+              <strong>{item.title}</strong>
+              <p>{guide?.ask ?? item.summary}</p>
+              <div className="question-answer-lead">
+                <label>先讲什么</label>
+                <span>{guide?.answerLead ?? item.summary}</span>
+              </div>
+              <span>{item.category} / {item.tags.slice(0, 2).join(" / ")}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="home-section">
+        <div className="section-head">
+          <p className="eyebrow">准备重点</p>
+          <h2>路线负责安排节奏，这一块只负责告诉你该先补什么。</h2>
+          <p>不要重复按天数分流，而是先判断你现在缺的是概念、项目表达，还是高频追问回答。</p>
+        </div>
+        <div className="quickstart-grid">
+          {quickStarts.map((item) => (
+            <Link key={item.href} href={item.href} className="quickstart-card">
+              <span className="module-kicker">建议入口</span>
               <strong>{item.title}</strong>
               <p>{item.summary}</p>
-              <span>{item.tags.slice(0, 3).join(" / ")}</span>
+              <span className="quickstart-action">{item.action}</span>
             </Link>
           ))}
         </div>
@@ -83,13 +141,13 @@ export default function HomePage() {
 
       <section className="home-section">
         <div className="section-head">
-          <p className="eyebrow">模块入口</p>
-          <h2>按照角色最常见的问法来组织学习顺序。</h2>
-          <p>每个模块都可以直接进入条目详情页，同时也支持搜索和最近浏览记录。</p>
+          <p className="eyebrow">模块导航</p>
+          <h2>需要系统补课时，再按模块展开阅读。</h2>
+          <p>这里保留完整入口，但放到高频问题和起步分流之后，避免首屏过早变成目录页。</p>
         </div>
         <div className="module-stack">
           {orderedCategories.map((category) => {
-            const items = allTopics.filter((topic) => topic.category === category).slice(0, 3);
+            const items = allTopics.filter((topic) => topic.category === category).slice(0, 2);
             return (
               <section key={category} className="module-row">
                 <div className="module-meta">

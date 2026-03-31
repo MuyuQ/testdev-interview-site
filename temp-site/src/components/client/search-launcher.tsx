@@ -56,7 +56,7 @@ export function SearchLauncher({ searchIndex }: SearchLauncherProps) {
 
   return (
     <>
-      <button type="button" className="ghost-button" onClick={() => setOpen(true)}>
+      <button type="button" className="ghost-button search-trigger" onClick={() => setOpen(true)}>
         搜索内容
         <span className="eyebrow">Ctrl/Cmd + K</span>
       </button>

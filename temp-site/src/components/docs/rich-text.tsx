@@ -26,7 +26,9 @@ export function RichText({ tokens, glossaryLookup }: RichTextProps) {
             key={`${token.slug}-${index}`}
             slug={token.slug}
             label={token.label}
-            definition={glossaryItem.shortDefinition}
+            shortDefinition={glossaryItem.shortDefinition}
+            definition={glossaryItem.definition}
+            example={glossaryItem.popoverExample}
           />
         );
       })}

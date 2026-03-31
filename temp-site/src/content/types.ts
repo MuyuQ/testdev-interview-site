@@ -70,8 +70,6 @@ export type GlossaryTerm = TopicMeta & {
   definition: string;
   popoverExample?: string;
   whyItMatters: string;
-  projectExample?: string;
-  examples?: string[];
   commonMistakes: CommonMistakeItem[];
   confusingTerms: MixedTerm[];
   frequentQuestions: string[];

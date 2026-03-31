@@ -177,12 +177,6 @@ function getGlossarySections(topic: GlossaryTerm): TopicSection[] {
       content: text(topic.whyItMatters),
     },
     {
-      id: "examples",
-      title: "例子",
-      kind: "list",
-      items: topic.examples ?? [],
-    },
-    {
       id: "common-mistakes",
       title: "常见考点",
       kind: "qa-list",

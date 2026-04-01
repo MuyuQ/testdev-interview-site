@@ -76,6 +76,8 @@ export type GlossaryTerm = TopicMeta & {
   answerHints: string[];
   aliases?: string[];
   usedInSlugs?: string[];
+  // 扩展模块：基础入门、学习路径、实操案例等
+  sections?: TopicSection[];
 };
 
 export type AILearningGuide = TopicMeta & {

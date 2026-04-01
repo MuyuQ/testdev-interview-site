@@ -5509,51 +5509,22 @@ export const projectTopics: StandardTopic[] = [
     summary: "重点体现数据采集、加工、校验和消费全链路质量保障能力。",
     category: "project",
     tags: ["数据平台", "数据质量", "ETL", "链路"],
-    difficulty: "interview",
+    difficulty: "beginner",
     interviewWeight: 2,
     sections: [
-      {
-        id: "flow",
-        title: "业务流程",
-        kind: "list",
-        items: [
-          "数据采集、清洗、加工和入库。",
-          "数据校验、去重、关联和聚合。",
-          "数据消费、报表生成和 API 输出。",
-        ],
-      },
-      {
-        id: "risks",
-        title: "风险点",
-        kind: "list",
-        items: [
-          "数据丢失、重复入库和字段缺失。",
-          "加工链路中断、任务超时和数据倾斜。",
-          "报表数据与源数据不一致。",
-        ],
-      },
-      {
-        id: "strategy",
-        title: "测试策略",
-        kind: "list",
-        items: [
-          "采集链路做数据完整性、格式和时序校验。",
-          "加工链路做任务执行、依赖和异常恢复验证。",
-          "消费层做报表比对和 API 输出一致性检查。",
-        ],
-      },
-      {
-        id: "outcome",
-        title: "可讲成果",
-        kind: "list",
-        items: [
-          "数据完整性校验自动化后，入库异常及时发现。",
-          "加工链路回归覆盖后，任务中断率下降。",
-          "报表比对集成到门禁，数据质量问题上线前拦截。",
-        ],
-      },
+      { id: "background", title: "项目背景", kind: "paragraph", content: text("数据平台是现代企业的核心基础设施，负责数据的采集、存储、加工和消费。测试开发价值体现在三方面：保障数据正确性（不丢不错不重）、保障链路稳定性（不中断可恢复）、保障消费一致性（报表API准确）。数据平台业务特点：数据来源多样、处理链路复杂、消费场景丰富、时效性要求高、数据量大。测试挑战：数据正确性验证难、链路依赖复杂、时效性验证、环境搭建成本高。"), description: "项目背景概述" },
+      { id: "flow", title: "业务流程", kind: "list", items: ["【数据采集】数据源→采集通道→入库。验证：完整性、字段映射、时序一致。","【数据清洗】原始数据→去重去空格式转换→中间表。验证：清洗规则、异常处理。","【数据加工】中间表→聚合关联计算→结果表。验证：计算逻辑、依赖顺序。","【数据消费】结果表→报表/API/导出。验证：一致性、格式、权限。" ], description: "核心业务流程" },
+      { id: "key-scenarios", title: "关键业务场景", kind: "list", items: ["【日增量同步】定时同步增量数据。测试：增量识别、不丢不重、SLA延迟。","【实时流处理】消息队列实时计算。测试：消息完整性、延迟达标、结果一致。","【报表生成】定时计算报表。测试：数据一致、按时产出、口径正确。","【API输出】数据查询服务。测试：数据一致、过滤正确、分页完整、权限有效。" ], description: "关键业务场景" },
+      { id: "edge-scenarios", title: "边界场景", kind: "list", items: ["【空数据】验证告警、默认值、下游处理。","【异常数据】验证清洗过滤、异常记录。","【数据回溯】验证回溯范围、不重复、结果一致。","【链路重跑】验证重跑依赖、不重复、结果一致。" ], description: "边界业务场景" },
+      { id: "strategy", title: "测试策略", kind: "paragraph", content: text("测试分层：采集层验证完整性格式时序；加工层验证任务执行依赖恢复；消费层验证报表API权限；端到端验证完整链路。重点项：数据正确性（字段校验、规则校验、比对校验）；时效性能（实时延迟、离线时效）；数据安全（脱敏、权限、审计）。"), description: "测试策略概述" },
+      { id: "risk-points", title: "风险点", kind: "list", items: ["【数据丢失】应对：采集比对、队列监控、写入告警。","【数据重复】应对：幂等校验、去重验证、告警。","【数据错误】应对：逻辑校验、抽样验证、监控。","【链路中断】应对：依赖监控、资源监控、恢复验证。","【时效延迟】应对：时间监控、资源监控、SLA告警。","【数据不一致】应对：端到端校验、比对自动化。" ], description: "常见风险点" },
+      { id: "test-tools", title: "测试工具", kind: "list", items: ["【数据校验】自研脚本、Great Expectations、Deequ。","【调度测试】Airflow测试模式、手动触发、日志分析。","【数据生成】自研脚本、Mock数据库、数据工厂。","【监控告警】Prometheus+Grafana、自研脚本。","【接口测试】Postman、自研框架、pytest+requests。" ], description: "测试工具" },
+      { id: "interview-template", title: "面试表达", kind: "paragraph", content: text("核心三要素：数据质量保障（不丢不错不重）、链路稳定性（不中断可恢复）、消费一致性（报表准确API正确）。采用「概述→流程→策略→成果」四段式，控制在3-5分钟。"), description: "面试表达策略" },
+      { id: "project-description", title: "项目描述模板", kind: "paragraph", content: text("「我负责XX数据平台测试，日处理XX TB，支持XX个报表和API。技术栈：Canal/Flume采集、Spark/Flink加工、Hive/Kafka存储、Airflow调度。测试覆盖采集完整性、加工正确性、消费一致性、端到端链路。设计了数据校验规则库、自动化比对、监控告警体系。」"), description: "项目描述模板" },
+      { id: "outcome-template", title: "成果模板", kind: "list", items: ["「完整性校验自动化后，告警响应从小时级降到分钟级。"","「加工链路回归后，中断率下降XX%，恢复时间缩短。"","「报表比对集成门禁后，质量问题上线前拦截率提升。"","「数据质量体系建成后，完整性校验覆盖率达XX%。"" ], description: "成果表达模板" },
+      { id: "follow-up", title: "追问应对", kind: "qa-list", items: [ { question: "怎么验证数据正确性？", answer: "三层验证：字段级校验（存在、类型、范围）；规则校验（金额汇总、计数统计）；比对校验（报表与明细、API与存储）。策略：规则校验+抽样验证+异常监控。" }, { question: "数据量大怎么测？", answer: "分层验证：采集层数据量比对；加工层规则校验；消费层抽样比对。关键数据全量校验，普通数据抽样。设计了自动化规则库，每天执行，异常告警。" }, { question: "任务依赖复杂怎么验证稳定性？", answer: "三件事：梳理依赖图识别关键路径；设计执行监控监控时间和状态；设计异常恢复验证重跑场景。建立了链路健康度监控。" }, { question: "报表与源数据不一致怎么发现？", answer: "自动化比对方案：定时执行比对任务，聚合结果差异超阈值告警。上线后及时发现不一致，拦截多次数据口径错误。" }, { question: "实时数据怎么测？", answer: "三指标：完整性（不丢不重）、时效性（延迟SLA内）、正确性（与批处理一致）。端到端延迟测试、消息完整性测试、结果一致性测试。" } ], description: "常见追问应对" },
     ],
-  },
+  },,
   {
     slug: "marketing-activity-project",
     title: "营销活动项目怎么讲时间窗口和高并发",
@@ -7933,6 +7904,13 @@ export const practiceTemplateTopics: PracticeTemplate[] = [
     extensionIdeas: [
       "补缓存、重试、签名和异步回调验证。",
       "加入失败截图或日志聚合能力。",
+    ],
+    sections: [
+      { id: "template-overview", title: "模板概述", kind: "paragraph", content: [{ type: "text", content: "这是一个基于 Python + Pytest 的接口自动化测试项目模板。" }], description: "了解模板" },
+      { id: "applicable-scenarios", title: "适用场景", kind: "list", items: ["面试准备", "技能提升", "团队落地"], description: "适用场景" },
+      { id: "prerequisites", title: "前置知识", kind: "list", items: ["Python基础", "HTTP基础", "Pytest基础"], description: "前置知识" },
+      { id: "project-structure", title: "项目结构", kind: "paragraph", content: [{ type: "text", content: "api_project含config/api/testcase/utils目录。" }], description: "结构" },
+      { id: "interview-tips", title: "面试加分点", kind: "list", items: ["能图示架构", "能解释设计", "能讲难点"], description: "加分点" }
     ],
   },
   {

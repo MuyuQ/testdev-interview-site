@@ -76,6 +76,7 @@ export type GlossaryTerm = TopicMeta & {
   answerHints: string[];
   aliases?: string[];
   usedInSlugs?: string[];
+  sections?: TopicSection[];
 };
 
 export type AILearningGuide = TopicMeta & {

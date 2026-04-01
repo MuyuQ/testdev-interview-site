@@ -7557,6 +7557,128 @@ export const aiLearningTopics: AILearningGuide[] = [
       "你理解 LLM 更像高效助手，而不是质量裁判。",
       "在真实项目里你会保留规则校验、人工复核或评审兜底。",
     ],
+    sections: [
+      {
+        id: "learning-objectives",
+        title: "学习目标",
+        kind: "list",
+        items: [
+          "核心目标：清晰认知 LLM 能做什么、不能做什么，建立正确的工具使用边界。",
+          "为什么学：团队引入 AI 工具是趋势，但盲目使用会造成质量风险和信任危机。懂得边界，才能既享受提效红利，又守住质量底线。",
+          "应用价值：减少无效尝试，提升 AI 辅助的成功率；面试中展示成熟的技术判断力；为团队建立规范的 AI 使用流程。",
+          "学习难度：中等。需要一定的 LLM 实践经验才能形成边界意识，建议在真实项目中边用边学。",
+          "预期时间：1-2 周基本掌握，1-2 个月形成稳定的边界判断习惯。",
+        ],
+      },
+      {
+        id: "application-scenarios",
+        title: "应用场景",
+        kind: "qa-list",
+        items: [
+          {
+            question: "LLM 擅长的任务有哪些？",
+            answer: [
+              { type: "text", content: "模式归纳：从大量日志中提取共同特征和异常模式。" },
+              { type: "text", content: "内容生成：生成测试用例草稿、测试数据、文档初稿。" },
+              { type: "text", content: "语言转换：需求文档转测试点、代码注释转文档、日志转可读报告。" },
+              { type: "text", content: "相似召回：从历史用例库中找到相似场景，提示补测方向。" },
+            ],
+          },
+          {
+            question: "LLM 不擅长的任务有哪些？",
+            answer: [
+              { type: "text", content: "业务正确性判断：无法理解业务规则，可能生成看似合理但实际错误的断言。" },
+              { type: "text", content: "实时状态验证：无法访问系统实时状态，不能验证\"此时此刻\"的准确性。" },
+              { type: "text", content: "复杂因果推理：对多因素交织的问题，推理链容易断裂或产生幻觉。" },
+              { type: "text", content: "安全敏感决策：涉及权限、数据脱敏、安全边界的决策不应交给 LLM。" },
+            ],
+          },
+          {
+            question: "典型实践案例",
+            answer: [
+              { type: "text", content: "日志分析：将 1000 条失败日志输入 LLM，让其归纳出 Top 5 异常类型和典型报错信息，人工验证后形成排查手册。" },
+              { type: "text", content: "用例生成：根据接口文档让 LLM 生成边界值和异常场景用例草稿，人工筛选业务相关的部分，删除无效建议。" },
+              { type: "text", content: "需求拆解：将 PRD 输入 LLM，让其列出测试关注点清单，测试人员补充业务规则和验收标准。" },
+            ],
+          },
+          {
+            question: "推荐工具",
+            answer: [
+              { type: "text", content: "Claude/GPT-4：通用文本理解和生成，适合文档分析、用例草稿生成。" },
+              { type: "text", content: "Cursor/Copilot：代码辅助，适合生成测试脚本、断言逻辑。" },
+              { type: "text", content: "LangChain：构建可控的 AI 工作流，适合批量日志分析、用例召回等场景。" },
+              { type: "text", content: "本地模型（Ollama）：敏感数据处理，避免数据出境风险。" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "common-mistakes",
+        title: "常见误区",
+        kind: "qa-list",
+        items: [
+          {
+            question: "学习误区",
+            answer: [
+              { type: "text", content: "只看不用：看了很多 AI 文章但不敢在项目中尝试，无法形成真实体验。" },
+              { type: "text", content: "过度依赖：遇到问题先问 AI，不培养独立思考能力，面试时无法展示深层理解。" },
+              { type: "text", content: "忽视基础：跳过测试基础直接学 AI 应用，导致无法判断 AI 输出是否合理。" },
+            ],
+          },
+          {
+            question: "应用误区",
+            answer: [
+              { type: "text", content: "直接采纳：把 LLM 生成的用例、断言直接使用，不做人工验证。" },
+              { type: "text", content: "数据泄露：把生产日志、敏感代码直接输入外部模型，造成安全风险。" },
+              { type: "text", content: "期望过高：认为 LLM 能替代测试思维，实际上它只是加速器，不是裁判。" },
+              { type: "text", content: "忽视模板：每次使用都没有统一的提示词模板，导致结果不可复现、不可对比。" },
+            ],
+          },
+          {
+            question: "面试误区",
+            answer: [
+              { type: "text", content: "只说提效：只讲 AI 如何帮你提高效率，不提边界和风险控制，显得缺乏判断力。" },
+              { type: "text", content: "盲目吹捧：把 LLM 说成万能工具，不承认其局限性，面试官会质疑技术深度。" },
+              { type: "text", content: "缺乏实例：没有真实使用经验，只能说空泛概念，无法说服面试官。" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "interview-expression",
+        title: "面试表达",
+        kind: "qa-list",
+        items: [
+          {
+            question: "如何展示边界意识？",
+            answer: [
+              { type: "text", content: "开场定位：\"我用 LLM 作为提效工具，但关键决策一定保留人工或规则兜底。\"" },
+              { type: "text", content: "举例说明：描述一个具体场景，讲清楚 AI 输出是什么、你如何验证、发现什么问题、如何改进。" },
+              { type: "text", content: "风险意识：主动提及数据脱敏、幻觉风险、业务正确性验证等话题，展示全面思考。" },
+              { type: "text", content: "流程意识：说明 AI 是流程中的一环，不是独立决策点。如：AI 生成 → 人工筛选 → 规则校验 → 上线。" },
+            ],
+          },
+          {
+            question: "常见面试问题及回答要点",
+            answer: [
+              { type: "text", content: "\"你怎么使用 AI 辅助测试？\" → 分任务类型回答：生成类任务让 AI 先出草稿，判断类任务让 AI 辅助归纳，决策类任务保留人工。" },
+              { type: "text", content: "\"AI 生成的用例你会直接用吗？\" → 明确回答不会直接用：会先做业务相关性过滤，再验证断言正确性，最后补充边界场景。" },
+              { type: "text", content: "\"遇到过 AI 给出错误建议吗？\" → 准备一个真实案例，说明你如何发现问题、如何改进流程防止再次发生。" },
+              { type: "text", content: "\"你们团队有 AI 使用规范吗？\" → 如有，简述关键点；如没有，说明你认为需要哪些规范（脱敏、审核、记录）。" },
+            ],
+          },
+          {
+            question: "加分项",
+            answer: [
+              { type: "text", content: "量化效果：\"用 AI 辅助后，日志分析时间从 2 小时缩短到 30 分钟，准确率保持在 95% 以上（人工抽样验证）。\"" },
+              { type: "text", content: "成本意识：提及 token 成本、模型选择、本地部署等考虑，展示技术广度。" },
+              { type: "text", content: "持续优化：说明你如何迭代提示词模板、积累有效案例、形成团队知识库。" },
+              { type: "text", content: "安全合规：主动提及数据脱敏、模型选择策略、敏感信息处理，展示职业素养。" },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "cloud-native-for-testdev",

@@ -7865,6 +7865,48 @@ export const aiLearningTopics: AILearningGuide[] = [
       "表达对新工具的学习态度，但强调以解决问题为导向。",
     ],
   },
+  {
+    slug: "selenium-compare",
+    title: "Playwright vs Selenium：新一代自动化框架选型",
+    summary: "理解新一代 Web 自动化框架的核心优势，掌握框架选型的判断依据。",
+    category: "ai-learning",
+    tags: ["Playwright", "Selenium", "Web 自动化", "框架选型"],
+    difficulty: "beginner",
+    interviewWeight: 3,
+    // 模块 1：学习目标
+    learningGoal: "建立新一代自动化框架选型的判断框架，理解 Playwright 相比 Selenium 的核心优势与适用场景。",
+    whyNow: "Playwright 正成为企业 Web 自动化首选框架，面试高频问「为什么选 Playwright 不选 Selenium」，理解新一代框架的优势是测试开发必备能力。",
+    learningSteps: [
+      "第一步：理解架构差异。Playwright 直接与浏览器通信（CDP 协议），Selenium 通过 WebDriver 中转，架构差异决定了速度和稳定性差距。",
+      "第二步：对比核心能力。自动等待、调试工具、并发机制、多浏览器支持，逐一理解每个维度的差异。",
+      "第三步：评估迁移成本。已有 Selenium 项目是否值得迁移、新项目如何选择，建立选型判断依据。",
+      "第四步：准备面试表达。能把「为什么选 Playwright」讲清楚，包括技术优势和业务价值。",
+    ],
+    // 模块 2：应用场景
+    practicalUseCases: [
+      "新项目选型：团队从零搭建 Web 自动化框架，Playwright 是首选方案，学习曲线更平滑、维护成本更低。",
+      "Selenium 项目痛点解决：现有 Selenium 项目元素不稳定、等待策略复杂、调试困难，考虑逐步迁移关键模块。",
+      "面试场景应对：面试官问框架选型理由，需要从稳定性、效率、工程化三个维度给出有说服力的答案。",
+      "技术方案评审：团队讨论自动化框架方案，需要给出客观的技术对比和选型建议。",
+    ],
+    // 模块 3：常见误区
+    commonMistakes: [
+      "误区 1：认为 Selenium 完全过时。Selenium 生态成熟、社区资源丰富，某些场景（如支持更多浏览器版本）仍有优势，选型要看具体需求。",
+      "误区 2：只看功能对比不看维护成本。框架选型的核心考量是长期维护成本，Playwright 的自动等待和 Trace 工具显著降低维护开销。",
+      "误区 3：迁移时重写一切。迁移到 Playwright 时，Page Object 设计模式、测试数据管理思路可以复用，无需完全重写。",
+      "误区 4：面试时只说「Playwright 更好」。需要讲清楚具体好在哪里（架构、等待、调试、并发），以及什么场景 Selenium 可能更适合。",
+      "误区 5：忽视团队能力和学习成本。选型还要考虑团队现有技能和学习意愿，Playwright 上手快但团队过渡期需要支持。",
+    ],
+    // 模块 4：面试表达
+    interviewTalkingPoints: [
+      "回答骨架：三点结构——稳定性优势（自动等待解决元素不稳定）、效率优势（架构更快、调试工具更强）、工程化优势（并发轻量、隔离简单）。",
+      "深度展开：架构差异（CDP vs WebDriver）决定执行速度；自动等待减少 80% 显式等待代码；Trace Viewer 让失败定位效率翻倍。",
+      "对比回答：如果问 Selenium 优势，承认其生态成熟、社区资源多、支持更多浏览器版本；但强调新项目 Playwright 是更优选择。",
+      "迁移话题：已有 Selenium 项目可评估痛点模块优先迁移，设计模式可复用，渐进式迁移比全量重写更稳妥。",
+      "选型判断：新项目首选 Playwright（维护成本低）；现有 Selenium 项目看痛点严重程度决定是否迁移；团队技能也是考量因素。",
+    ],
+    relatedSlugs: ["playwright", "page-object-model", "ui-automation"],
+  },
 ];
 
 export const practiceTemplateTopics: PracticeTemplate[] = [

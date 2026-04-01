@@ -124,44 +124,6 @@ export const glossaryTopics: GlossaryTerm[] = [
       "消息重复消费的测试设计要覆盖三种场景：第一，正常重试场景。模拟消息消费失败后 MQ 自动重试，验证重试消费时幂等逻辑生效，数据不重复写入、状态不重复变更。第二，并发重复消费场景。构造多个消费者同时消费同一条消息（如手动发送多条相同消息到队列），验证并发消费时幂等逻辑生效，数据库只有一条记录、分布式锁正确拦截重复处理。第三，超时后重新消费场景。模拟消费超时（如处理时间超过 MQ 超时配置）后消息重新投递，验证重新投递时幂等逻辑生效。具体测试方法上，我会用 MQ 管理工具（如 RabbitMQ 管理后台）手动重发消息，或在测试代码中用同一消息 ID 多次调用消费逻辑，然后验证数据库记录数量、状态一致性、外部调用次数。面试时要强调：消息幂等测试不只是测「接口返回相同」，而是要验证数据库、外部系统调用的副作用是否重复，这才是真正的幂等验证。"
     ],
     relatedSlugs: ["api-assertion", "payment-callback"],
-    // ========== 扩展模块 ==========
-    sections: [
-      {
-        id: "what-is-idempotency",
-        title: "幂等是什么",
-        kind: "paragraph",
-        content: [{ type: "text", content: "幂等是指同一个请求重复执行多次，结果保持一致或可控的能力。在分布式系统中，由于网络不确定性，请求可能被重复发送，幂等设计保证重复请求不会造成重复扣款、重复下单或状态紊乱。" }],
-        description: "理解幂等的本质",
-      },
-      {
-        id: "idempotency-learning-path",
-        title: "学习路径",
-        kind: "list",
-        items: ["第一阶段：识别需要幂等的场景", "第二阶段：选择合适的幂等键", "第三阶段：掌握技术实现", "第四阶段：设计测试用例", "第五阶段：练习面试表达"],
-        description: "从入门到精通的学习路径",
-      },
-      {
-        id: "idempotency-practice-case",
-        title: "实操案例",
-        kind: "paragraph",
-        content: [{ type: "text", content: "以支付回调为例：幂等键选择支付流水号，数据库用唯一索引保证不重复写入，处理前先查订单状态判断是否已处理。" }],
-        description: "通过支付回调案例掌握幂等设计",
-      },
-      {
-        id: "idempotency-mistake-1",
-        title: "误区 1：把接口返回一样当成幂等",
-        kind: "paragraph",
-        content: [{ type: "text", content: "接口返回相同不代表幂等。真正的幂等要验证数据库状态、外部系统调用是否重复。" }],
-        description: "理解返回相同不等于幂等",
-      },
-      {
-        id: "idempotency-interview-q1",
-        title: "面试问答 1：支付回调为什么一定要做幂等？",
-        kind: "paragraph",
-        content: [{ type: "text", content: "支付回调必须做幂等，原因有三点：网络不确定性导致重复回调，重复处理会造成严重业务后果，幂等是金融系统的底线要求。" }],
-        description: "回答支付回调幂等的必要性",
-      },
-    ],
   },
   {
     slug: "fixture",

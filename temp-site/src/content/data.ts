@@ -1,6 +1,7 @@
 import type {
   AILearningGuide,
   ContentTopic,
+  ExtendedSearchRecord,
   GlossaryLookup,
   GlossaryTerm,
   HomeQuestionGuide,
@@ -11643,16 +11644,32 @@ export function getRoadmapHighlights(): ContentTopic[] {
   return roadmapTopics.slice(0, 2);
 }
 
-export function getSearchIndex(): SearchRecord[] {
-  return allTopics.map((topic) => ({
-    slug: topic.slug,
-    title: topic.title,
-    summary: topic.summary,
-    category: topic.category,
-    tags: topic.tags,
-    difficulty: topic.difficulty,
-    interviewWeight: topic.interviewWeight,
-  }));
+export function getSearchIndex(): ExtendedSearchRecord[] {
+  return allTopics.map((topic) => {
+    const base: ExtendedSearchRecord = {
+      slug: topic.slug,
+      title: topic.title,
+      summary: topic.summary,
+      category: topic.category,
+      tags: topic.tags,
+      difficulty: topic.difficulty,
+      interviewWeight: topic.interviewWeight,
+    };
+
+    // GlossaryTerm 特有字段
+    if ("definition" in topic) {
+      base.definition = topic.definition;
+      base.shortDefinition = topic.shortDefinition;
+      base.frequentQuestions = topic.frequentQuestions;
+    }
+
+    // 各类型的 sections
+    if ("sections" in topic && topic.sections) {
+      base.sections = topic.sections;
+    }
+
+    return base;
+  });
 }
 
 export function getGlossaryLookup(): GlossaryLookup {

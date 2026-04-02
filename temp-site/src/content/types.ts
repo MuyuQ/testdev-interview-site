@@ -109,6 +109,23 @@ export type SearchRecord = Pick<
   "slug" | "title" | "summary" | "category" | "tags" | "difficulty" | "interviewWeight"
 >;
 
+// 搜索匹配来源类型
+export type SearchMatchSource = "title" | "summary" | "definition" | "qa" | "tags";
+
+// 增强搜索结果类型
+export type EnhancedSearchResult = SearchRecord & {
+  matchSource: SearchMatchSource;
+  matchSnippet: string; // 匹配片段预览（截取50字符左右）
+};
+
+// 扩展搜索记录，包含更多可搜索字段
+export type ExtendedSearchRecord = SearchRecord & {
+  definition?: string; // GlossaryTerm 的定义
+  shortDefinition?: string; // GlossaryTerm 的简短定义
+  frequentQuestions?: string[]; // GlossaryTerm 的高频问题
+  sections?: TopicSection[]; // 各类型的 sections
+};
+
 export type HomeQuestionGuide = {
   slug: string;
   ask: string;

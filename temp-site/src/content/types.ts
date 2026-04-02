@@ -124,3 +124,26 @@ export type GlossaryLookup = Record<
     popoverExample?: string;
   }
 >;
+
+// 自测题类型
+export type SelfTestQuestion = {
+  id: string;
+  topicSlug: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+};
+
+export type TopicSelfTests = {
+  topicSlug: string;
+  questions: SelfTestQuestion[];
+};
+
+// 自测记录类型
+export type SelfTestRecord = {
+  topicSlug: string;
+  score: number;
+  total: number;
+  completedAt: string;
+};

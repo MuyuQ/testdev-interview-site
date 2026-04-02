@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StudyDashboard } from "@/components/client/study-dashboard";
 import { OnboardingBanner } from "@/components/client/onboarding-banner";
 import { getAllTopics, getHomeQuestionGuides, getRoadmapHighlights } from "@/content";
-import { categoryConfig, orderedCategories } from "@/lib/site-config";
+import { categoryConfig, orderedCategories, getRecommendedEntry } from "@/lib/site-config";
 
 export default function HomePage() {
   const allTopics = getAllTopics();
@@ -157,6 +157,9 @@ export default function HomePage() {
         <div className="module-stack">
           {orderedCategories.map((category) => {
             const items = allTopics.filter((topic) => topic.category === category).slice(0, 2);
+            const recommendedSlug = getRecommendedEntry(category);
+            const recommendedTopic = allTopics.find((topic) => topic.slug === recommendedSlug);
+
             return (
               <section key={category} className="module-row">
                 <div className="module-meta">
@@ -164,6 +167,14 @@ export default function HomePage() {
                   <h3>{categoryConfig[category].title}</h3>
                   <p>{categoryConfig[category].description}</p>
                   <Link href={categoryConfig[category].href}>进入模块</Link>
+                  {recommendedTopic && (
+                    <Link
+                      href={`/${category}/${recommendedSlug}`}
+                      className="recommended-entry"
+                    >
+                      推荐起点：{recommendedTopic.title}
+                    </Link>
+                  )}
                 </div>
                 <div className="module-links">
                   {items.map((item) => (

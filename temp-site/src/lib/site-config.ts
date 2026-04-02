@@ -82,3 +82,18 @@ export function isTopicCategory(value: string): value is TopicCategory {
   return orderedCategories.includes(value as TopicCategory);
 }
 
+export const categoryEntryRecommendations: Record<TopicCategory, string> = {
+  glossary: "api-assertion",
+  tech: "pytest",
+  project: "payment-callback",
+  scenario: "payment-callback",
+  coding: "retry-mechanism",
+  roadmap: "3-day-interview-map",
+  "ai-learning": "ai-test-generation",
+  "practice-template": "project-story-template",
+};
+
+export function getRecommendedEntry(category: TopicCategory): string {
+  return categoryEntryRecommendations[category];
+}
+

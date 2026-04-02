@@ -5,6 +5,7 @@ import { useFavorites } from "@/hooks/use-favorites";
 import { useLearningProgress } from "@/hooks/use-learning-progress";
 import { useRecentViews } from "@/hooks/use-recent-views";
 import { useSelfTest } from "@/hooks/use-selftest";
+import { useQuizHistory } from "@/hooks/use-quiz-history";
 import { ProgressBar } from "./progress-bar";
 import { getAllTopics } from "@/content";
 
@@ -13,11 +14,13 @@ export function StudyDashboard() {
   const { progress } = useLearningProgress();
   const { recentViews } = useRecentViews();
   const { getAverageScore, testedCount } = useSelfTest();
+  const { getStats } = useQuizHistory();
 
   const allTopics = getAllTopics();
   const completedCount = Object.values(progress).filter(Boolean).length;
   const totalTopics = allTopics.length;
   const averageScore = getAverageScore();
+  const quizStats = getStats();
 
   return (
     <section className="home-section">
@@ -90,6 +93,38 @@ export function StudyDashboard() {
               ) : (
                 <p className="eyebrow">还没有收藏内容。</p>
               )}
+            </div>
+          </div>
+        </article>
+
+        <article className="content-block">
+          <div className="content-block-head">
+            <h2>面试冲刺</h2>
+            <p>通过模拟题练习，提升面试答题能力。</p>
+          </div>
+          <div className="content-block-body">
+            <div className="quiz-stats">
+              <div className="stat-item">
+                <span className="stat-label">已完成练习</span>
+                <span className="stat-value">{quizStats.totalSessions} 次</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">总答题数</span>
+                <span className="stat-value">{quizStats.totalQuestions} 题</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">好评率</span>
+                <span className="stat-value">{quizStats.goodRate}%</span>
+              </div>
+              <ProgressBar
+                current={quizStats.goodRate}
+                total={100}
+                label="好评率"
+                color="blue"
+              />
+              <Link href="/quiz" className="quiz-link">
+                开始练习 →
+              </Link>
             </div>
           </div>
         </article>

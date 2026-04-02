@@ -18,6 +18,7 @@ import type {
   TopicSection,
 } from "@/content/types";
 import { categoryConfig } from "@/lib/site-config";
+import { RelatedTopicsGraph } from "./related-topics-graph";
 
 type TopicPageProps = {
   topic: ContentTopic;
@@ -127,13 +128,10 @@ export function TopicPage({ topic, glossaryLookup }: TopicPageProps) {
               <p>继续顺着知识链阅读，避免只记住孤立概念。</p>
             </div>
             <div className="content-block-body">
-              <div className="topic-list-tags">
-                {relatedTopics.map((item) => (
-                  <Link key={`${item.category}-${item.slug}`} href={`/${item.category}/${item.slug}`}>
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
+              <RelatedTopicsGraph
+                currentSlug={topic.slug}
+                relatedTopics={relatedTopics}
+              />
             </div>
           </section>
         ) : null}

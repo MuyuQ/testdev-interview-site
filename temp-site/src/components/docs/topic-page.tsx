@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { getAllTopics } from "@/content";
 import { DocsFrame } from "./docs-frame";
@@ -324,7 +325,19 @@ function InlineRichTextView({
   glossaryLookup: GlossaryLookup;
 }) {
   if (typeof item === "string") {
-    return item;
+    // 处理换行符，保留段落层次感
+    const paragraphs = item.split(/\n\n+/);
+    return paragraphs.map((paragraph, pIndex) => (
+      <Fragment key={pIndex}>
+        {pIndex > 0 && <br />}
+        {paragraph.split("\n").map((line, lineIndex, arr) => (
+          <Fragment key={lineIndex}>
+            {line}
+            {lineIndex < arr.length - 1 && <br />}
+          </Fragment>
+        ))}
+      </Fragment>
+    ));
   }
 
   return <RichText tokens={item} glossaryLookup={glossaryLookup} />;

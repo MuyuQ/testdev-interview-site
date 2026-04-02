@@ -147,3 +147,18 @@ export type SelfTestRecord = {
   total: number;
   completedAt: string;
 };
+
+// 追问链类型
+export type InterviewChainStep = {
+  slug: string;
+  question: string;
+  followUpHint?: string;
+};
+
+export type InterviewChain = {
+  id: string;
+  title: string;
+  description: string;
+  category: TopicCategory;
+  steps: InterviewChainStep[];
+};

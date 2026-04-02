@@ -992,6 +992,18 @@ select {
   background: #0284c7;
 }
 
+.relation-count {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.graph-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 0.5rem;
+}
+
 /* 响应式 */
 @media (max-width: 640px) {
   .onboarding-banner {

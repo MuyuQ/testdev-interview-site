@@ -21,6 +21,15 @@ export function RelatedTopicsGraph({
   const centerY = 100;
   const radius = 80;
 
+  // 根据关联数量计算线宽
+  const getStrokeWidth = (topic: ContentTopic): number => {
+    const count = topic.relatedSlugs?.length || 0;
+    if (count >= 5) return 4;
+    if (count >= 3) return 3;
+    if (count >= 1) return 2;
+    return 1;
+  };
+
   return (
     <div className="related-topics-graph">
       <svg
@@ -42,6 +51,7 @@ export function RelatedTopicsGraph({
               x2={x}
               y2={y}
               className="graph-line"
+              strokeWidth={getStrokeWidth(topic)}
             />
           );
         })}
@@ -104,9 +114,11 @@ export function RelatedTopicsGraph({
           >
             <span className="graph-legend-dot" />
             {topic.title}
+            <span className="relation-count">({topic.relatedSlugs?.length || 0})</span>
           </Link>
         ))}
       </div>
+      <p className="graph-hint">连线越粗表示关联内容越多</p>
     </div>
   );
 }

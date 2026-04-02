@@ -1007,3 +1007,243 @@ select {
     text-align: center;
   }
 }
+
+/* 自测面板 */
+.self-test-panel {
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.self-test-intro,
+.self-test-complete {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.self-test-intro h3,
+.self-test-complete h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+}
+
+.last-score {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.score-display {
+  margin: 1rem 0;
+}
+
+.score-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.score-percentage {
+  font-size: 1.5rem;
+  color: #0284c7;
+  margin-left: 0.5rem;
+}
+
+.score-good {
+  color: #166534;
+}
+
+.score-needs-work {
+  color: #92400e;
+}
+
+.self-test-header {
+  margin-bottom: 1rem;
+}
+
+.question-progress {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.question-text {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.option-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-item:hover:not(:disabled) {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.option-item.option-selected {
+  border-color: #0284c7;
+  background: #e0f2fe;
+}
+
+.option-item.option-correct {
+  border-color: #166534;
+  background: #dcfce7;
+}
+
+.option-item.option-wrong {
+  border-color: #dc2626;
+  background: #fee2e2;
+}
+
+.option-item:disabled {
+  cursor: default;
+}
+
+.option-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #e5e7eb;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.option-selected .option-letter {
+  background: #0284c7;
+  color: white;
+}
+
+.option-correct .option-letter {
+  background: #166534;
+  color: white;
+}
+
+.option-wrong .option-letter {
+  background: #dc2626;
+  color: white;
+}
+
+.option-text {
+  flex: 1;
+}
+
+.result-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.result-correct {
+  color: #166534;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.result-wrong {
+  color: #dc2626;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.explanation {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+/* 已测试徽章 */
+.tested-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+.tested-good {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tested-needs-work {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* 进度条 */
+.progress-bar-container {
+  margin-bottom: 1rem;
+}
+
+.progress-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.progress-bar-value {
+  color: #6b7280;
+}
+
+.progress-bar-track {
+  height: 0.5rem;
+  background: #e5e7eb;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 0.25rem;
+  transition: width 0.3s ease;
+}
+
+.progress-bar-blue {
+  background: #0284c7;
+}
+
+.progress-bar-green {
+  background: #16a34a;
+}
+
+.progress-bar-yellow {
+  background: #ca8a04;
+}
+
+.average-score {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.average-score strong {
+  font-size: 1rem;
+  color: #0284c7;
+}

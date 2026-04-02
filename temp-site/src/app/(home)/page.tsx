@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { StudyDashboard } from "@/components/client/study-dashboard";
+import { OnboardingBanner } from "@/components/client/onboarding-banner";
 import { getAllTopics, getHomeQuestionGuides, getRoadmapHighlights } from "@/content";
 import { categoryConfig, orderedCategories } from "@/lib/site-config";
 
@@ -81,6 +82,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <OnboardingBanner />
 
       <section className="home-section">
         <div className="section-head">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import type { ContentTopic, TopicCategory } from "@/content/types";
 
@@ -13,8 +14,13 @@ export function CategoryFilterPanel({
   category,
   topics,
 }: CategoryFilterPanelProps) {
+  const searchParams = useSearchParams();
+  const initialDifficulty = searchParams.get("difficulty") as "beginner" | "interview" | null;
+
   const [query, setQuery] = useState("");
-  const [difficulty, setDifficulty] = useState<"all" | "beginner" | "interview">("all");
+  const [difficulty, setDifficulty] = useState<"all" | "beginner" | "interview">(
+    initialDifficulty || "all"
+  );
   const [weight, setWeight] = useState<"all" | "1" | "2" | "3">("all");
   const [tag, setTag] = useState<string>("all");
   const deferredQuery = useDeferredValue(query);

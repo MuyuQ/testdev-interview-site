@@ -818,3 +818,192 @@ select {
     grid-template-columns: 1fr;
   }
 }
+
+/* 新手引导横幅 */
+.onboarding-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: var(--content-width, 1200px);
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.onboarding-content h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.onboarding-content p {
+  margin: 0 0 1rem;
+  color: #6b7280;
+}
+
+.onboarding-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.onboarding-link {
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #0284c7;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s;
+}
+
+.onboarding-link:hover {
+  background: #0284c7;
+  color: white;
+}
+
+.onboarding-dismiss {
+  padding: 0.25rem 0.5rem;
+  font-size: 1.25rem;
+  color: #6b7280;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.onboarding-dismiss:hover {
+  color: #111827;
+}
+
+/* 难度徽章 */
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+.difficulty-beginner {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.difficulty-interview {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* 推荐起点 */
+.recommended-entry {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  color: #0284c7;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  background: #e0f2fe;
+}
+
+.recommended-entry:hover {
+  text-decoration: underline;
+}
+
+/* 知识关联图 */
+.related-topics-graph {
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.related-topics-svg {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.graph-node {
+  fill: white;
+  stroke: #e5e7eb;
+  stroke-width: 2;
+  cursor: pointer;
+  transition: fill 0.2s;
+}
+
+.graph-node-current {
+  fill: #0284c7;
+  stroke: #0369a1;
+}
+
+.graph-node-related:hover {
+  fill: #e0f2fe;
+  stroke: #0284c7;
+}
+
+.graph-line {
+  stroke: #e5e7eb;
+  stroke-width: 1;
+}
+
+.graph-label {
+  font-size: 10px;
+  fill: #111827;
+  pointer-events: none;
+}
+
+.graph-label-current {
+  fill: white;
+  font-weight: 600;
+}
+
+.graph-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.graph-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #111827;
+  text-decoration: none;
+}
+
+.graph-legend-item:hover {
+  text-decoration: underline;
+}
+
+.graph-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0284c7;
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .onboarding-banner {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .onboarding-links {
+    flex-direction: column;
+  }
+
+  .onboarding-link {
+    text-align: center;
+  }
+}

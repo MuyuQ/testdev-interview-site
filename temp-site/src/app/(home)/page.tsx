@@ -191,6 +191,33 @@ export default function HomePage() {
       </section>
 
       <StudyDashboard />
+
+      <section className="home-section">
+        <div className="section-head">
+          <p className="eyebrow">面试冲刺</p>
+          <h2>检验学习效果，模拟真实面试场景。</h2>
+        </div>
+        <div className="quickstart-grid">
+          <Link href="/quiz" className="quickstart-card">
+            <span className="module-kicker">随机抽题</span>
+            <strong>随机抽题</strong>
+            <p>从全站内容随机抽取问题，检验临场反应。</p>
+            <span className="quickstart-action">开始抽题</span>
+          </Link>
+          <Link href="/interview-simulator" className="quickstart-card">
+            <span className="module-kicker">模拟面试</span>
+            <strong>模拟面试器</strong>
+            <p>选择预设追问链，体验连续追问场景。</p>
+            <span className="quickstart-action">开始模拟</span>
+          </Link>
+          <Link href="/knowledge-map" className="quickstart-card">
+            <span className="module-kicker">知识图谱</span>
+            <strong>知识图谱</strong>
+            <p>可视化全站知识结构，发现知识关联。</p>
+            <span className="quickstart-action">查看图谱</span>
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

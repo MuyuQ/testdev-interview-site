@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import type { ContentTopic, TopicCategory } from "@/content/types";
+import { DifficultyBadge } from "./difficulty-badge";
 
 type CategoryFilterPanelProps = {
   category: TopicCategory;
@@ -76,6 +77,7 @@ export function CategoryFilterPanel({
               <div>
                 <div className="topic-list-head">
                   <strong>{topic.title}</strong>
+                  <DifficultyBadge difficulty={topic.difficulty} />
                 </div>
                 <p>{topic.summary}</p>
               </div>
@@ -140,6 +142,7 @@ export function CategoryFilterPanel({
             <div>
               <div className="topic-list-head">
                 <strong>{topic.title}</strong>
+                <DifficultyBadge difficulty={topic.difficulty} />
                 <span className="eyebrow">权重 {topic.interviewWeight}</span>
               </div>
               <p>{topic.summary}</p>

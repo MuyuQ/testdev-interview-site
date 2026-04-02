@@ -4,12 +4,20 @@ import Link from "next/link";
 import { useFavorites } from "@/hooks/use-favorites";
 import { useLearningProgress } from "@/hooks/use-learning-progress";
 import { useRecentViews } from "@/hooks/use-recent-views";
+import { useSelfTest } from "@/hooks/use-selftest";
+import { ProgressBar } from "./progress-bar";
+import { getAllTopics } from "@/content";
 
 export function StudyDashboard() {
   const { favorites } = useFavorites();
   const { progress } = useLearningProgress();
   const { recentViews } = useRecentViews();
+  const { getAverageScore, testedCount } = useSelfTest();
+
+  const allTopics = getAllTopics();
   const completedCount = Object.values(progress).filter(Boolean).length;
+  const totalTopics = allTopics.length;
+  const averageScore = getAverageScore();
 
   return (
     <section className="home-section">
@@ -22,8 +30,27 @@ export function StudyDashboard() {
       <div className="study-grid">
         <article className="content-block">
           <div className="content-block-head">
-            <h2>完成进度</h2>
-            <p>你已经标记完成了 {completedCount} 个节点。</p>
+            <h2>学习进度</h2>
+          </div>
+          <div className="content-block-body">
+            <ProgressBar
+              current={completedCount}
+              total={totalTopics}
+              label="已完成"
+              color="green"
+            />
+            <ProgressBar
+              current={testedCount}
+              total={totalTopics}
+              label="已自测"
+              color="blue"
+            />
+            {testedCount > 0 && (
+              <div className="average-score">
+                <span>平均得分：</span>
+                <strong>{averageScore}%</strong>
+              </div>
+            )}
           </div>
         </article>
 
@@ -70,4 +97,3 @@ export function StudyDashboard() {
     </section>
   );
 }
-

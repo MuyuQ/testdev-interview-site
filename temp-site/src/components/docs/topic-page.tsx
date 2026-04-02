@@ -6,6 +6,8 @@ import { FavoriteToggle } from "@/components/client/favorite-toggle";
 import { ProgressToggle } from "@/components/client/progress-toggle";
 import { RecentTracker } from "@/components/client/recent-tracker";
 import { CollapsibleAnswer } from "@/components/client/collapsible-answer";
+import { SelfTestPanel } from "@/components/client/self-test-panel";
+import { getSelfTestsForTopic } from "@/content/selftest-data";
 import type {
   AILearningGuide,
   ContentTopic,
@@ -31,6 +33,7 @@ export function TopicPage({ topic, glossaryLookup }: TopicPageProps) {
   const relatedTopics = (topic.relatedSlugs ?? [])
     .map((slug) => getAllTopics().find((item) => item.slug === slug))
     .filter((item): item is ContentTopic => Boolean(item));
+  const selfTests = getSelfTestsForTopic(topic.slug);
 
   return (
     <DocsFrame
@@ -135,6 +138,18 @@ export function TopicPage({ topic, glossaryLookup }: TopicPageProps) {
             </div>
           </section>
         ) : null}
+
+        {selfTests && (
+          <section className="content-block">
+            <div className="content-block-head">
+              <h2>自测练习</h2>
+              <p>检验你对本内容的理解程度。</p>
+            </div>
+            <div className="content-block-body">
+              <SelfTestPanel topicSlug={topic.slug} tests={selfTests} />
+            </div>
+          </section>
+        )}
       </article>
     </DocsFrame>
   );

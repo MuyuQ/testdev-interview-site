@@ -11,24 +11,24 @@ type SelfTestPanelProps = {
 
 export function SelfTestPanel({ topicSlug, tests }: SelfTestPanelProps) {
   const { saveRecord, getRecord } = useSelfTest();
+  const [started, setStarted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>([]);
 
   const currentQuestion = tests.questions[currentIndex];
   const totalQuestions = tests.questions.length;
   const lastRecord = getRecord(topicSlug);
 
   const handleStart = () => {
+    setStarted(true);
     setCurrentIndex(0);
     setSelectedOption(null);
     setShowResult(false);
     setIsComplete(false);
     setCorrectCount(0);
-    setAnswers(new Array(totalQuestions).fill(null));
   };
 
   const handleSelectOption = (index: number) => {
@@ -59,7 +59,7 @@ export function SelfTestPanel({ topicSlug, tests }: SelfTestPanelProps) {
   };
 
   // 初始状态：显示开始按钮
-  if (currentIndex === 0 && !showResult && selectedOption === null && !isComplete) {
+  if (!started) {
     return (
       <div className="self-test-panel">
         <div className="self-test-intro">

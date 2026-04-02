@@ -134,6 +134,128 @@ const interviewChains: InterviewChain[] = [
       },
     ],
   },
+  {
+    id: 'ecommerce-order-chain',
+    title: '电商订单链',
+    description: '从订单创建到履约完成的完整业务场景追问链路',
+    category: 'scenario',
+    steps: [
+      {
+        slug: 'ecommerce-project',
+        question: '请描述电商订单系统的核心业务流程，以及你在测试中关注的关键点',
+        followUpHint: '从订单创建、库存扣减、支付、发货等环节展开',
+      },
+      {
+        slug: 'flash-sale',
+        question: '秒杀场景下的订单系统测试有哪些特殊挑战？如何设计测试方案？',
+        followUpHint: '考虑高并发、库存超卖、限流降级等场景',
+      },
+      {
+        slug: 'payment-callback',
+        question: '支付回调异常导致订单状态不一致，如何设计测试用例覆盖这些场景？',
+        followUpHint: '从幂等性、超时重试、状态机设计等角度分析',
+      },
+      {
+        slug: 'data-migration',
+        question: '电商系统订单数据迁移时，如何保证数据一致性和业务连续性？',
+        followUpHint: '考虑双写方案、数据校验、回滚机制等',
+      },
+    ],
+  },
+  {
+    id: 'coding-practice-chain',
+    title: '编码实战链',
+    description: '从基础工具实现到工程化封装的编码能力深度追问',
+    category: 'coding',
+    steps: [
+      {
+        slug: 'retry-mechanism',
+        question: '请实现一个通用的重试机制，需要考虑哪些因素？',
+        followUpHint: '从重试次数、间隔策略、异常类型、最大超时等角度回答',
+      },
+      {
+        slug: 'assertion-wrapper',
+        question: '如何设计一个灵活的断言封装，支持多种断言方式和自定义断言？',
+        followUpHint: '考虑链式调用、软断言、断言失败继续执行等特性',
+      },
+      {
+        slug: 'fixture-strategy',
+        question: '设计一个 Fixture 管理策略，如何处理测试数据的准备和清理？',
+        followUpHint: '从数据隔离、并行执行、性能优化等角度回答',
+      },
+      {
+        slug: 'logging-wrapper',
+        question: '如何设计测试框架的日志系统，便于问题定位和报告生成？',
+        followUpHint: '考虑日志级别、格式化、上下文信息、性能影响等',
+      },
+      {
+        slug: 'test-data-generator',
+        question: '请设计一个测试数据生成器，支持多种数据类型和自定义规则',
+        followUpHint: '从数据模板、随机策略、边界数据、数据关联等角度回答',
+      },
+    ],
+  },
+  {
+    id: 'ai-testing-chain',
+    title: 'AI辅助测试链',
+    description: '从AI工具使用到AI能力边界的认知追问链路',
+    category: 'ai-learning',
+    steps: [
+      {
+        slug: 'testdev-ai-tools',
+        question: '你用过哪些AI辅助测试工具？它们在哪些环节最有价值？',
+        followUpHint: '从用例生成、代码审查、缺陷预测等角度分享经验',
+      },
+      {
+        slug: 'ai-api-testing',
+        question: '如何利用AI提升接口测试的效率和覆盖率？有哪些实践经验？',
+        followUpHint: '考虑接口文档解析、用例自动生成、响应断言等场景',
+      },
+      {
+        slug: 'ai-testcase-design',
+        question: 'AI生成测试用例的质量如何保证？如何与人工设计互补？',
+        followUpHint: '从用例审查、边界场景、业务逻辑等角度分析',
+      },
+      {
+        slug: 'llm-boundaries',
+        question: '大语言模型在测试领域有哪些局限性？如何正确认识和使用AI？',
+        followUpHint: '考虑幻觉问题、上下文限制、领域知识、数据安全等',
+      },
+    ],
+  },
+  {
+    id: 'senior-testdev-chain',
+    title: '资深测试开发链',
+    description: '从测试策略制定到团队建设的资深能力深度追问',
+    category: 'tech',
+    steps: [
+      {
+        slug: 'test-pyramid',
+        question: '如何根据项目特点制定合理的测试策略？测试金字塔在实践中有哪些变体？',
+        followUpHint: '从单元测试、接口测试、UI测试的比例和投入角度回答',
+      },
+      {
+        slug: 'quality-gate',
+        question: '如何在CI/CD流水线中设计有效的质量门禁？有哪些关键指标？',
+        followUpHint: '考虑代码覆盖率、自动化通过率、性能基准等指标',
+      },
+      {
+        slug: 'test-coverage',
+        question: '测试覆盖率越高越好吗？如何设定合理的覆盖率目标？',
+        followUpHint: '从投入产出比、关键路径覆盖、增量覆盖率等角度分析',
+      },
+      {
+        slug: 'pipeline',
+        question: '如何建设测试基础设施，支撑团队的持续交付能力？',
+        followUpHint: '从环境管理、数据准备、测试执行、报告分析等角度回答',
+      },
+      {
+        slug: 'microservice-architecture-project',
+        question: '作为资深测试开发，如何推动团队测试能力和质量的持续提升？',
+        followUpHint: '从技术分享、流程优化、工具建设、人才培养等角度展开',
+      },
+    ],
+  },
 ];
 
 export function getInterviewChain(id: string): InterviewChain | undefined {

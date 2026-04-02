@@ -37,6 +37,12 @@ export default function HomePage() {
       href: "/scenario/payment-callback",
       action: "进入场景题模块",
     },
+    {
+      title: "我是新手",
+      summary: "筛选所有入门级内容，从最基础的概念开始学起。",
+      href: "/glossary?difficulty=beginner",
+      action: "查看入门内容",
+    },
   ];
 
   return (

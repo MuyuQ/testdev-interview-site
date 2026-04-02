@@ -175,22 +175,74 @@ export function KnowledgeMap() {
 
   const nodeMap = useMemo(() => new Map(filteredNodes.map((n) => [n.slug, n])), [filteredNodes]);
 
+  // 缩放状态
+  const [scale, setScale] = useState(1);
+  const minScale = 0.5;
+  const maxScale = 2;
+
+  const handleZoomIn = useCallback(() => {
+    setScale((prev) => Math.min(prev + 0.25, maxScale));
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    setScale((prev) => Math.max(prev - 0.25, minScale));
+  }, []);
+
+  const handleZoomReset = useCallback(() => {
+    setScale(1);
+  }, []);
+
   return (
     <div className="knowledge-map-container">
-      <div className="knowledge-map-controls">
-        <div className="search-box">
+      {/* 控制区域：移动端堆叠，桌面端水平 */}
+      <div className="flex flex-col md:flex-row gap-3 p-4 bg-[var(--panel)] rounded-xl border border-[var(--line)]">
+        {/* 搜索框 */}
+        <div className="flex-1 min-w-0">
           <input
             type="text"
             placeholder="搜索知识点..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
+            className="w-full min-h-[2.5rem] px-4 rounded-lg border border-[var(--line)] bg-[var(--input-bg)] text-[var(--input-fg)] text-[0.95rem] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-soft)]"
           />
         </div>
-        <div className="category-filters">
+
+        {/* 缩放控制按钮 */}
+        <div className="flex items-center gap-1 bg-[var(--panel-strong)] border border-[var(--line)] rounded-lg p-1 shrink-0">
           <button
             type="button"
-            className="toggle-all-btn"
+            onClick={handleZoomOut}
+            disabled={scale <= minScale}
+            className="w-8 h-8 flex items-center justify-center border-none bg-transparent text-[var(--foreground)] cursor-pointer rounded-md text-lg hover:bg-[var(--line)] disabled:opacity-50 disabled:cursor-not-allowed"
+            title="缩小"
+          >
+            −
+          </button>
+          <span className="px-2 text-[0.85rem] text-[var(--muted)]">{Math.round(scale * 100)}%</span>
+          <button
+            type="button"
+            onClick={handleZoomIn}
+            disabled={scale >= maxScale}
+            className="w-8 h-8 flex items-center justify-center border-none bg-transparent text-[var(--foreground)] cursor-pointer rounded-md text-lg hover:bg-[var(--line)] disabled:opacity-50 disabled:cursor-not-allowed"
+            title="放大"
+          >
+            +
+          </button>
+          <button
+            type="button"
+            onClick={handleZoomReset}
+            className="w-8 h-8 flex items-center justify-center border-none bg-transparent text-[var(--foreground)] cursor-pointer rounded-md text-sm hover:bg-[var(--line)]"
+            title="重置"
+          >
+            ⟲
+          </button>
+        </div>
+
+        {/* 分类筛选按钮组：移动端水平滚动 */}
+        <div className="flex flex-wrap md:flex-row gap-2 items-center overflow-x-auto pb-1 md:pb-0 md:shrink-0">
+          <button
+            type="button"
+            className="shrink-0 min-h-[2rem] px-3 py-1 rounded-lg border border-[var(--line)] bg-[var(--panel-strong)] text-[var(--foreground)] text-[0.85rem] font-medium cursor-pointer transition-all hover:bg-[var(--accent-soft)] hover:border-[var(--accent)]"
             onClick={toggleAllCategories}
             title={visibleCategories.size === orderedCategories.length ? "隐藏全部" : "显示全部"}
           >
@@ -203,7 +255,7 @@ export function KnowledgeMap() {
               <button
                 key={cat}
                 type="button"
-                className={`filter-chip ${isVisible ? "active" : ""}`}
+                className={`shrink-0 min-h-[2rem] px-3 py-1 rounded-full border text-[0.85rem] font-medium cursor-pointer transition-all hover:-translate-y-px ${isVisible ? "font-semibold" : ""}`}
                 onClick={() => toggleCategory(cat)}
                 style={{
                   backgroundColor: isVisible ? colors.bg : "transparent",
@@ -218,9 +270,15 @@ export function KnowledgeMap() {
         </div>
       </div>
 
-      <div className="knowledge-map-wrapper">
+      {/* SVG 容器：响应式高度 */}
+      <div className="w-full h-[400px] md:h-[600px] overflow-auto bg-[var(--panel)] rounded-xl border border-[var(--line)] p-2 md:p-4">
         <svg
           viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+          style={{
+            width: `${SVG_WIDTH * scale}px`,
+            height: `${SVG_HEIGHT * scale}px`,
+            minWidth: "100%",
+          }}
           className="knowledge-map-svg"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -352,23 +410,24 @@ export function KnowledgeMap() {
         </svg>
       </div>
 
-      <div className="knowledge-map-legend">
-        <p className="legend-title">图例说明</p>
-        <div className="legend-items">
+      {/* 图例：响应式布局 */}
+      <div className="p-4 bg-[var(--panel)] rounded-xl border border-[var(--line)]">
+        <p className="text-[0.95rem] font-semibold text-[var(--foreground)] mb-3">图例说明</p>
+        <div className="flex flex-wrap gap-3">
           {orderedCategories.map((cat) => {
             const colors = categoryColors[cat];
             return (
-              <div key={`legend-${cat}`} className="legend-item">
+              <div key={`legend-${cat}`} className="flex items-center gap-2">
                 <span
-                  className="legend-dot"
-                  style={{ backgroundColor: colors.fill, borderColor: colors.stroke }}
+                  className="w-3 h-3 rounded-full shrink-0"
+                  style={{ backgroundColor: colors.fill, border: `1px solid ${colors.stroke}` }}
                 />
-                <span className="legend-label">{categoryConfig[cat].title}</span>
+                <span className="text-[0.85rem] text-[var(--muted)]">{categoryConfig[cat].title}</span>
               </div>
             );
           })}
         </div>
-        <p className="legend-note">点击节点进入详情页，连线表示知识点关联</p>
+        <p className="mt-3 text-[0.85rem] text-[var(--muted)]">点击节点进入详情页，连线表示知识点关联。移动端可使用缩放按钮调整视图。</p>
       </div>
     </div>
   );

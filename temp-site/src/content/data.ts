@@ -392,7 +392,7 @@ export const glossaryTopics: GlossaryTerm[] = [
           },
           {
             question: "误区二：只在客户端做去重",
-            answer: "客户端去重无法保证服务端幂等，因为请求可能从不同客户端发起。服务端必须设计幂等键（如订单号、requestId），配合数据库唯一索引或 Redis 锁来保证重复请求不会产生副作用。面试时要指出：幂等是服务端的责任，不能依赖客户端。",
+            answer: "客户端去重无法保证服务端幂等，因为请求可能从不同客户端发起。服务端必须设计幂等键（如订单号、requestId），配合数据库唯一索引或 Redis 锁来保证重复请求不会产生副作用。\n\n面试时要指出：幂等是服务端的责任，不能依赖客户端。",
           },
           {
             question: "误区三：没有讲清幂等键、状态机和重试窗口",
@@ -603,7 +603,7 @@ export const glossaryTopics: GlossaryTerm[] = [
           },
           {
             question: "误区五：Fixture 命名不清晰",
-            answer: "Fixture 名称晦涩难懂会让测试代码可读性变差。正确做法是：用描述性的名称（如 auth_token、test_user、paid_order），让测试代码一目了然。避免使用 a、b、data 等无意义名称。面试时要说明：Fixture 命名是测试可维护性的重要体现。",
+            answer: "Fixture 名称晦涩难懂会让测试代码可读性变差。正确做法是：用描述性的名称（如 auth_token、test_user、paid_order），让测试代码一目了然。避免使用 a、b、data 等无意义名称。\n\n面试时要说明：Fixture 命名是测试可维护性的重要体现。",
           },
         ],
       },

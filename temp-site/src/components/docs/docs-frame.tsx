@@ -1,22 +1,23 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { SiteHeader } from "./site-header";
-import { SiteSidebar } from "./site-sidebar";
+import { SiteSidebar } from "@/components/client/site-sidebar";
 import { TocNav, type TocItem } from "./toc-nav";
 import type { TopicCategory } from "@/content/types";
 
 type DocsFrameProps = {
   category?: TopicCategory;
+  slug?: string;
   toc?: TocItem[];
   children: ReactNode;
 };
 
-export function DocsFrame({ category, toc = [], children }: DocsFrameProps) {
+export function DocsFrame({ category, slug, toc = [], children }: DocsFrameProps) {
   return (
     <div className="docs-page">
       <SiteHeader />
       <div className="docs-layout">
-        <SiteSidebar currentCategory={category} />
+        <SiteSidebar currentCategory={category} currentSlug={slug} />
         <main className="docs-content">{children}</main>
         <aside className="docs-toc">
           <div className="docs-toc-inner">

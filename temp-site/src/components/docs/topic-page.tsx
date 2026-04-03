@@ -39,6 +39,7 @@ export function TopicPage({ topic, glossaryLookup }: TopicPageProps) {
   return (
     <DocsFrame
       category={topic.category}
+      slug={topic.slug}
       toc={sections.map((section) => ({ id: section.id, label: section.title }))}
     >
       <RecentTracker

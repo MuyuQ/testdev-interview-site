@@ -4948,7 +4948,7 @@ export const techTopics: StandardTopic[] = [
           },
           {
             question: "深度答案",
-            answer: "首先，Playwright 内置自动等待机制，元素可操作时才执行操作，解决了 UI 自动化最头疼的稳定性问题。Selenium 需要手动处理显式等待和隐式等待，很容易因为等待不足导致失败，或等待过长浪费时间。\n\n其次，Playwright 直接与浏览器通信，而不是通过 WebDriver 协议中转，执行更快、调试能力更强。Trace Viewer 可以精确回放每一步操作和页面状态，Selenium 没有类似的原生工具。\n\n\n\n第三，Playwright 的 BrowserContext 实现了轻量的测试隔离，每个测试有独立的 cookies 和 localStorage，避免了用例之间相互影响。并发执行也更简单，Worker 机制开箱即用。\n\n对于新项目，我推荐 Playwright。如果是维护已有的 Selenium 项目，迁移需要评估成本，但长期来看收益明显。",
+            answer: "首先，Playwright 内置自动等待机制，元素可操作时才执行操作，解决了 UI 自动化最头疼的稳定性问题。Selenium 需要手动处理显式等待和隐式等待，很容易因为等待不足导致失败，或等待过长浪费时间。\n\n其次，Playwright 直接与浏览器通信，而不是通过 WebDriver 协议中转，执行更快、调试能力更强。Trace Viewer 可以精确回放每一步操作和页面状态，Selenium 没有类似的原生工具。\n\n第三，Playwright 的 BrowserContext 实现了轻量的测试隔离，每个测试有独立的 cookies 和 localStorage，避免了用例之间相互影响。并发执行也更简单，Worker 机制开箱即用。\n\n对于新项目，我推荐 Playwright。如果是维护已有的 Selenium 项目，迁移需要评估成本，但长期来看收益明显。",
           },
           {
             question: "追问应对",

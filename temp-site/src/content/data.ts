@@ -1781,7 +1781,7 @@ export const glossaryTopics: GlossaryTerm[] = [
           },
           {
             question: "Q5（P1）：冒烟测试自动化怎么实现？用什么框架？",
-            answer: "回答骨架：技术选型 + 实现方式 + 门禁集成。深度答案：我们冒烟测试用 Pytest + requests 实现。技术选型考虑：Pytest 是 Python 测试框架主流， Fixture 机制方便管理测试数据；requests 是 HTTP 客户端，接口调用简单；两者组合能快速实现接口冒烟。实现方式：项目结构——tests/smoke/ 目录放冒烟用例，conftest.py 放 Fixture（登录态、环境配置）；用例设计——每个核心功能一个测试文件，如 test_login.py、test_order.py；断言封装——封装通用断言函数（check_response），用例只需一行代码完成验证。门禁集成：GitLab CI 配置 smoke_test 任务，merge request 时触发；失败阻断合并，发送 Slack 通知；修复后重新触发。关键要点：自动化冒烟的核心是「快速稳定」，用例要精选、断言要可靠、执行要快。追问应对：如果问「UI 冒烟怎么做」，回答：可以用 Playwright 或 Selenium，但执行时间更长，我们优先用接口冒烟，UI 冒烟只在必要时跑。",
+            answer: "回答骨架：技术选型 + 实现方式 + 门禁集成。深度答案：我们冒烟测试用 Pytest + requests 实现。\n\n技术选型考虑：Pytest 是 Python 测试框架主流， Fixture 机制方便管理测试数据；requests 是 HTTP 客户端，接口调用简单；两者组合能快速实现接口冒烟。\n\n实现方式：项目结构——tests/smoke/ 目录放冒烟用例，conftest.py 放 Fixture（登录态、环境配置）；用例设计——每个核心功能一个测试文件，如 test_login.py、test_order.py；断言封装——封装通用断言函数（check_response），用例只需一行代码完成验证。\n\n门禁集成：GitLab CI 配置 smoke_test 任务，merge request 时触发；失败阻断合并，发送 Slack 通知；修复后重新触发。\n\n关键要点：自动化冒烟的核心是「快速稳定」，用例要精选、断言要可靠、执行要快。追问应对：如果问「UI 冒烟怎么做」，回答：可以用 Playwright 或 Selenium，但执行时间更长，我们优先用接口冒烟，UI 冒烟只在必要时跑。",
           },
         ],
       },
@@ -9639,7 +9639,7 @@ export const codingTopics: StandardTopic[] = [
           { type: "text", content: "结构化日志是现代日志体系的标配。传统文本日志便于人眼阅读，但难以被程序解析和分析。结构化日志（通常为 JSON 格式）让每条日志都成为可检索、可聚合的数据对象。实践建议：使用统一的日志库输出 JSON 格式；定义标准字段集和命名规范；扩展字段使用嵌套结构避免扁平化污染；接入日志平台后可实现秒级检索、统计聚合、异常检测。" },
           { type: "text", content: "" },
           { type: "text", content: "【日志聚合与链路追踪】" },
-          { type: "text", content: "分布式系统中，一个请求可能经过多个服务，日志分散在各处。链路追踪通过 trace_id 将分散的日志串联起来。实现方式：入口服务生成 trace_id 并注入请求头；下游服务从请求头提取并传递；日志中统一记录 trace_id；日志平台按 trace_id 聚合展示完整链路。结合 OpenTelemetry 标准可实现跨语言、跨框架的统一追踪。日志聚合平台（如 ELK、Splunk、Loki）实现日志的集中存储、检索和告警。" },
+          { type: "text", content: "分布式系统中，一个请求可能经过多个服务，日志分散在各处。链路追踪通过 trace_id 将分散的日志串联起来。\n\n实现方式：入口服务生成 trace_id 并注入请求头；下游服务从请求头提取并传递；日志中统一记录 trace_id；日志平台按 trace_id 聚合展示完整链路。\n\n结合 OpenTelemetry 标准可实现跨语言、跨框架的统一追踪。日志聚合平台（如 ELK、Splunk、Loki）实现日志的集中存储、检索和告警。" },
           { type: "text", content: "" },
           { type: "text", content: "【性能优化】" },
           { type: "text", content: "日志对性能的影响不可忽视。优化策略：\n\n级别过滤前置，低于配置级别的日志直接丢弃不做格式化；\n\n延迟格式化，使用占位符在确认输出后才进行字符串拼接；\n\n异步写入，使用队列缓冲，后台线程批量刷新，避免阻塞主流程；\n\n缓冲区管理，合理设置缓冲区大小，异常退出时确保缓冲区日志不丢失；\n\n采样输出，高频日志按比例采样，既保留信息又控制量。" },

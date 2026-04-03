@@ -7335,7 +7335,7 @@ export const techTopics: StandardTopic[] = [
         kind: "list",
         items: [
           "【场景】接口测试返回 500 错误，需要查看服务器日志定位原因。",
-          "【步骤流程】第一步：SSH 登录测试服务器，输入 ssh user@server-ip。第二步：进入应用日志目录，输入 cd /var/log/app 或应用指定的日志路径。第三步：查看最新日志，输入 tail -100 app.log 查看最后 100 行。第四步：搜索错误关键字，输入 grep \"error\" app.log 或 grep \"500\" app.log。第五步：定位具体时间点，输入 grep \"2024-01-15 10:30\" app.log 结合时间过滤。第六步：实时监控日志，输入 tail -f app.log 观察新日志产生。",
+          "【步骤流程】\n\n第一步：SSH 登录测试服务器，输入 ssh user@server-ip。\n\n第二步：进入应用日志目录，输入 cd /var/log/app 或应用指定的日志路径。\n\n第三步：查看最新日志，输入 tail -100 app.log 查看最后 100 行。\n\n第四步：搜索错误关键字，输入 grep \"error\" app.log 或 grep \"500\" app.log。\n\n第五步：定位具体时间点，输入 grep \"2024-01-15 10:30\" app.log 结合时间过滤。\n\n第六步：实时监控日志，输入 tail -f app.log 观察新日志产生。",
           "【学到什么】tail 命令查看日志尾部；grep 命令过滤关键字；tail -f 实时监控；结合时间戳定位问题。",
           "【下一步】尝试查看多文件日志，用 grep -r \"error\" /var/log/ 递归搜索目录下所有日志。",
         ],
@@ -7347,7 +7347,7 @@ export const techTopics: StandardTopic[] = [
         kind: "list",
         items: [
           "【场景】需要在测试服务器上部署一个新的 Web 服务。",
-          "【步骤流程】第一步：上传部署包，用 scp package.tar.gz user@server:/home/user/ 传输文件。第二步：解压部署包，输入 tar -xzf package.tar.gz。第三步：进入解压目录，输入 cd package。第四步：检查依赖环境，输入 java -version 或 python --version 确认运行环境。第五步：修改配置文件，输入 vi config.yaml 编辑配置（按 i 进入编辑模式，按 Esc 退出编辑，输入 :wq 保存退出）。第六步：启动服务，输入 ./start.sh 或 systemctl start app。第七步：验证服务状态，输入 curl http://localhost:8080 测试接口响应。",
+          "【步骤流程】\n\n第一步：上传部署包，用 scp package.tar.gz user@server:/home/user/ 传输文件。\n\n第二步：解压部署包，输入 tar -xzf package.tar.gz。\n\n第三步：进入解压目录，输入 cd package。\n\n第四步：检查依赖环境，输入 java -version 或 python --version 确认运行环境。\n\n第五步：修改配置文件，输入 vi config.yaml 编辑配置（按 i 进入编辑模式，按 Esc 退出编辑，输入 :wq 保存退出）。\n\n第六步：启动服务，输入 ./start.sh 或 systemctl start app。\n\n第七步：验证服务状态，输入 curl http://localhost:8080 测试接口响应。",
           "【学到什么】scp 文件传输；tar 解压命令；vi 文件编辑；服务启动与验证；curl 接口测试。",
           "【关键要点】部署前检查环境和依赖；配置修改要小心，避免改错参数；启动后验证服务是否正常；记录部署步骤，便于下次复现。",
         ],
@@ -7359,7 +7359,7 @@ export const techTopics: StandardTopic[] = [
         kind: "list",
         items: [
           "【场景】性能测试过程中，需要监控服务器资源状态，分析性能瓶颈。",
-          "【步骤流程】第一步：监控 CPU 使用率，输入 top 或 htop 查看 CPU 和进程状态。top 命令显示整体 CPU 使用率（us 用户空间、sy 内核空间、id 空闲），按 P 键按 CPU 排序进程。第二步：监控内存使用，输入 free -h 查看内存总量、已用、空闲。第三步：监控磁盘 IO，输入 iostat -x 1 每秒显示磁盘读写状态，关注 %util（利用率）和 await（等待时间）。第四步：监控网络连接，输入 netstat -anp 查看网络连接状态，输入 ss -s 查看连接统计。第五步：监控进程状态，输入 ps -ef | grep app 查看特定服务的进程信息。",
+          "【步骤流程】\n\n第一步：监控 CPU 使用率，输入 top 或 htop 查看 CPU 和进程状态。top 命令显示整体 CPU 使用率（us 用户空间、sy 内核空间、id 空闲），按 P 键按 CPU 排序进程。\n\n第二步：监控内存使用，输入 free -h 查看内存总量、已用、空闲。\n\n第三步：监控磁盘 IO，输入 iostat -x 1 每秒显示磁盘读写状态，关注 %util（利用率）和 await（等待时间）。\n\n第四步：监控网络连接，输入 netstat -anp 查看网络连接状态，输入 ss -s 查看连接统计。\n\n第五步：监控进程状态，输入 ps -ef | grep app 查看特定服务的进程信息。",
           "【学到什么】top 查看整体资源；free 查看内存；iostat 查看磁盘；netstat/ss 查看网络；ps 查看进程。",
           "【分析思路】CPU 使用率高可能需要优化代码或增加资源；内存不足可能导致服务崩溃；磁盘 IO 高可能是数据库瓶颈；网络连接数过多可能是并发问题。",
           "【下一步】将监控命令写入脚本，定时采集数据，形成性能报告。",

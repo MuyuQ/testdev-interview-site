@@ -52,8 +52,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${notoSansSC.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-full flex flex-col">
         {children}
       </body>
     </html>

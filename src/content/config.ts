@@ -13,6 +13,7 @@ const testdevMetadataSchema = z.object({
     "roadmap",
     "ai-learning",
     "practice-template",
+    "interview-chains",
   ]),
   tags: z.array(z.string()).default([]),
   relatedSlugs: z.array(z.string()).default([]),

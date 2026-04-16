@@ -116,6 +116,10 @@ export default defineConfig({
           autogenerate: { directory: "practice-template" },
         },
         {
+          label: "面试追问链",
+          autogenerate: { directory: "interview-chains" },
+        },
+        {
           label: "分类索引",
           items: [
             { label: "标签", link: "/tags/" },

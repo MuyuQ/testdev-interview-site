@@ -3,7 +3,7 @@ import starlight from "@astrojs/starlight";
 
 export default defineConfig({
   site: "https://muyuq.github.io",
-  base: "/TestDev-Sprint",
+  base: "/testdev-interview-site",
   integrations: [
     starlight({
       title: "测试开发面试速成站",

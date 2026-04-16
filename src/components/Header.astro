@@ -1,0 +1,45 @@
+---
+import config from "virtual:starlight/user-config";
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="site-title">
+      {config.title}
+    </a>
+    <div class="header-actions">
+      <slot name="search" />
+      <slot name="theme-select" />
+      <slot name="social-icons" />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    border-bottom: 1px solid var(--sl-color-hairline);
+    background-color: var(--sl-color-bg-nav);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
+    max-width: var(--sl-content-width);
+    margin: 0 auto;
+  }
+  .site-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--sl-color-white);
+    text-decoration: none;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+</style>

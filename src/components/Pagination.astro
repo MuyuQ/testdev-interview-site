@@ -1,0 +1,56 @@
+---
+const { dir, pagination } = Astro.props;
+---
+
+<nav class="pagination" aria-label="页面导航">
+  {pagination.prev && (
+    <a href={pagination.prev.href} class="pagination-link prev">
+      <span class="pagination-label">上一页</span>
+      <span class="pagination-title">{pagination.prev.label}</span>
+    </a>
+  )}
+  {pagination.next && (
+    <a href={pagination.next.href} class="pagination-link next">
+      <span class="pagination-label">下一页</span>
+      <span class="pagination-title">{pagination.next.label}</span>
+    </a>
+  )}
+</nav>
+
+<style>
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--sl-color-hairline);
+    margin-top: var(--space-xl);
+  }
+  .pagination-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    flex: 1;
+  }
+  .pagination-link:hover {
+    border-color: var(--sl-color-accent);
+    background-color: var(--sl-color-bg-aside);
+  }
+  .pagination-label {
+    font-size: 0.75rem;
+    color: var(--sl-color-gray-3);
+  }
+  .pagination-title {
+    font-weight: 500;
+    color: var(--sl-color-accent);
+  }
+  .next {
+    text-align: right;
+    margin-left: auto;
+  }
+</style>

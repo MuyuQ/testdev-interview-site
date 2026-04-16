@@ -1,0 +1,22 @@
+---
+---
+
+<StarlightPage>
+  <div class="tags-page">
+    <h1>标签索引</h1>
+    <p>按标签浏览内容</p>
+    <div id="tags-container"></div>
+  </div>
+</StarlightPage>
+
+<script>
+  async function loadTags() {
+    // TODO: 实现标签加载逻辑
+  }
+  loadTags();
+</script>
+
+<style>
+  .tags-page { max-width: var(--sl-content-width); margin: 0 auto; padding: var(--space-xl) var(--space-md); }
+  #tags-container { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); }
+</style>

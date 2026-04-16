@@ -1,0 +1,27 @@
+---
+---
+
+<StarlightPage>
+  <div class="difficulty-page">
+    <h1>难度索引</h1>
+    <div class="difficulty-sections">
+      <section>
+        <h2>入门级</h2>
+        <p>适合测试开发初学者的基础知识</p>
+        <div id="beginner-topics"></div>
+      </section>
+      <section>
+        <h2>面试级</h2>
+        <p>面试高频问题和技术专题</p>
+        <div id="interview-topics"></div>
+      </section>
+    </div>
+  </div>
+</StarlightPage>
+
+<style>
+  .difficulty-page { max-width: var(--sl-content-width); margin: 0 auto; padding: var(--space-xl) var(--space-md); }
+  .difficulty-sections { display: grid; gap: var(--space-xl); margin-top: var(--space-lg); }
+  .difficulty-sections section { padding: var(--space-md); border: 1px solid var(--sl-color-hairline); border-radius: var(--radius-md); }
+  .difficulty-sections h2 { font-size: 1.25rem; margin-bottom: var(--space-sm); }
+</style>

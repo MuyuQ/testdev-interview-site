@@ -1,0 +1,20 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import SelfTestQuiz from "./SelfTestQuiz.astro";
+
+const { entry } = Astro.props as Props;
+const selfTests = (entry.data as any).selfTests || [];
+---
+
+<div class="content-panel">
+  <div class="sl-container">
+    <slot />
+    {selfTests.length > 0 && <SelfTestQuiz questions={selfTests} />}
+  </div>
+</div>
+
+<style>
+  .content-panel {
+    padding: 2rem 0;
+  }
+</style>

@@ -80,6 +80,7 @@ export default defineConfig({
         Banner: "./src/components/Banner.astro",
         Pagination: "./src/components/Pagination.astro",
         Header: "./src/components/Header.astro",
+        ContentPanel: "./src/components/CustomContentPanel.astro",
       },
       sidebar: [
         {

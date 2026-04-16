@@ -1,0 +1,15 @@
+---
+const { slug, category } = Astro.props;
+---
+
+<span class="completion-badge" data-slug={slug} data-category={category}>
+  <slot />
+</span>
+
+<style>
+  .completion-badge.completed::after {
+    content: "✓";
+    color: var(--color-success);
+    margin-left: var(--space-xs);
+  }
+</style>

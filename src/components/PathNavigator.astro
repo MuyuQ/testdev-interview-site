@@ -1,0 +1,42 @@
+---
+const { category, slug } = Astro.props;
+const prevUrl = `/${category}/`;
+const nextUrl = `/${category}/`;
+---
+
+<nav class="path-nav">
+  <a href={prevUrl} class="nav-link prev">
+    <span class="nav-label">← 上一页</span>
+  </a>
+  <a href={nextUrl} class="nav-link next">
+    <span class="nav-label">下一页 →</span>
+  </a>
+</nav>
+
+<style>
+  .path-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-lg) 0;
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .nav-link {
+    padding: var(--space-md);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--sl-color-accent);
+    transition: all var(--transition-fast);
+    flex: 1;
+    text-align: center;
+  }
+  .nav-link:hover {
+    border-color: var(--sl-color-accent);
+    background-color: var(--sl-color-bg-aside);
+  }
+  .next {
+    margin-left: auto;
+  }
+</style>

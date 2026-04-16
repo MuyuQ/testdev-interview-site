@@ -1,7 +1,8 @@
 ---
+import Layout from "../layouts/MainLayout.astro";
 ---
 
-<StarlightPage>
+<Layout title="难度索引 - 测试开发面试速成站">
   <div class="difficulty-page">
     <h1>难度索引</h1>
     <div class="difficulty-sections">
@@ -17,11 +18,11 @@
       </section>
     </div>
   </div>
-</StarlightPage>
+</Layout>
 
 <style>
-  .difficulty-page { max-width: var(--sl-content-width); margin: 0 auto; padding: var(--space-xl) var(--space-md); }
-  .difficulty-sections { display: grid; gap: var(--space-xl); margin-top: var(--space-lg); }
-  .difficulty-sections section { padding: var(--space-md); border: 1px solid var(--sl-color-hairline); border-radius: var(--radius-md); }
-  .difficulty-sections h2 { font-size: 1.25rem; margin-bottom: var(--space-sm); }
+  .difficulty-page { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
+  .difficulty-sections { display: grid; gap: 2rem; margin-top: 1.5rem; }
+  .difficulty-sections section { padding: 1rem; border: 1px solid var(--sl-color-hairline); border-radius: 0.5rem; }
+  .difficulty-sections h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
 </style>

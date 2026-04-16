@@ -1,11 +1,15 @@
 ---
 import config from "virtual:starlight/user-config";
+
+const siteTitle = typeof config.title === "string"
+  ? config.title
+  : config.title?.default || "测试开发面试速成站";
 ---
 
 <header class="header">
   <div class="header-inner">
     <a href="/" class="site-title">
-      {config.title}
+      {siteTitle}
     </a>
     <div class="header-actions">
       <slot name="search" />
@@ -34,8 +38,12 @@ import config from "virtual:starlight/user-config";
   .site-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--sl-color-white);
+    color: var(--sl-color-accent);
     text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .site-title:hover {
+    color: var(--sl-color-white);
   }
   .header-actions {
     display: flex;

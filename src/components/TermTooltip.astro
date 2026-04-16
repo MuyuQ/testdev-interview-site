@@ -1,0 +1,61 @@
+---
+const { slug, term, definition } = Astro.props;
+---
+
+<span class="term-tooltip" data-term-slug={slug}>
+  <span class="term-ref">{term}</span>
+  <div class="term-popup" role="tooltip">
+    <p class="term-definition">{definition}</p>
+    <a href={`/glossary/${slug}/`} class="term-link">查看详情 →</a>
+  </div>
+</span>
+
+<style>
+  .term-ref {
+    border-bottom: 1px dashed var(--color-primary);
+    cursor: help;
+    color: var(--color-primary);
+  }
+  .term-popup {
+    display: none;
+    position: absolute;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  .term-tooltip:hover .term-popup,
+  .term-tooltip.active .term-popup {
+    display: block;
+  }
+  .term-definition {
+    margin: 0 0 var(--space-sm);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .term-link {
+    font-size: 0.75rem;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .term-link:hover { text-decoration: underline; }
+</style>
+
+<script>
+  document.querySelectorAll(".term-tooltip").forEach((tooltip) => {
+    tooltip.addEventListener("click", (e) => {
+      e.preventDefault();
+      tooltip.classList.toggle("active");
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".term-tooltip")) {
+      document.querySelectorAll(".term-tooltip.active").forEach((t) => {
+        t.classList.remove("active");
+      });
+    }
+  });
+</script>

@@ -1,0 +1,50 @@
+---
+import { readStorage, writeStorage } from "../lib/storage";
+
+const MAX_RECENT = 10;
+
+export function addRecentView(slug, title, category) {
+  const recent = readStorage("recent", []);
+  const existing = recent.findIndex((r) => r.slug === slug);
+  if (existing >= 0) recent.splice(existing, 1);
+  recent.unshift({ slug, title, category, viewedAt: new Date().toISOString() });
+  if (recent.length > MAX_RECENT) recent.pop();
+  writeStorage("recent", recent);
+}
+
+export function getRecentViews() {
+  return readStorage("recent", []);
+}
+---
+
+<div class="recent-views">
+  <h3>最近浏览</h3>
+  <ul><slot /></ul>
+</div>
+
+<style>
+  .recent-views {
+    padding: var(--space-md);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--radius-md);
+  }
+  .recent-views h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--sl-color-gray-2);
+  }
+  .recent-views ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .recent-views a {
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  .recent-views a:hover {
+    text-decoration: underline;
+  }
+</style>

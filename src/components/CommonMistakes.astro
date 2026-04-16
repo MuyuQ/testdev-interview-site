@@ -1,0 +1,43 @@
+---
+const { mistakes } = Astro.props;
+---
+
+<div class="common-mistakes">
+  <h3>常见错误</h3>
+  <ul>
+    {mistakes.map((mistake) => (
+      <li>
+        <details>
+          <summary>{mistake.split(":")[0]}</summary>
+          <p>{mistake.split(":")[1] || mistake}</p>
+        </details>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .common-mistakes {
+    padding: var(--space-md);
+    border-left: 4px solid var(--color-error);
+    background-color: var(--sl-color-bg-aside);
+    border-radius: var(--radius-md);
+    margin: var(--space-md) 0;
+  }
+  .common-mistakes h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--color-error);
+  }
+  .common-mistakes ul { list-style: none; padding: 0; margin: 0; }
+  .common-mistakes li { margin-bottom: var(--space-sm); }
+  .common-mistakes details { cursor: pointer; }
+  .common-mistakes summary { font-weight: 500; color: var(--sl-color-white); }
+  .common-mistakes details[open] summary { margin-bottom: var(--space-sm); }
+  .common-mistakes p {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: 0.875rem;
+  }
+</style>

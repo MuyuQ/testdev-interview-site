@@ -1,0 +1,50 @@
+---
+const { slug } = Astro.props;
+---
+
+<button
+  class="bookmark-btn"
+  data-slug={slug}
+  aria-label="添加收藏"
+>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<script>
+  import { isBookmarked, toggleBookmark } from "../lib/bookmark-store";
+
+  const btn = document.querySelector(".bookmark-btn[data-slug]");
+  if (btn) {
+    const slug = btn.getAttribute("data-slug");
+    const isMarked = isBookmarked(slug);
+    btn.classList.toggle("bookmarked", isMarked);
+
+    btn.addEventListener("click", () => {
+      const marked = toggleBookmark(slug);
+      btn.classList.toggle("bookmarked", marked);
+      btn.setAttribute("aria-label", marked ? "取消收藏" : "添加收藏");
+    });
+  }
+</script>
+
+<style>
+  .bookmark-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+    color: var(--sl-color-gray-3);
+    transition: color var(--transition-fast);
+  }
+  .bookmark-btn:hover {
+    color: var(--sl-color-accent);
+  }
+  .bookmark-btn.bookmarked {
+    color: var(--color-warning);
+  }
+  .bookmark-btn.bookmarked svg {
+    fill: currentColor;
+  }
+</style>

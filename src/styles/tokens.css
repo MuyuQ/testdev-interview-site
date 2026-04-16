@@ -1,0 +1,119 @@
+/* ===== 设计令牌 (Zensical 风格) ===== */
+
+:root {
+  /* 颜色 */
+  --color-bg: #ffffff;
+  --color-text: #1a1a2e;
+  --color-primary: #4361ee;
+  --color-secondary: #3a0ca3;
+  --color-accent: #4cc9f0;
+  --color-border: #e2e8f0;
+  --color-code-bg: #f8f9fa;
+  --color-card: #f8f9fa;
+
+  /* 语义色 */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* 字体 */
+  --font-sans: "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* 间距 */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* 圆角 */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  /* 过渡 */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* ===== Starlight 变量覆盖 ===== */
+
+:root {
+  --sl-color-bg: var(--color-bg);
+  --sl-color-bg-nav: var(--color-bg);
+  --sl-color-bg-aside: var(--color-card);
+  --sl-color-bg-card: var(--color-card);
+  --sl-color-white: var(--color-text);
+  --sl-color-gray-1: #334155;
+  --sl-color-gray-2: #475569;
+  --sl-color-gray-3: #64748b;
+  --sl-color-gray-4: #94a3b8;
+  --sl-color-gray-5: #cbd5e1;
+  --sl-color-gray-6: #e2e8f0;
+  --sl-color-accent: var(--color-primary);
+  --sl-color-accent-low: #c7d7fe;
+  --sl-color-accent-high: #1e3a8a;
+  --sl-color-hairline: var(--color-border);
+  --sl-color-shade: var(--color-border);
+  --sl-color-light: var(--color-bg);
+}
+
+/* 深色主题 */
+:root[data-theme="dark"] {
+  --color-bg: #0c0e12;
+  --color-text: #e2e8f0;
+  --color-primary: #60a5fa;
+  --color-secondary: #818cf8;
+  --color-accent: #22d3ee;
+  --color-border: #334155;
+  --color-code-bg: #1e293b;
+  --color-card: #1e293b;
+
+  --sl-color-bg: #0c0e12;
+  --sl-color-bg-nav: #0c0e12;
+  --sl-color-bg-aside: #1e293b;
+  --sl-color-bg-card: #1e293b;
+  --sl-color-white: #e2e8f0;
+  --sl-color-gray-1: #f1f5f9;
+  --sl-color-gray-2: #e2e8f0;
+  --sl-color-gray-3: #cbd5e1;
+  --sl-color-gray-4: #94a3b8;
+  --sl-color-gray-5: #64748b;
+  --sl-color-gray-6: #475569;
+  --sl-color-accent: #60a5fa;
+  --sl-color-accent-low: #1e3a8a;
+  --sl-color-accent-high: #93c5fd;
+  --sl-color-hairline: #334155;
+  --sl-color-shade: #334155;
+  --sl-color-light: #0c0e12;
+}
+
+/* 代码高亮色 */
+:root {
+  --sl-color-syntax-keyword: #d73a49;
+  --sl-color-syntax-string: #032f62;
+  --sl-color-syntax-number: #005cc5;
+  --sl-color-syntax-comment: #6a737d;
+  --sl-color-syntax-function: #6f42c1;
+}
+
+:root[data-theme="dark"] {
+  --sl-color-syntax-keyword: #ff7b72;
+  --sl-color-syntax-string: #a5d6ff;
+  --sl-color-syntax-number: #79c0ff;
+  --sl-color-syntax-comment: #8b949e;
+  --sl-color-syntax-function: #d2a8ff;
+}
+
+/* 减少动画 */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}

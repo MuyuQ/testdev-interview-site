@@ -1,0 +1,125 @@
+/* ===== 卡片 ===== */
+
+.card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  transition: box-shadow var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== 徽章 ===== */
+
+.badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-beginner {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-interview {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+:root[data-theme="dark"] .badge-beginner {
+  background-color: #166534;
+  color: #dcfce7;
+}
+
+:root[data-theme="dark"] .badge-interview {
+  background-color: #92400e;
+  color: #fef3c7;
+}
+
+/* ===== 按钮 ===== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.btn:hover {
+  background-color: var(--color-card);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+}
+
+/* ===== 进度条 ===== */
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--color-success);
+  transition: width var(--transition-base);
+}
+
+/* ===== 警告框 ===== */
+
+.callout {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+  border-left: 4px solid;
+}
+
+.callout-info {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.callout-warning {
+  background-color: #fffbeb;
+  border-color: #f59e0b;
+}
+
+.callout-error {
+  background-color: #fef2f2;
+  border-color: #ef4444;
+}
+
+:root[data-theme="dark"] .callout-info {
+  background-color: #1e3a5f;
+}
+
+:root[data-theme="dark"] .callout-warning {
+  background-color: #451a03;
+}
+
+:root[data-theme="dark"] .callout-error {
+  background-color: #450a0a;
+}

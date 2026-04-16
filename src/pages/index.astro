@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/MainLayout.astro";
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout title="测试开发面试速成站">

@@ -29,6 +29,68 @@ tags: ["配置管理", "环境切换", "封装", "自动化"]
 
 【整体流程】接收环境标识 → 加载基础配置 → 加载环境覆盖配置 → 合并配置 → 注入环境变量中的敏感配置 → 执行校验 → 校验通过返回配置对象，校验失败抛出明确异常 → 记录加载日志。【核心步骤详解】1. 配置加载器：根据环境标识加载对应配置文件。支持 YAML、JSON、.env 等格式。先加载基础配置（config.base.yaml），再加载环境配置（config.{env}.yaml），后者覆盖前者。2. 环境变量注入器：从环境变量中读取敏感配置，覆盖配置文件中的对应字段。优先级：环境变量 > 配置文件 > 默认值。环境变量命名规范：TEST_DB_PASSWORD、TEST_API_KEY。3. 配置校验器：加载完成后执行校验。必填项检查：遍历必填字段列表，检查是否存在。格式检查：使用正则或类型检查验证字段格式。范围检查：数值字段检查是否在合理范围内。4. 配置访问器：提供统一的配置访问接口。支持点号访问（config.database.host）、字典访问（config["database"]["host"]）。访问不存在的配置项时抛出明确异常，而非返回 None。5. 日志记录器：配置加载完成后记录日志。包含：环境标识、配置来源、加载时间、敏感字段是否已注入。配置变更时输出变更详情（旧值 → 新值）。【关键接口定义】ConfigLoader：负责加载和合并配置文件。ConfigValidator：负责校验配置完整性和格式。ConfigManager：统一管理配置加载、校验、访问的全流程。
 
+## 示例代码：配置读取封装
+
+```python
+# utils/config.py - 配置读取封装
+import os
+import yaml
+from pathlib import Path
+from dataclasses import dataclass
+
+@dataclass
+class EnvConfig:
+    """环境配置"""
+    base_url: str
+    db_host: str
+    db_port: int
+    db_name: str
+    db_user: str
+    db_password: str  # 从环境变量注入
+    timeout: int = 30
+
+    def validate(self):
+        """校验必填项"""
+        if not self.base_url:
+            raise ValueError("base_url 不能为空")
+        if not self.db_host:
+            raise ValueError("db_host 不能为空")
+        if not self.db_password:
+            raise ValueError("db_password 未配置，请设置环境变量 DB_PASSWORD")
+
+class ConfigManager:
+    """配置管理器"""
+    def __init__(self, env: str | None = None):
+        self.env = env or os.getenv("TEST_ENV", "test")
+
+    def load(self) -> EnvConfig:
+        """加载并校验配置"""
+        config_path = Path(__file__).parent.parent / "config" / f"{self.env}.yaml"
+        if not config_path.exists():
+            raise FileNotFoundError(f"配置文件不存在: {config_path}")
+
+        with open(config_path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+
+        # 敏感信息从环境变量注入
+        data["db_password"] = os.getenv("DB_PASSWORD", "")
+        config = EnvConfig(**data)
+        config.validate()
+        return config
+
+# 使用示例
+# config/test.yaml:
+#   base_url: "https://test-api.example.com"
+#   db_host: "localhost"
+#   db_port: 5432
+#   db_name: "test_db"
+#   db_user: "test_user"
+
+manager = ConfigManager(env="test")
+config = manager.load()
+print(config.base_url)  # https://test-api.example.com
+```
+
 ## 常见失分点
 
 面试中最容易丢分的 5 个问题

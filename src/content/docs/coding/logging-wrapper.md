@@ -23,6 +23,81 @@ tags: ["日志", "封装", "排障", "自动化"]
 - 第四步：输出策略——确定日志输出的时机和目的地。开发环境输出到控制台，生产环境输出到文件或日志平台。敏感信息脱敏处理，大量日志异步写入避免阻塞主流程。
 - 设计权衡：日志详细度 vs 性能开销、统一格式 vs 灵活定制、同步写入 vs 异步写入、本地存储 vs 远程采集，需要根据场景做选择。
 
+## 示例代码：日志封装
+
+```python
+# utils/logger.py - 日志封装
+import logging
+import sys
+from datetime import datetime
+from typing import Optional
+
+def setup_logger(
+    name: str = "test_framework",
+    level: str = "INFO",
+    log_file: Optional[str] = None,
+) -> logging.Logger:
+    """配置日志记录器"""
+    logger = logging.getLogger(name)
+    logger.setLevel(getattr(logging, level.upper()))
+
+    # 日志格式：时间 | 级别 | 模块 | 消息
+    formatter = logging.Formatter(
+        fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
+    # 控制台输出
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+    # 文件输出（可选）
+    if log_file:
+        file_handler = logging.FileHandler(log_file, encoding="utf-8")
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+    return logger
+
+# 使用示例
+logger = setup_logger("api_test", level="DEBUG", log_file="test.log")
+
+def test_login(api_client):
+    logger.info("开始测试登录接口")
+    resp = api_client.post("/login", json={"username": "admin", "password": "123"})
+    logger.debug(f"响应: status={resp['status_code']}, body={resp['body']}")
+    assert resp["status_code"] == 200
+    logger.info("登录测试通过")
+```
+
+```python
+# 结构化日志（JSON 格式，便于日志平台解析）
+import json
+import logging
+
+class JsonFormatter(logging.Formatter):
+    """JSON 格式日志"""
+    def format(self, record: logging.LogRecord) -> str:
+        log_entry = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "module": record.module,
+            "line": record.lineno,
+        }
+        if record.exc_info:
+            log_entry["exception"] = self.formatException(record.exc_info)
+        return json.dumps(log_entry, ensure_ascii=False)
+
+# 配置 JSON 日志
+handler = logging.StreamHandler()
+handler.setFormatter(JsonFormatter())
+logger = logging.getLogger("json_logger")
+logger.addHandler(handler)
+```
+
 ## 代码逻辑
 
 核心流程描述，不展示完整代码
@@ -91,7 +166,7 @@ LogEntry：包含时间戳、级别、模块、消息、上下文、扩展字段
 
 为什么不好：日志文件可能被非授权人员访问，日志平台可能有安全漏洞，日志传输过程可能被截获，造成信息泄露事故。
 
-如何改进：日志输出前进行脱敏处理。密码字段完全隐藏或只显示前后各 2 位。身份证号、手机号中间 4 位替换为 *。银行卡号只保留后 4 位。定义脱敏规则配置，字段名匹配正则则自动脱敏。敏感配置（如数据库密码）不要出现在日志配置中。
+如何改进：日志输出前进行脱敏处理。密码字段完全隐藏或只显示前后各 2 位。身份证号、手机号中间 4 位替换为 \*。银行卡号只保留后 4 位。定义脱敏规则配置，字段名匹配正则则自动脱敏。敏感配置（如数据库密码）不要出现在日志配置中。
 
 ## 进阶讨论
 

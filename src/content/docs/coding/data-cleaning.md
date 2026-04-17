@@ -29,6 +29,84 @@ tags: ["数据清洗", "数据处理", "脚本", "测试数据"]
 
 【整体流程】读取原始数据 → 保存原始数据快照 → 按顺序执行清洗步骤 → 每步记录清洗日志 → 收集异常数据 → 执行结果校验 → 输出清洗后数据和异常报告。【核心步骤详解】1. 数据读取器：从文件（CSV、Excel、JSON）或数据库读取原始数据。统一转换为内部数据结构（如 DataFrame 或对象列表）。读取时记录数据量、字段列表、样本数据。2. 原始数据快照：清洗前保存原始数据的副本或哈希值。用于对比清洗前后的变化，以及问题回溯时恢复原始数据。快照存储路径与清洗日志关联。3. 清洗步骤执行器：按预定义的清洗步骤列表依次执行。每个步骤是一个独立函数，接收数据返回清洗后的数据。步骤之间通过数据管道传递，前一步输出作为后一步输入。4. 异常数据收集器：清洗过程中发现的异常数据不直接丢弃，而是分类收集。按异常类型分组（格式错误、缺失关键字段、超出范围），记录异常原因和原始值。5. 结果校验器：清洗完成后执行校验。格式校验：检查每个字段的类型和格式。约束校验：检查业务规则是否满足。数据量校验：检查清洗后数据量是否在合理范围（不应大幅减少）。6. 报告生成器：生成清洗报告，包含：原始数据量、清洗后数据量、丢弃数据量、异常分类统计、每步清洗的影响行数、校验结果。【关键接口定义】CleaningRule：定义清洗操作类型、参数、适用字段。CleaningStep：封装单个清洗步骤的执行逻辑和日志记录。CleaningReport：记录清洗全过程的统计信息和异常数据。
 
+## 示例代码：数据清洗
+
+```python
+# utils/data_cleaner.py - 数据清洗工具
+import logging
+from dataclasses import dataclass, field
+
+logger = logging.getLogger(__name__)
+
+@dataclass
+class CleaningStats:
+    total: int = 0
+    cleaned: int = 0
+    dropped: int = 0
+    issues: list[str] = field(default_factory=list)
+
+class DataCleaner:
+    def __init__(self):
+        self.stats = CleaningStats()
+
+    def clean(self, data: list[dict], rules: dict) -> list[dict]:
+        """执行数据清洗"""
+        self.stats.total = len(data)
+        cleaned = []
+
+        for row in data:
+            try:
+                result = self._apply_rules(row, rules)
+                if result is not None:
+                    cleaned.append(result)
+                    self.stats.cleaned += 1
+            except ValueError as e:
+                self.stats.dropped += 1
+                self.stats.issues.append(str(e))
+                logger.warning(f"丢弃数据: {e}")
+
+        logger.info(
+            f"清洗完成: 总数={self.stats.total}, "
+            f"有效={self.stats.cleaned}, 丢弃={self.stats.dropped}"
+        )
+        return cleaned
+
+    def _apply_rules(self, row: dict, rules: dict) -> dict | None:
+        """应用清洗规则"""
+        # 必填字段检查
+        for field_name in rules.get("required", []):
+            if not row.get(field_name):
+                raise ValueError(f"缺少必填字段: {field_name}")
+
+        # 字符串修剪
+        cleaned = {
+            k: v.strip() if isinstance(v, str) else v
+            for k, v in row.items()
+        }
+
+        # 数值范围校验
+        for fname, (min_v, max_v) in rules.get("ranges", {}).items():
+            val = cleaned.get(fname)
+            if val is not None and not (min_v <= val <= max_v):
+                raise ValueError(f"{fname}={val} 超出范围")
+
+        return cleaned
+
+# 使用示例
+cleaner = DataCleaner()
+rules = {
+    "required": ["name", "email"],
+    "ranges": {"age": (0, 150)},
+}
+raw_data = [
+    {"name": "  Alice  ", "email": "alice@test.com", "age": 25},
+    {"name": "", "email": "bob@test.com"},  # 缺少 name
+    {"name": "Charlie", "email": "c@test.com", "age": 200},  # 超限
+]
+result = cleaner.clean(raw_data, rules)
+print(f"有效数据: {len(result)} 条, 统计: {cleaner.stats}")
+```
+
 ## 常见失分点
 
 面试中最容易丢分的 5 个问题

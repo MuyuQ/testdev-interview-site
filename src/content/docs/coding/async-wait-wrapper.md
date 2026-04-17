@@ -29,6 +29,89 @@ tags: ["异步", "等待", "超时", "接口测试"]
 
 【整体流程】入口函数接收状态查询函数、超时时间、轮询间隔 → 记录开始时间 → 进入轮询循环 → 调用状态查询函数 → 判断返回状态 → 成功则立即返回结果 → 失败则记录错误并返回失败状态 → 既非成功也非失败则检查是否超时 → 未超时则等待轮询间隔后继续 → 已超时则返回超时状态 → 记录完整日志。【核心步骤详解】1. 状态查询器：接收外部传入的查询函数，该函数返回当前任务状态。查询函数应包含重试逻辑，避免单次查询失败导致等待中断。2. 超时控制器：记录等待开始时间，每次循环检查已耗时是否超过设定阈值。超时阈值应可配置，默认值根据业务场景设定。3. 轮询间隔器：支持固定间隔和指数退避两种策略。指数退避公式：min(base \* 2^attempt, max_interval)，加上随机抖动避免同步。4. 状态判定器：根据查询结果判断当前状态。建议定义枚举类型（SUCCESS/FAILED/TIMEOUT/PENDING），避免魔法字符串。5. 日志记录器：每次轮询记录时间戳、轮询次数、当前状态、已耗时。等待结束时记录最终状态和总耗时。【关键接口定义】WaitConfig：包含超时时间、轮询策略、初始间隔、最大间隔、状态判定函数。WaitContext：包含当前轮询次数、已耗时、上次查询结果。WaitResult：包含最终状态、总耗时、轮询次数、最后一次查询结果。
 
+## 示例代码：异步等待封装
+
+```python
+# utils/async_wait.py - 异步等待封装
+import time
+import logging
+from typing import Callable, Any
+from enum import Enum
+
+logger = logging.getLogger(__name__)
+
+class WaitStatus(Enum):
+    SUCCESS = "success"
+    TIMEOUT = "timeout"
+    FAILED = "failed"
+
+def wait_for(
+    condition: Callable[[], bool],
+    timeout: float = 30.0,
+    interval: float = 1.0,
+    description: str = "条件",
+) -> WaitStatus:
+    """轮询等待直到条件满足"""
+    start_time = time.time()
+    attempt = 0
+
+    while time.time() - start_time < timeout:
+        attempt += 1
+        try:
+            if condition():
+                logger.info(f"{description} 已满足 (尝试 {attempt} 次)")
+                return WaitStatus.SUCCESS
+        except Exception as e:
+            logger.debug(f"检查条件时异常: {e}")
+
+        remaining = timeout - (time.time() - start_time)
+        if remaining > 0:
+            time.sleep(min(interval, remaining))
+
+    logger.error(f"{description} 超时 (超时 {timeout}s, 尝试 {attempt} 次)")
+    return WaitStatus.TIMEOUT
+
+def wait_for_api_result(
+    check_func: Callable[[], dict],
+    expected_status: str,
+    timeout: float = 30.0,
+    interval: float = 2.0,
+) -> dict:
+    """等待异步接口返回预期结果"""
+    start_time = time.time()
+    last_result = None
+
+    while time.time() - start_time < timeout:
+        result = check_func()
+        last_result = result
+
+        if result.get("status") == expected_status:
+            return result
+        if result.get("status") == "failed":
+            raise ValueError(f"异步任务失败: {result.get('error')}")
+
+        time.sleep(interval)
+
+    raise TimeoutError(f"等待异步结果超时 (最后状态: {last_result})")
+```
+
+```python
+# 使用示例
+def test_async_order():
+    """测试异步订单处理"""
+    resp = api_client.post("/orders", json={"product_id": 100})
+    order_id = resp["body"]["order_id"]
+
+    def check_status():
+        return api_client.get(f"/orders/{order_id}")["body"]
+
+    result = wait_for_api_result(
+        check_status, expected_status="completed",
+        timeout=60.0, interval=2.0,
+    )
+    assert result["status"] == "completed"
+```
+
 ## 常见失分点
 
 面试中最容易丢分的 5 个问题

@@ -29,6 +29,97 @@ tags: ["Mock", "依赖隔离", "接口测试", "封装"]
 
 【整体流程】Mock 服务启动 → 加载规则配置 → 监听请求 → 请求到达时匹配规则 → 找到匹配规则后生成响应 → 应用延迟配置 → 返回响应 → 记录调用日志。【核心步骤详解】1. 规则引擎：接收请求信息（路径、方法、参数、Body），遍历规则列表进行匹配。匹配策略支持精确匹配（URL + Method 完全一致）、模式匹配（正则表达式）、条件匹配（Body 中某字段等于特定值）。匹配到多条规则时按优先级选择。2. 响应生成器：根据匹配到的规则生成响应。支持静态响应（直接返回预设 JSON）、动态响应（根据请求参数计算返回值）、模板响应（使用模板引擎填充变量）。3. 延迟模拟器：根据规则配置的延迟时间，在返回响应前等待。支持固定延迟、随机延迟（模拟网络抖动）、渐进延迟（模拟服务降级）。4. 状态管理器：维护 Mock 服务的运行时状态。包括：已激活的规则列表、每条规则的调用次数、场景切换历史。支持 reset 操作清空所有状态。5. 调用记录器：记录每次 Mock 调用的详细信息，包括请求参数、匹配的规则、响应内容、耗时。用于验证业务逻辑是否正确调用了依赖，以及排查 Mock 相关问题。【关键接口定义】MockRule：包含匹配条件、响应模板、延迟配置、优先级、启用状态。MockContext：包含当前场景、已激活规则、调用统计。MockResult：包含响应内容、匹配的规则名、耗时。
 
+## 示例代码：Mock 工具封装
+
+```python
+# utils/mock_server.py - Mock 工具封装
+import time
+import json
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+class MockHandler(BaseHTTPRequestHandler):
+    """Mock HTTP 处理器"""
+    rules: dict = {}
+
+    def do_GET(self):
+        self._handle("GET")
+
+    def do_POST(self):
+        self._handle("POST")
+
+    def _handle(self, method: str):
+        key = f"{method}:{self.path}"
+        rule = self.rules.get(key, {})
+
+        # 模拟延迟
+        delay = rule.get("delay", 0)
+        if delay:
+            time.sleep(delay)
+
+        self.send_response(rule.get("status_code", 200))
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        body = json.dumps(rule.get("body", {"error": "规则未找到"}), ensure_ascii=False)
+        self.wfile.write(body.encode("utf-8"))
+
+    def log_message(self, format, *args):
+        pass  # 静默
+
+class MockServer:
+    """Mock 服务器"""
+    def __init__(self, port: int = 9999):
+        self.port = port
+        self.server = None
+        self.thread = None
+
+    def start(self):
+        self.server = HTTPServer(("localhost", self.port), MockHandler)
+        self.thread = threading.Thread(target=self.server.serve_forever)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def add_rule(self, method: str, path: str, status_code: int = 200,
+                 body: dict = None, delay: float = 0):
+        MockHandler.rules[f"{method}:{path}"] = {
+            "status_code": status_code,
+            "body": body or {},
+            "delay": delay,
+        }
+
+    def clear_rules(self):
+        MockHandler.rules.clear()
+
+    def stop(self):
+        if self.server:
+            self.server.shutdown()
+            self.clear_rules()
+```
+
+```python
+# 使用示例
+import pytest
+
+@pytest.fixture(scope="module")
+def mock_server():
+    server = MockServer(port=9999)
+    server.start()
+    yield server
+    server.stop()
+
+def test_payment_success(mock_server):
+    mock_server.add_rule(
+        method="POST", path="/pay",
+        status_code=200,
+        body={"status": "success", "transaction_id": "TXN123"},
+    )
+
+    import requests
+    resp = requests.post("http://localhost:9999/pay", json={"amount": 99.99})
+    assert resp.status_code == 200
+    assert resp.json()["status"] == "success"
+```
+
 ## 常见失分点
 
 面试中最容易丢分的 5 个问题

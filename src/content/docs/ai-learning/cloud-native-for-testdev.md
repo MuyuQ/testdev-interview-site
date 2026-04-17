@@ -60,6 +60,36 @@ interviewTalkingPoints:
 
 容器化不是把东西跑起来就行，还要注意环境隔离（测试和生产隔离、不同业务隔离）和资源限制（CPU、内存配额）。否则可能导致测试影响生产、或者资源争抢导致测试不稳定。
 
+## 进阶内容
+
+### 测试开发需要掌握的 Docker 核心技能
+
+**镜像构建**：编写 Dockerfile，将应用和测试工具打包为镜像。理解多层构建优化镜像大小，理解 .dockerignore 排除不必要文件。
+
+**容器编排**：使用 Docker Compose 定义多容器应用（如 Web 服务 + 数据库 + 缓存）。理解服务依赖、健康检查、网络配置。
+
+**数据持久化**：理解 Volume 和 Bind Mount 的区别。测试数据使用 Volume 持久化，配置文件使用 Bind Mount 方便修改。
+
+**网络配置**：理解容器间通信方式。默认 bridge 网络、自定义网络、host 网络模式。测试环境中通常需要自定义网络实现服务隔离。
+
+### Kubernetes 测试开发必知概念
+
+**Pod**：K8s 最小调度单元，包含一个或多个容器。测试开发需要会查看 Pod 状态（`kubectl get pods`）、查看日志（`kubectl logs`）、进入容器（`kubectl exec`）。
+
+**Deployment**：管理 Pod 的副本数和更新策略。理解滚动更新、回滚操作。测试环境可能需要临时修改 Deployment 的镜像版本来测试特定版本。
+
+**ConfigMap/Secret**：管理配置和敏感信息。测试开发需要知道如何查看和修改配置，理解配置变更如何生效。
+
+**Service/Ingress**：服务发现和外部访问。理解 Service 的 ClusterIP、NodePort、LoadBalancer 类型。Ingress 管理 HTTP 路由。
+
+### 可观测性三支柱在测试中的应用
+
+**日志（Logging）**：集中式日志平台（ELK、Loki）用于问题排查。测试开发需要会按时间范围、服务名、关键字搜索日志。理解日志级别和结构化日志。
+
+**指标（Metrics）**：Prometheus 采集指标，Grafana 展示面板。测试开发需要关注核心指标：QPS、响应时间、错误率、资源使用率。性能回归时对比指标变化。
+
+**链路追踪（Tracing）**：Jaeger、SkyWalking 追踪请求链路。测试开发需要会查看 Trace，理解 Span 的层级关系，定位耗时最长的环节。跨服务问题排查的利器。
+
 ## 面试问答
 
 ### 测试开发为什么要学云原生？

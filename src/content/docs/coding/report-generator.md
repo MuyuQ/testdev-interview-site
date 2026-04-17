@@ -29,6 +29,80 @@ tags: ["报告", "测试报告", "自动化", "CI/CD"]
 
 【整体流程】测试执行结束 → 收集执行结果 → 按层级组织数据 → 生成报告文件 → 输出到指定位置 → 通知相关人员。【核心步骤详解】1. 数据收集器：从测试框架获取执行结果，包括每个用例的状态（通过/失败/跳过）、耗时、错误信息、日志、截图等。统一转换为内部数据结构。2. 指标计算器：计算概览层指标，包括总用例数、通过数、失败数、跳过数、通过率、总耗时、平均耗时、失败率按模块分布。3. 失败信息聚合器：对失败用例，收集完整的上下文信息。包括请求参数、响应数据、错误堆栈、环境变量、截图路径。按严重程度排序（阻塞 > 严重 > 一般）。4. 报告渲染器：根据配置的格式（HTML/JSON/Markdown），将数据渲染为报告文件。HTML 报告使用模板引擎生成，支持 CSS 样式和 JavaScript 交互。JSON 报告直接序列化内部数据结构。5. 历史对比器（可选）：读取历史报告数据，计算指标变化趋势（通过率升降、新增失败用例、修复用例）。在报告中展示对比结果。【关键接口定义】ReportConfig：包含输出格式、输出路径、是否包含日志、是否包含截图、历史对比开关。TestResult：包含用例名、状态、耗时、错误信息、日志、截图路径、环境信息。ReportSummary：包含总用例数、通过/失败/跳过数、通过率、总耗时、失败分布。
 
+## 示例代码：测试报告生成
+
+```python
+# utils/report.py - 测试报告生成
+import json
+from dataclasses import dataclass, field, asdict
+from datetime import datetime
+from typing import Optional
+from pathlib import Path
+
+@dataclass
+class TestCaseResult:
+    """单条用例执行结果"""
+    name: str
+    status: str  # passed / failed / skipped
+    duration: float = 0.0
+    error: Optional[str] = None
+    expected: Optional[str] = None
+    actual: Optional[str] = None
+
+@dataclass
+class TestReport:
+    """测试报告"""
+    title: str = "测试报告"
+    start_time: str = ""
+    end_time: str = ""
+    results: list[TestCaseResult] = field(default_factory=list)
+
+    @property
+    def total(self) -> int:
+        return len(self.results)
+
+    @property
+    def passed(self) -> int:
+        return sum(1 for r in self.results if r.status == "passed")
+
+    @property
+    def failed(self) -> int:
+        return sum(1 for r in self.results if r.status == "failed")
+
+    @property
+    def pass_rate(self) -> float:
+        return self.passed / self.total * 100 if self.total > 0 else 0
+
+    def to_json(self, output_path: str):
+        """导出 JSON 报告"""
+        data = {
+            "title": self.title,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "summary": {
+                "total": self.total,
+                "passed": self.passed,
+                "failed": self.failed,
+                "pass_rate": f"{self.pass_rate:.1f}%",
+            },
+            "results": [asdict(r) for r in self.results],
+        }
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+# 使用示例
+report = TestReport(title="接口测试报告", start_time=datetime.now().isoformat())
+report.results.append(TestCaseResult(name="test_login", status="passed", duration=0.5))
+report.results.append(TestCaseResult(
+    name="test_create_order", status="failed", duration=1.2,
+    error="AssertionError: 状态码不匹配",
+    expected="200", actual="500",
+))
+report.end_time = datetime.now().isoformat()
+report.to_json("reports/test_report.json")
+```
+
 ## 常见失分点
 
 面试中最容易丢分的 5 个问题

@@ -20,18 +20,105 @@ tags: ["重试", "封装", "稳定性"]
 - 第一步：错误分类——把错误分为可重试和不可重试两类。
 
 网络超时、连接异常、5xx 服务端错误通常可重试。4xx 客户端错误、业务异常（如余额不足）通常不可重试。
+
 - 第二步：策略选择——根据业务场景选择重试策略。
 
 读操作可以放心重试，写操作需要考虑幂等性。同步重试适合快速恢复，异步补偿适合最终一致性场景。
+
 - 第三步：退避设计——设计退避间隔避免重试风暴。固定间隔简单但可能造成拥塞，指数退避更合理，可加随机抖动避免惊群效应。
 - 第四步：边界处理——设置最大重试次数、总体超时时间、熔断阈值。记录每次重试的上下文信息，方便排查问题。
 - 设计权衡：重试次数多→恢复概率大但延迟增加。退避间隔短→响应快但可能加剧拥塞。同步重试→逻辑简单但阻塞线程。异步补偿→解耦但复杂度高。
+
+## 示例代码：重试机制封装
+
+```python
+# utils/retry.py - 重试机制封装
+import time
+import random
+import logging
+from typing import Callable, Any, Type
+from functools import wraps
+
+logger = logging.getLogger(__name__)
+
+# 可重试的异常类型
+RETRYABLE_EXCEPTIONS = (ConnectionError, TimeoutError, OSError)
+
+def retry(
+    max_attempts: int = 3,
+    base_delay: float = 1.0,
+    max_delay: float = 30.0,
+    retryable_exceptions: tuple[Type[Exception], ...] = RETRYABLE_EXCEPTIONS,
+):
+    """重试装饰器 - 支持指数退避和随机抖动"""
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(*args, **kwargs) -> Any:
+            last_exception = None
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    return func(*args, **kwargs)
+                except retryable_exceptions as e:
+                    last_exception = e
+                    if attempt == max_attempts:
+                        logger.error(
+                            f"{func.__name__} 重试 {max_attempts} 次后失败: {e}"
+                        )
+                        raise
+
+                    # 指数退避 + 随机抖动
+                    delay = min(base_delay * (2 ** (attempt - 1)), max_delay)
+                    jitter = random.uniform(0, delay * 0.1)
+                    sleep_time = delay + jitter
+
+                    logger.warning(
+                        f"{func.__name__} 第 {attempt} 次失败: {e}, "
+                        f"{sleep_time:.2f}s 后重试..."
+                    )
+                    time.sleep(sleep_time)
+
+            raise last_exception  # type: ignore
+        return wrapper
+    return decorator
+
+# 使用示例
+@retry(max_attempts=3, base_delay=1.0)
+def fetch_data(url: str) -> dict:
+    """获取数据，自动重试"""
+    import requests
+    resp = requests.get(url, timeout=10)
+    resp.raise_for_status()
+    return resp.json()
+```
+
+```python
+# 使用 tenacity 库（生产推荐）
+from tenacity import (
+    retry, stop_after_attempt, wait_exponential,
+    retry_if_exception_type, before_log, after_log,
+)
+import logging
+
+logger = logging.getLogger(__name__)
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=1, max=10),
+    retry=retry_if_exception_type((ConnectionError, TimeoutError)),
+    before=before_log(logger, logging.WARNING),
+    after=after_log(logger, logging.INFO),
+)
+def call_api(url: str) -> dict:
+    """使用 tenacity 的重试装饰器"""
+    import requests
+    return requests.get(url, timeout=10).json()
+```
 
 ## 代码逻辑
 
 核心流程描述，不展示完整代码
 
-【整体流程】入口函数接收请求参数 → 调用执行器执行请求 → 捕获异常 → 判断是否可重试 → 可重试则计算退避时间并等待 → 再次执行 → 达到上限或成功则返回 → 记录完整日志。【核心步骤详解】1. 可重试判断器：接收异常对象，根据异常类型和状态码返回是否可重试。\n\n例如：连接超时返回 true，认证失败返回 false。2. 退避策略器：接收当前重试次数，返回等待时间。指数退避公式：base * 2^attempt，加上随机抖动避免同步重试。3. 重试执行器：循环执行请求，每次失败后调用判断器和策略器，成功或达到上限则退出。总体超时控制在外层包装。4. 日志记录器：每次重试记录时间戳、重试次数、异常类型、退避时间、最终结果。输出结构化日志便于检索分析。【关键接口定义】RetryConfig：包含最大次数、初始间隔、最大间隔、可重试异常列表。RetryContext：包含当前次数、总耗时、上次异常、请求参数。RetryResult：包含最终状态、总次数、总耗时、失败原因链。
+【整体流程】入口函数接收请求参数 → 调用执行器执行请求 → 捕获异常 → 判断是否可重试 → 可重试则计算退避时间并等待 → 再次执行 → 达到上限或成功则返回 → 记录完整日志。【核心步骤详解】1. 可重试判断器：接收异常对象，根据异常类型和状态码返回是否可重试。\n\n例如：连接超时返回 true，认证失败返回 false。2. 退避策略器：接收当前重试次数，返回等待时间。指数退避公式：base \* 2^attempt，加上随机抖动避免同步重试。3. 重试执行器：循环执行请求，每次失败后调用判断器和策略器，成功或达到上限则退出。总体超时控制在外层包装。4. 日志记录器：每次重试记录时间戳、重试次数、异常类型、退避时间、最终结果。输出结构化日志便于检索分析。【关键接口定义】RetryConfig：包含最大次数、初始间隔、最大间隔、可重试异常列表。RetryContext：包含当前次数、总耗时、上次异常、请求参数。RetryResult：包含最终状态、总次数、总耗时、失败原因链。
 
 ## 常见失分点
 

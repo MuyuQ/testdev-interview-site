@@ -21,6 +21,82 @@ tags: ["断言", "封装", "接口测试"]
 - 第四步：扩展性考虑——支持自定义断言类型、支持链式调用、支持断言组合（与/或/非逻辑），让框架能适应复杂场景。
 - 设计权衡：功能丰富 vs 简洁易用、严格校验 vs 容错空间、立即失败 vs 继续执行，需要根据团队习惯和项目特点做选择。
 
+## 示例代码：分层断言封装
+
+```python
+# utils/assertions.py - 分层断言封装
+from typing import Any
+
+class AssertError(Exception):
+    """自定义断言异常，包含期望值和实际值"""
+    def __init__(self, message: str, expected: Any = None, actual: Any = None):
+        self.expected = expected
+        self.actual = actual
+        detail = f" [期望: {expected}, 实际: {actual}]" if expected is not None else ""
+        super().__init__(f"{message}{detail}")
+
+class ProtocolAssert:
+    """协议层断言 - 校验 HTTP 响应基础信息"""
+
+    @staticmethod
+    def status_code(response: dict, expected: int):
+        """验证状态码"""
+        actual = response.get("status_code")
+        if actual != expected:
+            raise AssertError("状态码不匹配", expected=expected, actual=actual)
+
+    @staticmethod
+    def has_field(response: dict, field_path: str):
+        """验证响应体包含指定字段"""
+        value = _get_nested(response.get("body", {}), field_path)
+        if value is None:
+            raise AssertError(f"字段不存在: {field_path}")
+
+class BusinessAssert:
+    """业务层断言 - 校验业务逻辑"""
+
+    @staticmethod
+    def order_status(order: dict, expected: str):
+        """验证订单状态"""
+        actual = order.get("status")
+        if actual != expected:
+            raise AssertError("订单状态不匹配", expected=expected, actual=actual)
+
+    @staticmethod
+    def amount_equals(actual: float, expected: float, tolerance: float = 0.01):
+        """验证金额（允许误差）"""
+        if abs(actual - expected) > tolerance:
+            raise AssertError("金额不匹配", expected=expected, actual=actual)
+
+def _get_nested(data: dict, path: str) -> Any:
+    """获取嵌套字典的值，如 'data.user.name'"""
+    keys = path.split(".")
+    current = data
+    for key in keys:
+        if isinstance(current, dict):
+            current = current.get(key)
+        else:
+            return None
+    return current
+```
+
+```python
+# test_order.py - 使用分层断言
+from utils.assertions import ProtocolAssert, BusinessAssert
+
+def test_create_order(api_client):
+    """测试创建订单"""
+    resp = api_client.post("/orders", json={"product_id": 100, "quantity": 2})
+
+    # 协议层断言
+    ProtocolAssert.status_code(resp, 200)
+    ProtocolAssert.has_field(resp, "order_id")
+
+    # 业务层断言
+    BusinessAssert.amount_equals(resp["body"]["total_amount"], 199.98)
+    BusinessAssert.order_status(resp["body"], "pending")
+```
+
 ## 代码逻辑
 
 协议层断言流程：接收响应对象 → 校验状态码是否符合预期 → 校验响应头关键字段 → 校验响应体 schema 结构 → 返回校验结果。任何一步失败都记录详细的失败信息。

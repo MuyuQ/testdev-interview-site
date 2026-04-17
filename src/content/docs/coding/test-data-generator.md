@@ -29,6 +29,56 @@ tags: ["测试数据", "数据生成", "边界值", "自动化"]
 
 【整体流程】接收数据类型和生成模式 → 选择对应的生成策略 → 按数据结构填充字段 → 应用边界或异常规则 → 返回生成的数据对象。【核心步骤详解】1. 数据结构定义：使用 dataclass 定义数据实体。每个字段有类型注解和默认值。例如 UserData 包含 user_id（int）、username（str）、email（str）、phone（str）、status（enum）。2. 正向数据生成器：根据数据结构生成符合业务规则的正常数据。使用 Faker 库生成真实的姓名、邮箱、手机号等。必填字段使用合法默认值，可选字段随机填充。3. 边界数据生成器：针对每个字段生成边界值。数值字段：0、最大值、最小值、负数。字符串字段：空字符串、单字符、最大长度、超长字符串。枚举字段：所有合法值、非法值。4. 异常数据生成器：生成违反业务规则的数据。格式错误：邮箱不含 @、手机号位数不对。类型错误：数值字段传入字符串。必填缺失：省略必填字段。5. 数据组合器：处理有关联关系的数据。例如生成订单数据时，先生成关联的用户数据和商品数据，确保外键关联正确。支持预创建关联数据或使用 Mock 关联。【关键接口定义】DataBuilder：提供链式调用接口，逐步设置字段值，build 方法返回完整数据。DataFactory：预定义数据模板，提供快捷方法生成特定场景的数据。DataGenerator：核心生成器，接收生成模式参数，返回对应类型的数据。
 
+## 示例代码：测试数据生成器
+
+```python
+# utils/data_factory.py - 测试数据工厂
+import random
+import string
+from dataclasses import dataclass
+
+@dataclass
+class UserData:
+    """用户测试数据"""
+    username: str
+    email: str
+    phone: str
+    age: int = 18
+
+class DataFactory:
+    """测试数据工厂"""
+
+    @staticmethod
+    def random_str(length: int = 8) -> str:
+        return "".join(random.choices(string.ascii_lowercase, k=length))
+
+    @staticmethod
+    def valid_user() -> UserData:
+        """生成有效用户"""
+        name = DataFactory.random_str()
+        return UserData(
+            username=name,
+            email=f"{name}@test.com",
+            phone=f"138{random.randint(10000000, 99999999)}",
+        )
+
+    @staticmethod
+    def boundary_users() -> list[UserData]:
+        """生成边界用户数据"""
+        return [
+            UserData(username="", email="a@b.com", phone="13800000000"),       # 空用户名
+            UserData(username="a" * 256, email="a@b.com", phone="13800000000"), # 超长
+            UserData(username="test", email="", phone="13800000000"),           # 空邮箱
+            UserData(username="test", email="a@b.com", phone="1"),              # 无效手机
+        ]
+
+# 使用示例
+factory = DataFactory()
+user = factory.valid_user()
+for boundary in factory.boundary_users():
+    print(boundary)
+```
+
 ## 常见失分点
 
 面试中最容易丢分的 5 个问题

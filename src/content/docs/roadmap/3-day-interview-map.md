@@ -75,14 +75,13 @@ graph LR
 
 - 每个主题先看摘要和高频问题，再补细节。
 - 把答题骨架写成自己的口语版。
-  - 优先准备能证明做过的 2 个项目故事。
-    termLinks:
-  - slug: "test-pyramid"
-    term: "测试金字塔"
-  - slug: "idempotency"
-    term: "幂等"
-  - slug: "bug-lifecycle"
-    term: "Bug 生命周期"
+- 优先准备能证明做过的 2 个项目故事。
+
+**相关术语：**
+
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/)
+- [幂等](/testdev-interview-site/glossary/idempotency/)
+- [Bug 生命周期](/testdev-interview-site/glossary/bug-lifecycle/)
 
 ### 第 1 天详细学习指南
 

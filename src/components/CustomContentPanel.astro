@@ -10,7 +10,12 @@ const selfTests = (entry.data as any).selfTests || [];
 <div class="content-panel" role="main">
   <div class="sl-container">
     <slot />
-    {selfTests.length > 0 && <SelfTestQuiz questions={selfTests} />}
+    <!-- Only render quiz in the content panel (second one), not in the title panel -->
+    {selfTests.length > 0 && (
+      <div class="quiz-content-only">
+        <SelfTestQuiz questions={selfTests} />
+      </div>
+    )}
     <div class="share-section">
       <ShareButtons title={entry.title} />
     </div>
@@ -25,6 +30,21 @@ const selfTests = (entry.data as any).selfTests || [];
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
     border-top: 1px solid var(--sl-color-hairline);
+  }
+  /* 
+   * Starlight renders ContentPanel twice for non-hero pages:
+   * 1. First panel: contains PageTitle (no .sl-markdown-content)
+   * 2. Second panel: contains MarkdownContent (has .sl-markdown-content)
+   * 
+   * We only want to show the quiz in the second panel (with actual content).
+   * Using :has() to detect if this panel contains markdown content.
+   */
+  .content-panel:not(:has(.sl-markdown-content)) .self-test-quiz {
+    display: none !important;
+  }
+  /* Also hide share buttons in the first panel */
+  .content-panel:not(:has(.sl-markdown-content)) .share-section {
+    display: none !important;
   }
 </style>
 
@@ -48,4 +68,33 @@ const selfTests = (entry.data as any).selfTests || [];
     } catch {}
   }
   document.addEventListener("astro:page-load", trackView);
+
+  // Remove duplicate self-test quizzes
+  // Starlight renders ContentPanel twice for non-hero pages:
+  // 1. First panel: contains PageTitle (no .sl-markdown-content)
+  // 2. Second panel: contains MarkdownContent (has .sl-markdown-content)
+  // We only want to keep the quiz in the second panel (with actual content).
+  function removeDuplicateQuizzes() {
+    const quizzes = document.querySelectorAll('[data-quiz]');
+    if (quizzes.length <= 1) return;
+    
+    // Check if .sl-markdown-content exists (indicates content panel)
+    const hasMarkdownContent = document.querySelector('.sl-markdown-content') !== null;
+    if (!hasMarkdownContent) return;
+    
+    // Remove quizzes that are NOT in the content panel
+    quizzes.forEach((quiz) => {
+      const contentPanel = quiz.closest('.content-panel');
+      if (!contentPanel) return;
+      
+      // If this content panel doesn't contain .sl-markdown-content, remove the quiz
+      if (!contentPanel.querySelector('.sl-markdown-content')) {
+        quiz.remove();
+      }
+    });
+  }
+  
+  // Run on initial load and after page transitions
+  removeDuplicateQuizzes();
+  document.addEventListener("astro:page-load", removeDuplicateQuizzes);
 </script>

@@ -41,33 +41,31 @@ Pytest 核心概念和学习价值
 
 ### Pytest 是什么
 
-Pytest 是 Python 生态中最流行的测试框架，核心理念是"简单优先"。它让你用最少的代码写出清晰的测试：不需要继承任何基类，不需要写繁琐的样板代码，普通的 assert 语句就能自动生成详细的失败报告。Pytest 的核心能力包括：Fixture 机制（灵活的测试资源管理）、参数化测试（一键生成多组用例）、标记体系（按标签筛选执行）、插件生态（数百个插件扩展功能）、详细报告（失败时自动展示变量值和断言详情）。相比 Python 自带的 unittest，Pytest 的代码量通常减少 30%-50%，可读性更高。
+Pytest 是 Python 生态中最流行的测试框架，核心理念是"简单优先"。它让你用最少的代码写出清晰的测试：不需要继承任何基类，不需要写繁琐的样板代码，普通的 assert 语句就能自动生成详细的失败报告。Pytest 的核心能力包括：[Fixture](/testdev-interview-site/glossary/fixture/) 机制（灵活的测试资源管理）、参数化测试（一键生成多组用例）、标记体系（按标签筛选执行）、插件生态（数百个插件扩展功能）、详细报告（失败时自动展示变量值和断言详情）。相比 Python 自带的 unittest，Pytest 的代码量通常减少 30%-50%，可读性更高。
 
 ### 为什么测试开发要学 Pytest
 
-**
+\*\*
 
-第一，行业主流标准**：超过 70% 的 Python 测试项目使用 Pytest，招聘 JD 几乎都要求掌握它。不懂 Pytest 会直接失去很多面试机会。
+第一，行业主流标准\*\*：超过 70% 的 Python 测试项目使用 Pytest，招聘 JD 几乎都要求掌握它。不懂 Pytest 会直接失去很多面试机会。
 
-**
+\*\*
 
-第二，面试高频考点**：Fixture 作用域、参数化设计、conftest 组织方式是面试必问。能讲清楚这些说明你有真实项目经验。
+第二，面试高频考点\*\*：Fixture 作用域、参数化设计、conftest 组织方式是面试必问。能讲清楚这些说明你有真实项目经验。
 
-**
+\*\*
 
-第三，框架设计能力体现**：Pytest 的设计理念（依赖注入、声明式配置）能帮你建立测试框架设计思维，这是从执行者到设计者的关键一步。
+第三，框架设计能力体现\*\*：Pytest 的设计理念（依赖注入、声明式配置）能帮你建立测试框架设计思维，这是从执行者到设计者的关键一步。
 
-**
+\*\*
 
-第四，生态丰富开箱即用**：pytest-html 生成报告、pytest-xdist 并行执行、pytest-rerunfailures 失败重试、allure-pytest 可视化报告，这些插件能快速提升框架能力。
+第四，生态丰富开箱即用\*\*：pytest-html 生成报告、pytest-xdist 并行执行、pytest-rerunfailures 失败重试、allure-pytest 可视化报告，这些插件能快速提升框架能力。
 
-**
+\*\*
 
-第五，与 CI/CD 无缝集成**：Pytest 输出的退出码和 JUnit XML 报告能被 Jenkins、GitLab CI、GitHub Actions 直接识别，是自动化流水线的标配。
+第五，与 CI/CD 无缝集成\*\*：Pytest 输出的退出码和 JUnit XML 报告能被 Jenkins、GitLab CI、GitHub Actions 直接识别，是自动化流水线的标配。
 
 ### Pytest vs unittest：为什么 Pytest 更适合新项目
-
-
 
 ## Pytest 与 unittest 对比
 
@@ -75,7 +73,7 @@ Pytest 与 unittest 的详细对比表格
 
 - | 特性 | Pytest | unittest | 说明 |
 - | --- | --- | --- | --- |
-- | 用例定义 | 普通函数，以 test_ 开头 | 必须继承 TestCase 类 | Pytest 更简洁，无需样板代码 |
+- | 用例定义 | 普通函数，以 test\_ 开头 | 必须继承 TestCase 类 | Pytest 更简洁，无需样板代码 |
 - | 断言方式 | 直接用 assert 语句 | 调用 self.assertEqual() 等方法 | Pytest 的 assert 会自动展示差异 |
 - | 资源管理 | Fixture + yield，灵活组合 | setUp/tearDown，固定层级 | Fixture 作用域更灵活，支持依赖注入 |
 - | 参数化 | @pytest.mark.parametrize 内置 | 需要第三方库或手动循环 | Pytest 一行代码搞定多组数据 |
@@ -101,14 +99,12 @@ Pytest 与 unittest 的详细对比表格
 
 ### 分阶段学习建议
 
-
-
 ## 第一阶段：基础语法
 
 基础语法阶段的学习目标、内容、练习和时间建议
 
 - **目标**：能独立编写和运行单文件测试用例
-- **学习内容**：用例命名规则（test_ 开头的函数/文件）、assert 断言用法、运行指定用例（文件名、类名、函数名、关键字）、-v 详细输出、-x 遇错即停、--tb 短格式错误信息
+- **学习内容**：用例命名规则（test\_ 开头的函数/文件）、assert 断言用法、运行指定用例（文件名、类名、函数名、关键字）、-v 详细输出、-x 遇错即停、--tb 短格式错误信息
 - **练习任务**：写一个 test_calculator.py，包含加减乘除 4 个测试函数，每个函数验证一个运算结果
 - **预期时间**：2-3 天
 
@@ -160,8 +156,6 @@ Fixture 和资源管理阶段的学习内容
 
 ### 案例难度说明
 
-
-
 ## 案例难度表
 
 案例难度和预期时间对照表
@@ -189,13 +183,59 @@ Fixture 和资源管理阶段的学习内容
 
 ### 你学到了什么
 
-用例命名规则（test_ 开头）、assert 断言语句、命令行运行方式、失败信息的可读性。
+用例命名规则（test\_ 开头）、assert 断言语句、命令行运行方式、失败信息的可读性。
 
 ### 下一步
 
 尝试在一个文件里写多个测试函数，学习如何只运行其中某一个（pytest test_first.py::test_add）。
 
+### 示例代码：第一个 Pytest 测试
 
+```python
+# test_first.py
+def test_add():
+    """测试加法"""
+    assert 1 + 1 == 2
+
+def test_string_contains():
+    """测试字符串包含"""
+    text = "Hello, 测试开发"
+    assert "测试" in text
+    assert len(text) > 5
+
+def test_list_operations():
+    """测试列表操作"""
+    items = [1, 2, 3]
+    items.append(4)
+    assert len(items) == 4
+    assert items[-1] == 4
+
+class TestCalculator:
+    """使用类组织相关测试"""
+
+    def setup_method(self):
+        """每个测试方法前执行"""
+        self.result = 0
+
+    def test_add(self):
+        self.result = 1 + 2
+        assert self.result == 3
+
+    def test_multiply(self):
+        self.result = 3 * 4
+        assert self.result == 12
+```
+
+```bash
+# 常用 pytest 命令
+pytest                          # 运行所有测试
+pytest test_first.py            # 运行指定文件
+pytest test_first.py::test_add  # 运行指定函数
+pytest -v                       # 详细输出
+pytest -x                       # 遇错即停
+pytest --tb=short               # 简短错误信息
+pytest -k "add"                 # 运行名称包含 add 的测试
+```
 
 ## 案例 1：搭建一个接口自动化项目骨架（基础）
 
@@ -211,7 +251,7 @@ Fixture 和资源管理阶段的学习内容
 
 **Fixture 准备**：执行测试前，conftest.py 中的 Fixture 按作用域和依赖关系初始化。\n\n比如 db fixture 准备数据库连接，api_client fixture 准备请求客户端。
 
-**用例执行**：从 tests/ 目录收集所有 test_ 开头的文件和函数，按配置顺序执行。每个用例函数通过参数声明需要的 Fixture。
+**用例执行**：从 tests/ 目录收集所有 test\_ 开头的文件和函数，按配置顺序执行。每个用例函数通过参数声明需要的 Fixture。
 
 **结果收集**：每个用例执行后，钩子函数收集结果，失败时触发截图、日志收集等逻辑。
 
@@ -219,7 +259,75 @@ Fixture 和资源管理阶段的学习内容
 
 ### 关键设计要点
 
+### 示例代码：项目骨架结构
 
+```
+project/
+├── pytest.ini              # Pytest 配置
+├── conftest.py             # 根目录共享 Fixture
+├── config/
+│   ├── dev.yaml            # 开发环境配置
+│   ├── test.yaml           # 测试环境配置
+│   └── prod.yaml           # 生产环境配置
+├── tests/
+│   ├── conftest.py         # 测试目录 Fixture
+│   ├── test_login.py       # 登录测试
+│   ├── test_order.py       # 订单测试
+│   └── api/
+│       └── conftest.py     # API 模块专用 Fixture
+├── utils/
+│   ├── http_client.py      # 请求客户端
+│   └── assertions.py       # 断言封装
+└── requirements.txt        # 依赖列表
+```
+
+```python
+# pytest.ini
+[pytest]
+testpaths = tests
+addopts = -v --tb=short --html=reports/report.html
+markers =
+    smoke: 冒烟测试
+    regression: 回归测试
+    api: 接口测试
+```
+
+```python
+# conftest.py - 根目录共享 Fixture
+import pytest
+import yaml
+from pathlib import Path
+from utils.http_client import HttpClient
+
+def load_config(env: str = "test") -> dict:
+    """加载环境配置"""
+    config_path = Path(__file__).parent / "config" / f"{env}.yaml"
+    with open(config_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+@pytest.fixture(scope="session")
+def config(request):
+    """会话级配置 Fixture"""
+    env = request.config.getoption("--env", default="test")
+    return load_config(env)
+
+@pytest.fixture(scope="session")
+def api_client(config) -> HttpClient:
+    """会话级 API 客户端"""
+    client = HttpClient(config["base_url"])
+    yield client
+    # 清理逻辑（如关闭 session）
+
+@pytest.fixture(scope="function")
+def test_user(api_client):
+    """函数级测试用户 Fixture"""
+    # 创建测试用户
+    resp = api_client.post("/users", json={"name": "test_user"})
+    user_id = resp["body"]["id"]
+    yield {"id": user_id, "name": "test_user"}
+    # 清理：删除测试用户
+    api_client.delete(f"/users/{user_id}")
+```
 
 ## 案例 1 关键要点
 
@@ -230,7 +338,7 @@ Fixture 和资源管理阶段的学习内容
 - | 目录分离 | 用例、配置、工具分目录存放 | 全部堆在根目录，难以维护 |
 - | conftest 层级 | 根目录放通用 Fixture，子目录放专用 Fixture | 所有 Fixture 都写在一个文件 |
 - | 配置集中 | pytest.ini 统一配置，避免命令行参数散落 | 每次运行都要输入长命令 |
-- | 命名规范 | 文件和函数都以 test_ 开头 | 命名不规范导致 Pytest 找不到用例 |
+- | 命名规范 | 文件和函数都以 test\_ 开头 | 命名不规范导致 Pytest 找不到用例 |
 
 ## 案例 2：测试异步回调接口（进阶）
 
@@ -251,8 +359,6 @@ Fixture 和资源管理阶段的学习内容
 第四步：验证最终状态。成功则校验返回数据，失败则记录错误原因。
 
 ### 关键要点
-
-
 
 ## 案例 2 关键要点
 
@@ -287,8 +393,6 @@ Mock 依赖隔离的测试流程
 
 ### 关键要点
 
-
-
 ## 案例 3 关键要点
 
 案例 3 的关键要点对照表
@@ -307,8 +411,6 @@ Mock 依赖隔离的测试流程
 以下是 Pytest 使用中常见的五个误区，了解这些误区可以帮助你避免踩坑，也能在面试中展示你的经验。
 
 ### 误区 1：把所有 Fixture 都写在根目录 conftest.py
-
-
 
 ## 误区 1：Fixture 文件组织混乱
 
@@ -426,8 +528,6 @@ Fixture 只做初始化，不做清理。或者清理逻辑写错位置（yield 
 
 ### 问题优先级说明
 
-
-
 ## 面试问题优先级
 
 面试问题的频率、难度和优先级对照表
@@ -458,8 +558,6 @@ Fixture 只做初始化，不做清理。或者清理逻辑写错位置（yield 
 
 ### 追问应对
 
-
-
 ## Q1 追问应对
 
 Q1 的追问应对策略
@@ -486,8 +584,6 @@ Fixture 作用域选择问题的回答骨架和深度答案
 **实际例子**：数据库连接池用 session，因为建立连接慢且可共享。测试用户 token 用 module 或 class，因为可能过期需要刷新。每条测试数据用 function，因为用例间不能互相影响。
 
 ### 追问应对
-
-
 
 ## Q2 追问应对
 
@@ -516,8 +612,6 @@ Q2 的追问应对策略
 
 ### 追问应对
 
-
-
 ## Q3 追问应对
 
 Q3 的追问应对策略
@@ -545,8 +639,6 @@ Q3 的追问应对策略
 
 ### 追问应对
 
-
-
 ## Q4 追问应对
 
 Q4 的追问应对策略
@@ -573,8 +665,6 @@ Pytest 相比 unittest 优势问题的回答骨架和深度答案
 **生态完善性**：数百个插件覆盖报告、并行、重试、Mock 等场景。与 CI/CD 无缝集成，报告格式通用。社区活跃，问题容易找到解决方案。
 
 ### 追问应对
-
-
 
 ## Q5 追问应对
 

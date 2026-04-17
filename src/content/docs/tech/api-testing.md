@@ -63,7 +63,7 @@ selfTests:
 
 ### 接口测试 vs UI 测试：两者怎么选？
 
-接口测试和 UI 测试各有优势，选择策略如下：执行效率方面，接口测试单用例毫秒级，UI 测试秒级起步，接口测试更适合高频回归。稳定性方面，接口测试不受前端改动影响，UI 测试容易因前端变化而失败。定位效率方面，接口测试失败能快速定位接口问题，UI 测试失败需要排查前端、后端、网络多层。覆盖范围方面，接口测试覆盖后端业务逻辑，UI 测试覆盖用户交互体验。维护成本方面，接口测试维护成本低，UI 测试维护成本高（选择器变化、页面结构变化）。建议策略：优先建设接口自动化，覆盖核心业务逻辑。UI 自动化聚焦关键用户路径和体验验证。用接口测试覆盖参数组合和异常场景，UI 测试覆盖端到端流程。
+接口测试和 UI 测试各有优势，选择策略如下：执行效率方面，接口测试单用例毫秒级，UI 测试秒级起步，接口测试更适合高频[回归](/testdev-interview-site/glossary/regression-testing/)。稳定性方面，接口测试不受前端改动影响，UI 测试容易因前端变化而失败。定位效率方面，接口测试失败能快速定位接口问题，UI 测试失败需要排查前端、后端、网络多层。覆盖范围方面，接口测试覆盖后端业务逻辑，UI 测试覆盖用户交互体验。维护成本方面，接口测试维护成本低，UI 测试维护成本高（选择器变化、页面结构变化）。建议策略：优先建设接口自动化，覆盖核心业务逻辑。UI 自动化聚焦关键用户路径和体验验证。用接口测试覆盖参数组合和异常场景，UI 测试覆盖端到端流程。
 
 面试时要强调：接口测试是性价比最高的自动化方向，但 UI 测试不可替代，两者是互补关系。
 
@@ -180,6 +180,51 @@ CI 集成和定时执行。
 学到的关键点：请求构造、响应断言、状态码验证、字段验证。
 
 下一步：扩展到更复杂的业务接口，增加数据库验证。
+
+### 示例代码：登录接口测试
+
+```python
+# test_login.py - 登录接口测试
+import pytest
+import requests
+
+BASE_URL = "https://api.example.com"
+
+def test_login_success():
+    """测试登录成功"""
+    resp = requests.post(
+        f"{BASE_URL}/login",
+        json={"username": "admin", "password": "admin123"},
+        timeout=10,
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "token" in data and data["token"] != ""
+
+def test_login_wrong_password():
+    """测试密码错误"""
+    resp = requests.post(
+        f"{BASE_URL}/login",
+        json={"username": "admin", "password": "wrong"},
+        timeout=10,
+    )
+    assert resp.status_code == 401
+
+def test_login_and_get_profile():
+    """登录后获取用户信息"""
+    session = requests.Session()
+    login_resp = session.post(
+        f"{BASE_URL}/login",
+        json={"username": "admin", "password": "admin123"},
+        timeout=10,
+    )
+    token = login_resp.json()["token"]
+    session.headers.update({"Authorization": f"Bearer {token}"})
+
+    profile_resp = session.get(f"{BASE_URL}/users/me", timeout=10)
+    assert profile_resp.status_code == 200
+    assert profile_resp.json()["username"] == "admin"
+```
 
 ### 案例 1：搭建接口自动化项目骨架（基础，1 小时）
 

@@ -7,9 +7,9 @@ interviewWeight: 2
 tags: ["Mock", "依赖隔离", "接口测试", "自动化"]
 ---
 
-## 基础入门：Mock 是什么 & 为什么学它
+## 基础入门：[Mock](/testdev-interview-site/glossary/mock-stub/) 是什么 & 为什么学它
 
-Mock 是测试中通过模拟外部依赖的行为来隔离测试环境的技术。它用预设的响应替代真实服务调用，让测试不依赖外部系统的可用性和状态。
+[Mock](/testdev-interview-site/glossary/mock-stub/) 是测试中通过模拟外部依赖的行为来隔离测试环境的技术。它用预设的响应替代真实服务调用，让测试不依赖外部系统的可用性和状态。
 
 Mock 的本质是「用假的服务换真的服务」，让测试完全可控、可重复、可预测。核心概念包括：
 

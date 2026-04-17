@@ -7,9 +7,9 @@ interviewWeight: 2
 tags: ["性能测试", "压测", "响应时间", "吞吐量"]
 ---
 
-## 基础入门：性能测试是什么 & 为什么学它
+## 基础入门：[性能测试](/testdev-interview-site/glossary/performance-testing-terms/)是什么 & 为什么学它
 
-性能测试是通过模拟用户负载来评估系统响应速度、吞吐量和稳定性的测试方法。
+[性能测试](/testdev-interview-site/glossary/performance-testing-terms/)是通过模拟用户负载来评估系统响应速度、吞吐量和稳定性的测试方法。
 
 核心目标是回答三个问题：系统在预期负载下能否正常运行？系统的性能瓶颈在哪里？系统能支撑多少用户？核心指标包括：
 

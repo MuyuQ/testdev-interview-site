@@ -9,7 +9,7 @@ tags: ["Docker", "容器化", "环境管理", "测试环境"]
 
 ## 说明
 
-Docker 在测试中用于快速拉起依赖服务、隔离测试环境和统一环境配置，减少环境准备成本。
+Docker 在测试中用于快速拉起依赖服务、隔离[测试环境](/testdev-interview-site/glossary/test-environment-management/)和统一环境配置，减少环境准备成本。
 
 ## 面试怎么问
 

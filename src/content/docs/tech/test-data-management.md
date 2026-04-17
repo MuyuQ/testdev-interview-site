@@ -9,7 +9,7 @@ tags: ["测试数据", "数据管理", "Fixture", "环境隔离"]
 
 ## 说明
 
-测试数据管理关注数据准备方式、环境隔离、数据清理和数据复用策略，是自动化稳定性的基础。
+测试数据管理关注数据准备方式、环境隔离、数据清理和数据复用策略，是自动化稳定性的基础。涉及 [Fixture](/testdev-interview-site/glossary/fixture/) 管理和[测试环境管理](/testdev-interview-site/glossary/test-environment-management/)。
 
 ## 面试怎么问
 

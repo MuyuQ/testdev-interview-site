@@ -51,7 +51,7 @@ selfTests:
 
 - 新旧系统做功能对比和数据一致性验证。
 - 流量切换做灰度、回滚和异常恢复测试。
-- 遗留依赖做接口兼容性和回归覆盖。
+- 遗留依赖做接口兼容性和[回归测试](/testdev-interview-site/glossary/regression-testing/)覆盖。
 
 ## 可讲成果
 

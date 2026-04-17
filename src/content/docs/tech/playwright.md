@@ -86,7 +86,7 @@ Playwright 是微软开发的新一代 Web 自动化测试框架，支持 Chromi
 
 - 第一阶段（基础操作，1周）：掌握元素定位（CSS、XPath、text）、基本操作（点击、输入、断言）、选择器策略（优先 data-testid）、运行和调试方法。练习任务：完成 5 个页面的基础操作测试。
 - 第二阶段（定位策略，1周）：深入选择器设计、处理动态内容、理解自动等待原理、使用 waitFor 系列方法。练习任务：为复杂页面（表格、弹窗、下拉框）编写稳定测试。
-- 第三阶段（高级特性，2周）：Page Object 模式、Fixture 复用、网络拦截与 Mock、多标签页和 iframe 处理、文件上传下载。练习任务：重构第一阶段代码为 Page Object 结构。
+- 第三阶段（高级特性，2周）：[Page Object 模式](/testdev-interview-site/glossary/page-object-pattern/)、Fixture 复用、网络拦截与 Mock、多标签页和 iframe 处理、文件上传下载。练习任务：重构第一阶段代码为 Page Object 结构。
 - 第四阶段（工程化，2周）：CI 集成、并发执行配置、测试报告优化、失败重试策略、测试数据管理。练习任务：搭建完整的自动化测试项目骨架。
 
 ## 时间投入建议
@@ -134,6 +134,34 @@ Playwright 是微软开发的新一代 Web 自动化测试框架，支持 Chromi
 掌握了 Playwright 的基本流程：打开页面、定位元素、执行操作、验证结果。
 
 理解了自动等待的价值：代码简洁、稳定性高。下一步是学习 Page Object 模式组织代码。
+
+### 示例代码：Playwright 登录测试
+
+```python
+# test_login.py - Playwright 登录测试
+import pytest
+from playwright.sync_api import Page, expect
+
+def test_login_success(page: Page):
+    """测试登录成功"""
+    page.goto("https://example.com/login")
+    page.get_by_test_id("username-input").fill("admin")
+    page.get_by_test_id("password-input").fill("admin123")
+    page.get_by_test_id("login-button").click()
+
+    # 验证跳转和欢迎语
+    expect(page).to_have_url("https://example.com/dashboard")
+    expect(page.get_by_test_id("welcome-message")).to_be_visible()
+
+def test_login_invalid_password(page: Page):
+    """测试密码错误"""
+    page.goto("https://example.com/login")
+    page.get_by_test_id("username-input").fill("admin")
+    page.get_by_test_id("password-input").fill("wrong")
+    page.get_by_test_id("login-button").click()
+
+    expect(page.get_by_test_id("error-message")).to_contain_text("密码错误")
+```
 
 ## 案例 1：Page Object 模式项目骨架（基础）
 

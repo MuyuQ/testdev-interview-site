@@ -21,3 +21,22 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Temporary site (Next.js source, not needed in Astro project)
+temp-site/
+
+# Claude worktrees and agent directories
+.claude/
+.worktrees/
+
+# Superpowers documentation (design docs, not needed in production)
+docs/superpowers/
+
+# Scripts (migration tools, not needed in production)
+scripts/
+
+# Test coverage
+coverage/
+
+# Package lock (optional, uncomment if needed)
+# package-lock.json

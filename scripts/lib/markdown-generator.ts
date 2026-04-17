@@ -1,7 +1,6 @@
 import type {
   ContentTopic,
   GlossaryTerm,
-  StandardTopic,
   AILearningGuide,
   PracticeTemplate,
   TopicSection,
@@ -147,7 +146,7 @@ export function generateFrontmatter(
 }
 
 export function generateBody(topic: ContentTopic): string {
-  const sections = (topic as any).sections || [];
+  const sections = ("sections" in topic ? topic.sections : []) as TopicSection[];
   if (sections.length === 0) return "";
 
   const parts: string[] = [];
@@ -186,7 +185,7 @@ function generateSection(section: TopicSection, category: string): string {
   return md;
 }
 
-function renderRichText(tokens: RichTextToken[], category: string): string {
+function renderRichText(tokens: RichTextToken[], _category: string): string {
   return tokens
     .map((token) => {
       if (token.type === "text") {

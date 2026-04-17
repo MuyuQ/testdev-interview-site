@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync, existsSync, readdirSync } from "fs";
+import { mkdirSync, writeFileSync, existsSync } from "fs";
 import { resolve, join, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { generateFrontmatter, generateBody } from "./lib/markdown-generator.js";
@@ -42,7 +42,7 @@ async function main() {
   ];
 
   // Build self-test lookup by topicSlug
-  const selfTestsByTopic: Record<string, any[]> = {};
+  const selfTestsByTopic: Record<string, unknown[]> = {};
   for (const group of selfTestData) {
     selfTestsByTopic[group.topicSlug] = group.questions;
   }
@@ -69,9 +69,10 @@ async function main() {
       writeFileSync(outputPath, content, "utf-8");
       generated++;
       console.log(`  ✓ ${topic.category}/${topic.slug}.md`);
-    } catch (err: any) {
-      errors.push(`${topic.category}/${topic.slug}: ${err.message}`);
-      console.error(`  ✗ ${topic.category}/${topic.slug}: ${err.message}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      errors.push(`${topic.category}/${topic.slug}: ${message}`);
+      console.error(`  ✗ ${topic.category}/${topic.slug}: ${message}`);
     }
   }
 

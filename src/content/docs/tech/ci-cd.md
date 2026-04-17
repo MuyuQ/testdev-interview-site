@@ -39,6 +39,30 @@ selfTests:
 
 ### CI/CD 是什么？
 
+```mermaid
+flowchart LR
+    Dev["开发者提交代码"] --> Trigger{"触发条件"}
+    Trigger -->|"代码提交"| CI["持续集成 CI"]
+    Trigger -->|"合并请求"| CI
+    Trigger -->|"定时触发"| CI
+
+    CI --> Build["自动构建"]
+    Build --> Test["自动测试"]
+    Test --> Gate{"质量门禁"}
+
+    Gate -->|"通过"| Deploy["持续交付 CD"]
+    Gate -->|"失败"| Notify["失败通知 & 阻断"]
+
+    Deploy --> Prod["部署到生产/预发布"]
+    Prod --> Monitor["监控 & 反馈"]
+    Monitor --> Dev
+
+    style CI fill:#3b82f6,color:#fff
+    style Gate fill:#f59e0b,color:#fff
+    style Deploy fill:#22c55e,color:#fff
+    style Notify fill:#ef4444,color:#fff
+```
+
 CI/CD 是持续集成和持续交付的简称，是一套自动化软件交付的实践和方法。持续集成（CI）指开发者频繁将代码合并到主干，每次合并自动触发构建和测试，快速发现集成问题。持续交付（CD）指代码通过 CI 后自动部署到生产环境或预发布环境，实现一键发布。对于测试开发而言，CI/CD 不只是自动构建工具，而是质量保障的基础设施：在代码提交后自动运行测试、在合并请求时执行质量门禁、在发布前执行全量回归。CI/CD 的核心价值在于：
 
 第一，快速反馈，代码提交后几分钟内知道测试是否通过。

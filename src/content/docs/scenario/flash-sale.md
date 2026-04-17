@@ -37,6 +37,34 @@ selfTests:
 
 ## 场景背景
 
+```mermaid
+flowchart TD
+    User["用户发起抢购请求"] --> Frontend["前端限流: 按钮防抖 + 验证码"]
+    Frontend --> Gateway["网关层: IP限流 + 黑名单过滤"]
+    Gateway --> Redis{"Redis库存检查"}
+
+    Redis -->|"库存充足"| Lock["分布式锁: 原子扣减库存"]
+    Redis -->|"库存不足"| SoldOut["返回售罄提示"]
+
+    Lock --> MQ["消息队列: 削峰填谷"]
+    MQ --> Order["订单服务: 创建订单"]
+    Order --> DB["数据库: 持久化订单 & 库存"]
+
+    DB --> Success["返回抢购成功"]
+    DB -->|"异常"| CircuitBreaker["熔断降级: 保护核心服务"]
+
+    CircuitBreaker --> Fallback["降级处理: 友好提示"]
+
+    DB -.->|"定时核对"| Reconcile["对账任务: 缓存/DB/订单三方校验"]
+    Reconcile -.->|"发现差异"| Alert["告警 & 自动修复"]
+
+    style User fill:#3b82f6,color:#fff
+    style Redis fill:#f59e0b,color:#fff
+    style Lock fill:#22c55e,color:#fff
+    style DB fill:#8b5cf6,color:#fff
+    style CircuitBreaker fill:#ef4444,color:#fff
+```
+
 秒杀/抢购是电商、票务、营销活动等高并发场景的典型代表，特点是瞬间流量巨大、库存有限、时间窗口短。用户在固定时间点抢购限量商品，系统需要在极短时间内处理海量请求，同时保证库存准确、订单不超卖、用户体验可接受。面试高频的原因有三：
 
 第一，秒杀场景涉及分布式系统的核心难题——缓存一致性、分布式锁、消息队列削峰、限流降级，是考察候选人系统设计能力的综合场景。

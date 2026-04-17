@@ -36,6 +36,48 @@ relatedSlugs: ["defect-management", "quality-metrics"]
 
 ## 基础入门
 
+```mermaid
+stateDiagram-v2
+    [*] --> New: 测试发现并提交
+    New --> Confirmed: 开发确认是真实缺陷
+    New --> Rejected: 开发认为不是Bug
+    Confirmed --> InProgress: 开发开始修复
+    InProgress --> Fixed: 开发完成修复
+    Fixed --> Verified: 测试验证通过
+    Fixed --> InProgress: 验证失败 Reopen
+    Verified --> Closed: 测试关闭Bug
+    Closed --> New: 回归发现问题 Reopen
+    Rejected --> New: 补充信息后重新提交
+
+    note right of New
+        包含完整信息:
+        描述、复现步骤
+        预期/实际结果
+        环境信息、截图
+    end note
+
+    note right of Fixed
+        开发记录:
+        修复方案、影响范围
+        修复版本、验证建议
+    end note
+
+    note right of Verified
+        测试验证三个条件:
+        1. 问题不复现
+        2. 无新问题
+        3. 相关场景通过
+    end note
+
+    style New fill:#3b82f6,color:#fff
+    style Confirmed fill:#8b5cf6,color:#fff
+    style InProgress fill:#f59e0b,color:#fff
+    style Fixed fill:#06b6d4,color:#fff
+    style Verified fill:#22c55e,color:#fff
+    style Closed fill:#6b7280,color:#fff
+    style Rejected fill:#ef4444,color:#fff
+```
+
 Bug 生命周期（Bug Lifecycle）描述缺陷从发现到关闭的完整流转过程。典型状态包括：
 
 新建（测试发现）。
@@ -93,6 +135,7 @@ Bug 生命周期的价值体现在三方面：
 第一步：新建 Bug（测试人员）
 操作：在 Jira 创建 Bug，填写完整信息
 内容：
+
 - 标题：库存为 0 时仍能下单成功
 - 描述：用户在商品库存为 0 的情况下，仍能提交订单成功
 - 复现步骤：
@@ -102,12 +145,13 @@ Bug 生命周期的价值体现在三方面：
 2. 用户下单。
 
 3. 订单创建成功
+
 - 预期结果：下单失败，提示库存不足
 - 实际结果：下单成功，订单创建
 - 环境：测试环境 v1.2.0
 - 优先级：P0（阻塞性问题）
 - 附件：请求和响应日志截图
-状态流转：新建 → 等待开发确认
+  状态流转：新建 → 等待开发确认
 
 第二步：确认 Bug（开发人员）
 操作：开发查看 Bug，复现问题，确认是真实缺陷

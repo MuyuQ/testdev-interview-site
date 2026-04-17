@@ -5,7 +5,7 @@ category: "ai-learning"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["AI", "接口测试", "效率"]
-learningGoal: "建立"AI 能辅助什么、不能替代什么"的清晰判断，并把它落到接口测试流程里。"
+learningGoal: '建立"AI 能辅助什么、不能替代什么"的清晰判断，并把它落到接口测试流程里。'
 whyNow: "接口测试的输入输出结构清晰，最适合率先接入 AI 辅助生成和分析能力。"
 learningSteps:
   - "先让 AI 帮你整理接口文档、枚举异常输入和边界条件。"

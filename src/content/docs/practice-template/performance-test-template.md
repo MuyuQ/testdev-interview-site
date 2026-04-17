@@ -19,6 +19,13 @@ extensionIdeas:
   - "加入容量规划和风险预警机制。"
   - "设计自动化性能回归流程。"
   - "结合 APM 工具做深度根因分析。"
+termLinks:
+  - slug: "performance-testing-terms"
+    term: "性能测试术语"
+  - slug: "smoke-testing"
+    term: "冒烟测试"
+  - slug: "test-environment-management"
+    term: "测试环境管理"
 ---
 
 ## 模板使用说明

@@ -22,6 +22,41 @@ commonMistakes:
 interviewTalkingPoints:
   - "你理解 LLM 更像高效助手，而不是质量裁判。"
   - "在真实项目里你会保留规则校验、人工复核或评审兜底。"
+termLinks:
+  - slug: "exploratory-testing"
+    term: "探索性测试"
+  - slug: "error-guessing"
+    term: "错误猜测法"
+  - slug: "test-coverage"
+    term: "测试覆盖率"
+selfTests:
+  - id: "llm-strength-tasks"
+    question: "LLM 最擅长哪类任务？"
+    options:
+      - "业务正确性判断"
+      - "模式归纳、内容生成、语言转换、相似召回"
+      - "实时状态验证"
+      - "复杂因果推理"
+    correctIndex: 1
+    explanation: "LLM 擅长模式归纳（从日志提取特征）、内容生成（用例草稿、文档初稿）、语言转换（需求转测试点）、相似召回（历史用例匹配）。不擅长业务判断、实时验证和复杂推理。"
+  - id: "llm-weakness-tasks"
+    question: "以下哪项任务不应该交给 LLM？"
+    options:
+      - "从大量日志中提取共同特征"
+      - "生成测试用例草稿"
+      - "涉及权限和数据脱敏的安全敏感决策"
+      - "把需求文档转成测试关注点"
+    correctIndex: 2
+    explanation: "涉及权限、数据脱敏、安全边界的决策不应交给 LLM，因为 LLM 无法理解业务规则，可能生成看似合理但实际错误的判断。"
+  - id: "llm-boundary-awareness"
+    question: "如何正确展示对 LLM 的边界意识？"
+    options:
+      - "强调 LLM 能替代大部分测试工作"
+      - "说明 LLM 是流程中的一环而非独立决策点，关键决策保留人工或规则兜底"
+      - "只说 LLM 的提效效果"
+      - "回避 LLM 的局限性"
+    correctIndex: 1
+    explanation: "正确的边界意识是：LLM 是流程中的一环（AI 生成 → 人工筛选 → 规则校验 → 上线），不是独立决策点。关键决策一定保留人工或规则兜底。"
 ---
 
 ## 学习目标

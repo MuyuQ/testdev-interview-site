@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "beginner"
 interviewWeight: 1
 tags: ["报告", "测试报告", "自动化", "CI/CD"]
+selfTests:
+  - id: "report-failure-info"
+    question: "测试报告中失败用例必须包含哪些信息？"
+    options:
+      - "只用例名和状态"
+      - "用例名、状态、错误信息、输入数据、预期结果、实际结果"
+      - "只用例名"
+      - "只记录错误信息"
+    correctIndex: 1
+    explanation: "失败用例的信息必须完整：用例名称和描述、测试数据、预期结果、实际结果、错误信息和堆栈、失败时间点、关联的请求/响应数据、环境信息。"
+  - id: "report-ci-integration"
+    question: "测试报告如何支持 CI 集成？"
+    options:
+      - "只生成 HTML 报告"
+      - "同时生成 JSON 格式报告，包含结构化指标数据供 CI 系统解析"
+      - "只生成 PDF 报告"
+      - "不需要支持 CI 集成"
+    correctIndex: 1
+    explanation: "报告格式要适配不同场景：HTML 适合人工查看，JSON 适合程序解析供 CI 系统做质量门禁判断，Markdown 适合归档和邮件发送。"
+  - id: "report-history-comparison"
+    question: "为什么测试报告需要支持历史对比？"
+    options:
+      - "不需要历史对比"
+      - "历史对比占用存储空间"
+      - "可以看到质量趋势，发现通过率变化、新增失败用例等信号"
+      - "历史对比只用于审计"
+    correctIndex: 2
+    explanation: "报告生成时保存指标快照，下次生成时读取历史数据计算变化趋势。通过率从 95% 降到 90% 是重要信号，没有历史对比就无法发现。"
 ---
 
 ## 题目背景

@@ -19,6 +19,13 @@ extensionIdeas:
   - "引入数据池和复用机制减少创建开销。"
   - "支持数据快照和回滚能力。"
   - "与 Mock 服务联动，实现端到端数据仿真。"
+termLinks:
+  - slug: "data-driven-testing"
+    term: "数据驱动测试"
+  - slug: "fixture"
+    term: "Fixture"
+  - slug: "equivalence-class-partition"
+    term: "等价类划分"
 ---
 
 ## 模板使用说明

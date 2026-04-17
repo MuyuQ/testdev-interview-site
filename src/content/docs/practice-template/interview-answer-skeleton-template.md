@@ -20,6 +20,11 @@ extensionIdeas:
   - "针对不同难度问题准备简版和详版。"
   - "增加数据支撑和指标量化。"
   - "补充团队协作和软技能维度。"
+termLinks:
+  - slug: "test-pyramid"
+    term: "测试金字塔"
+  - slug: "quality-gate"
+    term: "质量门禁"
 ---
 
 ## 模板使用说明

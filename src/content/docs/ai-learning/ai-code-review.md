@@ -23,6 +23,39 @@ interviewTalkingPoints:
   - "说明你把 AI 用于第一轮基础检查，人工专注于业务逻辑和设计问题。"
   - "举例 AI 发现过的一个有效问题和一次误报。"
   - "强调数据安全和敏感代码的处理方式。"
+termLinks:
+  - slug: "quality-gate"
+    term: "质量门禁"
+  - slug: "api-assertion"
+    term: "接口断言"
+selfTests:
+  - id: "ai-review-human-division"
+    question: "AI 辅助代码 Review 中，人机分工的合理设计是什么？"
+    options:
+      - "AI 负责所有检查，人工只做最终确认"
+      - "AI 做第一轮基础检查（命名规范、代码重复、安全漏洞），人工专注业务逻辑和架构设计"
+      - "人工做第一轮检查，AI 做第二轮复核"
+      - "AI 和人工各自独立检查，结果合并"
+    correctIndex: 1
+    explanation: "AI 擅长模式匹配和规则检查，适合处理命名规范、代码重复、简单逻辑问题等可规则化的内容。人工 Review 的核心价值是知识传递和设计讨论，专注于业务逻辑正确性和架构设计。"
+  - id: "ai-review-sensitive-code"
+    question: "涉及敏感业务逻辑的代码应该如何处理？"
+    options:
+      - "直接发送给外部 AI 服务进行 Review"
+      - "跳过 AI Review，只做人工检查"
+      - "优先选择可私有化部署的方案或使用企业版 AI 服务"
+      - "脱敏后发送给任意 AI 服务"
+    correctIndex: 2
+    explanation: "涉及敏感业务逻辑、密钥、用户数据的代码必须谨慎处理，优先选择可私有化部署的方案或使用企业版 AI 服务，避免数据泄露风险。"
+  - id: "ai-review-accuracy-improvement"
+    question: "如何持续提升 AI Review 的准确率？"
+    options:
+      - "使用更强大的 AI 模型即可"
+      - "建立反馈机制，定期分析误报原因并调整规则"
+      - "减少 AI 检查的项目数量"
+      - "只让 AI 检查语法问题"
+    correctIndex: 1
+    explanation: "AI Review 准确率需要通过反馈机制持续优化。每次 Review 后开发者标记 AI 判断是否有效，定期分析误报原因调整规则和 Prompt，逐步提升准确率。"
 ---
 
 ## 学习目标

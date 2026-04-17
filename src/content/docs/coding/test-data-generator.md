@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["测试数据", "数据生成", "边界值", "自动化"]
+selfTests:
+  - id: "data-generator-modes"
+    question: "测试数据生成器至少应该支持哪几种生成模式？"
+    options:
+      - "只生成正向数据"
+      - "正向数据（正常场景）、边界数据（临界值）、异常数据（违规数据）"
+      - "只生成随机数据"
+      - "只生成边界数据"
+    correctIndex: 1
+    explanation: "数据生成器至少支持三种模式：正向（正常数据验证功能正确性）、边界（临界值验证边界处理）、异常（违规数据验证异常处理）。"
+  - id: "data-generator-reproducibility"
+    question: "如何保证测试数据生成的可重复性？"
+    options:
+      - "每次使用完全不同的随机数据"
+      - "使用随机种子控制数据生成的随机性，测试失败时可以复现"
+      - "数据不可重复也没关系"
+      - "只使用固定数据"
+    correctIndex: 1
+    explanation: "使用随机种子控制数据生成的随机性，测试用例可以指定种子值保证每次生成相同数据。或者在测试失败时记录使用的数据，方便复现。"
+  - id: "data-generator-structure"
+    question: "为什么测试数据生成需要使用 dataclass 或 TypedDict 定义结构？"
+    options:
+      - "不需要定义结构"
+      - "保证字段一致性，编译器/IDE 可以检查字段名和类型"
+      - "只是为了代码好看"
+      - "dataclass 性能更好"
+    correctIndex: 1
+    explanation: "使用 dataclass 或 TypedDict 定义数据结构，编译器/IDE 可以检查字段名和类型。所有数据生成器返回统一的结构类型，避免字段拼写错误和类型不一致。"
 ---
 
 ## 题目背景

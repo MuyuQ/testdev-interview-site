@@ -21,6 +21,39 @@ commonMistakes:
 interviewTalkingPoints:
   - "突出你学这些技术是为了更好地做环境管理和问题定位。"
   - "可以结合 AI 辅助查阅文档和解释日志，说明学习提效方式。"
+termLinks:
+  - slug: "test-environment-management"
+    term: "测试环境管理"
+  - slug: "performance-testing-terms"
+    term: "性能测试术语"
+selfTests:
+  - id: "cloud-native-learning-path"
+    question: "测试开发学习云原生的正确路径是什么？"
+    options:
+      - "先深入学习 K8s 架构和网络模型"
+      - "从场景出发：Docker 跑环境 → Kubectl 看状态 → 日志平台查问题 → 按需深入"
+      - "直接学习 Prometheus 和 Grafana"
+      - "先掌握所有云原生技术再实践"
+    correctIndex: 1
+    explanation: "测试开发学习云原生应从场景出发，先学会用 Docker 跑环境、用 Kubectl 看状态、用日志平台查问题，再根据工作需要深入学习，不要一开始就陷入复杂理论。"
+  - id: "k8s-basic-objects"
+    question: "测试开发至少需要看懂哪些 Kubernetes 基本对象？"
+    options:
+      - "只需要了解 Node 和 Cluster"
+      - "Pod、Deployment、ConfigMap、Ingress"
+      - "只需要了解 Service"
+      - "所有 K8s 对象都需要深入理解"
+    correctIndex: 1
+    explanation: "测试开发需要至少看懂 Pod（最小调度单元）、Deployment（管理副本和更新）、ConfigMap（配置管理）、Ingress（外部访问）等基本对象。"
+  - id: "observability-three-pillars"
+    question: "可观测性三支柱在测试中的正确应用顺序是什么？"
+    options:
+      - "先看链路追踪，再看指标，最后看日志"
+      - "先看日志找报错信息，再看指标确认性能异常，最后看链路追踪找根因"
+      - "只看日志就够了"
+      - "三者同时查看，没有先后顺序"
+    correctIndex: 1
+    explanation: "定位问题的三步走：先看日志找到报错信息和堆栈，再看指标确认是否有性能异常（CPU、内存、响应时间），最后看链路追踪跨服务调用找到根因。"
 ---
 
 ## 基础入门

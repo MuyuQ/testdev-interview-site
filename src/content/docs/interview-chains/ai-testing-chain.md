@@ -6,6 +6,41 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "ai-learning"]
 chainCategory: "ai-learning"
+termLinks:
+  - slug: "api-assertion"
+    term: "接口断言"
+  - slug: "test-coverage"
+    term: "测试覆盖率"
+  - slug: "exploratory-testing"
+    term: "探索性测试"
+selfTests:
+  - id: "ai-chain-question-progression"
+    question: "AI 辅助测试追问链的设计逻辑是什么？"
+    options:
+      - "从工具使用到场景应用到质量保障再到边界认知逐步深入"
+      - "从边界认知到工具使用逐步深入"
+      - "只考察工具使用经验"
+      - "只考察理论知识"
+    correctIndex: 0
+    explanation: "AI 测试追问链从「工具使用」→「场景应用」→「质量保障」→「边界认知」逐步深入，判断候选人是盲目使用者还是有边界意识的理性实践者。"
+  - id: "ai-chain-quality-guarantee"
+    question: "AI 生成测试用例的质量保障三步是什么？"
+    options:
+      - "直接使用 AI 生成的用例"
+      - "业务过滤 → 断言验证 → 边界补充"
+      - "只验证断言"
+      - "只补充边界"
+    correctIndex: 1
+    explanation: "质量保障三步：业务过滤（删除无关用例）、断言验证（确认业务语义正确）、边界补充（根据业务特点补充 AI 可能遗漏的场景）。"
+  - id: "ai-chain-llm-limitations"
+    question: "LLM 在测试领域的主要局限性包括哪些？"
+    options:
+      - "生成速度太慢"
+      - "幻觉问题、上下文限制、领域知识不足、数据安全风险"
+      - "不支持中文"
+      - "无法生成代码"
+    correctIndex: 1
+    explanation: "LLM 的局限性包括：幻觉问题（生成看似合理但错误的内容）、上下文限制（无法访问系统实时状态）、领域知识不足、数据安全风险。正确定位是高效助手而非质量裁判。"
 ---
 
 ## AI辅助测试链

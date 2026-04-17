@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["重试", "封装", "稳定性"]
+selfTests:
+  - id: "retry-error-classification"
+    question: "哪些错误应该被归类为可重试错误？"
+    options:
+      - "所有错误都应该重试"
+      - "网络超时、连接异常、5xx 服务端错误"
+      - "4xx 客户端错误、业务异常"
+      - "认证失败"
+    correctIndex: 1
+    explanation: "可重试错误包括网络超时、连接异常、5xx 服务端错误。4xx 客户端错误、业务异常（如余额不足）、认证失败通常不可重试。"
+  - id: "retry-idempotency-risk"
+    question: "对支付、下单等写操作重试时需要注意什么？"
+    options:
+      - "直接重试，不需要考虑副作用"
+      - "确认幂等性，使用幂等键或服务端去重机制"
+      - "写操作不应该重试"
+      - "增加重试次数"
+    correctIndex: 1
+    explanation: "写操作重试前必须确认幂等性，否则第一次请求可能已成功，重试导致重复扣款或重复下单。方案：使用幂等键、服务端去重、或改用异步补偿机制。"
+  - id: "retry-backoff-strategy"
+    question: "为什么重试需要使用退避策略？"
+    options:
+      - "退避策略让代码更复杂"
+      - "立即重试能更快恢复"
+      - "避免重试风暴，服务可能在恢复中，立即重试会加剧压力"
+      - "退避策略没有实际作用"
+    correctIndex: 2
+    explanation: "使用指数退避策略（如 100ms → 200ms → 400ms），加上随机抖动避免惊群效应。服务可能正在恢复中，立即重试会加剧压力，大量请求同时重试可能造成雪崩。"
 ---
 
 ## 题目背景

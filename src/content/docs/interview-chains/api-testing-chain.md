@@ -6,6 +6,41 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "tech"]
 chainCategory: "tech"
+termLinks:
+  - slug: "api-assertion"
+    term: "接口断言"
+  - slug: "mock-stub"
+    term: "Mock 与 Stub"
+  - slug: "idempotency"
+    term: "幂等"
+selfTests:
+  - id: "api-chain-test-design"
+    question: "接口测试用例设计应该覆盖哪些维度？"
+    options:
+      - "只覆盖正常场景"
+      - "正向用例、边界用例、异常用例、安全用例、性能用例"
+      - "只覆盖异常场景"
+      - "只覆盖安全场景"
+    correctIndex: 1
+    explanation: "接口测试应覆盖多维度：正向用例验证功能正确性、边界用例验证边界处理、异常用例验证异常处理、安全用例验证安全防护、性能用例验证性能表现。"
+  - id: "api-chain-mock-scenarios"
+    question: "什么情况下需要使用 Mock？"
+    options:
+      - "所有测试都需要 Mock"
+      - "外部依赖不可用、异常响应模拟、性能测试消除干扰、并行开发"
+      - "不需要使用 Mock"
+      - "只在 UI 测试中使用"
+    correctIndex: 1
+    explanation: "Mock 适用于：外部依赖不可用（第三方 API 未开发完成或不稳定）、异常响应模拟（超时、错误码）、性能测试消除外部干扰、前后端并行开发。"
+  - id: "api-chain-contract-testing"
+    question: "契约测试的核心价值是什么？"
+    options:
+      - "替代接口测试"
+      - "验证服务间接口约定一致性，解耦依赖，变更安全，快速反馈"
+      - "测试业务逻辑"
+      - "性能测试"
+    correctIndex: 1
+    explanation: "契约测试验证服务提供者和服务消费者之间的接口约定是否一致。核心价值是解耦依赖、变更安全（及时发现不兼容变更）、快速反馈。"
 ---
 
 ## 接口测试链

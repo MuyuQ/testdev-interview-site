@@ -32,6 +32,9 @@ answerHints:
   - "保证 A/B 测试结果可信的方法是「保证分组随机、样本量足够、统计显著性达标、排除干扰因素」：\n\n第一，保证分组随机和均匀。分组随机性是 A/B 测试可信的基础，如果分组不随机（如让活跃用户看新版本），结果会产生偏差。保证方法：使用随机分组算法（如按用户 ID 哈希后取模），分配算法不可人为干预。分组后验证各组用户特征分布是否一致（如 A 组和 B 组的平均年龄、男女比例、活跃度是否相似）。\\n\\n如果分布不一致要调整分组策略或使用分层抽样。\n\n第二，保证样本量足够。样本量太小会导致统计显著性不足，结果可能只是随机波动。保证方法：实验前计算最小样本量（根据期望提升效果、显著性水平、统计功效计算），实验运行到达到最小样本量后才能分析结果。如果流量小要延长实验时间，不能提前结束。样本量计算示例：期望点击率从 5% 提升到 5.5%（提升 10%），显著性水平 0.05，统计功效 80%，每组需要约 15000 样本。\n\n第三，保证统计显著性达标。统计显著性表示结果不是随机波动的概率。保证方法：使用统计检验（如 t 检验、卡方检验）计算 p 值，p 值小于 0.05 才认为结果有统计显著性。计算置信区间，置信区间不包含 0 才认为有显著差异。报告结果时说明统计显著性水平和置信区间，不能只报告平均值差异。\n\n第四，排除干扰因素。实验期间可能有其他因素影响结果（如节假日、营销活动、系统故障）。保证方法：实验期间保持其他因素一致（不做大的营销活动、不做系统变更）。记录实验期间的事件，分析是否对结果有影响。如果实验期间有重大干扰因素，要排除干扰后重新实验。面试时要说明：A/B 测试可信性要同时满足「分组随机+样本量足够+统计显著+无干扰」，缺一不可。\n\n同时要说明具体的技术方法（随机分组算法、样本量计算公式、统计检验方法）。"
   - "A/B 测试和灰度发布的配合策略是「灰度保稳定、A/B 验效果」：\n\n两者的区别和联系：灰度发布是技术发布策略，目的是降低发布风险、逐步放开新版本范围、发现问题快速回滚。A/B 测试是产品实验方法，目的是对比方案效果、验证产品假设、用数据驱动产品决策。灰度发布关注「发布是否稳定」，A/B 测试关注「方案是否更好」。\n\n配合场景一：灰度发布配合 A/B 测试。灰度发布先放开小范围流量（如 5% 用户看新版本），在灰度期间做 A/B 测试验证新版本效果。\\n\\n如果 A/B 测试证明新版本更好且灰度期间无严重问题，逐步扩大灰度范围到 100%。配合好处：灰度保证发布稳定（有问题快速回滚），A/B 测试验证产品效果（用数据证明方案更好），两者结合既保证稳定又验证效果。\n\n配合场景二：灰度发布独立于 A/B 测试。灰度发布用于技术变更（如新架构、新版本），A/B 测试用于产品变更（如新功能、新 UI）。技术变更只做灰度不做 A/B（因为目的是稳定不是对比效果），产品变更做灰度+A/B（灰度保稳定，A/B 验效果）。\n\n具体配合流程：新版本先灰度发布到 5% 流量观察稳定性（监控错误率、性能、用户反馈），灰度期间无问题开始 A/B 测试（5% 流量分 A 组和 B 组对比效果），A/B 测试有统计显著结果且新版本更好，逐步扩大灰度到 50%、100%。\n\n面试时要说明：灰度发布和 A/B 测试是两个不同目的的方法，但可以配合使用。灰度保证「发布稳定」，A/B 验证「产品效果」，两者结合实现「稳定发布+效果验证」。\n\n同时要说明两者的区别：灰度关注技术稳定性，A/B 关注产品效果。灰度是发布手段，A/B 是实验方法。"
 relatedSlugs: ["data-driven-testing", "canary-release"]
+termLinks:
+  - slug: "data-driven-testing"
+    term: "数据驱动测试"
 ---
 
 ## 基础入门
@@ -91,6 +94,7 @@ A/B 测试只测试单一变量的两个版本（如按钮颜色的红 vs 蓝）
 场景：测试「立即购买」按钮颜色对点击率的影响，当前按钮是蓝色（A 组），假设红色按钮（B 组）点击率更高。
 
 实验设计：
+
 1. 明确假设：红色按钮的点击率比蓝色按钮提升 10%（从 5% 提升到 5.5%）。
 
 2. 计算样本量：显著性水平 0.05，统计功效 80%，每组需要约 15000 用户。
@@ -102,15 +106,15 @@ A/B 测试只测试单一变量的两个版本（如按钮颜色的红 vs 蓝）
 5. 实验时长：根据日均流量计算，需要运行 7 天达到最小样本量。
 
 技术实现（伪代码）：
-def get_button_color(user_id):
-    # 根据用户 ID 分组，保证同一用户始终看到同一颜色
-    group = hash(user_id) % 100
-    if group < 50:
-        return 'blue'   # A 组：对照组
-    else:
-        return 'red'    # B 组：实验组
+def get_button_color(user_id): # 根据用户 ID 分组，保证同一用户始终看到同一颜色
+group = hash(user_id) % 100
+if group < 50:
+return 'blue' # A 组：对照组
+else:
+return 'red' # B 组：实验组
 
 # 数据采集：记录每次按钮曝光和点击
+
 log_event(user_id, 'button_expose', {'color': button_color, 'group': group})
 log_event(user_id, 'button_click', {'color': button_color, 'group': group})
 
@@ -127,12 +131,11 @@ log_event(user_id, 'button_click', {'color': button_color, 'group': group})
 解决方案：分层实验框架。将流量分成多个正交层，每层独立进行实验，用户在不同层被随机重新分配，保证层与层之间互不影响。
 
 技术实现（伪代码）：
-def get_experiment_group(user_id, layer_name, experiment_name):
-    # 使用层名 + 实验名作为哈希因子，保证不同层的分组正交
-    hash_factor = f"{layer_name}_{experiment_name}"
-    hash_value = hash(f"{user_id}_{hash_factor}")
-    bucket = hash_value % 100
-    
+def get*experiment_group(user_id, layer_name, experiment_name): # 使用层名 + 实验名作为哈希因子，保证不同层的分组正交
+hash_factor = f"{layer_name}*{experiment*name}"
+hash_value = hash(f"{user_id}*{hash_factor}")
+bucket = hash_value % 100
+
     # 根据实验配置返回分组
     if bucket < 50:
         return 'control'
@@ -140,6 +143,7 @@ def get_experiment_group(user_id, layer_name, experiment_name):
         return 'treatment'
 
 # 不同层的实验独立分组
+
 homepage_group = get_experiment_group(user_id, 'layer_ui', 'homepage_test')
 search_group = get_experiment_group(user_id, 'layer_algo', 'search_test')
 payment_group = get_experiment_group(user_id, 'layer_flow', 'payment_test')

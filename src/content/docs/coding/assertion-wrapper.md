@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["断言", "封装", "接口测试"]
+selfTests:
+  - id: "assertion-layer-design"
+    question: "分层断言设计中，协议层断言和业务层断言的区别是什么？"
+    options:
+      - "协议层断言校验状态码和响应结构，业务层断言校验业务逻辑如订单状态和金额计算"
+      - "协议层断言校验业务逻辑，业务层断言校验状态码"
+      - "两层断言功能完全相同"
+      - "协议层断言只在 UI 测试中使用"
+    correctIndex: 0
+    explanation: "协议层断言通用性强，校验状态码、响应头、响应体结构，可跨项目复用。业务层断言根据具体业务定制，校验订单状态、金额计算等业务规则。"
+  - id: "assertion-error-info"
+    question: "断言失败时应该包含哪些信息？"
+    options:
+      - "只写「断言失败」"
+      - "只写字段名"
+      - "实际值、预期值、字段路径、请求上下文（URL、参数、时间戳）"
+      - "只写预期值"
+    correctIndex: 2
+    explanation: "断言失败时必须包含实际值、预期值、字段路径、请求上下文，让排查者无需重新复现即可定位问题。"
+  - id: "soft-vs-hard-assertion"
+    question: "软断言和硬断言的区别是什么？"
+    options:
+      - "软断言失败立即停止，硬断言继续执行"
+      - "硬断言失败立即停止适合关键路径，软断言收集所有失败后统一报告"
+      - "两者没有区别"
+      - "软断言只用于 UI 测试"
+    correctIndex: 1
+    explanation: "硬断言失败立即停止，适合关键路径校验。软断言收集所有失败后统一报告，适合需要完整失败信息的场景。框架应支持两种模式配置。"
 ---
 
 ## 题目背景

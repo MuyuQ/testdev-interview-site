@@ -6,6 +6,43 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "coding"]
 chainCategory: "coding"
+termLinks:
+  - slug: "api-assertion"
+    term: "接口断言"
+  - slug: "fixture"
+    term: "Fixture"
+  - slug: "data-driven-testing"
+    term: "数据驱动测试"
+  - slug: "idempotency"
+    term: "幂等"
+selfTests:
+  - id: "coding-chain-retry-design"
+    question: "设计重试机制时，哪些错误不应该重试？"
+    options:
+      - "网络超时"
+      - "4xx 客户端错误和业务异常（如余额不足、认证失败）"
+      - "5xx 服务端错误"
+      - "连接异常"
+    correctIndex: 1
+    explanation: "4xx 客户端错误（如参数错误、权限不足）和业务异常（如余额不足）不应该重试。网络超时、5xx 错误、连接异常通常可重试。"
+  - id: "coding-chain-assertion-design"
+    question: "断言封装的分层设计中，哪层断言可以跨项目复用？"
+    options:
+      - "业务层断言"
+      - "协议层断言（状态码、响应头、schema）"
+      - "两层都可以"
+      - "两层都不可以"
+    correctIndex: 1
+    explanation: "协议层断言通用性强，校验状态码、响应头、响应体结构，可跨项目复用。业务层断言根据具体业务定制，不可直接复用。"
+  - id: "coding-chain-fixture-scope"
+    question: "Fixture 设计中，登录态通常应该使用什么作用域？"
+    options:
+      - "function 作用域"
+      - "module 作用域（每个测试模块重新登录）"
+      - "session 作用域"
+      - "不需要作用域"
+    correctIndex: 1
+    explanation: "登录态通常为 module 作用域，每个测试模块重新登录。session 用于全局共享资源（环境配置），function 用于需要隔离的资源（测试数据）。"
 ---
 
 ## 编码实战链

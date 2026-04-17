@@ -21,6 +21,11 @@ extensionIdeas:
   - "增加技术选型的权衡说明。"
   - "补充团队协作和沟通推进维度。"
   - "与面试官形成技术讨论而非单方面输出。"
+termLinks:
+  - slug: "test-pyramid"
+    term: "测试金字塔"
+  - slug: "quality-gate"
+    term: "质量门禁"
 ---
 
 ## 模板使用说明

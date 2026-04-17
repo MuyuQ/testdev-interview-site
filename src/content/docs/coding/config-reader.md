@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["配置管理", "环境切换", "封装", "自动化"]
+selfTests:
+  - id: "config-sensitive-handling"
+    question: "敏感配置（如数据库密码）应该如何管理？"
+    options:
+      - "明文写在配置文件中"
+      - "写在代码里"
+      - "通过环境变量或密钥管理服务注入，配置文件中留空或占位"
+      - "加密后写在配置文件中，密钥也写在配置文件中"
+    correctIndex: 2
+    explanation: "敏感配置不写在配置文件中，应通过环境变量注入（CI/CD 中通过 secrets 管理）或密钥管理服务（如 Vault），配置文件中只保留非敏感配置。"
+  - id: "config-validation"
+    question: "配置加载时校验失败应该如何处理？"
+    options:
+      - "使用默认值继续执行"
+      - "忽略错误继续执行"
+      - "明确报错，指出缺失或错误的配置项，不使用默认值掩盖问题"
+      - "只记录日志不阻断执行"
+    correctIndex: 2
+    explanation: "配置加载时应严格校验，必填项缺失或格式错误时立即抛出异常，明确指出问题配置项。不使用默认值掩盖配置问题，避免运行时才发现错误。"
+  - id: "config-environment-switch"
+    question: "多环境配置切换的最佳实践是什么？"
+    options:
+      - "在代码中硬编码不同环境的配置"
+      - "配置按环境独立管理，通过命令行参数或环境变量切换"
+      - "所有环境共用一个配置文件"
+      - "手动修改配置文件"
+    correctIndex: 1
+    explanation: "配置按环境独立管理（如 config.dev.yaml、config.test.yaml），通过命令行参数（--env=test）或环境变量（TEST_ENV=test）切换，共享配置提取到公共文件。"
 ---
 
 ## 题目背景

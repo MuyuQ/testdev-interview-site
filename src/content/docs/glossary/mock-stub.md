@@ -32,6 +32,13 @@ answerHints:
   - "过度 Mock 的问题有三个，每个都有对应的\n\n避免方法：\n\n第一，Mock 了不该 Mock 的东西。如果把业务逻辑本身都 Mock 了，测试就变成验证 Mock 配置而非验证真实代码，测试通过不代表代码正确。\n\n避免方法：只 Mock 外部依赖（数据库、网络、第三方服务），业务逻辑保持真实执行。面试时要强调「Mock 边界原则」：隔离外部依赖，不隔离业务逻辑。\n\n第二，Mock 配置与真实实现不一致。Mock 返回的数据结构与真实接口不同，测试通过了但生产环境会失败。\n\n避免方法：Mock 配置要与真实接口定义保持同步，可以用契约测试或接口定义文件（如 OpenAPI）自动生成 Mock 配置。\n\n第三，过度 Mock 导致测试脆弱。每个依赖都 Mock 后，任何接口变化都需要更新大量 Mock 配置，维护成本极高。\n\n避免方法：关键路径用真实依赖（如集成测试），只有单元测试用 Mock，两种测试配合覆盖。面试时要说明：Mock 是必要的隔离手段，但要控制 Mock 范围，关键业务逻辑的测试尽量用真实环境验证。"
   - "Mock 和真实测试环境的配合策略是「分层测试、各有侧重」。我的做法是三层配合：\n\n第一层是单元测试层，用 Mock 隔离外部依赖。单元测试重点验证单个函数或类的逻辑正确性，外部依赖（数据库、支付网关、消息队列）用 Mock 替代，保证测试快速执行、失败快速定位。\n\n第二层是集成测试层，用真实环境验证依赖交互。集成测试重点验证多个模块协作的正确性，用真实数据库、真实消息队列验证依赖交互是否正确。\\n\\n比如 Mock 里假设支付网关返回成功，集成测试要验证真的调用支付网关后返回成功。\n\n第三层是端到端测试层，用真实生产环境验证完整流程。端到端测试重点验证用户完整流程，全部用真实环境。\\n\\n比如下单流程的端到端测试，要真的创建订单、真的调用支付、真的扣减库存。\n\n面试时要强调：三层测试各有侧重，单元测试用 Mock 保速度和隔离，集成测试用真实环境保依赖交互正确，端到端测试用真实环境保完整流程正确。不是「要么全 Mock 要么全真实」，而是分层配合，各有价值。"
 relatedSlugs: ["unit-testing", "test-isolation"]
+termLinks:
+  - slug: "test-pyramid"
+    term: "测试金字塔"
+  - slug: "api-assertion"
+    term: "接口断言"
+  - slug: "fixture"
+    term: "Fixture"
 ---
 
 ## 基础入门
@@ -101,20 +108,19 @@ Mock 的特点是：能记录调用行为（次数、参数、顺序），用于
 Python 示例（使用 unittest.mock）：
 from unittest.mock import Mock, patch
 
-def test_create_order_calls_payment_service():
-    # 创建 Mock 对象
-    mock_payment = Mock()
-    mock_payment.pay.return_value = {'status': 'success', 'transaction_id': 'txn_123'}
-    
+def test_create_order_calls_payment_service(): # 创建 Mock 对象
+mock_payment = Mock()
+mock_payment.pay.return_value = {'status': 'success', 'transaction_id': 'txn_123'}
+
     # 注入 Mock
     order_service = OrderService(payment_service=mock_payment)
-    
+
     # 执行测试
     result = order_service.create_order(user_id=1, amount=100)
-    
+
     # 验证行为：支付服务被调用了一次
     mock_payment.pay.assert_called_once()
-    
+
     # 验证调用参数
     mock_payment.pay.assert_called_with(user_id=1, amount=100)
 
@@ -127,21 +133,20 @@ def test_create_order_calls_payment_service():
 Python 示例（Stub 场景）：
 from unittest.mock import Mock
 
-def test_calculate_user_points():
-    # 创建 Stub 对象，只提供数据
-    user_stub = Mock()
-    user_stub.get_user.return_value = {'id': 1, 'level': 'VIP', 'register_days': 365}
-    
+def test_calculate_user_points(): # 创建 Stub 对象，只提供数据
+user_stub = Mock()
+user_stub.get_user.return_value = {'id': 1, 'level': 'VIP', 'register_days': 365}
+
     points_stub = Mock()
     points_stub.get_base_points.return_value = 100
     points_stub.get_bonus_points.return_value = 50
-    
+
     # 注入 Stub
     calculator = PointsCalculator(user_service=user_stub, points_service=points_stub)
-    
+
     # 执行测试，重点验证积分计算逻辑
     result = calculator.calculate(user_id=1)
-    
+
     # 验证结果（状态验证，不验证 Stub 调用）
     assert result == 200  # 100 + 50 + VIP加成(50)
 

@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["Mock", "依赖隔离", "接口测试", "封装"]
+selfTests:
+  - id: "mock-scenario-coverage"
+    question: "Mock 规则应该覆盖哪些场景？"
+    options:
+      - "只模拟 200 成功响应"
+      - "只模拟 500 错误响应"
+      - "正常响应、客户端错误、服务端错误、超时、字段缺失、数据类型错误等多种场景"
+      - "只模拟超时场景"
+    correctIndex: 2
+    explanation: "Mock 规则应覆盖多种场景：正常响应（200）、客户端错误（4xx）、服务端错误（5xx）、超时、连接拒绝、响应体字段缺失、数据类型错误等，验证系统容错能力。"
+  - id: "mock-cleanup-mechanism"
+    question: "为什么 Mock 服务需要清理机制？"
+    options:
+      - "不需要清理"
+      - "清理可以节省内存"
+      - "避免前一个测试设置的 Mock 规则影响后一个测试的执行结果"
+      - "清理是为了提高性能"
+    correctIndex: 2
+    explanation: "Mock 规则设置后如果一直生效，测试之间会相互干扰。每个测试用例结束后应自动清理 Mock 规则，使用 Fixture 的 yield 机制或显式的 reset/clear 方法。"
+  - id: "mock-contract-consistency"
+    question: "如何保证 Mock 响应与真实接口契约一致？"
+    options:
+      - "手动对比"
+      - "Mock 响应基于 OpenAPI/Swagger 规范生成，定期同步真实接口变更"
+      - "不需要保持一致"
+      - "只在项目开始时对齐一次"
+    correctIndex: 1
+    explanation: "Mock 响应应基于 OpenAPI/Swagger 规范生成，保证与真实接口契约一致。定期同步真实接口的变更到 Mock 规则，使用契约测试工具验证一致性。"
 ---
 
 ## 题目背景

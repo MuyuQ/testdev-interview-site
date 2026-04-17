@@ -6,6 +6,13 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "tech"]
 chainCategory: "tech"
+termLinks:
+  - slug: "page-object-pattern"
+    term: "页面对象模式"
+  - slug: "test-pyramid"
+    term: "测试金字塔"
+  - slug: "regression-testing"
+    term: "回归测试"
 ---
 
 ## UI 自动化链

@@ -23,6 +23,39 @@ interviewTalkingPoints:
   - "说明你用 AI 加速了哪些性能测试环节。"
   - "举一个 AI 帮你发现性能规律的真实案例。"
   - "强调性能问题最终需要人工结合架构来判断。"
+termLinks:
+  - slug: "performance-testing-terms"
+    term: "性能测试术语"
+  - slug: "test-environment-management"
+    term: "测试环境管理"
+selfTests:
+  - id: "ai-perf-bottleneck-judgment"
+    question: "AI 在性能测试中识别的瓶颈应该如何处理？"
+    options:
+      - "直接按照 AI 的建议进行优化"
+      - "AI 指出异常点，人工结合架构和日志分析根因后给出优化建议"
+      - "忽略 AI 的判断，完全依赖人工分析"
+      - "让 AI 自动执行优化操作"
+    correctIndex: 1
+    explanation: "AI 可以识别异常模式和瓶颈迹象，但无法确定根因。正确做法是 AI 分析数据指出异常点，人工结合架构和日志分析根因，再给出优化建议。"
+  - id: "ai-perf-data-sensitivity"
+    question: "性能测试数据输入 AI 时需要注意什么？"
+    options:
+      - "性能数据不敏感，可以直接输入"
+      - "只需要删除用户姓名即可"
+      - "性能数据可能包含敏感信息，输入前需要脱敏处理，建议使用本地模型或企业版服务"
+      - "只上传汇总数据，不上传原始数据"
+    correctIndex: 2
+    explanation: "性能测试数据可能包含用户行为、业务量级、系统配置等敏感信息。输入 AI 前需要脱敏处理，尤其是生产环境的性能数据。"
+  - id: "ai-perf-application-scenarios"
+    question: "AI 在性能测试的哪个环节最能发挥价值？"
+    options:
+      - "制定性能测试计划"
+      - "分析大量监控数据，识别人眼难以发现的规律和异常"
+      - "编写压测脚本"
+      - "搭建测试环境"
+    correctIndex: 1
+    explanation: "AI 擅长处理大量数据并发现规律，在性能测试后阶段分析监控数据、识别异常请求、发现性能退化趋势等方面最能发挥价值。"
 ---
 
 ## 基础入门

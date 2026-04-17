@@ -6,6 +6,13 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "scenario"]
 chainCategory: "scenario"
+termLinks:
+  - slug: "idempotency"
+    term: "幂等"
+  - slug: "state-transition-testing"
+    term: "状态转换测试"
+  - slug: "boundary-value-analysis"
+    term: "边界值分析"
 ---
 
 ## 电商订单链

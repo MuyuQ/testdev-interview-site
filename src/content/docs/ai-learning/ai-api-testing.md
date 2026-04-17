@@ -23,6 +23,41 @@ interviewTalkingPoints:
   - "强调 AI 辅助的是效率和覆盖面，不是替代测试判断。"
   - "举一个实际场景说明 AI 如何缩短用例设计或排障时间。"
   - "补一句你如何控制 hallucination 和错误建议风险。"
+termLinks:
+  - slug: "api-assertion"
+    term: "接口断言"
+  - slug: "idempotency"
+    term: "幂等"
+  - slug: "mock-stub"
+    term: "Mock 与 Stub"
+selfTests:
+  - id: "ai-api-role-positioning"
+    question: "AI 在接口测试中的正确定位是什么？"
+    options:
+      - "替代测试人员完成所有用例设计和执行"
+      - "辅助效率和覆盖面，核心判断仍由人工把关"
+      - "只用于生成测试代码，不参与用例设计"
+      - "只用于日志分析，不介入测试流程"
+    correctIndex: 1
+    explanation: "AI 在接口测试中应定位为辅助工具，负责用例生成、断言建议、日志聚类提效，但业务语义验证、质量把控和最终决策必须由人工完成。"
+  - id: "ai-api-assertion-review"
+    question: "AI 生成的接口断言应该如何处理？"
+    options:
+      - "直接上线使用，提高效率"
+      - "删除不需要的，保留需要的直接使用"
+      - "AI 生成初稿 → 人工复核业务语义 → 补充边界场景 → 运行验证"
+      - "只保留协议层断言，删除业务层断言"
+    correctIndex: 2
+    explanation: "AI 生成的断言可能看似合理但实际错误，必须经过人工复核业务语义，尤其是金额、状态、权限等关键字段需要人工确认。"
+  - id: "ai-api-hallucination-control"
+    question: "以下哪种策略不能有效控制 AI 幻觉风险？"
+    options:
+      - "给 AI 提供完整的接口文档和业务规则"
+      - "所有 AI 输出都经过业务验证"
+      - "让 AI 自主决定哪些字段需要重点校验"
+      - "对关键字段设置强制人工确认点"
+    correctIndex: 2
+    explanation: "让 AI 自主决定校验重点会放大幻觉风险。正确做法是人工定义检查清单，对关键字段（金额、状态、权限）设置强制人工确认点。"
 ---
 
 ## 基础入门

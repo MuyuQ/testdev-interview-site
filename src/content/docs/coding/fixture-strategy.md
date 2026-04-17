@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["Fixture", "Pytest", "框架设计"]
+selfTests:
+  - id: "fixture-scope-selection"
+    question: "Fixture 作用域应该如何选择？"
+    options:
+      - "全部使用 function 作用域"
+      - "全部使用 session 作用域"
+      - "根据资源特性选择：全局共享用 session，模块共享用 module，需要隔离用 function"
+      - "随机选择作用域"
+    correctIndex: 2
+    explanation: "Fixture 作用域应根据资源特性选择：session 用于全局共享资源（环境配置、数据库连接），module 用于模块内共享（登录态），function 用于需要隔离的资源（测试数据）。"
+  - id: "fixture-cleanup-design"
+    question: "Fixture 的清理逻辑应该写在哪里？"
+    options:
+      - "写在测试用例中"
+      - "写在 yield 关键字之后"
+      - "写在 yield 关键字之前"
+      - "不需要清理"
+    correctIndex: 1
+    explanation: "使用 yield 实现前后置分离，yield 前是准备逻辑，yield 后是清理逻辑。清理逻辑放在 yield 后确保即使测试失败也能执行清理。"
+  - id: "fixture-dependency-chain"
+    question: "Fixture 依赖链的执行和清理顺序是什么？"
+    options:
+      - "准备和清理顺序相同"
+      - "Fixture A 依赖 B：B 准备 → A 准备 → 测试执行 → A 清理 → B 清理"
+      - "所有 Fixture 同时准备和清理"
+      - "清理顺序是随机的"
+    correctIndex: 1
+    explanation: "Fixture 依赖链执行顺序是 B 的准备 → A 的准备 → 测试执行 → A 的清理 → B 的清理。清理顺序与准备顺序相反，确保依赖正确释放。"
 ---
 
 ## 题目背景

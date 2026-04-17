@@ -19,6 +19,11 @@ extensionIdeas:
   - "加入请求记录和回放功能。"
   - "支持 WebSocket 或 GraphQL Mock。"
   - "与 CI 流水线集成，实现自动化契约测试。"
+termLinks:
+  - slug: "mock-stub"
+    term: "Mock 与 Stub"
+  - slug: "api-assertion"
+    term: "接口断言"
 ---
 
 ## 模板使用说明

@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["数据清洗", "数据处理", "脚本", "测试数据"]
+selfTests:
+  - id: "data-cleaning-steps"
+    question: "数据清洗的正确流程是什么？"
+    options:
+      - "直接修改原始数据"
+      - "规则定义 → 清洗执行 → 异常处理 → 结果校验"
+      - "先清洗再定义规则"
+      - "只处理异常数据，不校验结果"
+    correctIndex: 1
+    explanation: "数据清洗应按顺序执行：先定义清洗规则（缺失值、异常值、重复值处理策略），再执行清洗操作，然后分类处理异常数据，最后校验输出是否符合预期。"
+  - id: "data-cleaning-original-preservation"
+    question: "数据清洗时为什么要保留原始数据快照？"
+    options:
+      - "不需要保留原始数据"
+      - "用于对比清洗前后的变化，以及问题回溯时恢复原始数据"
+      - "只是为了占用更多存储空间"
+      - "原始数据会自动保留"
+    correctIndex: 1
+    explanation: "清洗前保存原始数据的副本或哈希值，用于对比清洗前后的变化，以及问题回溯时恢复原始数据。快照存储路径应与清洗日志关联。"
+  - id: "data-cleaning-anomaly-handling"
+    question: "异常数据应该如何处理？"
+    options:
+      - "直接全部丢弃"
+      - "分类处理：可修正的自动修正，需人工确认的标记后复核，无法处理的记录到异常报告后丢弃"
+      - "全部保留不做处理"
+      - "只统计数量不分类"
+    correctIndex: 1
+    explanation: "异常数据应分类处理：可修正的异常（如日期格式不统一）自动修正，需人工确认的异常（如金额异常大）标记后复核，无法处理的记录到异常报告后丢弃。"
 ---
 
 ## 题目背景

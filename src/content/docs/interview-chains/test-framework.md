@@ -6,6 +6,13 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "tech"]
 chainCategory: "tech"
+termLinks:
+  - slug: "page-object-pattern"
+    term: "页面对象模式"
+  - slug: "fixture"
+    term: "Fixture"
+  - slug: "data-driven-testing"
+    term: "数据驱动测试"
 ---
 
 ## 测试框架链

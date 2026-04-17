@@ -6,6 +6,15 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "tech"]
 chainCategory: "tech"
+termLinks:
+  - slug: "test-pyramid"
+    term: "测试金字塔"
+  - slug: "quality-gate"
+    term: "质量门禁"
+  - slug: "test-coverage"
+    term: "测试覆盖率"
+  - slug: "test-environment-management"
+    term: "测试环境管理"
 ---
 
 ## 资深测试开发链

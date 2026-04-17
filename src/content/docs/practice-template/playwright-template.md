@@ -18,6 +18,13 @@ howToUse:
 extensionIdeas:
   - "加入 mock、网络拦截和权限账号矩阵。"
   - "设计简单的回归任务入口页。"
+termLinks:
+  - slug: "page-object-pattern"
+    term: "页面对象模式"
+  - slug: "test-pyramid"
+    term: "测试金字塔"
+  - slug: "regression-testing"
+    term: "回归测试"
 ---
 
 ## 模板使用说明

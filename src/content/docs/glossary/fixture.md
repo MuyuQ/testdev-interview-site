@@ -27,6 +27,13 @@ answerHints:
   - "通用 Fixture 的设计要围绕「复用性」「可组合性」和「隔离性」三个原则展开。\n\n第一，按资源类型分层设计。我通常分成三层：基础层（数据库连接、配置加载、日志初始化）、业务层（登录态、测试账号、测试数据准备）和场景层（特定业务场景的环境组合）。基础层 Fixture 用 session 作用域全局复用，业务层 Fixture 用 module 或 function 作用域按需复用，场景层 Fixture 通过参数注入组合多层 Fixture。\n\n第二，Fixture 之间要可组合不耦合。每个 Fixture 只做一件事，复杂场景通过 Fixture 参数注入组合，比如登录态 Fixture + 订单数据 Fixture 组成下单场景 Fixture，而不是在一个 Fixture 里做所有准备。\n\n第三，Fixture 要有明确的职责边界。Fixture 只负责环境准备和资源管理，不混入业务逻辑，业务数据准备放在测试代码或 helper 函数。\n\n面试时可以举例：我们的登录态 Fixture 用 session 作用域，整个测试会话只登录一次。数据库连接 Fixture 用 module 作用域，每个测试模块共用一个连接。测试数据 Fixture 用 function 作用域，每个测试独立准备和清理数据。"
   - "session 级和 function 级 Fixture 的取舍原则是「资源成本 vs 隔离需求」。session 级 Fixture 适合「高成本、低隔离」的资源，function 级 Fixture 适合「低成本、高隔离」的资源。具体判断方法有三点：\n\n第一，看资源初始化成本。登录态获取需要调用接口、等待响应，成本高适合 session 级。数据库连接建立需要网络开销，成本中等适合 module 级。测试数据插入一条记录成本很低适合 function 级。\n\n第二，看隔离需求。登录态大部分测试共用，不需要隔离，适合 session 级。测试数据不同测试需要不同数据，必须隔离，适合 function 级。数据库连接如果测试会修改数据需要隔离，但如果只是查询可以共用。\n\n第三，看执行时间权衡。session 级 Fixture 节省初始化时间但隔离性差，function 级 Fixture 隔离性好但初始化开销大，要根据测试总执行时间和失败定位效率权衡。\n\n面试时要强调：不是所有 Fixture 都设成 session 或 function，要根据资源特性选择合适作用域，同时要考虑 Fixture 嵌套深度（控制在 2-3 层），避免依赖关系过于复杂导致维护困难。"
 relatedSlugs: ["pytest", "fixture-strategy"]
+termLinks:
+  - slug: "data-driven-testing"
+    term: "数据驱动测试"
+  - slug: "mock-stub"
+    term: "Mock 与 Stub"
+  - slug: "test-environment-management"
+    term: "测试环境管理"
 selfTests:
   - id: "fixture-1"
     question: "Pytest 中 session 级和 function 级 Fixture 的主要区别是什么？"
@@ -88,7 +95,7 @@ Fixture 的核心优势有四：
 ## 前置知识
 
 - Python 基础：理解函数定义、参数传递、装饰器语法（@pytest.fixture）。
-- pytest 基础：了解 pytest 测试用例的写法（test_开头的函数）、assert 断言语法。
+- pytest 基础：了解 pytest 测试用例的写法（test\_开头的函数）、assert 断言语法。
 - 作用域概念：理解 function、module、session 等作用域的含义，知道不同作用域的生命周期。
 - 测试隔离概念：理解为什么测试需要独立数据，知道测试间相互干扰会导致什么问题。
 - 资源管理概念：理解「准备 - 使用 - 清理」的资源管理模式，知道测试后清理数据的重要性。
@@ -109,6 +116,7 @@ Fixture 的核心优势有四：
 解决方案：三层 Fixture 设计
 
 第一层：基础层 Fixture（session 作用域）
+
 ```python
 @pytest.fixture(scope="session")
 def db_connection():
@@ -124,9 +132,11 @@ def auth_token():
     yield token
     logout(token)
 ```
+
 基础层 Fixture 负责最底层的资源初始化，成本高、隔离需求低，适合 session 作用域。
 
 第二层：业务层 Fixture（module/function 作用域）
+
 ```python
 @pytest.fixture(scope="module")
 def test_user(db_connection):
@@ -142,9 +152,11 @@ def test_order(db_connection, test_user):
     yield order
     delete_order(db_connection, order.id)
 ```
+
 业务层 Fixture 依赖基础层 Fixture，通过参数注入组合。test_user 用 module 作用域（同一模块复用），test_order 用 function 作用域（每个测试独立）。
 
 第三层：场景层 Fixture（按需组合）
+
 ```python
 @pytest.fixture
 def paid_order(test_order):
@@ -158,6 +170,7 @@ def shipped_order(paid_order):
     ship_order(paid_order.id)
     yield paid_order
 ```
+
 场景层 Fixture 通过组合多层 Fixture 构建特定业务场景，测试时直接注入使用。
 
 面试表达要点：强调 Fixture 分层原则（基础层 session、业务层 module/function、场景层按需），依赖注入实现组合，作用域选择权衡成本和隔离。
@@ -170,24 +183,27 @@ def shipped_order(paid_order):
 
 session 作用域（全局复用）
 适用场景：
+
 - 登录态获取（调用接口、等待响应，成本高）
 - 配置加载（读取配置文件、解析，成本低但全局共用）
 - 全局资源（如 Redis 连接池、日志初始化）
-判断标准：初始化成本高、隔离需求低、全局共用安全
+  判断标准：初始化成本高、隔离需求低、全局共用安全
 
 module 作用域（模块内复用）
 适用场景：
+
 - 数据库连接（建立连接有网络开销，同一模块内可复用）
 - API 客户端（初始化耗时，模块内复用）
 - 测试数据模板（如商品模板、用户模板，模块内复用）
-判断标准：初始化成本中等、隔离需求中等、模块内复用安全
+  判断标准：初始化成本中等、隔离需求中等、模块内复用安全
 
 function 作用域（每个测试独立）
 适用场景：
+
 - 测试数据（每个测试需要独立数据，避免相互影响）
 - 会修改状态的操作（如下单、支付，测试后需要清理）
 - 隔离需求高的资源（如浏览器实例，测试间不能共用）
-判断标准：隔离需求高、成本低或必须独立
+  判断标准：隔离需求高、成本低或必须独立
 
 面试表达要点：强调作用域选择原则是「资源成本 vs 隔离需求」。session 级节省时间但隔离性差，function 级隔离性好但开销大。要根据资源特性选择合适作用域，同时控制 Fixture 嵌套深度在 2-3 层。
 

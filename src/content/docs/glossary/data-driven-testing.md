@@ -32,6 +32,13 @@ answerHints:
   - "数据驱动测试的数据管理要围绕「版本管理」「质量校验」「环境适配」三个关键点展开。\n\n第一，数据文件与代码同仓库管理。数据文件（CSV、JSON、YAML）放在测试代码仓库的专门目录（如 test_data/），按模块或功能分类组织。这样数据文件和代码同步更新，不会出现代码改了数据没改的问题。\n\n同时可以用 Git 分支管理不同环境的数据（开发环境数据、测试环境数据）。\n\n第二，数据加载时做 schema 校验。数据驱动后，测试数据本身可能出错（字段缺失、格式错误、值范围错误）。在数据加载阶段用 schema 校验（如 JSON Schema）验证数据结构正确，字段缺失或格式错误在测试执行前就被发现，避免测试执行后才发现数据问题。\n\n第三，按环境分离数据文件。\n\n不同环境的测试数据可能不同（测试环境的用户 ID、生产环境的用户 ID），数据文件要支持环境变量替换或多环境数据文件。\\n\\n比如数据文件里的用户 ID 写成 ${TEST_USER_ID}，执行时根据环境自动替换。面试时要说明：数据管理不只是存文件，而是「版本管理+质量校验+环境适配」的完整体系，保证数据驱动测试的可维护性和稳定性。"
   - "数据驱动测试失败的定位要抓住「数据标识」「失败分类」「根因追溯」三个关键点。\n\n第一，每条数据要有唯一标识。数据文件里每行数据要包含标识字段（如 case_id、scenario_name），测试执行时把这个标识输出到测试报告。失败时能直接看到是哪条数据（case_id=123）失败，而不是只知道「第 10 条数据失败」却不知道第 10 条是什么场景。\n\n第二，失败分类区分「数据问题」和「逻辑问题」。数据驱动测试失败可能是数据问题（数据值错误、数据格式错误）或逻辑问题（测试逻辑有 bug、业务规则变化）。定位时要先检查数据值是否符合预期，再检查逻辑是否正确处理。\\n\\n比如搜索接口测试失败，先检查数据文件里的搜索关键词是否正确，再检查测试代码的断言逻辑是否匹配当前业务规则。\n\n第三，根因追溯要记录完整链路。数据驱动测试失败要记录：输入数据、实际输出、预期输出、失败断言、失败原因。这些信息帮助快速定位是数据问题、逻辑问题还是环境问题。面试时要说明：数据驱动测试失败定位比普通测试更难，因为数据量大、组合多，必须通过数据标识、失败分类、根因追溯三个机制保证定位效率。"
 relatedSlugs: ["pytest", "boundary-value-analysis"]
+termLinks:
+  - slug: "boundary-value-analysis"
+    term: "边界值分析"
+  - slug: "equivalence-class-partition"
+    term: "等价类划分"
+  - slug: "fixture"
+    term: "Fixture"
 ---
 
 ## 基础入门
@@ -85,30 +92,30 @@ relatedSlugs: ["pytest", "boundary-value-analysis"]
 
 第一步：设计数据文件（test_data/login_cases.json）
 {
-  "cases": [
-    {"id": 1, "username": "test_user", "password": "123456", "expected": "success", "message": "正常登录"},
-    {"id": 2, "username": "test_user", "password": "wrong", "expected": "fail", "message": "密码错误"},
-    {"id": 3, "username": "not_exist", "password": "123456", "expected": "fail", "message": "用户不存在"},
-    {"id": 4, "username": "", "password": "123456", "expected": "fail", "message": "用户名为空"},
-    ...
-  ]
+"cases": [
+{"id": 1, "username": "test_user", "password": "123456", "expected": "success", "message": "正常登录"},
+{"id": 2, "username": "test_user", "password": "wrong", "expected": "fail", "message": "密码错误"},
+{"id": 3, "username": "not_exist", "password": "123456", "expected": "fail", "message": "用户不存在"},
+{"id": 4, "username": "", "password": "123456", "expected": "fail", "message": "用户名为空"},
+...
+]
 }
 
 第二步：编写数据加载函数
 import json
 def load_login_cases():
-    with open('test_data/login_cases.json', 'r', encoding='utf-8') as f:
-        return json.load(f)['cases']
+with open('test_data/login_cases.json', 'r', encoding='utf-8') as f:
+return json.load(f)['cases']
 
 第三步：编写参数化测试
 import pytest
 @pytest.mark.parametrize("case", load_login_cases())
 def test_login(case):
-    response = login(case['username'], case['password'])
-    if case['expected'] == 'success':
-        assert response['code'] == 0
-    else:
-        assert response['code'] != 0
+response = login(case['username'], case['password'])
+if case['expected'] == 'success':
+assert response['code'] == 0
+else:
+assert response['code'] != 0
 
 面试表达要点：强调数据驱动让测试逻辑与数据解耦，新增测试用例只需添加数据行，无需修改测试代码。
 
@@ -131,8 +138,8 @@ def test_login(case):
 测试代码：
 @pytest.mark.parametrize("age,expected", load_age_cases())
 def test_age_input(age, expected):
-    result = submit_age(age)
-    assert result == expected
+result = submit_age(age)
+assert result == expected
 
 面试表达要点：边界值测试是数据驱动的典型场景，数据文件清晰展示覆盖的边界点，新增边界点只需添加数据行。相比硬编码数据，数据驱动更易维护和评审。
 

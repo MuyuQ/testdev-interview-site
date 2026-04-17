@@ -6,6 +6,13 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["面试追问", "深度追问", "tech"]
 chainCategory: "tech"
+termLinks:
+  - slug: "performance-testing-terms"
+    term: "性能测试术语"
+  - slug: "smoke-testing"
+    term: "冒烟测试"
+  - slug: "test-environment-management"
+    term: "测试环境管理"
 ---
 
 ## 性能测试链

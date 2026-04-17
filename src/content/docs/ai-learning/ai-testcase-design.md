@@ -23,6 +23,41 @@ interviewTalkingPoints:
   - "强调 AI 是用例设计的放大器，不是替代品。"
   - "举例说明 AI 帮你发现过一个容易被遗漏的边界场景。"
   - "说明你如何用规则或检查清单来约束 AI 输出质量。"
+termLinks:
+  - slug: "boundary-value-analysis"
+    term: "边界值分析"
+  - slug: "equivalence-class-partition"
+    term: "等价类划分"
+  - slug: "error-guessing"
+    term: "错误猜测法"
+selfTests:
+  - id: "ai-testcase-quality-process"
+    question: "AI 辅助用例设计的质量保障流程是什么？"
+    options:
+      - "AI 生成用例后直接使用"
+      - "生成 → 过滤 → 验证 → 补充 → 评审五步流程"
+      - "人工设计用例，AI 只做格式整理"
+      - "AI 生成后只做一轮简单检查"
+    correctIndex: 1
+    explanation: "AI 用例设计需要五步保障：AI 生成候选用例、人工筛选业务相关场景、验证断言正确性、补充 AI 可能遗漏的业务场景、团队评审确认覆盖度。"
+  - id: "ai-testcase-prompt-design"
+    question: "让 AI 生成边界值用例时，提示词应该包含什么？"
+    options:
+      - "只说「生成边界值」"
+      - "明确列出参数，要求生成空值、极值、超长、特殊字符、类型错误、格式错误等"
+      - "让 AI 自行决定生成哪些边界值"
+      - "只提供正常场景的示例"
+    correctIndex: 1
+    explanation: "边界值生成的提示词应明确列出输入参数，并要求覆盖空值、极值、超长、特殊字符、类型错误、格式错误等多种异常输入组合。"
+  - id: "ai-testcase-limitation"
+    question: "AI 在用例设计中的主要局限是什么？"
+    options:
+      - "生成速度太慢"
+      - "不理解业务上下文，可能遗漏业务特有的规则和边界"
+      - "只能生成正向场景"
+      - "无法生成异常场景"
+    correctIndex: 1
+    explanation: "AI 的局限在于不理解业务上下文，可能遗漏业务特有的规则和边界。需要人工补充业务规则验证，并建立检查清单约束 AI 输出质量。"
 ---
 
 ## 基础入门

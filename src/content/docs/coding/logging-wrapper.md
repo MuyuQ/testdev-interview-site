@@ -5,6 +5,34 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["日志", "封装", "排障", "自动化"]
+selfTests:
+  - id: "log-level-definition"
+    question: "WARNING 和 ERROR 日志级别的区别是什么？"
+    options:
+      - "没有区别"
+      - "WARNING 用于异常但可继续的情况，ERROR 用于需要关注的错误"
+      - "WARNING 比 ERROR 更严重"
+      - "ERROR 用于开发调试信息"
+    correctIndex: 1
+    explanation: "WARNING 用于异常但可继续的情况（如降级处理、重试成功），ERROR 用于需要关注的错误（如外部服务失败、数据校验失败）。级别使用要严格一致。"
+  - id: "log-context-importance"
+    question: "为什么日志需要包含上下文信息？"
+    options:
+      - "不需要包含上下文"
+      - "只包含错误信息就够了"
+      - "包含请求参数、用户信息、环境标识等上下文，让排查者无需重新复现即可定位问题"
+      - "上下文信息会影响性能"
+    correctIndex: 2
+    explanation: "每条日志都应包含足够的上下文：请求日志包含 URL、方法、参数、耗时；业务日志包含用例名、步骤、决策点；异常日志包含异常类型、错误信息、堆栈。"
+  - id: "log-sensitive-data"
+    question: "日志中如何处理敏感信息？"
+    options:
+      - "直接输出到日志"
+      - "完全不记录涉及敏感信息的日志"
+      - "输出前进行脱敏处理，如密码完全隐藏、身份证号中间替换为*"
+      - "只记录敏感信息的哈希值"
+    correctIndex: 2
+    explanation: "日志输出前应进行脱敏处理：密码字段完全隐藏或只显示前后各 2 位，身份证号/手机号中间 4 位替换为*，银行卡号只保留后 4 位。"
 ---
 
 ## 题目背景

@@ -18,6 +18,15 @@ howToUse:
 extensionIdeas:
   - "补缓存、重试、签名和异步回调验证。"
   - "加入失败截图或日志聚合能力。"
+termLinks:
+  - slug: "data-driven-testing"
+    term: "数据驱动测试"
+  - slug: "fixture"
+    term: "Fixture"
+  - slug: "api-assertion"
+    term: "接口断言"
+  - slug: "mock-stub"
+    term: "Mock 与 Stub"
 ---
 
 ## 模板使用说明

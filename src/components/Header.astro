@@ -1,5 +1,6 @@
 ---
 import config from "virtual:starlight/user-config";
+import SearchBox from "./SearchBox.astro";
 
 const siteTitle = typeof config.title === "string"
   ? config.title
@@ -15,7 +16,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
       {siteTitle}
     </a>
     <div class="header-actions">
-      <slot name="search" />
+      <SearchBox />
       <slot name="theme-select" />
       <slot name="social-icons" />
     </div>

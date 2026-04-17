@@ -1,6 +1,7 @@
 ---
 import type { Props } from "@astrojs/starlight/props";
 import SelfTestQuiz from "./SelfTestQuiz.astro";
+import ShareButtons from "./ShareButtons.astro";
 
 const { entry } = Astro.props as Props;
 const selfTests = (entry.data as any).selfTests || [];
@@ -10,6 +11,9 @@ const selfTests = (entry.data as any).selfTests || [];
   <div class="sl-container">
     <slot />
     {selfTests.length > 0 && <SelfTestQuiz questions={selfTests} />}
+    <div class="share-section">
+      <ShareButtons title={entry.title} />
+    </div>
   </div>
 </div>
 
@@ -17,4 +21,31 @@ const selfTests = (entry.data as any).selfTests || [];
   .content-panel {
     padding: 2rem 0;
   }
+  .share-section {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--sl-color-hairline);
+  }
 </style>
+
+<script is:client>
+  const KEY_PREFIX = "testdev:";
+  const MAX_RECENT = 10;
+  function trackView() {
+    try {
+      const path = window.location.pathname;
+      const segments = path.split("/").filter(Boolean);
+      if (segments.length < 2) return;
+      const category = segments[segments.length - 2];
+      const slug = segments[segments.length - 1];
+      const title = document.querySelector("h1")?.textContent || document.title;
+      const recent = JSON.parse(localStorage.getItem(KEY_PREFIX + "recent") || "[]");
+      const existing = recent.findIndex((r) => r.slug === slug);
+      if (existing >= 0) recent.splice(existing, 1);
+      recent.unshift({ slug, title, category, viewedAt: new Date().toISOString() });
+      if (recent.length > MAX_RECENT) recent.pop();
+      localStorage.setItem(KEY_PREFIX + "recent", JSON.stringify(recent));
+    } catch {}
+  }
+  document.addEventListener("astro:page-load", trackView);
+</script>

@@ -1,18 +1,31 @@
 ---
+interface MistakeItem {
+  title: string;
+  detail: string;
+}
+
+interface Props {
+  mistakes: (string | MistakeItem)[];
+}
+
 const { mistakes } = Astro.props;
 ---
 
 <div class="common-mistakes">
   <h3>常见错误</h3>
   <ul>
-    {mistakes.map((mistake) => (
-      <li>
-        <details>
-          <summary>{mistake.split(":")[0]}</summary>
-          <p>{mistake.split(":")[1] || mistake}</p>
-        </details>
-      </li>
-    ))}
+    {mistakes.map((mistake) => {
+      const title = typeof mistake === "string" ? mistake.split(":")[0] : mistake.title;
+      const detail = typeof mistake === "string" ? (mistake.split(":")[1] || mistake) : mistake.detail;
+      return (
+        <li>
+          <details>
+            <summary>{title}</summary>
+            <p>{detail}</p>
+          </details>
+        </li>
+      );
+    })}
   </ul>
 </div>
 

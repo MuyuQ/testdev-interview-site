@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    baseURL: "http://localhost:4321/TestDev-Sprint",
+    baseURL: "http://localhost:4321/testdev-interview-site",
     trace: "on-first-retry",
   },
   projects: [
@@ -27,7 +27,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run preview",
-    url: "http://localhost:4321/TestDev-Sprint",
+    url: "http://localhost:4321/testdev-interview-site",
     reuseExistingServer: !process.env.CI,
   },
 });

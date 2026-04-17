@@ -1,19 +1,24 @@
 ---
-const completedJson = JSON.stringify(Astro.props.completedSlugs || []);
+const completedSlugs = Astro.props.completedSlugs || [];
+const completedJson = JSON.stringify(completedSlugs);
 ---
 
-<script>
-  window.__completedSlugs = new Set(
-    JSON.parse(document.currentScript?.getAttribute("data-completed") || "[]")
-  );
-</script>
-<script is:inline>
-  document.querySelectorAll("[data-slug]").forEach((el) => {
-    const slug = el.getAttribute("data-slug");
-    if (slug && window.__completedSlugs?.has(slug)) {
-      el.classList.add("completed");
-    }
-  });
+<script data-completed={completedJson}>
+  (function () {
+    const script = document.currentScript;
+    if (!script) return;
+
+    const completed = new Set(
+      JSON.parse(script.getAttribute("data-completed") || "[]")
+    );
+
+    document.querySelectorAll("[data-slug]").forEach((el) => {
+      const slug = el.getAttribute("data-slug");
+      if (slug && completed.has(slug)) {
+        el.classList.add("completed");
+      }
+    });
+  })();
 </script>
 
 <style>

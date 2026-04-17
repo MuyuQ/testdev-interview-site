@@ -10,6 +10,9 @@
       entry.classList.add("current-page");
     });
 
+    const article = document.querySelector("article");
+    if (!article) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -26,6 +29,7 @@
                 if (!exists) {
                   data.completed.push({
                     slug,
+                    category: slug.split("/")[0] || "unknown",
                     completedAt: new Date().toISOString(),
                   });
                   localStorage.setItem(
@@ -41,8 +45,7 @@
       { threshold: 0.5 }
     );
 
-    const article = document.querySelector("article");
-    if (article) observer.observe(article);
+    observer.observe(article);
   })();
 </script>
 

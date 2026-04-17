@@ -125,9 +125,26 @@ body {
 }
 
 /* Smooth theme transitions - exclude html/body to prevent FOUC */
-*,
-*::before,
-*::after {
+a,
+button,
+input,
+select,
+.card,
+.btn,
+.badge,
+.nav-link,
+.pagination-link,
+.quiz-option,
+.quiz-check-btn,
+.quiz-reset-btn,
+.share-btn,
+.bookmark-btn,
+.difficulty-btn,
+.tag-btn,
+starlight-tabs [role="tab"],
+.starlight-sidebar a,
+.module-card,
+.roadmap-card {
   transition:
     background-color var(--transition-base),
     border-color var(--transition-base),

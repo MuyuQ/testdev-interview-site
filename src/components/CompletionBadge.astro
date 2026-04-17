@@ -6,6 +6,26 @@ const { slug, category } = Astro.props;
   <slot />
 </span>
 
+<script>
+  (function () {
+    const badge = document.querySelector('.completion-badge[data-slug]');
+    if (!badge) return;
+
+    const slug = badge.getAttribute('data-slug');
+    const category = badge.getAttribute('data-category');
+
+    try {
+      const data = JSON.parse(localStorage.getItem('testdev:progress') || '{"completed":[]}');
+      const isComplete = data.completed.some(
+        (e) => e.slug === slug && e.category === category
+      );
+      if (isComplete) {
+        badge.classList.add('completed');
+      }
+    } catch (e) {}
+  })();
+</script>
+
 <style>
   .completion-badge.completed::after {
     content: "✓";

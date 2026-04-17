@@ -1,16 +1,56 @@
 ---
 import Layout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+const allDocs = await getCollection("docs");
+const tagMap = new Map<string, typeof allDocs>();
+
+for (const doc of allDocs) {
+  const tags = doc.data.tags || [];
+  for (const tag of tags) {
+    if (!tagMap.has(tag)) tagMap.set(tag, []);
+    tagMap.get(tag)!.push(doc);
+  }
+}
+
+const sortedTags = Array.from(tagMap.entries()).sort((a, b) => a[0].localeCompare(b[0], "zh"));
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout title="标签索引 - 测试开发面试速成站">
   <div class="tags-page">
     <h1>标签索引</h1>
-    <p>按标签浏览内容</p>
-    <div id="tags-container"></div>
+    <p>共 {sortedTags.length} 个标签，{allDocs.length} 篇内容</p>
+    <div class="tags-container">
+      {sortedTags.map(([tag, docs]) => (
+        <div class="tag-group">
+          <h2 class="tag-name">{tag}</h2>
+          <ul class="tag-list">
+            {docs.map((doc) => (
+              <li>
+                <a href={`${base}${doc.slug}/`}>{doc.data.title}</a>
+                <span class="tag-category">[{doc.data.category}]</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   </div>
 </Layout>
 
 <style>
   .tags-page { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
-  #tags-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tags-page h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  .tags-page > p { color: var(--sl-color-gray-3); margin-bottom: 2rem; }
+  .tags-container { display: flex; flex-direction: column; gap: 1.5rem; }
+  .tag-group { padding: 1rem; border: 1px solid var(--sl-color-hairline); border-radius: var(--radius-md); }
+  .tag-name { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--sl-color-accent); }
+  .tag-list { list-style: none; padding: 0; margin: 0; }
+  .tag-list li { padding: 0.25rem 0; display: flex; align-items: center; gap: 0.5rem; }
+  .tag-list a { color: var(--sl-color-white); text-decoration: none; }
+  .tag-list a:hover { text-decoration: underline; color: var(--sl-color-accent); }
+  .tag-category { font-size: 0.75rem; color: var(--sl-color-gray-3); }
 </style>

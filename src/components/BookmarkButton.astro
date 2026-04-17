@@ -15,8 +15,7 @@ const { slug } = Astro.props;
 <script>
   import { isBookmarked, toggleBookmark } from "../lib/bookmark-store";
 
-  const btn = document.querySelector(".bookmark-btn[data-slug]");
-  if (btn) {
+  document.querySelectorAll(".bookmark-btn[data-slug]").forEach((btn) => {
     const slug = btn.getAttribute("data-slug");
     const isMarked = isBookmarked(slug);
     btn.classList.toggle("bookmarked", isMarked);
@@ -26,7 +25,7 @@ const { slug } = Astro.props;
       btn.classList.toggle("bookmarked", marked);
       btn.setAttribute("aria-label", marked ? "取消收藏" : "添加收藏");
     });
-  }
+  });
 </script>
 
 <style>

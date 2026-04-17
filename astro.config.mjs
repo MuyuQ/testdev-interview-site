@@ -75,7 +75,7 @@ export default defineConfig({
         "./src/styles/components.css",
         "./src/styles/tabs-custom.css",
       ],
-      disable404Route: true,
+      disable404Route: false,
       components: {
         Banner: "./src/components/Banner.astro",
         Pagination: "./src/components/Pagination.astro",

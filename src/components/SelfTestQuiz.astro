@@ -13,9 +13,11 @@ interface Props {
 
 const { questions } = Astro.props;
 if (!questions?.length) return null;
+
+const quizId = `quiz-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<div class="self-test-quiz" data-quiz>
+<div class="self-test-quiz" data-quiz id={quizId}>
   <h2>自测题</h2>
   <p class="quiz-intro">完成以下 {questions.length} 道题目，检验你的学习成果</p>
 
@@ -26,7 +28,7 @@ if (!questions?.length) return null;
       <div class="quiz-options">
         {q.options.map((opt, j) => (
           <label class="quiz-option">
-            <input type="radio" name={`q-${q.id}`} value={j} />
+            <input type="radio" name={`q-${quizId}-${q.id}`} value={j} />
             <span class="option-text">{opt}</span>
           </label>
         ))}
@@ -49,75 +51,74 @@ if (!questions?.length) return null;
 
 <script>
   (function () {
-    const quiz = document.querySelector('[data-quiz]');
-    if (!quiz) return;
+    document.querySelectorAll('[data-quiz]').forEach((quiz) => {
+      const questions = quiz.querySelectorAll('.quiz-question');
+      const summary = quiz.querySelector('.quiz-summary');
+      const scoreEl = quiz.querySelector('.quiz-score');
+      let answered = 0;
+      let correct = 0;
 
-    const questions = quiz.querySelectorAll('.quiz-question');
-    const summary = quiz.querySelector('.quiz-summary');
-    const scoreEl = quiz.querySelector('.quiz-score');
-    let answered = 0;
-    let correct = 0;
+      quiz.querySelectorAll('.quiz-check-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const question = btn.closest('.quiz-question');
+          const correctIndex = parseInt(btn.dataset.correct);
+          const selected = question.querySelector('input:checked');
+          const explanation = question.querySelector('[data-explanation]');
 
-    quiz.querySelectorAll('.quiz-check-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const question = btn.closest('.quiz-question');
-        const correctIndex = parseInt(btn.dataset.correct);
-        const selected = question.querySelector('input:checked');
-        const explanation = question.querySelector('[data-explanation]');
+          if (!selected) {
+            alert('请选择一个答案');
+            return;
+          }
 
-        if (!selected) {
-          alert('请选择一个答案');
-          return;
-        }
+          const selectedIndex = parseInt(selected.value);
+          const options = question.querySelectorAll('.quiz-option');
 
-        const selectedIndex = parseInt(selected.value);
-        const options = question.querySelectorAll('.quiz-option');
+          options.forEach((opt, i) => {
+            opt.classList.toggle('correct', i === correctIndex);
+            opt.classList.toggle('wrong', i === selectedIndex && i !== correctIndex);
+            opt.querySelector('input').disabled = true;
+          });
 
-        options.forEach((opt, i) => {
-          opt.classList.toggle('correct', i === correctIndex);
-          opt.classList.toggle('wrong', i === selectedIndex && i !== correctIndex);
-          opt.querySelector('input').disabled = true;
+          if (selectedIndex === correctIndex) {
+            correct++;
+          }
+          answered++;
+
+          explanation.hidden = false;
+          btn.disabled = true;
+          btn.textContent = '已检查';
+
+          if (answered === questions.length) {
+            showSummary();
+          }
         });
-
-        if (selectedIndex === correctIndex) {
-          correct++;
-        }
-        answered++;
-
-        explanation.hidden = false;
-        btn.disabled = true;
-        btn.textContent = '已检查';
-
-        if (answered === questions.length) {
-          showSummary();
-        }
       });
-    });
 
-    function showSummary() {
-      const total = questions.length;
-      const percent = Math.round((correct / total) * 100);
-      scoreEl.textContent = `答对 ${correct}/${total} 题 (${percent}%)`;
-      summary.hidden = false;
-      summary.scrollIntoView({ behavior: 'smooth' });
-    }
+      function showSummary() {
+        const total = questions.length;
+        const percent = Math.round((correct / total) * 100);
+        scoreEl.textContent = `答对 ${correct}/${total} 题 (${percent}%)`;
+        summary.hidden = false;
+        summary.scrollIntoView({ behavior: 'smooth' });
+      }
 
-    quiz.querySelector('.quiz-reset-btn')?.addEventListener('click', () => {
-      answered = 0;
-      correct = 0;
-      summary.hidden = true;
+      quiz.querySelector('.quiz-reset-btn')?.addEventListener('click', () => {
+        answered = 0;
+        correct = 0;
+        summary.hidden = true;
 
-      quiz.querySelectorAll('.quiz-question').forEach((q) => {
-        q.querySelectorAll('input').forEach((input) => {
-          input.checked = false;
-          input.disabled = false;
+        quiz.querySelectorAll('.quiz-question').forEach((q) => {
+          q.querySelectorAll('input').forEach((input) => {
+            input.checked = false;
+            input.disabled = false;
+          });
+          q.querySelectorAll('.quiz-option').forEach((opt) => {
+            opt.classList.remove('correct', 'wrong');
+          });
+          q.querySelector('.quiz-check-btn').disabled = false;
+          q.querySelector('.quiz-check-btn').textContent = '检查答案';
+          q.querySelector('[data-explanation]').hidden = true;
         });
-        q.querySelectorAll('.quiz-option').forEach((opt) => {
-          opt.classList.remove('correct', 'wrong');
-        });
-        q.querySelector('.quiz-check-btn').disabled = false;
-        q.querySelector('.quiz-check-btn').textContent = '检查答案';
-        q.querySelector('[data-explanation]').hidden = true;
       });
     });
   })();

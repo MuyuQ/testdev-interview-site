@@ -1,0 +1,89 @@
+---
+interface Props {
+  type: "website" | "article";
+  title?: string;
+  description?: string;
+  url?: string;
+  datePublished?: string;
+  dateModified?: string;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const {
+  type,
+  title = "测试开发面试速成站",
+  description = "结构化内容帮助你快速补齐测试开发知识框架",
+  url = Astro.url.href,
+  datePublished,
+  dateModified,
+  breadcrumbs,
+} = Astro.props;
+
+const baseUrl = "https://muyuq.github.io/testdev-interview-site/";
+
+// WebSite schema for homepage
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "测试开发面试速成站",
+  url: baseUrl,
+  description: "结构化内容帮助你快速补齐测试开发知识框架",
+  inLanguage: "zh-CN",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${baseUrl}?s={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
+
+// Article schema for content pages
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  url,
+  inLanguage: "zh-CN",
+  datePublished: datePublished || "2026-04-17",
+  dateModified: dateModified || "2026-04-17",
+  author: {
+    "@type": "Organization",
+    name: "测试开发面试速成站",
+    url: baseUrl,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "测试开发面试速成站",
+    url: baseUrl,
+  },
+};
+
+// BreadcrumbList schema
+const breadcrumbSchema = breadcrumbs
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url.startsWith("http") ? item.url : `${baseUrl}${item.url.replace(/^\//, "")}`,
+      })),
+    }
+  : null;
+
+// Combine schemas into an array if multiple exist
+const schemas = [type === "website" ? websiteSchema : articleSchema];
+if (breadcrumbSchema) {
+  schemas.push(breadcrumbSchema as Record<string, unknown>);
+}
+
+const jsonLd = schemas.length === 1 ? schemas[0] : { "@graph": schemas };
+---
+
+<script is:inline define:vars={{ jsonLd }}>
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify(jsonLd);
+  document.head.appendChild(script);
+</script>

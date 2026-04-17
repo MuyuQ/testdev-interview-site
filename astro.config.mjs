@@ -8,6 +8,101 @@ export default defineConfig({
     starlight({
       title: "测试开发面试速成站",
       head: [
+        // Robots meta tag
+        {
+          tag: "meta",
+          attrs: {
+            name: "robots",
+            content:
+              "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          },
+        },
+        // Canonical URL (Starlight auto-generates from site + base)
+        {
+          tag: "link",
+          attrs: {
+            rel: "canonical",
+            href: "https://muyuq.github.io/testdev-interview-site/",
+          },
+        },
+        // Open Graph - Site name
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:site_name",
+            content: "测试开发面试速成站",
+          },
+        },
+        // Open Graph - Locale
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:locale",
+            content: "zh_CN",
+          },
+        },
+        // Open Graph - Type
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:type",
+            content: "website",
+          },
+        },
+        // Open Graph - Image
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image",
+            content:
+              "https://muyuq.github.io/testdev-interview-site/og-image.png",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:width",
+            content: "1200",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:height",
+            content: "630",
+          },
+        },
+        // Twitter Card
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:card",
+            content: "summary_large_image",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:title",
+            content: "测试开发面试速成站",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:description",
+            content: "结构化内容帮助你快速补齐测试开发知识框架",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:image",
+            content:
+              "https://muyuq.github.io/testdev-interview-site/og-image.png",
+          },
+        },
+        // Google Fonts
         {
           tag: "link",
           attrs: {

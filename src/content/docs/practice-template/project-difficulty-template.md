@@ -26,6 +26,34 @@ termLinks:
     term: "测试金字塔"
   - slug: "quality-gate"
     term: "质量门禁"
+selfTests:
+  - id: "difficulty-template-structure"
+    question: "项目难点表达的五步结构是什么？"
+    options:
+      - "只描述问题"
+      - "难点背景 → 挑战点 → 分析思路 → 解决路径 → 结果复盘"
+      - "只讲解决方案"
+      - "只讲结果"
+    correctIndex: 1
+    explanation: "项目难点表达五步：难点背景（什么场景下遇到的问题）、挑战点（技术复杂度或约束条件）、分析思路（排查过程和备选方案）、解决路径（最终方案和实施步骤）、结果复盘（收益指标和经验沉淀）。"
+  - id: "difficulty-template-common-mistake"
+    question: "描述项目难点时最常见的错误是什么？"
+    options:
+      - "只说困难不说解决方案"
+      - "描述太详细"
+      - "没有数据支撑"
+      - "以上都是"
+    correctIndex: 3
+    explanation: "常见错误：只说困难不说解决（花大量时间描述问题多难但没有解决方案）、没有个人贡献（用「我们」代替「我」）、结果没有量化（只说「效果很好」没有具体数据）、没有反思（只讲成功不讲教训）。"
+  - id: "difficulty-template-time-control"
+    question: "每个项目难点故事应该控制在多长时间？"
+    options:
+      - "5 分钟以上"
+      - "2 分钟内讲完核心逻辑"
+      - "30 秒"
+      - "没有时间限制"
+    correctIndex: 1
+    explanation: "每个难点故事控制在 2 分钟内讲完核心逻辑。面试官耐心有限，超时会被打断。准备 2-3 个难点故事覆盖不同维度（技术架构、性能优化、团队协作）。"
 ---
 
 ## 模板使用说明

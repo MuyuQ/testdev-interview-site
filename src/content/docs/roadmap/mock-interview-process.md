@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["模拟面试", "面试准备", "练习", "实战演练"]
+selfTests:
+  - id: "mock-interview-steps"
+    question: "模拟面试的四个步骤是什么？"
+    options:
+      - "直接开始面试"
+      - "准备阶段 → 执行阶段 → 记录阶段 → 复盘阶段"
+      - "只执行不复盘"
+      - "只准备不执行"
+    correctIndex: 1
+    explanation: "模拟面试四步：准备阶段（整理 JD、列问题清单）、执行阶段（严格按真实流程走）、记录阶段（记录卡顿、遗漏和逻辑问题）、复盘阶段（针对薄弱点补充准备）。"
+  - id: "mock-interview-record-dimensions"
+    question: "模拟面试复盘应该记录哪些维度？"
+    options:
+      - "只记录分数"
+      - "卡顿点、逻辑漏洞、表达问题、技术盲区"
+      - "只记录技术问题"
+      - "不需要记录"
+    correctIndex: 1
+    explanation: "复盘记录四维度：卡顿点（思考超过 5 秒的问题）、逻辑漏洞（前后矛盾或跳跃的部分）、表达问题（语速过快、口头禅过多）、技术盲区（完全答不上来的问题）。"
+  - id: "mock-interview-frequency"
+    question: "距离面试 1-2 周的冲刺期，模拟面试频率建议是多少？"
+    options:
+      - "每周 1 次"
+      - "每周 3 次模拟面试，覆盖不同形式"
+      - "每天 5 次"
+      - "不需要模拟"
+    correctIndex: 1
+    explanation: "冲刺期（距离面试 1-2 周）：每周 3 次模拟面试，覆盖不同形式（同行互问、前辈指导、录音自测、AI 模拟）。临近期（3 天内）：每天 1 次完整模拟保持状态。"
 ---
 
 ## 模拟面试步骤

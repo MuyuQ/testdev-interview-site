@@ -13,6 +13,34 @@ termLinks:
     term: "状态转换测试"
   - slug: "boundary-value-analysis"
     term: "边界值分析"
+selfTests:
+  - id: "ecommerce-chain-core-flow"
+    question: "电商订单系统的核心业务流程是什么？"
+    options:
+      - "浏览商品 → 加入购物车 → 提交订单 → 支付 → 发货 → 收货 → 完成"
+      - "直接支付 → 完成"
+      - "浏览商品 → 直接发货"
+      - "提交订单 → 直接完成"
+    correctIndex: 0
+    explanation: "电商订单核心流程：浏览商品 → 加入购物车 → 提交订单（库存预扣减）→ 支付 → 支付成功（库存正式扣减）→ 商家发货 → 用户收货 → 订单完成。"
+  - id: "ecommerce-chain-seckill-challenge"
+    question: "秒杀场景下订单系统测试的特殊挑战是什么？"
+    options:
+      - "没有特殊挑战"
+      - "高并发、库存超卖、限流降级、数据一致性"
+      - "只需要测试功能正确性"
+      - "只需要测试 UI 展示"
+    correctIndex: 1
+    explanation: "秒杀场景特殊挑战：高并发（短时间大量请求）、库存超卖（并发竞态条件）、限流降级验证、数据一致性在高并发下更难保证。"
+  - id: "ecommerce-chain-callback-idempotency"
+    question: "支付回调异常导致订单状态不一致，如何保证数据一致性？"
+    options:
+      - "不处理，让用户重新支付"
+      - "幂等操作（使用幂等键）+ 主动查询补偿机制，确保最终一致性"
+      - "只靠回调处理"
+      - "只靠人工修复"
+    correctIndex: 1
+    explanation: "支付回调处理应设计为幂等操作（使用幂等键），配合主动查询补偿机制。模拟重复回调验证幂等性，模拟回调超时验证补偿机制。"
 ---
 
 ## 电商订单链

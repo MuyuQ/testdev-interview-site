@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["面试清单", "准备", "速查", "检查"]
+selfTests:
+  - id: "checklist-four-dimensions"
+    question: "面试准备应该覆盖哪四大维度？"
+    options:
+      - "只准备知识点"
+      - "知识点、表达、心态和物品"
+      - "只准备简历"
+      - "只练习表达"
+    correctIndex: 1
+    explanation: "面试准备四大维度：知识点（自查薄弱项、复习高频问题）、表达（自我介绍和项目介绍演练）、心态（紧张管理、热身练习）、物品（简历、作品集、设备检查）。"
+  - id: "checklist-day-before"
+    question: "面试前 1 天应该完成什么准备？"
+    options:
+      - "开始学习新知识"
+      - "完成物品清单准备，打印简历、准备作品集、检查在线作品链接"
+      - "做模拟面试"
+      - "复习所有知识点"
+    correctIndex: 1
+    explanation: "面试前 1 天：完成物品清单准备（打印简历、准备作品集、检查链接），不再大量学习新内容，保持状态即可。"
+  - id: "checklist-common-mistake"
+    question: "面试准备中最常见的误区是什么？"
+    options:
+      - "准备太充分"
+      - "只准备知识点不练表达、只看不说不输出、准备过多导致记忆混乱"
+      - "练习太多"
+      - "没有误区"
+    correctIndex: 1
+    explanation: "常见误区：只准备知识点不练表达（知道但说不清）、只看不说不输出（缺乏实战演练）、准备过多导致记忆混乱（贪多嚼不烂）。"
 ---
 
 ## 路线概述

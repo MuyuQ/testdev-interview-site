@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["追问", "面试技巧", "高频问题", "准备策略"]
+selfTests:
+  - id: "followup-project-difficulty"
+    question: "被问到「项目最大的技术难点」时应该如何准备？"
+    options:
+      - "临时编一个难点"
+      - "准备一个具体问题、分析过程、解决方案和验证结果的完整故事"
+      - "说没有遇到难点"
+      - "只描述问题不讲解法"
+    correctIndex: 1
+    explanation: "准备一个具体的难点故事：什么问题、如何分析、备选方案对比、最终选择、验证结果。体现系统性思考和执行力。"
+  - id: "followup-scalability"
+    question: "被问到「如果数据量翻倍，你的方案会有什么问题」时应该怎么做？"
+    options:
+      - "说不会有问题"
+      - "提前准备扩展性分析，说明瓶颈点和应对策略"
+      - "回避问题"
+      - "说不知道"
+    correctIndex: 1
+    explanation: "提前准备扩展性分析：当前方案的瓶颈点在哪里（数据库查询、内存占用、并发处理等），数据量翻倍后的应对策略（分库分表、缓存、异步处理等）。"
+  - id: "followup-choice-reasoning"
+    question: "被问到「为什么选 A 方案而不是 B 方案」时应该如何回答？"
+    options:
+      - "说 A 方案更好"
+      - "从成本、团队能力、时间窗口、风险等多维度对比说明"
+      - "说 B 方案不好"
+      - "说随便选的"
+    correctIndex: 1
+    explanation: "方案选择应从多维度对比：成本（开发和维护成本）、团队能力（技术栈匹配度）、时间窗口（交付期限）、风险（技术成熟度、社区支持）。展示权衡思考能力。"
 ---
 
 ## 项目深挖类追问

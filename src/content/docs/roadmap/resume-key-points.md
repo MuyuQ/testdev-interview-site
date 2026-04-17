@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["简历", "求职", "自我展示", "面试准备"]
+selfTests:
+  - id: "resume-project-description"
+    question: "简历中项目描述应该用什么方法？"
+    options:
+      - "流水账式罗列工作内容"
+      - "STAR 法则：背景、任务、行动、结果四段描述"
+      - "只写技术栈"
+      - "只写项目名称"
+    correctIndex: 1
+    explanation: "项目描述用 STAR 法则：背景（项目背景和目标）、任务（你的职责）、行动（采取的技术动作）、结果（量化成果）。用百分比、数量、时间等数据支撑。"
+  - id: "resume-common-mistake"
+    question: "简历中最常见的错误是什么？"
+    options:
+      - "写得太短"
+      - "堆砌关键词（写了但被问倒）、空泛描述（参与测试无法体现价值）、格式混乱"
+      - "写得太详细"
+      - "没有错误"
+    correctIndex: 1
+    explanation: "常见错误：堆砌关键词（写了但被问倒不如不写）、空泛描述（「参与测试」无法体现价值，应改成具体产出）、格式混乱（字体间距对齐不一致）、过时信息（3 年以上项目一笔带过）。"
+  - id: "resume-keyword-strategy"
+    question: "简历中技术关键词的正确策略是什么？"
+    options:
+      - "把所有知道的技术都写上"
+      - "只提能深入讲解的技术，埋入面试想被问到的技术点"
+      - "不写技术关键词"
+      - "只写最常用的技术"
+    correctIndex: 1
+    explanation: "技术关键词策略：只提能深入讲解的技术，面试官通常会从你提到的技术中选择追问。埋入面试想被问到的技术点，确保每个点都能展开 2-3 层。"
 ---
 
 ## 简历结构建议

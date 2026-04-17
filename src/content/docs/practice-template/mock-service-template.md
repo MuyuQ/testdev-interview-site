@@ -24,6 +24,34 @@ termLinks:
     term: "Mock 与 Stub"
   - slug: "api-assertion"
     term: "接口断言"
+selfTests:
+  - id: "mock-template-core-capabilities"
+    question: "一个功能完整的 Mock 服务应该具备哪些核心能力？"
+    options:
+      - "只返回固定 JSON"
+      - "路由配置、动态响应、状态管理、契约校验"
+      - "只支持 GET 请求"
+      - "不需要状态管理"
+    correctIndex: 1
+    explanation: "Mock 服务核心能力：路由配置（路径、方法、匹配条件）、动态响应（模板变量、延迟模拟）、状态管理（场景切换、调用记录）、契约校验（保证与真实接口一致）。"
+  - id: "mock-template-contract-consistency"
+    question: "如何保证 Mock 服务与真实接口的一致性？"
+    options:
+      - "不需要保证一致性"
+      - "基于 OpenAPI/Swagger 规范定义契约，Mock 启动时校验响应是否符合契约"
+      - "手动对比"
+      - "只在项目开始时对齐"
+    correctIndex: 1
+    explanation: "Mock 服务应基于 OpenAPI/Swagger 规范定义接口契约，启动时校验响应是否符合契约定义（字段类型、必填字段）。定期对比 Mock 响应与真实服务响应，发现不一致时告警。"
+  - id: "mock-template-state-management"
+    question: "Mock 服务为什么需要状态管理？"
+    options:
+      - "不需要状态管理"
+      - "支持场景切换和状态持久化，能模拟有状态的业务流程"
+      - "状态管理会增加复杂度"
+      - "只用于记录日志"
+    correctIndex: 1
+    explanation: "Mock 服务的状态管理很重要。比如测试支付流程，需要先设置 Mock 服务返回支付成功，然后验证订单状态更新。场景切换 + 状态持久化 + 调用记录让 Mock 能模拟有状态业务流程。"
 ---
 
 ## 模板使用说明

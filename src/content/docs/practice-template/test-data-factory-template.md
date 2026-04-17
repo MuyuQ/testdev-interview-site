@@ -26,6 +26,34 @@ termLinks:
     term: "Fixture"
   - slug: "equivalence-class-partition"
     term: "等价类划分"
+selfTests:
+  - id: "data-factory-lifecycle"
+    question: "测试数据生命周期管理包括哪些环节？"
+    options:
+      - "只创建数据"
+      - "创建策略（预置/动态）→ 隔离策略（唯一前缀/独立 schema）→ 清理策略（事务回滚/级联删除）"
+      - "只清理数据"
+      - "不需要管理"
+    correctIndex: 1
+    explanation: "数据生命周期管理：创建策略（预置数据适合共享、动态创建适合隔离）、隔离策略（唯一前缀区分不同测试数据）、清理策略（事务回滚、级联删除、环境重置）。"
+  - id: "data-factory-isolation"
+    question: "测试之间数据隔离的常用方式有哪些？"
+    options:
+      - "所有测试共用同一份数据"
+      - "唯一前缀、独立 schema、事务回滚、容器化环境"
+      - "不需要隔离"
+      - "只隔离 UI 测试数据"
+    correctIndex: 1
+    explanation: "数据隔离方式：唯一前缀（每个测试数据加唯一标识）、独立数据库 schema、事务回滚（测试在事务中执行结束后回滚）、容器化环境（测试后销毁重建）。"
+  - id: "data-factory-builder-pattern"
+    question: "Builder 模式在测试数据工厂中的作用是什么？"
+    options:
+      - "没有实际作用"
+      - "对于复杂实体（如 Order），通过链式调用逐步设置字段值，最后 build 生成完整数据"
+      - "只用于简单数据"
+      - "替代工厂模式"
+    correctIndex: 1
+    explanation: "Builder 模式用于复杂实体的逐步构建。如 OrderBuilder().with_user(user).add_item(product, qty=2).build()，通过链式调用逐步设置字段值，最后生成完整数据对象。"
 ---
 
 ## 模板使用说明

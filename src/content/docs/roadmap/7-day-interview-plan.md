@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["学习路线", "7 天", "面试"]
+selfTests:
+  - id: "7day-learning-method"
+    question: "7 天面试路线推荐的学习方法是什么？"
+    options:
+      - "只看内容不练习"
+      - "输出倒逼输入：每天录制口头表达视频检验能否清晰讲述知识点"
+      - "只背答案"
+      - "追求完美答案"
+    correctIndex: 1
+    explanation: "高效学习方法：先看摘要和核心问题再深入细节，每学完一个专题用自己的话复述。每天录制口头表达视频检验表达效果，把答不上来的问题记下来第二天重点复习。"
+  - id: "7day-expression-formula"
+    question: "项目表达的公式是什么？"
+    options:
+      - "只讲技术细节"
+      - "背景 + 问题 + 方案 + 收益 + 反思，5 段式结构"
+      - "只讲成果"
+      - "按时间顺序罗列"
+    correctIndex: 1
+    explanation: "项目表达公式：背景 + 问题 + 方案 + 收益 + 反思，5 段式结构让回答有深度。用项目指标说话（覆盖率提升 X%、缺陷率降低 Y%、效率提升 Z%）。"
+  - id: "7day-common-mistake"
+    question: "7 天学习计划中常见的学习误区有哪些？"
+    options:
+      - "只看不练、只记不输出、追求完美答案、忽视表达训练"
+      - "练习太多"
+      - "输出太多"
+      - "没有误区"
+    correctIndex: 0
+    explanation: "常见学习误区：只看不练（看了很多资料但不实践）、只记不输出（记住了但说不出来）、追求完美答案（面试没有标准答案）、忽视表达训练（知识转化成口语表达需要专门练习）。"
 ---
 
 ## 路线概述

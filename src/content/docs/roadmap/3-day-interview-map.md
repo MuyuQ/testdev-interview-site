@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["学习路线", "3 天", "速记"]
+selfTests:
+  - id: "3day-day1-focus"
+    question: "3 天速记路线第 1 天应该重点学习什么？"
+    options:
+      - "直接做项目"
+      - "术语体系 + 接口测试 + Pytest + 幂等"
+      - "只学 AI 相关内容"
+      - "只准备自我介绍"
+    correctIndex: 1
+    explanation: "第 1 天重点：术语体系（测试金字塔、Bug 生命周期、性能测试术语）、接口测试基础、Pytest 框架核心概念（Fixture/Parametrize）、幂等性概念理解。"
+  - id: "3day-day2-focus"
+    question: "3 天速记路线第 2 天应该重点准备什么？"
+    options:
+      - "编码题"
+      - "支付/电商项目故事 + 支付回调场景 + 登录鉴权场景"
+      - "自我介绍"
+      - "AI 工具使用"
+    correctIndex: 1
+    explanation: "第 2 天重点：准备 2 个项目案例（支付/电商项目）、支付回调场景题（回调流程、异常处理）、登录鉴权场景题（Token 机制、权限验证）。"
+  - id: "3day-day3-focus"
+    question: "3 天速记路线第 3 天应该重点练习什么？"
+    options:
+      - "编码题模板 + 自我介绍 + 项目描述 + AI 时代成长表达"
+      - "只练习编码题"
+      - "只背术语"
+      - "只看理论"
+    correctIndex: 0
+    explanation: "第 3 天重点：编码题模板（重试机制、数据构造）、自我介绍（1 分钟/3 分钟版本）、项目描述（STAR 法则、量化成果）、AI 时代成长表达。"
 ---
 
 ## 按天安排

@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["表达训练", "面试技巧", "沟通", "自我展示"]
+selfTests:
+  - id: "expression-principles"
+    question: "面试表达的四个核心原则是什么？"
+    options:
+      - "越长越好、越专业越好"
+      - "结构优先、故事化、数据化、口语化"
+      - "只讲技术细节"
+      - "背诵标准答案"
+    correctIndex: 1
+    explanation: "表达四原则：结构优先（先说结论再说原因）、故事化（背景-问题-方案-结果四段式）、数据化（用数字比例对比强化说服力）、口语化（提前练习口述避免书面语堆砌）。"
+  - id: "expression-too-long"
+    question: "回答太长、跑题怎么办？"
+    options:
+      - "继续讲完"
+      - "每个问题准备 30 秒精简版和 2 分钟展开版"
+      - "让面试官打断"
+      - "不准备"
+    correctIndex: 1
+    explanation: "每个问题准备两个版本：30 秒精简版（核心结论）和 2 分钟展开版（详细论述）。根据面试官反应和剩余时间选择合适的版本。"
+  - id: "expression-forget-words"
+    question: "临时忘词怎么办？"
+    options:
+      - "直接跳过"
+      - "准备过渡语如「这个问题我分三点来说...」，给自己思考时间"
+      - "说不知道"
+      - "乱编"
+    correctIndex: 1
+    explanation: "准备过渡语（如「这个问题我分三点来说...」）给自己思考时间。诚实比乱编好，可以说「这个细节我需要确认，但我理解的是...」。"
 ---
 
 ## 表达原则

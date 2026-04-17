@@ -13,6 +13,34 @@ termLinks:
     term: "冒烟测试"
   - slug: "test-environment-management"
     term: "测试环境管理"
+selfTests:
+  - id: "perf-chain-key-metrics"
+    question: "性能测试的关键指标包括哪些？"
+    options:
+      - "只用例通过率"
+      - "响应时间（P50/P95/P99）、吞吐量（QPS/TPS）、并发用户数、资源利用率、错误率"
+      - "只关注响应时间"
+      - "只关注 CPU 使用率"
+    correctIndex: 1
+    explanation: "性能测试关键指标：响应时间（P95 < 500ms 是常见要求）、吞吐量（QPS/TPS）、并发用户数、资源利用率（CPU < 80%、内存 < 70%）、错误率（< 0.1%）。"
+  - id: "perf-chain-bottleneck-location"
+    question: "发现性能瓶颈后，正确的分析思路是什么？"
+    options:
+      - "直接优化代码"
+      - "从宏观指标到微观细节，逐层排查（应用 → 数据库 → 系统 → 中间件）"
+      - "只查看日志"
+      - "重启服务"
+    correctIndex: 1
+    explanation: "瓶颈定位应逐层排查：先确定瓶颈在哪一层（应用层、数据库层、系统层、中间件层），再深入分析该层的具体原因。用数据说话，不要盲目猜测。"
+  - id: "perf-chain-tool-selection"
+    question: "选择性能测试工具时应该考虑什么？"
+    options:
+      - "只选择功能最全的工具"
+      - "根据团队技术栈、测试场景复杂度、CI 集成需求选择最适合的"
+      - "只选择最贵的工具"
+      - "不需要考虑，随便选一个"
+    correctIndex: 1
+    explanation: "工具选型应考虑：团队技术栈（Python 团队选 Locust，JS 团队选 k6）、场景复杂度、CI 集成需求。不要盲目追求功能最全的工具。"
 ---
 
 ## 性能测试链

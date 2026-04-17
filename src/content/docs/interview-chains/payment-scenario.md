@@ -15,6 +15,34 @@ termLinks:
     term: "接口断言"
   - slug: "boundary-value-analysis"
     term: "边界值分析"
+selfTests:
+  - id: "payment-chain-test-scenarios"
+    question: "支付功能测试需要覆盖哪些异常场景？"
+    options:
+      - "只测试正常支付流程"
+      - "支付失败（余额不足、超时）、支付取消、重复支付、并发支付"
+      - "只测试支付成功"
+      - "只测试 UI 展示"
+    correctIndex: 1
+    explanation: "支付异常场景包括：支付失败（余额不足、银行卡过期、网络超时）、支付取消、支付超时、重复支付验证幂等性、同一订单并发支付。"
+  - id: "payment-chain-security"
+    question: "支付系统如何防重放攻击？"
+    options:
+      - "不需要防护"
+      - "每次支付请求包含唯一标识（nonce）和时间戳，服务端验证唯一性和时效性"
+      - "只使用 HTTPS"
+      - "只验证金额"
+    correctIndex: 1
+    explanation: "防重放攻击：每次支付请求包含唯一标识（nonce）和时间戳，服务端验证请求的唯一性和时效性。配合支付接口幂等性设计，重复请求不会导致重复扣款。"
+  - id: "payment-chain-troubleshooting"
+    question: "用户反馈支付成功但订单状态未更新，排查的第一步是什么？"
+    options:
+      - "直接修改数据库"
+      - "先查询支付渠道确认支付是否真的成功"
+      - "重启服务"
+      - "让用户重新支付"
+    correctIndex: 1
+    explanation: "排查步骤：先查询支付渠道确认支付是否真的成功，再检查支付网关是否收到回调，然后检查 MQ 消费情况，最后检查订单服务日志和补偿机制。"
 ---
 
 ## 支付场景链

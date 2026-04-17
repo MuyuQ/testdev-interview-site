@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "beginner"
 interviewWeight: 1
 tags: ["复盘", "面试技巧", "持续改进", "经验积累"]
+selfTests:
+  - id: "review-timing"
+    question: "面试复盘的最佳时机是什么？"
+    options:
+      - "一周后"
+      - "面试结束后立即记录，当天晚上整理笔记"
+      - "不需要复盘"
+      - "一个月后"
+    correctIndex: 1
+    explanation: "复盘时机：面试结束后立即记录（趁记忆清晰写下关键问题），当天晚上整理笔记（补充细节和情绪记录），每周或每两周回顾所有面试记录找共同问题。"
+  - id: "review-dimensions"
+    question: "面试复盘应该从哪些维度分析？"
+    options:
+      - "只看结果"
+      - "问题记录、回答分析、状态评估、面试官反馈"
+      - "只记录分数"
+      - "不需要分析"
+    correctIndex: 1
+    explanation: "复盘四维度：问题记录（没答好或没答上来的问题）、回答分析（哪些可以更简洁/深入）、状态评估（紧张程度、语速控制）、面试官反馈（追问方向和表情变化）。"
+  - id: "review-improvement"
+    question: "面试复盘后的改进行动包括哪些？"
+    options:
+      - "不需要改进"
+      - "建立问题库、针对性补强薄弱知识点、迭代表达形成标准模板、心态调整"
+      - "只记录不行动"
+      - "只补技术不练表达"
+    correctIndex: 1
+    explanation: "改进行动：建立问题库持续更新答案、对薄弱知识点专项学习、优化讲不清楚的部分形成标准回答模板、分析紧张原因做好心理准备。"
 ---
 
 ## 复盘时机

@@ -15,6 +15,34 @@ termLinks:
     term: "测试覆盖率"
   - slug: "test-environment-management"
     term: "测试环境管理"
+selfTests:
+  - id: "senior-chain-test-pyramid"
+    question: "测试金字塔标准模型的投入比例是什么？"
+    options:
+      - "UI 测试 70%、接口测试 20%、单元测试 10%"
+      - "单元测试 70%、接口测试 20%、UI 测试 10%"
+      - "各占 33%"
+      - "接口测试 70%、UI 测试 20%、单元测试 10%"
+    correctIndex: 1
+    explanation: "测试金字塔标准模型：单元测试 70%（运行快、定位准）、接口测试 20%（覆盖业务流）、UI 测试 10%（最接近用户视角但维护成本高）。实践中可根据项目特点调整。"
+  - id: "senior-chain-quality-gate"
+    question: "CI/CD 质量门禁的关键指标有哪些？"
+    options:
+      - "只有代码覆盖率"
+      - "增量覆盖率、自动化通过率、静态扫描问题数、性能基准、安全扫描"
+      - "只有自动化通过率"
+      - "只有测试用例数量"
+    correctIndex: 1
+    explanation: "质量门禁关键指标：增量覆盖率 > 80%、核心用例通过率 > 95%、无阻塞级别静态扫描问题、核心接口响应时间不超过基线 110%、无高危安全漏洞。"
+  - id: "senior-chain-coverage-misconception"
+    question: "测试覆盖率越高越好吗？"
+    options:
+      - "是的，100% 覆盖率等于 100% 质量"
+      - "不是，100% 覆盖率不等于 100% 质量，应关注关键路径覆盖和测试有效性"
+      - "覆盖率不重要"
+      - "覆盖率只看行数"
+    correctIndex: 1
+    explanation: "覆盖率不是越高越好。100% 覆盖率不等于 100% 质量，过度追求会导致测试成本过高。应关注增量覆盖率 > 80%、核心模块覆盖率 > 90%、关键路径优先。"
 ---
 
 ## 资深测试开发链

@@ -13,6 +13,34 @@ termLinks:
     term: "测试金字塔"
   - slug: "regression-testing"
     term: "回归测试"
+selfTests:
+  - id: "ui-chain-locator-priority"
+    question: "UI 自动化中元素定位器的优先级是什么？"
+    options:
+      - "XPath > CSS > text > role > data-testid"
+      - "data-testid > role > text > CSS > XPath"
+      - "CSS > XPath > text > role > data-testid"
+      - "没有优先级区别"
+    correctIndex: 1
+    explanation: "定位器优先级：data-testid 最稳定（不受样式和布局变化影响），其次 role + accessible name（语义化），再 text，然后 CSS selector，最后 XPath（性能差、可读性差）。"
+  - id: "ui-chain-flaky-test"
+    question: "UI 自动化测试不稳定（flaky test）的最常见原因是什么？"
+    options:
+      - "测试框架有 Bug"
+      - "等待机制不当（使用固定 sleep）、环境因素、数据依赖、元素变化、并发冲突"
+      - "浏览器版本问题"
+      - "网络问题"
+    correctIndex: 1
+    explanation: "Flaky test 常见原因：等待机制不当（固定 sleep）、环境因素（网络延迟）、数据依赖（测试数据被修改）、元素变化（DOM 结构变更）、并发冲突。解决方案包括自动等待、数据隔离、稳定定位器。"
+  - id: "ui-chain-strategy"
+    question: "UI 自动化测试策略中，覆盖范围应该如何确定？"
+    options:
+      - "追求 100% UI 自动化覆盖"
+      - "只覆盖核心业务流程（20% 的功能覆盖 80% 的用户场景），业务逻辑验证下沉到接口测试"
+      - "不写 UI 自动化"
+      - "所有功能都做 UI 自动化"
+    correctIndex: 1
+    explanation: "UI 自动化策略：只覆盖核心业务流程（20% 功能覆盖 80% 用户场景），不追求 100% 覆盖。业务逻辑验证下沉到接口测试层（更快、更稳定），UI 层只验证端到端流程。"
 ---
 
 ## UI 自动化链

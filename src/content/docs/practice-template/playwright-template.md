@@ -25,6 +25,34 @@ termLinks:
     term: "测试金字塔"
   - slug: "regression-testing"
     term: "回归测试"
+selfTests:
+  - id: "playwright-template-pom-advantage"
+    question: "Playwright 项目中使用 POM 模式的主要优势是什么？"
+    options:
+      - "代码更少"
+      - "页面变化时只需修改页面类，测试用例不受影响，操作复用减少重复代码"
+      - "执行速度更快"
+      - "不需要写断言"
+    correctIndex: 1
+    explanation: "POM 模式优势：页面元素变化时只需修改 Page 类，测试用例不受影响。页面操作可被多个测试用例复用，减少重复代码。测试用例用业务语言描述操作而非技术细节。"
+  - id: "playwright-template-flaky-reduction"
+    question: "减少 Playwright flaky test 的关键措施有哪些？"
+    options:
+      - "增加 sleep 时间"
+      - "稳定定位器 + 自动等待 + 数据隔离 + 失败重试 + trace 分析"
+      - "减少测试用例数量"
+      - "只在一个浏览器上测试"
+    correctIndex: 1
+    explanation: "减少 flaky test 的关键：使用稳定定位器（data-testid 优先）、利用 Playwright 内置自动等待机制、测试数据隔离、配置失败重试 1-2 次、配合 trace 分析根因。"
+  - id: "playwright-template-trace"
+    question: "Playwright 的 trace 功能有什么作用？"
+    options:
+      - "没有实际作用"
+      - "测试失败时提供完整诊断信息，包含每一步操作、截图、网络请求、控制台日志"
+      - "只记录错误"
+      - "只用于性能测试"
+    correctIndex: 1
+    explanation: "Trace 录制包含测试失败时的完整诊断信息：每一步操作、截图、网络请求、控制台日志。使用 playwright show-trace 命令可查看 trace 文件，回放每一步操作快速定位失败原因。"
 ---
 
 ## 模板使用说明

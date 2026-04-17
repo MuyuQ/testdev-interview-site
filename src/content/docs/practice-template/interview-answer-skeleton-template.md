@@ -25,6 +25,34 @@ termLinks:
     term: "测试金字塔"
   - slug: "quality-gate"
     term: "质量门禁"
+selfTests:
+  - id: "answer-skeleton-structure"
+    question: "面试回答骨架的四步结构是什么？"
+    options:
+      - "直接回答答案"
+      - "开场定义 → 展开说明 → 举例落地 → 总结升华"
+      - "只举例不解释"
+      - "只背诵概念定义"
+    correctIndex: 1
+    explanation: "面试回答骨架四步：开场定义（一句话概括核心概念）、展开说明（2-3 个维度展示理解深度）、举例落地（结合项目经验）、总结升华（踩坑经验或改进思考）。"
+  - id: "answer-skeleton-time-control"
+    question: "面试回答应该控制在多长时间？"
+    options:
+      - "越长越好，展示知识渊博"
+      - "1.5-2 分钟，每个问题简洁有条理"
+      - "30 秒以内"
+      - "5 分钟以上"
+    correctIndex: 1
+    explanation: "面试回答应控制在 1.5-2 分钟内，开场定义 10-15 秒、展开说明 30-45 秒、举例落地 20-30 秒、总结升华 10-15 秒。超时会被打断，过短显得缺乏深度。"
+  - id: "answer-skeleton-common-mistake"
+    question: "面试回答中最常见的错误是什么？"
+    options:
+      - "回答太短"
+      - "背诵式回答、过度展开、没有例子、缺少总结"
+      - "举例太多"
+      - "总结太长"
+    correctIndex: 1
+    explanation: "常见错误：背诵式回答（像背书一样复述概念没有自己的理解）、过度展开（在一个细节上讲太多）、没有例子（只讲理论不讲实践）、缺少总结（回答完就结束没有收尾）。"
 ---
 
 ## 模板使用说明

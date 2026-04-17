@@ -26,6 +26,34 @@ termLinks:
     term: "冒烟测试"
   - slug: "test-environment-management"
     term: "测试环境管理"
+selfTests:
+  - id: "perf-template-first-step"
+    question: "性能测试项目的第一步是什么？"
+    options:
+      - "直接开始压测"
+      - "性能需求分析：明确指标、定义场景、准备数据、部署监控"
+      - "选择压测工具"
+      - "编写压测脚本"
+    correctIndex: 1
+    explanation: "性能测试第一步是需求分析：和业务方确认预期用户量和响应时间要求，定义可量化指标（P95、QPS、错误率等），设计测试场景（基准、负载、压力），准备测试数据和部署监控。"
+  - id: "perf-template-monitoring-layers"
+    question: "性能测试中需要监控哪些层面的指标？"
+    options:
+      - "只监控应用层"
+      - "应用层（QPS、响应时间）、系统层（CPU、内存）、数据库层（慢查询）、中间件层（MQ 堆积、缓存命中率）"
+      - "只监控 CPU"
+      - "不需要监控"
+    correctIndex: 1
+    explanation: "性能测试需要多层监控：应用层（QPS、响应时间分布、错误率）、系统层（CPU、内存、磁盘 I/O）、数据库层（慢查询、连接数）、中间件层（MQ 堆积量、缓存命中率）。"
+  - id: "perf-template-report-value"
+    question: "性能测试报告的核心价值是什么？"
+    options:
+      - "只记录测试结果"
+      - "指出瓶颈在哪个组件、是什么原因、建议怎么优化、预期能提升多少"
+      - "只展示图表"
+      - "只记录错误"
+    correctIndex: 1
+    explanation: "性能测试报告的价值在于 actionable 的建议。不会只说「系统有瓶颈」，而是指出瓶颈在哪个组件、是什么原因、建议怎么优化（如添加索引、增加缓存）、预期能提升多少。"
 ---
 
 ## 模板使用说明

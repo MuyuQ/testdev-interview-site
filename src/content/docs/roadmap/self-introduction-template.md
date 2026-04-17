@@ -5,6 +5,34 @@ category: "roadmap"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["自我介绍", "模板", "表达"]
+selfTests:
+  - id: "self-intro-structure"
+    question: "自我介绍的四段式结构是什么？"
+    options:
+      - "按时间顺序罗列工作经历"
+      - "背景介绍 → 核心项目 → 技术能力 → 求职方向"
+      - "只讲技术细节"
+      - "只讲个人爱好"
+    correctIndex: 1
+    explanation: "自我介绍四段式：背景介绍（方向和年限）、核心项目（STAR 法则讲 1-2 个项目）、技术能力（只提能深入讲解的技术）、求职方向（展示对目标公司的了解和求职动机）。"
+  - id: "self-intro-time-control"
+    question: "自我介绍应该准备几个版本？"
+    options:
+      - "只准备一个版本"
+      - "1 分钟简短版和 3 分钟详细版"
+      - "5 分钟完整版"
+      - "不需要准备"
+    correctIndex: 1
+    explanation: "准备两个版本：1 分钟版适合初面或时间紧张时（背景 + 一个核心项目 + 求职方向），3 分钟版适合正式面试（完整四段式，每个项目有具体成果）。"
+  - id: "self-intro-common-mistake"
+    question: "自我介绍中最常见的错误是什么？"
+    options:
+      - "介绍太短"
+      - "像背简历（逐字背诵缺乏交流感）、技术细节过多、成果描述模糊"
+      - "介绍太长"
+      - "没有错误"
+    correctIndex: 1
+    explanation: "常见错误：像背简历（逐字背诵，面试官打断后无法接续）、技术细节过多（先讲业务价值再讲技术方案）、成果描述模糊（用具体数据支撑如「回归测试从 2 天缩短到 2 小时」）。"
 ---
 
 ## 结构建议

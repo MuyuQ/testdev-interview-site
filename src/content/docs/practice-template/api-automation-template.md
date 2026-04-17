@@ -27,6 +27,34 @@ termLinks:
     term: "接口断言"
   - slug: "mock-stub"
     term: "Mock 与 Stub"
+selfTests:
+  - id: "api-template-framework-structure"
+    question: "接口自动化框架的正确搭建顺序是什么？"
+    options:
+      - "先写用例再做配置"
+      - "配置管理 → 请求封装 → 断言层 → 数据驱动 → 报告输出"
+      - "先写报告再做用例"
+      - "没有固定顺序"
+    correctIndex: 1
+    explanation: "接口自动化框架应按顺序搭建：配置管理（多环境切换）→ 请求封装（HTTP 客户端 + 鉴权）→ 断言层（协议层 + 业务层）→ 数据驱动（YAML/JSON 存储）→ 报告输出（HTML/JSON）。"
+  - id: "api-template-token-management"
+    question: "登录态（Token）应该如何管理？"
+    options:
+      - "每个用例单独获取 Token"
+      - "Token 获取 → 缓存 → 过期自动刷新，封装在请求客户端中，测试用例无感知"
+      - "Token 写死在配置文件中"
+      - "不需要管理 Token"
+    correctIndex: 1
+    explanation: "Token 管理应封装在请求客户端中：获取 Token → 缓存 Token → Token 过期自动刷新。测试用例无需关心鉴权细节，由客户端自动注入 Token 到请求头。"
+  - id: "api-template-fixture-scope"
+    question: "接口自动化中 Fixture 按作用域如何组织？"
+    options:
+      - "全部使用 function 作用域"
+      - "session 级（环境配置）、module 级（登录态）、function 级（测试数据）"
+      - "全部使用 session 作用域"
+      - "不使用 Fixture"
+    correctIndex: 1
+    explanation: "Fixture 按作用域组织：session 级用于全局共享资源（环境配置、数据库连接），module 级用于模块内共享（登录态），function 级用于需要隔离的资源（测试数据）。"
 ---
 
 ## 模板使用说明

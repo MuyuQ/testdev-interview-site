@@ -13,6 +13,34 @@ termLinks:
     term: "Fixture"
   - slug: "data-driven-testing"
     term: "数据驱动测试"
+selfTests:
+  - id: "framework-chain-pom-core"
+    question: "POM（Page Object Model）设计模式的核心思想是什么？"
+    options:
+      - "测试用例直接操作页面元素"
+      - "将页面元素定位和操作封装为独立对象，测试用例通过调用 Page 对象方法完成操作"
+      - "所有测试写在一个文件里"
+      - "不使用任何封装"
+    correctIndex: 1
+    explanation: "POM 核心思想：将页面的元素定位和操作封装为独立的 Page 类，测试用例通过调用 Page 对象的方法来完成操作，不直接操作页面元素。降低维护成本，提高复用性。"
+  - id: "framework-chain-pytest-vs-unittest"
+    question: "pytest 相比 unittest 的主要优势是什么？"
+    options:
+      - "pytest 是 Python 标准库"
+      - "语法简洁（直接用 assert）、Fixture 机制强大、参数化灵活、插件生态丰富"
+      - "pytest 只能用于 UI 测试"
+      - "unittest 功能更多"
+    correctIndex: 1
+    explanation: "pytest 优势：语法简洁（直接用 assert 语句）、强大的 Fixture 依赖注入系统、灵活的参数化、丰富的插件生态（pytest-html、pytest-xdist 等）。unittest 优势是标准库内置。"
+  - id: "framework-chain-secondary-dev"
+    question: "基于现有测试框架进行二次开发时应该注意什么？"
+    options:
+      - "直接修改框架源码"
+      - "尽量使用框架提供的扩展点（如 hook 函数、Listener 接口），考虑兼容性"
+      - "不使用任何扩展"
+      - "二次开发不需要考虑维护成本"
+    correctIndex: 1
+    explanation: "二次开发要考虑兼容性，框架升级时自定义代码可能需要调整。尽量使用框架提供的扩展点（如 pytest 的 hook 函数、TestNG 的 Listener 接口），而非修改框架源码。"
 ---
 
 ## 测试框架链

@@ -1,0 +1,133 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout title="页面未找到 - 测试开发面试速成站">
+  <div class="not-found-page">
+    <div class="not-found-illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--sl-color-accent)" stroke-width="2" opacity="0.3"/>
+        <circle cx="100" cy="100" r="60" fill="none" stroke="var(--sl-color-accent)" stroke-width="1.5" opacity="0.2"/>
+        <text x="100" y="90" text-anchor="middle" font-size="48" font-weight="700" fill="var(--sl-color-accent)" font-family="var(--font-sans)">404</text>
+        <text x="100" y="120" text-anchor="middle" font-size="14" fill="var(--sl-color-gray-3)" font-family="var(--font-sans)">页面不存在</text>
+        <line x1="60" y1="135" x2="140" y2="135" stroke="var(--sl-color-hairline)" stroke-width="1"/>
+        <g opacity="0.6">
+          <path d="M85 145 L100 155 L115 145" fill="none" stroke="var(--sl-color-gray-3)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="100" y1="155" x2="100" y2="165" stroke="var(--sl-color-gray-3)" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1>页面未找到</h1>
+    <p class="not-found-desc">抱歉，您访问的页面不存在或已被移除。</p>
+
+    <div class="not-found-actions">
+      <a href={`${base}`} class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        返回首页
+      </a>
+      <a href={`${base}glossary/api-assertion/`} class="btn">浏览术语</a>
+      <a href={`${base}tech/python/`} class="btn">技术专题</a>
+      <a href={`${base}scenario/flash-sale/`} class="btn">场景题</a>
+    </div>
+
+    <div class="popular-links">
+      <h3>热门内容</h3>
+      <ul>
+        <li><a href={`${base}glossary/api-assertion/`}>接口断言</a></li>
+        <li><a href={`${base}tech/pytest/`}>Pytest 测试框架</a></li>
+        <li><a href={`${base}roadmap/3-day-interview-map/`}>3 天速记路线</a></li>
+        <li><a href={`${base}coding/retry-mechanism/`}>重试机制编码题</a></li>
+        <li><a href={`${base}project/ecommerce/`}>电商项目测试</a></li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .not-found-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+
+  .not-found-illustration {
+    margin-bottom: var(--space-xl);
+  }
+
+  .not-found-illustration svg {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .not-found-page h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--sl-color-white);
+    border: none;
+  }
+
+  .not-found-desc {
+    font-size: 1rem;
+    color: var(--sl-color-gray-3);
+    margin-bottom: var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .popular-links {
+    padding: var(--space-lg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--radius-md);
+    text-align: left;
+  }
+
+  .popular-links h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--sl-color-gray-2);
+    text-align: center;
+  }
+
+  .popular-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .popular-links li a {
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    font-size: 0.875rem;
+    padding: var(--space-sm) var(--space-md);
+    display: block;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .popular-links li a:hover {
+    background-color: var(--sl-color-accent-low);
+    text-decoration: none;
+  }
+
+  [data-theme="dark"] .popular-links {
+    border-color: rgba(224, 226, 230, 0.12);
+  }
+</style>

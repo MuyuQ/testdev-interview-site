@@ -11,16 +11,16 @@ interface Props {
 const { mistakes } = Astro.props;
 ---
 
-<div class="common-mistakes">
-  <h3>常见错误</h3>
-  <ul>
+<div class="common-mistakes" role="region" aria-label="常见错误">
+  <h3 id="common-mistakes-title">常见错误</h3>
+  <ul aria-labelledby="common-mistakes-title">
     {mistakes.map((mistake) => {
       const title = typeof mistake === "string" ? mistake.split(":")[0] : mistake.title;
       const detail = typeof mistake === "string" ? (mistake.split(":")[1] || mistake) : mistake.detail;
       return (
         <li>
           <details>
-            <summary>{title}</summary>
+            <summary aria-expanded="false">{title}</summary>
             <p>{detail}</p>
           </details>
         </li>
@@ -28,6 +28,16 @@ const { mistakes } = Astro.props;
     })}
   </ul>
 </div>
+
+<script>
+  document.querySelectorAll('.common-mistakes details').forEach((details) => {
+    const summary = details.querySelector('summary');
+    if (!summary) return;
+    details.addEventListener('toggle', () => {
+      summary.setAttribute('aria-expanded', String(details.open));
+    });
+  });
+</script>
 
 <style>
   .common-mistakes {

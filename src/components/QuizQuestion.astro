@@ -1,0 +1,36 @@
+---
+interface SelfTestQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+interface Props {
+  question: SelfTestQuestion;
+  index: number;
+  quizId: string;
+}
+
+const { question, index, quizId } = Astro.props;
+---
+
+<div class="quiz-question" data-question-id={question.id} role="group" aria-labelledby={`${quizId}-q${index}-title`}>
+  <h3 id={`${quizId}-q${index}-title`}>问题 {index + 1}</h3>
+  <p class="quiz-question-text" id={`${quizId}-q${index}-text`}>{question.question}</p>
+  <div class="quiz-options" role="radiogroup" aria-labelledby={`${quizId}-q${index}-text`}>
+    {question.options.map((opt, j) => (
+      <label class="quiz-option">
+        <input type="radio" name={`q-${quizId}-${question.id}`} value={j} aria-label={`选项 ${String.fromCharCode(65 + j)}`} />
+        <span class="option-text">{opt}</span>
+      </label>
+    ))}
+  </div>
+  <div class="quiz-actions">
+    <button class="quiz-check-btn" data-correct={question.correctIndex} data-question={question.id} aria-label={`检查问题 {index + 1} 的答案`}>检查答案</button>
+  </div>
+  <div class="quiz-explanation" data-explanation={question.id} hidden role="region" aria-label={`问题 {index + 1} 的解析`}>
+    <p><strong>解析：</strong>{question.explanation}</p>
+  </div>
+</div>

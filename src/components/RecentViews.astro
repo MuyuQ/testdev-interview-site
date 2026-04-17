@@ -17,9 +17,9 @@ export function getRecentViews() {
 }
 ---
 
-<div class="recent-views">
-  <h3>最近浏览</h3>
-  <ul><slot /></ul>
+<div class="recent-views" role="region" aria-label="最近浏览">
+  <h3 id="recent-views-title">最近浏览</h3>
+  <ul aria-labelledby="recent-views-title"><slot /></ul>
 </div>
 
 <style>

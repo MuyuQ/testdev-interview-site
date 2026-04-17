@@ -6,6 +6,8 @@ const { slug } = Astro.props;
   class="bookmark-btn"
   data-slug={slug}
   aria-label="添加收藏"
+  aria-pressed="false"
+  type="button"
 >
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
@@ -24,6 +26,7 @@ const { slug } = Astro.props;
       const marked = toggleBookmark(slug);
       btn.classList.toggle("bookmarked", marked);
       btn.setAttribute("aria-label", marked ? "取消收藏" : "添加收藏");
+      btn.setAttribute("aria-pressed", String(marked));
     });
   });
 </script>

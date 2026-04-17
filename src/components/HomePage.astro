@@ -10,15 +10,15 @@ const base = import.meta.env.BASE_URL.endsWith("/")
   : `${import.meta.env.BASE_URL}/`;
 ---
 
-<div class="home-page">
-  <section class="hero">
+<div class="home-page" role="main">
+  <section class="hero" aria-label="站点介绍">
     <h1>测试开发面试速成站</h1>
     <p class="hero-subtitle">
       结构化内容帮助你快速补齐测试开发知识框架，在面试中说清楚概念、项目和方案
     </p>
   </section>
 
-  <section class="roadmap-highlights">
+  <section class="roadmap-highlights" aria-label="学习路线">
     <h2>学习路线</h2>
     <div class="roadmap-cards">
       <a href={`${base}roadmap/3-day-interview-map/`} class="roadmap-card">
@@ -32,7 +32,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     </div>
   </section>
 
-  <section class="modules">
+  <section class="modules" aria-label="核心模块">
     <h2>核心模块</h2>
     <div class="module-grid">
       {categories.map((cat) => (
@@ -45,7 +45,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
   </section>
 
   {completedCount > 0 && (
-    <section class="progress-overview">
+    <section class="progress-overview" aria-label="学习进度">
       <h2>学习进度</h2>
       <p>已完成 {completedCount} 个主题</p>
       <div class="progress-bar">
@@ -54,7 +54,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     </section>
   )}
 
-  <section class="recent-views-section">
+  <section class="recent-views-section" aria-label="最近浏览">
     <RecentViews>
       <li id="recent-placeholder" style="color: var(--sl-color-gray-3); font-size: 0.875rem;">暂无浏览记录</li>
     </RecentViews>

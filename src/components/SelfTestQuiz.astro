@@ -17,35 +17,35 @@ if (!questions?.length) return null;
 const quizId = `quiz-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<div class="self-test-quiz" data-quiz id={quizId}>
-  <h2>自测题</h2>
-  <p class="quiz-intro">完成以下 {questions.length} 道题目，检验你的学习成果</p>
+<div class="self-test-quiz" data-quiz id={quizId} role="form" aria-label="自测题">
+  <h2 id={`${quizId}-title`}>自测题</h2>
+  <p class="quiz-intro" id={`${quizId}-intro`}>完成以下 {questions.length} 道题目，检验你的学习成果</p>
 
   {questions.map((q, i) => (
-    <div class="quiz-question" data-question-id={q.id}>
-      <h3>问题 {i + 1}</h3>
-      <p class="quiz-question-text">{q.question}</p>
-      <div class="quiz-options">
+    <div class="quiz-question" data-question-id={q.id} role="group" aria-labelledby={`${quizId}-q${i}-title`}>
+      <h3 id={`${quizId}-q${i}-title`}>问题 {i + 1}</h3>
+      <p class="quiz-question-text" id={`${quizId}-q${i}-text`}>{q.question}</p>
+      <div class="quiz-options" role="radiogroup" aria-labelledby={`${quizId}-q${i}-text`}>
         {q.options.map((opt, j) => (
           <label class="quiz-option">
-            <input type="radio" name={`q-${quizId}-${q.id}`} value={j} />
+            <input type="radio" name={`q-${quizId}-${q.id}`} value={j} aria-label={`选项 ${String.fromCharCode(65 + j)}`} />
             <span class="option-text">{opt}</span>
           </label>
         ))}
       </div>
       <div class="quiz-actions">
-        <button class="quiz-check-btn" data-correct={q.correctIndex} data-question={q.id}>检查答案</button>
+        <button class="quiz-check-btn" data-correct={q.correctIndex} data-question={q.id} aria-label={`检查问题 ${i + 1} 的答案`}>检查答案</button>
       </div>
-      <div class="quiz-explanation" data-explanation={q.id} hidden>
+      <div class="quiz-explanation" data-explanation={q.id} hidden role="region" aria-label={`问题 ${i + 1} 的解析`}>
         <p><strong>解析：</strong>{q.explanation}</p>
       </div>
     </div>
   ))}
 
-  <div class="quiz-summary" hidden>
+  <div class="quiz-summary" hidden role="region" aria-label="测验结果" aria-live="polite">
     <h3>测验结果</h3>
     <p class="quiz-score"></p>
-    <button class="quiz-reset-btn">重新测验</button>
+    <button class="quiz-reset-btn" aria-label="重新开始测验">重新测验</button>
   </div>
 </div>
 

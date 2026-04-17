@@ -2,7 +2,7 @@
 const { slug, category } = Astro.props;
 ---
 
-<span class="completion-badge" data-slug={slug} data-category={category}>
+<span class="completion-badge" data-slug={slug} data-category={category} aria-label="完成状态：未完成" role="status">
   <slot />
 </span>
 
@@ -21,6 +21,7 @@ const { slug, category } = Astro.props;
       );
       if (isComplete) {
         badge.classList.add('completed');
+        badge.setAttribute('aria-label', '完成状态：已完成');
       }
     } catch (e) {}
   })();

@@ -1,0 +1,13 @@
+---
+interface Props {
+  total: number;
+}
+
+const { total } = Astro.props;
+---
+
+<div class="quiz-summary" hidden role="region" aria-label="测验结果" aria-live="polite">
+  <h3>测验结果</h3>
+  <p class="quiz-score"></p>
+  <button class="quiz-reset-btn" aria-label="重新开始测验">重新测验</button>
+</div>

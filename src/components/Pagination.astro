@@ -2,7 +2,7 @@
 const { dir, pagination } = Astro.props;
 ---
 
-<nav class="pagination" aria-label="页面导航">
+<nav class="pagination" aria-label="页面导航" role="navigation">
   {pagination.prev && (
     <a href={pagination.prev.href} class="pagination-link prev">
       <span class="pagination-label">上一页</span>

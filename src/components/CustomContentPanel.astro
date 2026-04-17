@@ -7,7 +7,7 @@ const { entry } = Astro.props as Props;
 const selfTests = (entry.data as any).selfTests || [];
 ---
 
-<div class="content-panel">
+<div class="content-panel" role="main">
   <div class="sl-container">
     <slot />
     {selfTests.length > 0 && <SelfTestQuiz questions={selfTests} />}

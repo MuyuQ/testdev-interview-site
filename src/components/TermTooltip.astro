@@ -5,9 +5,9 @@ const base = import.meta.env.BASE_URL.endsWith("/")
   : `${import.meta.env.BASE_URL}/`;
 ---
 
-<span class="term-tooltip" data-term-slug={slug}>
-  <span class="term-ref">{term}</span>
-  <div class="term-popup" role="tooltip">
+<span class="term-tooltip" data-term-slug={slug} id={`tooltip-${slug}`}>
+  <span class="term-ref" aria-describedby={`popup-${slug}`} tabindex="0">{term}</span>
+  <div class="term-popup" role="tooltip" id={`popup-${slug}`}>
     <p class="term-definition">{definition}</p>
     <a href={`${base}glossary/${slug}/`} class="term-link">查看详情 →</a>
   </div>

@@ -7,7 +7,7 @@ const prevUrl = prevSlug ? `${base}${category}/${prevSlug}/` : `${base}${categor
 const nextUrl = nextSlug ? `${base}${category}/${nextSlug}/` : `${base}${category}/`;
 ---
 
-<nav class="path-nav">
+<nav class="path-nav" role="navigation" aria-label="文章导航">
   <a href={prevUrl} class="nav-link prev">
     <span class="nav-label">← 上一页</span>
   </a>

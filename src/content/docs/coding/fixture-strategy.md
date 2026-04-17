@@ -22,6 +22,61 @@ tags: ["Fixture", "Pytest", "框架设计"]
 - 第四步：清理设计。使用 yield 关键字实现前后置分离，yield 前是准备逻辑，yield 后是清理逻辑。清理要覆盖数据库回滚、文件删除、会话关闭等场景。
 - 权衡考虑：速度与隔离性的平衡。大作用域（session/module）提升速度但降低隔离性，小作用域（function）隔离性好但速度慢。要根据资源特性合理选择。
 
+## 示例代码：Fixture 分层设计
+
+```python
+# conftest.py - Fixture 分层设计
+import pytest
+from utils.http_client import HttpClient
+
+# ========== 工具层 Fixture (session 级) ==========
+@pytest.fixture(scope="session")
+def config(request):
+    """会话级配置"""
+    env = request.config.getoption("--env", default="test")
+    return {"base_url": f"https://{env}-api.example.com", "env": env}
+
+@pytest.fixture(scope="session")
+def db(config):
+    """会话级数据库连接"""
+    from utils.db_helper import DatabaseHelper
+    helper = DatabaseHelper(
+        host="localhost", port=5432,
+        dbname=f"{config['env']}_db",
+        user="test_user", password="test_pass",
+    )
+    yield helper
+    helper.close()  # 清理：关闭连接
+
+# ========== 资源层 Fixture (module/function 级) ==========
+@pytest.fixture(scope="module")
+def api_client(config) -> HttpClient:
+    """模块级 API 客户端"""
+    client = HttpClient(config["base_url"])
+    yield client
+    # 清理：关闭 session
+
+@pytest.fixture(scope="function")
+def test_user(api_client):
+    """函数级测试用户 - 每个测试独立"""
+    resp = api_client.post("/users", json={"name": "test_user"})
+    user_id = resp["body"]["id"]
+    yield {"id": user_id, "name": "test_user"}
+    # 清理：删除测试用户
+    api_client.delete(f"/users/{user_id}")
+
+# ========== 请求层 Fixture (function 级) ==========
+@pytest.fixture(scope="function")
+def auth_client(api_client, test_user):
+    """已认证的请求客户端"""
+    login_resp = api_client.post("/login", json={
+        "username": test_user["name"],
+        "password": "default_pass",
+    })
+    api_client.set_token(login_resp["body"]["token"])
+    yield api_client
+```
+
 ## 代码逻辑（流程描述）
 
 核心逻辑分三层设计：

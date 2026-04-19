@@ -56,6 +56,34 @@ test.describe("paper theme tokens", () => {
   });
 });
 
+test.describe("paper theme homepage", () => {
+  test("homepage uses documentation-index styling in both themes", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("starlight-theme", "light");
+      document.documentElement.dataset.theme = "light";
+    });
+
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
+
+    const home = await page.evaluate(() => {
+      const hero = document.querySelector(".hero");
+      const roadmapCard = document.querySelector(".roadmap-card");
+      const moduleCard = document.querySelector(".module-card");
+
+      return {
+        heroBorder: hero ? getComputedStyle(hero).borderBottomWidth : "",
+        roadmapRadius: roadmapCard ? getComputedStyle(roadmapCard).borderRadius : "",
+        moduleBg: moduleCard ? getComputedStyle(moduleCard).backgroundColor : "",
+      };
+    });
+
+    expect(home.heroBorder).toBe("1px");
+    expect(home.roadmapRadius).toBe("0px");
+    expect(home.moduleBg).toBe("rgb(251, 247, 239)");
+  });
+});
+
 test.describe("paper documentation shell", () => {
   test("docs pages use square panels and quiet borders", async ({ page }) => {
     await page.addInitScript(() => {

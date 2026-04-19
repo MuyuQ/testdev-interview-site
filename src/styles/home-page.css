@@ -1,0 +1,130 @@
+.home-page {
+  max-width: min(1120px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+}
+
+.hero {
+  padding: 0 0 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+.hero h1 {
+  margin-bottom: 0.75rem;
+  border: 0;
+}
+
+.hero-subtitle {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--sl-color-gray-3);
+  line-height: 1.7;
+}
+
+.roadmap-highlights,
+.modules,
+.progress-overview,
+.recent-views-section {
+  margin-top: 2rem;
+}
+
+.roadmap-cards,
+.module-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--sl-color-hairline);
+  border: 1px solid var(--sl-color-hairline);
+}
+
+.roadmap-cards {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.module-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.roadmap-card,
+.module-card,
+.progress-overview {
+  display: block;
+  padding: 1.25rem;
+  background: var(--sl-color-bg-card);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.roadmap-card,
+.module-card {
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.roadmap-card:hover,
+.module-card:hover {
+  background: var(--sl-color-accent-low);
+  transform: translateY(-1px);
+}
+
+.roadmap-card h3,
+.module-card h3 {
+  margin-bottom: 0.35rem;
+  color: var(--sl-color-accent);
+}
+
+.roadmap-card p,
+.module-card p {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+  line-height: 1.55;
+}
+
+.module-card {
+  min-height: 100px;
+}
+
+.progress-overview p {
+  margin: 0 0 0.75rem;
+  color: var(--sl-color-gray-2);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  background-color: var(--sl-color-gray-5);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--color-success);
+  transition: width 200ms ease;
+}
+
+@media (max-width: 1024px) {
+  .module-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    max-width: min(100%, calc(100% - 1.5rem));
+    padding: 2rem 0 3rem;
+  }
+
+  .module-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+}

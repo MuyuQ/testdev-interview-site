@@ -55,3 +55,32 @@ test.describe("paper theme tokens", () => {
     expect(themeValues.accent).toBe("#7ea1c4");
   });
 });
+
+test.describe("paper documentation shell", () => {
+  test("docs pages use square panels and quiet borders", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("starlight-theme", "light");
+    });
+
+    await page.goto(appUrl("/interview-chains/test-framework/"));
+    await page.waitForLoadState("domcontentloaded");
+
+    const shell = await page.evaluate(() => {
+      const sidebarCurrent = document.querySelector(".sidebar-content a[aria-current='page']");
+      const contentHeading = document.querySelector(".sl-markdown-content h2");
+      const inlineCode = document.querySelector(".sl-markdown-content code:not(pre code)");
+
+      return {
+        sidebarRadius: sidebarCurrent ? getComputedStyle(sidebarCurrent).borderRadius : "",
+        sidebarBorderLeft: sidebarCurrent ? getComputedStyle(sidebarCurrent).borderLeftWidth : "",
+        headingBorder: contentHeading ? getComputedStyle(contentHeading).borderBottomWidth : "",
+        inlineCodeRadius: inlineCode ? getComputedStyle(inlineCode).borderRadius : "",
+      };
+    });
+
+    expect(shell.sidebarRadius).toBe("0px");
+    expect(shell.sidebarBorderLeft).toBe("2px");
+    expect(shell.headingBorder).toBe("1px");
+    expect(shell.inlineCodeRadius).toBe("0px");
+  });
+});

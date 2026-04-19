@@ -8,20 +8,20 @@
 .sl-page-title h1 {
   font-size: 2rem;
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   margin-bottom: 1rem;
   color: var(--sl-color-white);
 }
 
 .sl-markdown-content h2 {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 600;
   line-height: 1.3;
-  margin-top: 2.5rem;
+  margin-top: 2.75rem;
   margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
   color: var(--sl-color-white);
-  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--sl-color-hairline);
 }
 
@@ -122,16 +122,22 @@
 
 /* ===== SIDEBAR NAVIGATION ===== */
 
-.sidebar-content a[aria-current="page"] {
+html body nav.sidebar .sidebar-content a[aria-current="page"] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--sl-color-accent-low);
   color: var(--sl-color-accent);
   font-weight: 600;
-  border-radius: var(--radius-sm);
+  border-radius: 0 !important;
+  border-style: solid !important;
+  border-width: 0 0 0 2px !important;
+  border-color: transparent transparent transparent var(--sl-color-accent) !important;
 }
 
-.sidebar-content a:hover:not([aria-current="page"]) {
+html body nav.sidebar .sidebar-content a:hover:not([aria-current="page"]) {
   background: var(--sl-color-gray-6);
-  border-radius: var(--radius-sm);
+  border-radius: 0 !important;
 }
 
 .sidebar-content .group-label {
@@ -152,12 +158,12 @@
 .sl-markdown-content pre {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: 0;
 }
 
 .sl-markdown-content code:not(pre code) {
   background: var(--sl-color-bg-inline-code);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   padding: 0.125em 0.375em;
   font-size: 0.875em;
 }
@@ -207,11 +213,11 @@
 /* ===== BLOCKQUOTES ===== */
 
 .sl-markdown-content blockquote {
-  border-left: 4px solid var(--sl-color-accent);
+  border-left: 2px solid var(--sl-color-accent);
   padding: 0.5rem 1rem;
   margin: 1.5rem 0;
   background: var(--sl-color-accent-low);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-radius: 0;
   color: var(--sl-color-gray-2);
 }
 
@@ -242,7 +248,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: var(--sl-color-gray-4);
-  border-radius: var(--radius-full);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {

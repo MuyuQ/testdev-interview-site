@@ -54,7 +54,7 @@
   --sl-color-syntax-comment: rgba(224, 226, 230, 0.56);
 }
 
-[data-theme="light"] {
+:root[data-theme="light"] {
   --color-bg: #f4efe6;
   --color-text: #2f2a24;
   --color-primary: #315c85;
@@ -94,7 +94,7 @@
   --sl-color-syntax-comment: #6a737d;
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --color-bg: #111318;
   --color-text: #d9ddd6;
   --color-primary: #7ea1c4;

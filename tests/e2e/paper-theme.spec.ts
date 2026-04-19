@@ -100,6 +100,15 @@ test.describe("paper theme regressions", () => {
     });
   });
 
+  test("light docs header keeps the paper title bar", async ({ page }) => {
+    await forceTheme(page, "light");
+    await page.goto(appUrl("/scenario/payment-callback/"));
+    await page.waitForLoadState("domcontentloaded");
+
+    expect(await readStyle(page, "header.header", "background-color")).toBe("rgb(247, 241, 231)");
+    expect(await readStyle(page, ".site-title", "color")).toBe("rgb(49, 92, 133)");
+  });
+
   test("shared controls stay square", async ({ page }) => {
     await forceTheme(page, "light");
     await page.goto(appUrl("/coding/assertion-wrapper/"));

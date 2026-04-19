@@ -125,44 +125,7 @@ export default defineConfig({
             href: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
           },
         },
-        {
-          tag: "style",
-          content: `
-            :root[data-theme="dark"] { background-color: #0c0e12 !important; }
-            :root[data-theme="dark"] body { background-color: #0c0e12 !important; }
-            :root[data-theme="light"] header, :root[data-theme="light"] .header { background-color: #ffffff !important; }
-          `,
-        },
-        {
-          tag: "script",
-          attrs: {
-            "is:inline": true,
-          },
-          content: `
-            (function() {
-              try {
-                var theme = localStorage.getItem('testdev:theme');
-                if (!theme || theme === 'auto') {
-                  theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                }
-                var bgColor = theme === 'dark' ? '#0c0e12' : '#ffffff';
-                document.documentElement.style.setProperty('background-color', bgColor, 'important');
-                document.body.style.setProperty('background-color', bgColor, 'important');
-              } catch(e) {}
-            })();
-            document.addEventListener('astro:page-load', function() {
-              try {
-                var theme = localStorage.getItem('testdev:theme');
-                if (!theme || theme === 'auto') {
-                  theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                }
-                var bgColor = theme === 'dark' ? '#0c0e12' : '#ffffff';
-                document.documentElement.style.setProperty('background-color', bgColor, 'important');
-                document.body.style.setProperty('background-color', bgColor, 'important');
-              } catch(e) {}
-            });
-          `,
-        },
+
       ],
       customCss: [
         "./src/styles/tokens.css",

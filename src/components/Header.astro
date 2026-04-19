@@ -1,6 +1,8 @@
 ---
 import config from "virtual:starlight/user-config";
 import SearchBox from "./SearchBox.astro";
+/** @type {any} */
+import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
 
 const siteTitle = typeof config.title === "string"
   ? config.title
@@ -17,7 +19,8 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     </a>
     <div class="header-actions" role="toolbar" aria-label="站点工具">
       <SearchBox />
-      <slot name="theme-select" />
+      {/* @ts-ignore */}
+      <ThemeSelect />
       <slot name="social-icons" />
     </div>
   </div>

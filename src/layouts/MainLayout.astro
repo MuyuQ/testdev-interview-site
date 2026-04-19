@@ -1,5 +1,7 @@
 ---
 import JsonLd from "../components/JsonLd.astro";
+/** @type {any} */
+import ThemeProvider from "@astrojs/starlight/components/ThemeProvider.astro";
 
 interface Props {
   title: string;
@@ -24,7 +26,7 @@ const ogImageUrl = "https://muyuq.github.io/testdev-interview-site/og-image.png"
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +56,8 @@ const ogImageUrl = "https://muyuq.github.io/testdev-interview-site/og-image.png"
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <title>{title}</title>
+    {/* @ts-ignore */}
+    <ThemeProvider />
   </head>
   <body>
     <slot />

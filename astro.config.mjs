@@ -139,6 +139,7 @@ export default defineConfig({
         Pagination: "./src/components/Pagination.astro",
         Header: "./src/components/Header.astro",
         ContentPanel: "./src/components/CustomContentPanel.astro",
+        ThemeProvider: "./src/components/ThemeProvider.astro",
       },
       sidebar: [
         {

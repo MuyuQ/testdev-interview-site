@@ -7,6 +7,38 @@ function appUrl(path: string): string {
 }
 
 test.describe("Theme Switching", () => {
+  test("homepage defaults to dark theme for first-time visitors", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      window.localStorage.removeItem("starlight-theme");
+      Object.defineProperty(window, "matchMedia", {
+        writable: true,
+        value: (query: string) => ({
+          matches: query === "(prefers-color-scheme: light)",
+          media: query,
+          onchange: null,
+          addListener: () => {},
+          removeListener: () => {},
+          addEventListener: () => {},
+          removeEventListener: () => {},
+          dispatchEvent: () => false,
+        }),
+      });
+    });
+
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
+
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+    const cardBg = await page.locator(".roadmap-card").first().evaluate((node) => {
+      return getComputedStyle(node).backgroundColor;
+    });
+
+    expect(cardBg).toBe("rgb(25, 28, 36)");
+  });
+
   test("dark mode applies correctly", async ({ page }) => {
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");

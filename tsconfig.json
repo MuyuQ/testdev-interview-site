@@ -5,5 +5,13 @@
     "paths": {
       "@/*": ["src/*"]
     }
-  }
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    ".astro",
+    "playwright-report",
+    "test-results",
+    "temp-site"
+  ]
 }

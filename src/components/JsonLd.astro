@@ -21,6 +21,20 @@ const {
 
 const baseUrl = "https://muyuq.github.io/testdev-interview-site/";
 
+type SchemaNode =
+  | typeof websiteSchema
+  | typeof articleSchema
+  | {
+      "@context": string;
+      "@type": "BreadcrumbList";
+      itemListElement: Array<{
+        "@type": "ListItem";
+        position: number;
+        name: string;
+        item: string;
+      }>;
+    };
+
 // WebSite schema for homepage
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -59,12 +73,12 @@ const articleSchema = {
 };
 
 // BreadcrumbList schema
-const breadcrumbSchema = breadcrumbs
+const breadcrumbSchema: SchemaNode | null = breadcrumbs
   ? {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
+      "@type": "BreadcrumbList" as const,
       itemListElement: breadcrumbs.map((item, index) => ({
-        "@type": "ListItem",
+        "@type": "ListItem" as const,
         position: index + 1,
         name: item.name,
         item: item.url.startsWith("http") ? item.url : `${baseUrl}${item.url.replace(/^\//, "")}`,
@@ -73,9 +87,9 @@ const breadcrumbSchema = breadcrumbs
   : null;
 
 // Combine schemas into an array if multiple exist
-const schemas = [type === "website" ? websiteSchema : articleSchema];
+const schemas: SchemaNode[] = [type === "website" ? websiteSchema : articleSchema];
 if (breadcrumbSchema) {
-  schemas.push(breadcrumbSchema as Record<string, unknown>);
+  schemas.push(breadcrumbSchema);
 }
 
 const jsonLd = schemas.length === 1 ? schemas[0] : { "@graph": schemas };

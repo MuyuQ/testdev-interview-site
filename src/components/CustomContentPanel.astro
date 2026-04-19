@@ -17,7 +17,7 @@ const selfTests = (entry.data as any).selfTests || [];
       </div>
     )}
     <div class="share-section">
-      <ShareButtons title={entry.title} />
+      <ShareButtons />
     </div>
   </div>
 </div>
@@ -48,7 +48,7 @@ const selfTests = (entry.data as any).selfTests || [];
   }
 </style>
 
-<script is:client>
+<script>
   const KEY_PREFIX = "testdev:";
   const MAX_RECENT = 10;
   function trackView() {
@@ -59,7 +59,14 @@ const selfTests = (entry.data as any).selfTests || [];
       const category = segments[segments.length - 2];
       const slug = segments[segments.length - 1];
       const title = document.querySelector("h1")?.textContent || document.title;
-      const recent = JSON.parse(localStorage.getItem(KEY_PREFIX + "recent") || "[]");
+      const recent = JSON.parse(
+        localStorage.getItem(KEY_PREFIX + "recent") || "[]",
+      ) as Array<{
+        slug: string;
+        title: string;
+        category: string;
+        viewedAt: string;
+      }>;
       const existing = recent.findIndex((r) => r.slug === slug);
       if (existing >= 0) recent.splice(existing, 1);
       recent.unshift({ slug, title, category, viewedAt: new Date().toISOString() });
@@ -96,5 +103,7 @@ const selfTests = (entry.data as any).selfTests || [];
   
   // Run on initial load and after page transitions
   removeDuplicateQuizzes();
+  trackView();
   document.addEventListener("astro:page-load", removeDuplicateQuizzes);
+  document.addEventListener("astro:page-load", trackView);
 </script>

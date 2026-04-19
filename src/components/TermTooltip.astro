@@ -55,7 +55,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
     });
   });
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".term-tooltip")) {
+    if (!(e.target instanceof Element) || !e.target.closest(".term-tooltip")) {
       document.querySelectorAll(".term-tooltip.active").forEach((t) => {
         t.classList.remove("active");
       });

@@ -26,7 +26,7 @@ export const categories: CategoryConfig[] = [
     title: "项目类型",
     navLabel: "项目类型",
     description: "按业务流程、风险点、测试策略组织项目经验",
-    recommendedSlug: "payment-callback",
+    recommendedSlug: "ecommerce-project",
   },
   {
     id: "scenario",
@@ -54,7 +54,7 @@ export const categories: CategoryConfig[] = [
     title: "AI时代成长指南",
     navLabel: "AI成长",
     description: "AI对测试开发的影响",
-    recommendedSlug: "ai-test-generation",
+    recommendedSlug: "testdev-ai-tools",
   },
   {
     id: "practice-template",

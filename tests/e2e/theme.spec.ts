@@ -1,9 +1,15 @@
 import { test, expect } from "@playwright/test";
 
+const BASE_PATH = "/testdev-interview-site";
+
+function appUrl(path: string): string {
+  return path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
+}
+
 test.describe("Theme Switching", () => {
   test("dark mode applies correctly", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
 
     const themeToggle = page
       .locator(
@@ -31,8 +37,8 @@ test.describe("Theme Switching", () => {
   });
 
   test("light mode applies correctly", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
 
     const themeToggle = page
       .locator(
@@ -53,8 +59,8 @@ test.describe("Theme Switching", () => {
   });
 
   test("theme persists in localStorage", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
 
     const themeToggle = page
       .locator(
@@ -73,7 +79,7 @@ test.describe("Theme Switching", () => {
       expect(storedTheme).toMatch(/^(dark|light|auto)$/);
 
       await page.reload();
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("domcontentloaded");
 
       const html = page.locator("html");
       const themeAfterReload = await html.getAttribute("data-theme");
@@ -82,8 +88,8 @@ test.describe("Theme Switching", () => {
   });
 
   test("theme toggle button is accessible", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
 
     const themeToggle = page
       .locator(
@@ -102,8 +108,8 @@ test.describe("Theme Switching", () => {
   });
 
   test("theme switching works on content pages", async ({ page }) => {
-    await page.goto("/glossary");
-    await page.waitForLoadState("networkidle");
+    await page.goto(appUrl("/glossary"));
+    await page.waitForLoadState("domcontentloaded");
 
     const themeToggle = page
       .locator(

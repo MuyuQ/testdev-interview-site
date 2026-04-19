@@ -1,61 +1,43 @@
 import { test, expect } from "@playwright/test";
 
+const BASE_PATH = "/testdev-interview-site";
+
+function appUrl(path: string): string {
+  return path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
+}
+
 test.describe("Content Rendering", () => {
   test("glossary pages render correctly", async ({ page }) => {
-    await page.goto("/glossary");
-    await expect(page.locator("main")).toBeVisible();
-
-    const glossaryLinks = page.locator("a[href*='/glossary/']");
-    const count = await glossaryLinks.count();
-    expect(count).toBeGreaterThan(0);
-
-    const firstGlossaryLink = glossaryLinks.first();
-    await firstGlossaryLink.click();
-    await page.waitForURL("**/glossary/**");
-    await expect(
-      page.locator("article, main h1, sl-markdown-view"),
-    ).toBeVisible();
+    await page.goto(appUrl("/glossary/api-assertion/"));
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      "接口断言",
+    );
+    await expect(page.locator(".content-panel").last()).toBeVisible();
   });
 
   test("tech pages have code blocks", async ({ page }) => {
-    await page.goto("/tech");
-    await expect(page.locator("main")).toBeVisible();
+    await page.goto(appUrl("/tech/playwright/"));
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-    const techLinks = page.locator("a[href*='/tech/']");
-    const firstTechLink = techLinks.first();
-    if (await firstTechLink.isVisible()) {
-      await firstTechLink.click();
-      await page.waitForURL("**/tech/**");
-      await expect(page.locator("main, article")).toBeVisible();
-
-      const codeBlocks = page.locator("pre, code, [class*='code']");
-      const codeCount = await codeBlocks.count();
-      expect(codeCount).toBeGreaterThan(0);
-    }
+    const codeBlocks = page.locator("pre, code, [class*='code']");
+    const codeCount = await codeBlocks.count();
+    expect(codeCount).toBeGreaterThan(0);
   });
 
   test("self-test quizzes are interactive", async ({ page }) => {
-    await page.goto("/coding");
-    await expect(page.locator("main")).toBeVisible();
+    await page.goto(appUrl("/coding/retry-mechanism/"));
+    await expect(page.locator(".self-test-quiz")).toBeVisible();
 
-    const codingLinks = page.locator("a[href*='/coding/']");
-    const firstCodingLink = codingLinks.first();
-    if (await firstCodingLink.isVisible()) {
-      await firstCodingLink.click();
-      await page.waitForURL("**/coding/**");
-      await expect(page.locator("main, article")).toBeVisible();
-
-      const quizElements = page.locator(
-        "details, summary, button, input[type='radio'], input[type='checkbox'], [class*='quiz'], [class*='test']",
-      );
-      const quizCount = await quizElements.count();
-      expect(quizCount).toBeGreaterThan(0);
-    }
+    const quizElements = page.locator(
+      "button, input[type='radio'], [class*='quiz'], [class*='test']",
+    );
+    const quizCount = await quizElements.count();
+    expect(quizCount).toBeGreaterThan(0);
   });
 
   test("term cross-links work", async ({ page }) => {
-    await page.goto("/glossary");
-    const links = page.locator("a[href*='/glossary/'], a[href*='/tech/']");
+    await page.goto(appUrl("/glossary/api-assertion/"));
+    const links = page.locator("nav[aria-label='Main'] a[href*='/glossary/'], nav[aria-label='Main'] a[href*='/tech/']");
     const firstLink = links.first();
     if (await firstLink.isVisible()) {
       const href = await firstLink.getAttribute("href");
@@ -66,62 +48,33 @@ test.describe("Content Rendering", () => {
   });
 
   test("content pages have proper headings structure", async ({ page }) => {
-    await page.goto("/tech");
-    const techLinks = page.locator("a[href*='/tech/']");
-    const firstTechLink = techLinks.first();
-    if (await firstTechLink.isVisible()) {
-      await firstTechLink.click();
-      await page.waitForURL("**/tech/**");
+    await page.goto(appUrl("/tech/pytest/"));
+    const h1 = page.locator("h1");
+    await expect(h1.first()).toBeVisible();
 
-      const h1 = page.locator("h1");
-      await expect(h1.first()).toBeVisible();
-
-      const headings = page.locator("h1, h2, h3");
-      const headingCount = await headings.count();
-      expect(headingCount).toBeGreaterThan(1);
-    }
+    const headings = page.locator("h1, h2, h3");
+    const headingCount = await headings.count();
+    expect(headingCount).toBeGreaterThan(1);
   });
 
   test("scenario pages render Q&A format", async ({ page }) => {
-    await page.goto("/scenario");
-    await expect(page.locator("main")).toBeVisible();
+    await page.goto(appUrl("/scenario/payment-callback/"));
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-    const scenarioLinks = page.locator("a[href*='/scenario/']");
-    const firstLink = scenarioLinks.first();
-    if (await firstLink.isVisible()) {
-      await firstLink.click();
-      await page.waitForURL("**/scenario/**");
-      await expect(page.locator("main, article")).toBeVisible();
-
-      const content = page.locator("p, li, td");
-      const contentCount = await content.count();
-      expect(contentCount).toBeGreaterThan(0);
-    }
+    const content = page.locator("p, li, td");
+    const contentCount = await content.count();
+    expect(contentCount).toBeGreaterThan(0);
   });
 
   test("roadmap page displays structured content", async ({ page }) => {
-    await page.goto("/roadmap");
-    await expect(page.locator("main")).toBeVisible();
-
-    const roadmapLinks = page.locator("a[href*='/roadmap/']");
-    const firstLink = roadmapLinks.first();
-    if (await firstLink.isVisible()) {
-      await firstLink.click();
-      await page.waitForURL("**/roadmap/**");
-      await expect(page.locator("main, article")).toBeVisible();
-    }
+    await page.goto(appUrl("/roadmap/3-day-interview-map/"));
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator(".content-panel").last()).toBeVisible();
   });
 
   test("AI learning guides render correctly", async ({ page }) => {
-    await page.goto("/ai-learning");
-    await expect(page.locator("main")).toBeVisible();
-
-    const aiLinks = page.locator("a[href*='/ai-learning/']");
-    const firstLink = aiLinks.first();
-    if (await firstLink.isVisible()) {
-      await firstLink.click();
-      await page.waitForURL("**/ai-learning/**");
-      await expect(page.locator("main, article")).toBeVisible();
-    }
+    await page.goto(appUrl("/ai-learning/testdev-ai-tools/"));
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator(".content-panel").last()).toBeVisible();
   });
 });

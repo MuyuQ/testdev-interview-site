@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync, existsSync } from "fs";
 import { resolve, join, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
+import type { SelfTestQuestion } from "../temp-site/src/content/types.js";
 import { generateFrontmatter, generateBody } from "./lib/markdown-generator.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,7 +43,7 @@ async function main() {
   ];
 
   // Build self-test lookup by topicSlug
-  const selfTestsByTopic: Record<string, unknown[]> = {};
+  const selfTestsByTopic: Record<string, SelfTestQuestion[]> = {};
   for (const group of selfTestData) {
     selfTestsByTopic[group.topicSlug] = group.questions;
   }

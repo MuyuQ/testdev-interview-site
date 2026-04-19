@@ -30,7 +30,9 @@ const { mistakes } = Astro.props;
 </div>
 
 <script>
-  document.querySelectorAll('.common-mistakes details').forEach((details) => {
+  document
+    .querySelectorAll<HTMLDetailsElement>(".common-mistakes details")
+    .forEach((details) => {
     const summary = details.querySelector('summary');
     if (!summary) return;
     details.addEventListener('toggle', () => {

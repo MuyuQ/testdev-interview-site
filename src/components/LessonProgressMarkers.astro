@@ -3,7 +3,7 @@ const completedSlugs = Astro.props.completedSlugs || [];
 const completedJson = JSON.stringify(completedSlugs);
 ---
 
-<script data-completed={completedJson}>
+<script is:inline data-completed={completedJson}>
   (function () {
     const script = document.currentScript;
     if (!script) return;

@@ -33,76 +33,7 @@ const quizId = `quiz-${Math.random().toString(36).slice(2, 9)}`;
 </div>
 
 <script>
-  (function () {
-    document.querySelectorAll('[data-quiz]').forEach((quiz) => {
-      const questions = quiz.querySelectorAll('.quiz-question');
-      const summary = quiz.querySelector('.quiz-summary');
-      const scoreEl = quiz.querySelector('.quiz-score');
-      let answered = 0;
-      let correct = 0;
+  import { initializeSelfTestQuiz } from "../lib/self-test-quiz";
 
-      quiz.querySelectorAll('.quiz-check-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const question = btn.closest('.quiz-question');
-          const correctIndex = parseInt(btn.dataset.correct);
-          const selected = question.querySelector('input:checked');
-          const explanation = question.querySelector('[data-explanation]');
-
-          if (!selected) {
-            alert('请选择一个答案');
-            return;
-          }
-
-          const selectedIndex = parseInt(selected.value);
-          const options = question.querySelectorAll('.quiz-option');
-
-          options.forEach((opt, i) => {
-            opt.classList.toggle('correct', i === correctIndex);
-            opt.classList.toggle('wrong', i === selectedIndex && i !== correctIndex);
-            opt.querySelector('input').disabled = true;
-          });
-
-          if (selectedIndex === correctIndex) {
-            correct++;
-          }
-          answered++;
-
-          explanation.hidden = false;
-          btn.disabled = true;
-          btn.textContent = '已检查';
-
-          if (answered === questions.length) {
-            showSummary();
-          }
-        });
-      });
-
-      function showSummary() {
-        const total = questions.length;
-        const percent = Math.round((correct / total) * 100);
-        scoreEl.textContent = `答对 ${correct}/${total} 题 (${percent}%)`;
-        summary.hidden = false;
-        summary.scrollIntoView({ behavior: 'smooth' });
-      }
-
-      quiz.querySelector('.quiz-reset-btn')?.addEventListener('click', () => {
-        answered = 0;
-        correct = 0;
-        summary.hidden = true;
-
-        quiz.querySelectorAll('.quiz-question').forEach((q) => {
-          q.querySelectorAll('input').forEach((input) => {
-            input.checked = false;
-            input.disabled = false;
-          });
-          q.querySelectorAll('.quiz-option').forEach((opt) => {
-            opt.classList.remove('correct', 'wrong');
-          });
-          q.querySelector('.quiz-check-btn').disabled = false;
-          q.querySelector('.quiz-check-btn').textContent = '检查答案';
-          q.querySelector('[data-explanation]').hidden = true;
-        });
-      });
-    });
-  })();
+  initializeSelfTestQuiz(document);
 </script>

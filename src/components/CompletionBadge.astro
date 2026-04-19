@@ -8,14 +8,16 @@ const { slug, category } = Astro.props;
 
 <script>
   (function () {
-    const badge = document.querySelector('.completion-badge[data-slug]');
+    const badge = document.querySelector<HTMLElement>('.completion-badge[data-slug]');
     if (!badge) return;
 
     const slug = badge.getAttribute('data-slug');
     const category = badge.getAttribute('data-category');
 
     try {
-      const data = JSON.parse(localStorage.getItem('testdev:progress') || '{"completed":[]}');
+      const data = JSON.parse(
+        localStorage.getItem('testdev:progress') || '{"completed":[]}',
+      ) as { completed: Array<{ slug: string; category: string }> };
       const isComplete = data.completed.some(
         (e) => e.slug === slug && e.category === category
       );

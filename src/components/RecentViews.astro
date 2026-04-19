@@ -3,8 +3,15 @@ import { readStorage, writeStorage } from "../lib/storage";
 
 const MAX_RECENT = 10;
 
-export function addRecentView(slug, title, category) {
-  const recent = readStorage("recent", []);
+export interface RecentView {
+  slug: string;
+  title: string;
+  category: string;
+  viewedAt: string;
+}
+
+export function addRecentView(slug: string, title: string, category: string) {
+  const recent = readStorage<RecentView[]>("recent", []);
   const existing = recent.findIndex((r) => r.slug === slug);
   if (existing >= 0) recent.splice(existing, 1);
   recent.unshift({ slug, title, category, viewedAt: new Date().toISOString() });
@@ -12,8 +19,8 @@ export function addRecentView(slug, title, category) {
   writeStorage("recent", recent);
 }
 
-export function getRecentViews() {
-  return readStorage("recent", []);
+export function getRecentViews(): RecentView[] {
+  return readStorage<RecentView[]>("recent", []);
 }
 ---
 

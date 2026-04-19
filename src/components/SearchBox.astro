@@ -29,7 +29,7 @@
     document.dispatchEvent(searchEvent);
 
     // 方法2: 如果 Starlight 搜索按钮存在，直接点击
-    const searchButton = document.querySelector(
+    const searchButton = document.querySelector<HTMLButtonElement>(
       'button[aria-label="搜索"], button[aria-label="Search"], .sl-search-btn, [data-starlight-search]'
     );
     if (searchButton) {
@@ -41,7 +41,7 @@
   trigger?.addEventListener('click', openSearch);
 
   // 全局键盘快捷键监听
-  document.addEventListener('keydown', (e: KeyboardEvent) => {
+  document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
       openSearch();

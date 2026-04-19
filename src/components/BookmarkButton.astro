@@ -17,8 +17,10 @@ const { slug } = Astro.props;
 <script>
   import { isBookmarked, toggleBookmark } from "../lib/bookmark-store";
 
-  document.querySelectorAll(".bookmark-btn[data-slug]").forEach((btn) => {
+  document.querySelectorAll<HTMLButtonElement>(".bookmark-btn[data-slug]").forEach((btn) => {
     const slug = btn.getAttribute("data-slug");
+    if (!slug) return;
+
     const isMarked = isBookmarked(slug);
     btn.classList.toggle("bookmarked", isMarked);
 

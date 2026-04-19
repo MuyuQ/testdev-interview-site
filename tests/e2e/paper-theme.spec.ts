@@ -93,38 +93,52 @@ test.describe("paper theme shared components", () => {
 
     await page.goto(appUrl("/interview-chains/test-framework/"));
     await page.waitForLoadState("domcontentloaded");
-    await page.waitForFunction(() => document.querySelectorAll(".share-btn").length > 0);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    await page.evaluate(() => {
-      if (!document.querySelector(".recent-views")) {
-        const recentViews = document.createElement("div");
-        recentViews.className = "recent-views";
-        document.body.appendChild(recentViews);
+    const shareRadius = await page.locator(".share-btn").first().evaluate((node) => getComputedStyle(node).borderRadius);
+    expect(shareRadius).toBe("0px");
+
+    await page.goto(appUrl("/"));
+    await page.waitForLoadState("domcontentloaded");
+
+    const recentRadius = await page.locator(".recent-views").evaluate((node) => getComputedStyle(node).borderRadius);
+    expect(recentRadius).toBe("0px");
+
+    const difficultyRules = await page.evaluate(() => {
+      function collectRules(rules: CSSRuleList): Array<{ selectorText: string; borderRadius: string }> {
+        const matches: Array<{ selectorText: string; borderRadius: string }> = [];
+
+        for (const rule of Array.from(rules)) {
+          if (rule instanceof CSSStyleRule && rule.selectorText === ".difficulty-btn") {
+            matches.push({
+              selectorText: rule.selectorText,
+              borderRadius: rule.style.getPropertyValue("border-radius").trim(),
+            });
+          }
+
+          if ("cssRules" in rule) {
+            matches.push(...collectRules(rule.cssRules));
+          }
+        }
+
+        return matches;
       }
 
-      if (!document.querySelector(".difficulty-btn")) {
-        const difficultyButton = document.createElement("button");
-        difficultyButton.className = "difficulty-btn";
-        difficultyButton.type = "button";
-        difficultyButton.textContent = "全部";
-        document.body.appendChild(difficultyButton);
+      const matches: Array<{ selectorText: string; borderRadius: string }> = [];
+      for (const sheet of Array.from(document.styleSheets)) {
+        try {
+          matches.push(...collectRules(sheet.cssRules));
+        } catch {
+          continue;
+        }
       }
+
+      return matches;
     });
 
-    const ui = await page.evaluate(() => {
-      const shareButton = document.querySelector(".share-btn");
-      const recentViews = document.querySelector(".recent-views");
-      const difficultyButton = document.querySelector(".difficulty-btn");
-
-      return {
-        shareRadius: shareButton ? getComputedStyle(shareButton).borderRadius : "",
-        recentRadius: recentViews ? getComputedStyle(recentViews).borderRadius : "",
-        filterRadius: difficultyButton ? getComputedStyle(difficultyButton).borderRadius : "",
-      };
+    expect(difficultyRules).toContainEqual({
+      selectorText: ".difficulty-btn",
+      borderRadius: "0px",
     });
-
-    expect(ui.shareRadius).toBe("0px");
-    expect(ui.recentRadius).toBe("0px");
-    expect(ui.filterRadius).toBe("0px");
   });
 });

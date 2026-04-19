@@ -10,6 +10,14 @@ function getThemeSelect(page: Page): Locator {
   return page.getByRole("combobox", { name: /theme|主题/i }).first();
 }
 
+async function expectStoredTheme(page: Page, theme: "light" | "dark") {
+  await expect
+    .poll(async () => {
+      return page.evaluate(() => localStorage.getItem("starlight-theme"));
+    })
+    .toBe(theme);
+}
+
 test.describe("Theme Switching", () => {
   test("homepage defaults to dark theme for first-time visitors", async ({
     page,
@@ -85,12 +93,8 @@ test.describe("Theme Switching", () => {
 
     await expect(themeSelect).toBeVisible();
     await themeSelect.selectOption("light");
-    await page.waitForTimeout(300);
-
-    const storedTheme = await page.evaluate(() => {
-      return localStorage.getItem("starlight-theme");
-    });
-    expect(storedTheme).toBe("light");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await expectStoredTheme(page, "light");
 
     await page.reload();
     await page.waitForLoadState("domcontentloaded");
@@ -117,8 +121,7 @@ test.describe("Theme Switching", () => {
 
     await expect(themeSelect).toBeVisible();
     await themeSelect.selectOption("light");
-    await page.waitForTimeout(300);
-
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await expectStoredTheme(page, "light");
   });
 });

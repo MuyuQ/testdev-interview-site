@@ -18,6 +18,17 @@ async function readStyle(page: Page, selector: string, property: string) {
   }, property);
 }
 
+async function readRootTokens(page: Page) {
+  return page.evaluate(() => {
+    const root = getComputedStyle(document.documentElement);
+    return {
+      bg: root.getPropertyValue("--sl-color-bg").trim(),
+      card: root.getPropertyValue("--sl-color-bg-card").trim(),
+      accent: root.getPropertyValue("--sl-color-accent").trim(),
+    };
+  });
+}
+
 test.describe("paper theme regressions", () => {
   test("light theme uses warm paper shell on homepage", async ({ page }) => {
     await forceTheme(page, "light");
@@ -25,6 +36,11 @@ test.describe("paper theme regressions", () => {
     await page.waitForLoadState("domcontentloaded");
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    expect(await readRootTokens(page)).toEqual({
+      bg: "#f4efe6",
+      card: "#fbf7ef",
+      accent: "#315c85",
+    });
     expect(await readStyle(page, ".roadmap-card", "border-radius")).toBe("0px");
     expect(await readStyle(page, ".module-card", "background-color")).toBe("rgb(251, 247, 239)");
   });
@@ -41,11 +57,13 @@ test.describe("paper theme regressions", () => {
       return {
         roadmapBg: roadmapCard ? getComputedStyle(roadmapCard).backgroundColor : "",
         heroBorder: hero ? getComputedStyle(hero).borderBottomColor : "",
+        heroBorderWidth: hero ? getComputedStyle(hero).borderBottomWidth : "",
       };
     });
 
     expect(home.roadmapBg).toBe("rgb(24, 27, 34)");
-    expect(home.heroBorder).not.toBe("rgba(0, 0, 0, 0)");
+    expect(home.heroBorder).toBe("rgba(217, 221, 214, 0.14)");
+    expect(home.heroBorderWidth).toBe("1px");
   });
 
   test("dark theme uses quiet docs chrome", async ({ page }) => {

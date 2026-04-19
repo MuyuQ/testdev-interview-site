@@ -248,7 +248,6 @@ html body nav.sidebar .sidebar-content a:hover:not([aria-current="page"]) {
 
 ::-webkit-scrollbar-thumb {
   background: var(--sl-color-gray-4);
-  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {

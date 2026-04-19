@@ -1,79 +1,116 @@
-/* ===== ZENSICAL-INSPIRED THEME ===== */
-
-/* Fonts */
 :root {
   --font-sans: "Noto Sans SC", "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
-}
-
-/* Spacing */
-:root {
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;
   --space-2xl: 3rem;
-}
-
-/* Border radius */
-:root {
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-}
-
-/* Transitions */
-:root {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
   --transition-slow: 300ms ease;
-}
 
-/* Default dark theme (applies when no data-theme is set or data-theme="dark") */
-:root {
-  /* Dark theme colors - Zensical slate */
-  --color-bg: #0c0e12;
-  --color-text: rgba(224, 226, 230, 0.82);
-  --color-primary: #5488e8;
-  --color-secondary: #6b9aef;
-  --color-accent: #5488e8;
-  --color-border: rgba(224, 226, 230, 0.12);
-  --color-code-bg: #1a1d24;
-  --color-card: #191c24;
+  --color-bg: #111318;
+  --color-text: #d9ddd6;
+  --color-primary: #7ea1c4;
+  --color-secondary: #91b0cf;
+  --color-accent: #7ea1c4;
+  --color-border: rgba(217, 221, 214, 0.14);
+  --color-code-bg: #171a20;
+  --color-card: #181b22;
   --color-success: #22c55e;
   --color-error: #ef4444;
   --color-warning: #f59e0b;
 
-  /* Starlight overrides - dark */
-  --sl-color-bg: #0c0e12;
-  --sl-color-bg-nav: #191c24;
-  --sl-color-bg-aside: #191c24;
-  --sl-color-bg-card: #191c24;
-  --sl-color-bg-inline-code: #1a1d24;
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: rgba(224, 226, 230, 0.82);
-  --sl-color-gray-2: rgba(224, 226, 230, 0.56);
-  --sl-color-gray-3: rgba(224, 226, 230, 0.32);
-  --sl-color-gray-4: rgba(224, 226, 230, 0.12);
-  --sl-color-gray-5: rgba(224, 226, 230, 0.07);
-  --sl-color-gray-6: #191c24;
-  --sl-color-accent: #5488e8;
-  --sl-color-accent-low: rgba(84, 136, 232, 0.15);
-  --sl-color-accent-high: rgba(84, 136, 232, 0.25);
-  --sl-color-hairline: rgba(224, 226, 230, 0.12);
-  --sl-color-hairline-shade: rgba(224, 226, 230, 0.07);
-  --sl-color-hairline-light: #191c24;
+  --sl-color-bg: #111318;
+  --sl-color-bg-nav: #15181f;
+  --sl-color-bg-aside: #15181f;
+  --sl-color-bg-card: #181b22;
+  --sl-color-bg-inline-code: #171a20;
+  --sl-color-white: #eef1ea;
+  --sl-color-gray-1: #d9ddd6;
+  --sl-color-gray-2: #aeb5af;
+  --sl-color-gray-3: #848c88;
+  --sl-color-gray-4: rgba(217, 221, 214, 0.18);
+  --sl-color-gray-5: rgba(217, 221, 214, 0.08);
+  --sl-color-gray-6: #15181f;
+  --sl-color-accent: #7ea1c4;
+  --sl-color-accent-low: rgba(126, 161, 196, 0.12);
+  --sl-color-accent-high: rgba(126, 161, 196, 0.22);
+  --sl-color-hairline: rgba(217, 221, 214, 0.14);
+  --sl-color-hairline-shade: rgba(217, 221, 214, 0.08);
+  --sl-color-hairline-light: #15181f;
+}
 
-  /* Code syntax - dark */
-  --sl-color-syntax-number: #e6695b;
-  --sl-color-syntax-string: #2fb170;
-  --sl-color-syntax-keyword: #6791e0;
-  --sl-color-syntax-function: #c973d9;
-  --sl-color-syntax-constant: #9383e2;
-  --sl-color-syntax-special: #f06090;
-  --sl-color-syntax-comment: rgba(224, 226, 230, 0.56);
+[data-theme="light"] {
+  --color-bg: #f4efe6;
+  --color-text: #2f2a24;
+  --color-primary: #315c85;
+  --color-secondary: #4b6f90;
+  --color-accent: #315c85;
+  --color-border: #d8d0c2;
+  --color-code-bg: #efe7da;
+  --color-card: #fbf7ef;
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  --sl-color-bg: #f4efe6;
+  --sl-color-bg-nav: #f7f1e7;
+  --sl-color-bg-aside: #f7f1e7;
+  --sl-color-bg-card: #fbf7ef;
+  --sl-color-bg-inline-code: #efe7da;
+  --sl-color-white: #201b17;
+  --sl-color-gray-1: #2f2a24;
+  --sl-color-gray-2: #5d554d;
+  --sl-color-gray-3: #877d73;
+  --sl-color-gray-4: #d8d0c2;
+  --sl-color-gray-5: #e9e1d5;
+  --sl-color-gray-6: #f7f1e7;
+  --sl-color-accent: #315c85;
+  --sl-color-accent-low: rgba(49, 92, 133, 0.08);
+  --sl-color-accent-high: rgba(49, 92, 133, 0.18);
+  --sl-color-hairline: #d8d0c2;
+  --sl-color-hairline-shade: #e9e1d5;
+  --sl-color-hairline-light: #f7f1e7;
+}
+
+[data-theme="dark"] {
+  --color-bg: #111318;
+  --color-text: #d9ddd6;
+  --color-primary: #7ea1c4;
+  --color-secondary: #91b0cf;
+  --color-accent: #7ea1c4;
+  --color-border: rgba(217, 221, 214, 0.14);
+  --color-code-bg: #171a20;
+  --color-card: #181b22;
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  --sl-color-bg: #111318;
+  --sl-color-bg-nav: #15181f;
+  --sl-color-bg-aside: #15181f;
+  --sl-color-bg-card: #181b22;
+  --sl-color-bg-inline-code: #171a20;
+  --sl-color-white: #eef1ea;
+  --sl-color-gray-1: #d9ddd6;
+  --sl-color-gray-2: #aeb5af;
+  --sl-color-gray-3: #848c88;
+  --sl-color-gray-4: rgba(217, 221, 214, 0.18);
+  --sl-color-gray-5: rgba(217, 221, 214, 0.08);
+  --sl-color-gray-6: #15181f;
+  --sl-color-accent: #7ea1c4;
+  --sl-color-accent-low: rgba(126, 161, 196, 0.12);
+  --sl-color-accent-high: rgba(126, 161, 196, 0.22);
+  --sl-color-hairline: rgba(217, 221, 214, 0.14);
+  --sl-color-hairline-shade: rgba(217, 221, 214, 0.08);
+  --sl-color-hairline-light: #15181f;
 }
 
 html,
@@ -82,109 +119,18 @@ body {
   color-scheme: dark;
 }
 
-/* Light theme - only applies when explicitly set */
-[data-theme="light"] {
-  /* Light theme colors */
-  --color-bg: #ffffff;
-  --color-text: #1a1a2e;
-  --color-primary: #4051b5;
-  --color-secondary: #5d6cc0;
-  --color-accent: #526cfe;
-  --color-border: #e1e4e8;
-  --color-code-bg: #f6f8fa;
-  --color-card: #ffffff;
-  --color-success: #22c55e;
-  --color-error: #ef4444;
-  --color-warning: #f59e0b;
-
-  /* Starlight overrides */
-  --sl-color-bg: #ffffff;
-  --sl-color-bg-nav: #ffffff;
-  --sl-color-bg-aside: #ffffff;
-  --sl-color-bg-card: #ffffff;
-  --sl-color-bg-inline-code: #f6f8fa;
-  --sl-color-white: #1a1a2e;
-  --sl-color-gray-1: #24292f;
-  --sl-color-gray-2: #57606a;
-  --sl-color-gray-3: #8b949e;
-  --sl-color-gray-4: #c9d1d9;
-  --sl-color-gray-5: #e1e4e8;
-  --sl-color-gray-6: #f6f8fa;
-  --sl-color-accent: #4051b5;
-  --sl-color-accent-low: rgba(64, 81, 181, 0.1);
-  --sl-color-accent-high: rgba(64, 81, 181, 0.2);
-  --sl-color-hairline: #e1e4e8;
-  --sl-color-hairline-shade: #c9d1d9;
-  --sl-color-hairline-light: #f6f8fa;
-
-  /* Code syntax - light */
-  --sl-color-syntax-number: #005cc5;
-  --sl-color-syntax-string: #032f62;
-  --sl-color-syntax-keyword: #d73a49;
-  --sl-color-syntax-function: #6f42c1;
-  --sl-color-syntax-constant: #005cc5;
-  --sl-color-syntax-special: #e36209;
-  --sl-color-syntax-comment: #6a737d;
-}
-
 [data-theme="light"] html,
 [data-theme="light"] body {
-  background-color: #ffffff;
+  background-color: #f4efe6;
   color-scheme: light;
-}
-
-/* Dark theme - same as :root, explicitly set for data-theme="dark" */
-[data-theme="dark"] {
-  /* Dark theme colors - Zensical slate */
-  --color-bg: #0c0e12;
-  --color-text: rgba(224, 226, 230, 0.82);
-  --color-primary: #5488e8;
-  --color-secondary: #6b9aef;
-  --color-accent: #5488e8;
-  --color-border: rgba(224, 226, 230, 0.12);
-  --color-code-bg: #1a1d24;
-  --color-card: #191c24;
-  --color-success: #22c55e;
-  --color-error: #ef4444;
-  --color-warning: #f59e0b;
-
-  /* Starlight overrides - dark */
-  --sl-color-bg: #0c0e12;
-  --sl-color-bg-nav: #191c24;
-  --sl-color-bg-aside: #191c24;
-  --sl-color-bg-card: #191c24;
-  --sl-color-bg-inline-code: #1a1d24;
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: rgba(224, 226, 230, 0.82);
-  --sl-color-gray-2: rgba(224, 226, 230, 0.56);
-  --sl-color-gray-3: rgba(224, 226, 230, 0.32);
-  --sl-color-gray-4: rgba(224, 226, 230, 0.12);
-  --sl-color-gray-5: rgba(224, 226, 230, 0.07);
-  --sl-color-gray-6: #191c24;
-  --sl-color-accent: #5488e8;
-  --sl-color-accent-low: rgba(84, 136, 232, 0.15);
-  --sl-color-accent-high: rgba(84, 136, 232, 0.25);
-  --sl-color-hairline: rgba(224, 226, 230, 0.12);
-  --sl-color-hairline-shade: rgba(224, 226, 230, 0.07);
-  --sl-color-hairline-light: #191c24;
-
-  /* Code syntax - dark */
-  --sl-color-syntax-number: #e6695b;
-  --sl-color-syntax-string: #2fb170;
-  --sl-color-syntax-keyword: #6791e0;
-  --sl-color-syntax-function: #c973d9;
-  --sl-color-syntax-constant: #9383e2;
-  --sl-color-syntax-special: #f06090;
-  --sl-color-syntax-comment: rgba(224, 226, 230, 0.56);
 }
 
 [data-theme="dark"] html,
 [data-theme="dark"] body {
-  background-color: #0c0e12;
+  background-color: #111318;
   color-scheme: dark;
 }
 
-/* Smooth theme transitions - exclude html/body to prevent FOUC */
 a,
 button,
 input,

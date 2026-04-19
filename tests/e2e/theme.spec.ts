@@ -83,6 +83,12 @@ test.describe("Theme Switching", () => {
     });
 
     expect(shellColor).toBe("rgb(251, 247, 239)");
+
+    const rootColorScheme = await page.evaluate(() => {
+      return getComputedStyle(document.documentElement).colorScheme;
+    });
+
+    expect(rootColorScheme).toBe("light");
   });
 
   test("theme persists in localStorage", async ({ page }) => {

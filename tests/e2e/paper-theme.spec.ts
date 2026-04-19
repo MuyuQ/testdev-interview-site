@@ -75,6 +75,29 @@ test.describe("paper theme regressions", () => {
       "2px",
     );
     expect(await readStyle(page, ".pagination-link", "border-radius")).toBe("0px");
+    expect(
+      await page.evaluate(() => {
+        const link = document.querySelector(".sl-markdown-content a");
+        if (!(link instanceof HTMLElement)) {
+          return null;
+        }
+
+        const probe = document.createElement("span");
+        probe.style.color = "var(--sl-color-accent)";
+        document.body.appendChild(probe);
+
+        const result = {
+          linkColor: getComputedStyle(link).color,
+          accentColor: getComputedStyle(probe).color,
+        };
+
+        probe.remove();
+        return result;
+      }),
+    ).toEqual({
+      linkColor: "rgb(126, 161, 196)",
+      accentColor: "rgb(126, 161, 196)",
+    });
   });
 
   test("shared controls stay square", async ({ page }) => {

@@ -502,72 +502,72 @@ a.pagination-link.pagination-link:hover {
 /* ===== DARK THEME COMPONENT ENHANCEMENTS ===== */
 
 [data-theme="dark"] .btn {
-  background-color: #191c24;
-  border-color: rgba(224, 226, 230, 0.12);
-  color: rgba(224, 226, 230, 0.82);
+  background-color: var(--sl-color-bg-card);
+  border-color: var(--sl-color-hairline);
+  color: var(--sl-color-gray-1);
 }
 
 [data-theme="dark"] .btn:hover {
-  background-color: #1a1d24;
-  border-color: #5488e8;
+  background-color: var(--sl-color-bg-inline-code);
+  border-color: var(--sl-color-accent);
 }
 
 [data-theme="dark"] .btn-primary {
-  background-color: #5488e8;
-  color: #ffffff;
+  background-color: var(--sl-color-accent);
+  color: var(--sl-color-white);
 }
 
 [data-theme="dark"] .search-input {
-  background: #191c24;
-  border-color: rgba(224, 226, 230, 0.12);
-  color: rgba(224, 226, 230, 0.82);
+  background: var(--sl-color-bg-card);
+  border-color: var(--sl-color-hairline);
+  color: var(--sl-color-gray-1);
 }
 
 [data-theme="dark"] .search-input:focus {
-  border-color: #5488e8;
-  box-shadow: 0 0 0 3px rgba(84, 136, 232, 0.15);
+  border-color: var(--sl-color-accent);
+  box-shadow: 0 0 0 3px var(--sl-color-accent-low);
 }
 
 [data-theme="dark"] .term-popup {
-  background: #191c24;
-  border-color: rgba(224, 226, 230, 0.12);
+  background: var(--sl-color-bg-card);
+  border-color: var(--sl-color-hairline);
 }
 
 [data-theme="dark"] a.nav-link.nav-link,
 [data-theme="dark"] a.pagination-link.pagination-link {
-  border-color: rgba(224, 226, 230, 0.12);
+  border-color: var(--sl-color-hairline);
 }
 
 [data-theme="dark"] a.nav-link.nav-link:hover,
 [data-theme="dark"] a.pagination-link.pagination-link:hover {
-  border-color: #5488e8;
-  background: #191c24;
+  border-color: var(--sl-color-accent);
+  background: var(--sl-color-bg-card);
 }
 
 [data-theme="dark"] .recent-views.recent-views {
-  border-color: rgba(224, 226, 230, 0.12);
+  border-color: var(--sl-color-hairline);
 }
 
 [data-theme="dark"] button.share-btn.share-btn {
-  border-color: rgba(224, 226, 230, 0.12);
+  border-color: var(--sl-color-hairline);
 }
 
 [data-theme="dark"] button.share-btn.share-btn:hover {
-  border-color: #5488e8;
-  color: #5488e8;
+  border-color: var(--sl-color-accent);
+  color: var(--sl-color-accent);
 }
 
 [data-theme="dark"] .difficulty-btn,
 [data-theme="dark"] .tag-btn {
-  border-color: rgba(224, 226, 230, 0.12);
-  color: rgba(224, 226, 230, 0.56);
+  border-color: var(--sl-color-hairline);
+  color: var(--sl-color-gray-3);
 }
 
 [data-theme="dark"] .difficulty-btn:hover,
 [data-theme="dark"] .difficulty-btn.active,
 [data-theme="dark"] .tag-btn:hover,
 [data-theme="dark"] .tag-btn.active {
-  border-color: #5488e8;
-  color: #5488e8;
-  background: rgba(84, 136, 232, 0.15);
+  border-color: var(--sl-color-accent);
+  color: var(--sl-color-accent);
+  background: var(--sl-color-accent-low);
 }

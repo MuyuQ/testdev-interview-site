@@ -12,6 +12,17 @@ function normalizeBase(base: string): string {
   return base.endsWith("/") ? base : `${base}/`;
 }
 
+export function getProgressPercentage(
+  completedCount: number,
+  totalDocsCount: number,
+): number {
+  if (totalDocsCount <= 0) {
+    return 0;
+  }
+
+  return Math.min((completedCount / totalDocsCount) * 100, 100);
+}
+
 export function getHomePageData(base: string): {
   roadmapLinks: HomePageLink[];
   moduleLinks: HomePageLink[];

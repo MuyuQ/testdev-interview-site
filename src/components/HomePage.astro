@@ -1,11 +1,14 @@
 ---
-import { getHomePageData } from "../lib/home-page";
+import { getCollection } from "astro:content";
+import { getHomePageData, getProgressPercentage } from "../lib/home-page";
 import { getProgress } from "../lib/progress-store";
 import RecentViews from "./RecentViews.astro";
 import "../styles/home-page.css";
 
 const progress = getProgress();
 const completedCount = progress.completed.length;
+const totalDocsCount = (await getCollection("docs")).length;
+const progressPercentage = getProgressPercentage(completedCount, totalDocsCount);
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -47,9 +50,9 @@ const { roadmapLinks, moduleLinks } = getHomePageData(base);
   {completedCount > 0 && (
     <section class="progress-overview" aria-label="学习进度">
       <h2>学习进度</h2>
-      <p>已完成 {completedCount} 个主题</p>
+      <p>已完成 {completedCount} / {totalDocsCount} 个主题</p>
       <div class="progress-bar">
-        <div class="progress-bar-fill" style={`width: ${Math.min((completedCount / 50) * 100, 100)}%`}></div>
+        <div class="progress-bar-fill" style={`width: ${progressPercentage}%`}></div>
       </div>
     </section>
   )}

@@ -98,47 +98,31 @@ test.describe("paper theme shared components", () => {
     const shareRadius = await page.locator(".share-btn").first().evaluate((node) => getComputedStyle(node).borderRadius);
     expect(shareRadius).toBe("0px");
 
+    const difficultyRadius = await page.evaluate(() => {
+      const probeStyle = document.createElement("style");
+      probeStyle.textContent = "button { border-radius: 999px; }";
+      document.head.appendChild(probeStyle);
+
+      const probeButton = document.createElement("button");
+      probeButton.className = "difficulty-btn";
+      probeButton.type = "button";
+      probeButton.textContent = "全部";
+      document.body.appendChild(probeButton);
+
+      const borderRadius = getComputedStyle(probeButton).borderRadius;
+
+      probeButton.remove();
+      probeStyle.remove();
+
+      return borderRadius;
+    });
+
+    expect(difficultyRadius).toBe("0px");
+
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
     const recentRadius = await page.locator(".recent-views").evaluate((node) => getComputedStyle(node).borderRadius);
     expect(recentRadius).toBe("0px");
-
-    const difficultyRules = await page.evaluate(() => {
-      function collectRules(rules: CSSRuleList): Array<{ selectorText: string; borderRadius: string }> {
-        const matches: Array<{ selectorText: string; borderRadius: string }> = [];
-
-        for (const rule of Array.from(rules)) {
-          if (rule instanceof CSSStyleRule && rule.selectorText === ".difficulty-btn") {
-            matches.push({
-              selectorText: rule.selectorText,
-              borderRadius: rule.style.getPropertyValue("border-radius").trim(),
-            });
-          }
-
-          if ("cssRules" in rule) {
-            matches.push(...collectRules(rule.cssRules));
-          }
-        }
-
-        return matches;
-      }
-
-      const matches: Array<{ selectorText: string; borderRadius: string }> = [];
-      for (const sheet of Array.from(document.styleSheets)) {
-        try {
-          matches.push(...collectRules(sheet.cssRules));
-        } catch {
-          continue;
-        }
-      }
-
-      return matches;
-    });
-
-    expect(difficultyRules).toContainEqual({
-      selectorText: ".difficulty-btn",
-      borderRadius: "0px",
-    });
   });
 });

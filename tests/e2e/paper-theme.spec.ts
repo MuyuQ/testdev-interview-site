@@ -60,7 +60,6 @@ test.describe("paper theme homepage", () => {
   test("homepage uses documentation-index styling in both themes", async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("starlight-theme", "light");
-      document.documentElement.dataset.theme = "light";
     });
 
     await page.goto(appUrl("/"));

@@ -10,7 +10,6 @@ test.describe("paper theme tokens", () => {
   test("light theme uses warm paper colors on the homepage", async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("starlight-theme", "light");
-      document.documentElement.dataset.theme = "light";
     });
 
     await page.goto(appUrl("/"));
@@ -37,7 +36,6 @@ test.describe("paper theme tokens", () => {
   test("dark theme uses ink paper colors on a docs page", async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem("starlight-theme", "dark");
-      document.documentElement.dataset.theme = "dark";
     });
 
     await page.goto(appUrl("/glossary/"));

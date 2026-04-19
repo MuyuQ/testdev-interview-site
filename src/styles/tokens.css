@@ -45,6 +45,13 @@
   --sl-color-hairline: rgba(217, 221, 214, 0.14);
   --sl-color-hairline-shade: rgba(217, 221, 214, 0.08);
   --sl-color-hairline-light: #15181f;
+  --sl-color-syntax-number: #e6695b;
+  --sl-color-syntax-string: #2fb170;
+  --sl-color-syntax-keyword: #6791e0;
+  --sl-color-syntax-function: #c973d9;
+  --sl-color-syntax-constant: #9383e2;
+  --sl-color-syntax-special: #f06090;
+  --sl-color-syntax-comment: rgba(224, 226, 230, 0.56);
 }
 
 [data-theme="light"] {
@@ -78,6 +85,13 @@
   --sl-color-hairline: #d8d0c2;
   --sl-color-hairline-shade: #e9e1d5;
   --sl-color-hairline-light: #f7f1e7;
+  --sl-color-syntax-number: #005cc5;
+  --sl-color-syntax-string: #032f62;
+  --sl-color-syntax-keyword: #d73a49;
+  --sl-color-syntax-function: #6f42c1;
+  --sl-color-syntax-constant: #005cc5;
+  --sl-color-syntax-special: #e36209;
+  --sl-color-syntax-comment: #6a737d;
 }
 
 [data-theme="dark"] {
@@ -111,6 +125,13 @@
   --sl-color-hairline: rgba(217, 221, 214, 0.14);
   --sl-color-hairline-shade: rgba(217, 221, 214, 0.08);
   --sl-color-hairline-light: #15181f;
+  --sl-color-syntax-number: #e6695b;
+  --sl-color-syntax-string: #2fb170;
+  --sl-color-syntax-keyword: #6791e0;
+  --sl-color-syntax-function: #c973d9;
+  --sl-color-syntax-constant: #9383e2;
+  --sl-color-syntax-special: #f06090;
+  --sl-color-syntax-comment: rgba(224, 226, 230, 0.56);
 }
 
 html,

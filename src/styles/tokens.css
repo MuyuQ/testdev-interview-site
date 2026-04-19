@@ -31,6 +31,57 @@
   --transition-slow: 300ms ease;
 }
 
+/* Default dark theme (applies when no data-theme is set or data-theme="dark") */
+:root {
+  /* Dark theme colors - Zensical slate */
+  --color-bg: #0c0e12;
+  --color-text: rgba(224, 226, 230, 0.82);
+  --color-primary: #5488e8;
+  --color-secondary: #6b9aef;
+  --color-accent: #5488e8;
+  --color-border: rgba(224, 226, 230, 0.12);
+  --color-code-bg: #1a1d24;
+  --color-card: #191c24;
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Starlight overrides - dark */
+  --sl-color-bg: #0c0e12;
+  --sl-color-bg-nav: #191c24;
+  --sl-color-bg-aside: #191c24;
+  --sl-color-bg-card: #191c24;
+  --sl-color-bg-inline-code: #1a1d24;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: rgba(224, 226, 230, 0.82);
+  --sl-color-gray-2: rgba(224, 226, 230, 0.56);
+  --sl-color-gray-3: rgba(224, 226, 230, 0.32);
+  --sl-color-gray-4: rgba(224, 226, 230, 0.12);
+  --sl-color-gray-5: rgba(224, 226, 230, 0.07);
+  --sl-color-gray-6: #191c24;
+  --sl-color-accent: #5488e8;
+  --sl-color-accent-low: rgba(84, 136, 232, 0.15);
+  --sl-color-accent-high: rgba(84, 136, 232, 0.25);
+  --sl-color-hairline: rgba(224, 226, 230, 0.12);
+  --sl-color-hairline-shade: rgba(224, 226, 230, 0.07);
+  --sl-color-hairline-light: #191c24;
+
+  /* Code syntax - dark */
+  --sl-color-syntax-number: #e6695b;
+  --sl-color-syntax-string: #2fb170;
+  --sl-color-syntax-keyword: #6791e0;
+  --sl-color-syntax-function: #c973d9;
+  --sl-color-syntax-constant: #9383e2;
+  --sl-color-syntax-special: #f06090;
+  --sl-color-syntax-comment: rgba(224, 226, 230, 0.56);
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color-scheme: dark;
+}
+
 /* Light theme - only applies when explicitly set */
 [data-theme="light"] {
   /* Light theme colors */
@@ -82,8 +133,9 @@
   color-scheme: light;
 }
 
+/* Dark theme - same as :root, explicitly set for data-theme="dark" */
 [data-theme="dark"] {
-  /* Dark theme - Zensical slate */
+  /* Dark theme colors - Zensical slate */
   --color-bg: #0c0e12;
   --color-text: rgba(224, 226, 230, 0.82);
   --color-primary: #5488e8;
@@ -96,7 +148,7 @@
   --color-error: #ef4444;
   --color-warning: #f59e0b;
 
-  /* Starlight overrides */
+  /* Starlight overrides - dark */
   --sl-color-bg: #0c0e12;
   --sl-color-bg-nav: #191c24;
   --sl-color-bg-aside: #191c24;

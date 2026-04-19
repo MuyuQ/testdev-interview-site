@@ -1,0 +1,55 @@
+- main [ref=e2]:
+  - region "站点介绍" [ref=e3]:
+    - heading "测试开发面试速成站" [level=1] [ref=e4]
+    - paragraph [ref=e5]: 结构化内容帮助你快速补齐测试开发知识框架，在面试中说清楚概念、项目和方案
+  - region "学习路线" [ref=e6]:
+    - heading "学习路线" [level=2] [ref=e7]
+    - generic [ref=e8]:
+      - link "3 天速记版 高频术语和核心概念快速记忆" [ref=e9] [cursor=pointer]:
+        - /url: /testdev-interview-site/roadmap/3-day-interview-map/
+        - heading "3 天速记版" [level=3] [ref=e10]
+        - paragraph [ref=e11]: 高频术语和核心概念快速记忆
+      - link "7 天面试版 技术专题 + 项目经验 + 场景题" [ref=e12] [cursor=pointer]:
+        - /url: /testdev-interview-site/roadmap/7-day-interview-plan/
+        - heading "7 天面试版" [level=3] [ref=e13]
+        - paragraph [ref=e14]: 技术专题 + 项目经验 + 场景题
+  - region "核心模块" [ref=e15]:
+    - heading "核心模块" [level=2] [ref=e16]
+    - generic [ref=e17]:
+      - link "术语 定义、重要性、易错点、混淆术语和回答提示" [ref=e18] [cursor=pointer]:
+        - /url: /testdev-interview-site/glossary/api-assertion/
+        - heading "术语" [level=3] [ref=e19]
+        - paragraph [ref=e20]: 定义、重要性、易错点、混淆术语和回答提示
+      - link "技术专题 Python、Pytest、Playwright、接口测试与CI/CD" [ref=e21] [cursor=pointer]:
+        - /url: /testdev-interview-site/tech/pytest/
+        - heading "技术专题" [level=3] [ref=e22]
+        - paragraph [ref=e23]: Python、Pytest、Playwright、接口测试与CI/CD
+      - link "项目类型 按业务流程、风险点、测试策略组织项目经验" [ref=e24] [cursor=pointer]:
+        - /url: /testdev-interview-site/project/ecommerce-project/
+        - heading "项目类型" [level=3] [ref=e25]
+        - paragraph [ref=e26]: 按业务流程、风险点、测试策略组织项目经验
+      - link "场景题 围绕典型面试追问沉淀标准回答骨架" [ref=e27] [cursor=pointer]:
+        - /url: /testdev-interview-site/scenario/payment-callback/
+        - heading "场景题" [level=3] [ref=e28]
+        - paragraph [ref=e29]: 围绕典型面试追问沉淀标准回答骨架
+      - link "编码题 重试、缓存、日志、断言、Fixture等高频代码题" [ref=e30] [cursor=pointer]:
+        - /url: /testdev-interview-site/coding/retry-mechanism/
+        - heading "编码题" [level=3] [ref=e31]
+        - paragraph [ref=e32]: 重试、缓存、日志、断言、Fixture等高频代码题
+      - link "路线与打法 3天/7天路线、自我介绍和项目表达模板" [ref=e33] [cursor=pointer]:
+        - /url: /testdev-interview-site/roadmap/3-day-interview-map/
+        - heading "路线与打法" [level=3] [ref=e34]
+        - paragraph [ref=e35]: 3天/7天路线、自我介绍和项目表达模板
+      - link "AI成长 AI对测试开发的影响" [ref=e36] [cursor=pointer]:
+        - /url: /testdev-interview-site/ai-learning/testdev-ai-tools/
+        - heading "AI成长" [level=3] [ref=e37]
+        - paragraph [ref=e38]: AI对测试开发的影响
+      - link "模板库 工程练手模板和面试表达模板" [ref=e39] [cursor=pointer]:
+        - /url: /testdev-interview-site/practice-template/project-story-template/
+        - heading "模板库" [level=3] [ref=e40]
+        - paragraph [ref=e41]: 工程练手模板和面试表达模板
+  - region "最近浏览" [ref=e42]:
+    - region "最近浏览" [ref=e43]:
+      - heading "最近浏览" [level=3] [ref=e44]
+      - list "最近浏览" [ref=e45]:
+        - listitem [ref=e46]: 暂无浏览记录

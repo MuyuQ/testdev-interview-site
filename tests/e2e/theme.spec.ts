@@ -1,9 +1,13 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Locator, type Page } from "@playwright/test";
 
 const BASE_PATH = "/testdev-interview-site";
 
 function appUrl(path: string): string {
   return path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
+}
+
+function getThemeSelect(page: Page): Locator {
+  return page.getByRole("combobox", { name: /theme|主题/i }).first();
 }
 
 test.describe("Theme Switching", () => {
@@ -36,126 +40,85 @@ test.describe("Theme Switching", () => {
       return getComputedStyle(node).backgroundColor;
     });
 
-    expect(cardBg).toBe("rgb(25, 28, 36)");
+    expect(cardBg).toBe("rgb(24, 27, 34)");
   });
 
   test("dark mode applies correctly", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("starlight-theme", "dark");
+    });
+
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const themeToggle = page
-      .locator(
-        'button[aria-label*="theme"], button[title*="主题"], [class*="theme-toggle"]',
-      )
-      .first();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-    if (await themeToggle.isVisible().catch(() => false)) {
-      const html = page.locator("html");
-      const initialTheme = await html.getAttribute("data-theme");
+    const cardBg = await page.locator(".roadmap-card").first().evaluate((node) => {
+      return getComputedStyle(node).backgroundColor;
+    });
 
-      await themeToggle.click();
-      await page.waitForTimeout(300);
-
-      const newTheme = await html.getAttribute("data-theme");
-      if (initialTheme && newTheme) {
-        expect(newTheme).not.toBe(initialTheme);
-      }
-
-      const bgColor = await page.evaluate(() => {
-        return getComputedStyle(document.documentElement).backgroundColor;
-      });
-      expect(bgColor).toBeTruthy();
-    }
+    expect(cardBg).toBe("rgb(24, 27, 34)");
   });
 
   test("light mode applies correctly", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("starlight-theme", "light");
+    });
+
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const themeToggle = page
-      .locator(
-        'button[aria-label*="theme"], button[title*="主题"], [class*="theme-toggle"]',
-      )
-      .first();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    if (await themeToggle.isVisible().catch(() => false)) {
-      await themeToggle.click();
-      await page.waitForTimeout(300);
-      await themeToggle.click();
-      await page.waitForTimeout(300);
+    const shellColor = await page.locator(".roadmap-card").first().evaluate((node) => {
+      return getComputedStyle(node).backgroundColor;
+    });
 
-      const html = page.locator("html");
-      const theme = await html.getAttribute("data-theme");
-      expect(theme).toBeDefined();
-    }
+    expect(shellColor).toBe("rgb(251, 247, 239)");
   });
 
   test("theme persists in localStorage", async ({ page }) => {
-    await page.goto(appUrl("/"));
+    await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const themeToggle = page
-      .locator(
-        'button[aria-label*="theme"], button[title*="主题"], [class*="theme-toggle"]',
-      )
-      .first();
+    const themeSelect = getThemeSelect(page);
 
-    if (await themeToggle.isVisible().catch(() => false)) {
-      await themeToggle.click();
-      await page.waitForTimeout(300);
+    await expect(themeSelect).toBeVisible();
+    await themeSelect.selectOption("light");
+    await page.waitForTimeout(300);
 
-      const storedTheme = await page.evaluate(() => {
-        return localStorage.getItem("testdev:theme");
-      });
-      expect(storedTheme).toBeDefined();
-      expect(storedTheme).toMatch(/^(dark|light|auto)$/);
+    const storedTheme = await page.evaluate(() => {
+      return localStorage.getItem("starlight-theme");
+    });
+    expect(storedTheme).toBe("light");
 
-      await page.reload();
-      await page.waitForLoadState("domcontentloaded");
+    await page.reload();
+    await page.waitForLoadState("domcontentloaded");
 
-      const html = page.locator("html");
-      const themeAfterReload = await html.getAttribute("data-theme");
-      expect(themeAfterReload).toBeDefined();
-    }
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   });
 
   test("theme toggle button is accessible", async ({ page }) => {
-    await page.goto(appUrl("/"));
+    await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const themeToggle = page
-      .locator(
-        'button[aria-label*="theme"], button[title*="主题"], [class*="theme-toggle"]',
-      )
-      .first();
+    const themeSelect = getThemeSelect(page);
 
-    if (await themeToggle.isVisible().catch(() => false)) {
-      await expect(themeToggle).toBeVisible();
-      await expect(themeToggle).toBeEnabled();
-
-      const accessibleName = await themeToggle.getAttribute("aria-label");
-      const title = await themeToggle.getAttribute("title");
-      expect(accessibleName || title).toBeTruthy();
-    }
+    await expect(themeSelect).toBeVisible();
+    await expect(themeSelect).toBeEnabled();
+    await expect(themeSelect).toHaveAccessibleName(/theme|主题/i);
   });
 
   test("theme switching works on content pages", async ({ page }) => {
-    await page.goto(appUrl("/glossary"));
+    await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const themeToggle = page
-      .locator(
-        'button[aria-label*="theme"], button[title*="主题"], [class*="theme-toggle"]',
-      )
-      .first();
+    const themeSelect = getThemeSelect(page);
 
-    if (await themeToggle.isVisible().catch(() => false)) {
-      await themeToggle.click();
-      await page.waitForTimeout(300);
+    await expect(themeSelect).toBeVisible();
+    await themeSelect.selectOption("light");
+    await page.waitForTimeout(300);
 
-      const html = page.locator("html");
-      const theme = await html.getAttribute("data-theme");
-      expect(theme).toBeDefined();
-    }
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   });
 });

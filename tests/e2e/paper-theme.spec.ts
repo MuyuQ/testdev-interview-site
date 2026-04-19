@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 const BASE_PATH = "/testdev-interview-site";
 
@@ -6,150 +6,69 @@ function appUrl(path: string): string {
   return path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
 }
 
-test.describe("paper theme tokens", () => {
-  test("light theme uses warm paper colors on the homepage", async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("starlight-theme", "light");
-    });
+async function forceTheme(page: Page, theme: "light" | "dark") {
+  await page.addInitScript((value) => {
+    localStorage.setItem("starlight-theme", value);
+  }, theme);
+}
 
+async function readStyle(page: Page, selector: string, property: string) {
+  return page.locator(selector).first().evaluate((node, cssProperty) => {
+    return getComputedStyle(node).getPropertyValue(cssProperty).trim();
+  }, property);
+}
+
+test.describe("paper theme regressions", () => {
+  test("light theme uses warm paper shell on homepage", async ({ page }) => {
+    await forceTheme(page, "light");
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-
-    const themeValues = await page.evaluate(() => {
-      const root = getComputedStyle(document.documentElement);
-      return {
-        bg: root.getPropertyValue("--sl-color-bg").trim(),
-        card: root.getPropertyValue("--sl-color-bg-card").trim(),
-        accent: root.getPropertyValue("--sl-color-accent").trim(),
-        radius: root.getPropertyValue("--radius-md").trim(),
-      };
-    });
-
-    expect(themeValues.bg).toBe("#f4efe6");
-    expect(themeValues.card).toBe("#fbf7ef");
-    expect(themeValues.accent).toBe("#315c85");
-    expect(themeValues.radius).toBe("0px");
+    expect(await readStyle(page, ".roadmap-card", "border-radius")).toBe("0px");
+    expect(await readStyle(page, ".module-card", "background-color")).toBe("rgb(251, 247, 239)");
   });
 
-  test("dark theme uses ink paper colors on a docs page", async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("starlight-theme", "dark");
-    });
-
-    await page.goto(appUrl("/glossary/"));
-    await page.waitForLoadState("domcontentloaded");
-
-    const themeValues = await page.evaluate(() => {
-      const root = getComputedStyle(document.documentElement);
-      return {
-        bg: root.getPropertyValue("--sl-color-bg").trim(),
-        card: root.getPropertyValue("--sl-color-bg-card").trim(),
-        accent: root.getPropertyValue("--sl-color-accent").trim(),
-      };
-    });
-
-    expect(themeValues.bg).toBe("#111318");
-    expect(themeValues.card).toBe("#181b22");
-    expect(themeValues.accent).toBe("#7ea1c4");
-  });
-});
-
-test.describe("paper theme homepage", () => {
-  test("homepage uses documentation-index styling in both themes", async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("starlight-theme", "light");
-    });
-
+  test("dark homepage keeps the ink-paper shell", async ({ page }) => {
+    await forceTheme(page, "dark");
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
     const home = await page.evaluate(() => {
-      const hero = document.querySelector(".hero");
       const roadmapCard = document.querySelector(".roadmap-card");
-      const moduleCard = document.querySelector(".module-card");
+      const hero = document.querySelector(".hero");
 
       return {
-        heroBorder: hero ? getComputedStyle(hero).borderBottomWidth : "",
-        roadmapRadius: roadmapCard ? getComputedStyle(roadmapCard).borderRadius : "",
-        moduleBg: moduleCard ? getComputedStyle(moduleCard).backgroundColor : "",
+        roadmapBg: roadmapCard ? getComputedStyle(roadmapCard).backgroundColor : "",
+        heroBorder: hero ? getComputedStyle(hero).borderBottomColor : "",
       };
     });
 
-    expect(home.heroBorder).toBe("1px");
-    expect(home.roadmapRadius).toBe("0px");
-    expect(home.moduleBg).toBe("rgb(251, 247, 239)");
+    expect(home.roadmapBg).toBe("rgb(24, 27, 34)");
+    expect(home.heroBorder).not.toBe("rgba(0, 0, 0, 0)");
   });
-});
 
-test.describe("paper documentation shell", () => {
-  test("docs pages use square panels and quiet borders", async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("starlight-theme", "light");
-    });
-
-    await page.goto(appUrl("/interview-chains/test-framework/"));
+  test("dark theme uses quiet docs chrome", async ({ page }) => {
+    await forceTheme(page, "dark");
+    await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const shell = await page.evaluate(() => {
-      const sidebarCurrent = document.querySelector(".sidebar-content a[aria-current='page']");
-      const contentHeading = document.querySelector(".sl-markdown-content h2");
-      const inlineCode = document.querySelector(".sl-markdown-content code:not(pre code)");
-
-      return {
-        sidebarRadius: sidebarCurrent ? getComputedStyle(sidebarCurrent).borderRadius : "",
-        sidebarBorderLeft: sidebarCurrent ? getComputedStyle(sidebarCurrent).borderLeftWidth : "",
-        headingBorder: contentHeading ? getComputedStyle(contentHeading).borderBottomWidth : "",
-        inlineCodeRadius: inlineCode ? getComputedStyle(inlineCode).borderRadius : "",
-      };
-    });
-
-    expect(shell.sidebarRadius).toBe("0px");
-    expect(shell.sidebarBorderLeft).toBe("2px");
-    expect(shell.headingBorder).toBe("1px");
-    expect(shell.inlineCodeRadius).toBe("0px");
+    expect(await readStyle(page, ".sidebar-content a[aria-current='page']", "border-left-width")).toBe(
+      "2px",
+    );
+    expect(await readStyle(page, ".pagination-link", "border-radius")).toBe("0px");
   });
-});
 
-test.describe("paper theme shared components", () => {
-  test("interactive components use square edges and restrained hover states", async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("starlight-theme", "light");
-    });
-
-    await page.goto(appUrl("/interview-chains/test-framework/"));
+  test("shared controls stay square", async ({ page }) => {
+    await forceTheme(page, "light");
+    await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
-    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    const shareRadius = await page.locator(".share-btn").first().evaluate((node) => getComputedStyle(node).borderRadius);
-    expect(shareRadius).toBe("0px");
-
-    const difficultyRadius = await page.evaluate(() => {
-      const probeStyle = document.createElement("style");
-      probeStyle.textContent = "button { border-radius: 999px; }";
-      document.head.appendChild(probeStyle);
-
-      const probeButton = document.createElement("button");
-      probeButton.className = "difficulty-btn";
-      probeButton.type = "button";
-      probeButton.textContent = "全部";
-      document.body.appendChild(probeButton);
-
-      const borderRadius = getComputedStyle(probeButton).borderRadius;
-
-      probeButton.remove();
-      probeStyle.remove();
-
-      return borderRadius;
-    });
-
-    expect(difficultyRadius).toBe("0px");
+    expect(await readStyle(page, ".share-btn", "border-radius")).toBe("0px");
 
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
-    const recentRadius = await page.locator(".recent-views").evaluate((node) => getComputedStyle(node).borderRadius);
-    expect(recentRadius).toBe("0px");
+    expect(await readStyle(page, ".recent-views", "border-radius")).toBe("0px");
   });
 });

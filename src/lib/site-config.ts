@@ -63,6 +63,13 @@ export const categories: CategoryConfig[] = [
     description: "工程练手模板和面试表达模板",
     recommendedSlug: "project-story-template",
   },
+  {
+    id: "interview-chains",
+    title: "面试追问链",
+    navLabel: "追问链",
+    description: "把单点知识延展成连续追问，贴近真实面试节奏",
+    recommendedSlug: "api-testing-chain",
+  },
 ];
 
 export function getCategoryById(id: string): CategoryConfig | undefined {

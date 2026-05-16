@@ -30,6 +30,9 @@ test.describe("Navigation", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "测试开发面试速成站",
     );
+    await expect(
+      page.getByRole("link", { name: /追问链/ }),
+    ).toHaveAttribute("href", `${BASE_PATH}/interview-chains/api-testing-chain/`);
   });
 
   test("all category pages are accessible", async ({ page }) => {

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { getHomePageData, getProgressPercentage } from "../../src/lib/home-page";
+import { categories } from "../../src/lib/site-config";
 
 const projectRoot = resolve(__dirname, "../..");
 
@@ -26,6 +27,9 @@ describe("home-page data", () => {
 
   it("should point module links to existing documents", () => {
     const { moduleLinks } = getHomePageData("/testdev-interview-site/");
+    const recommendedCategoryIds = categories
+      .filter((category) => typeof category.recommendedSlug === "string")
+      .map((category) => category.id);
 
     for (const link of moduleLinks) {
       const filePath = resolve(
@@ -40,6 +44,10 @@ describe("home-page data", () => {
       expect(existsSync(filePath)).toBe(true);
       expect(link.href).toContain(`/${link.category}/${link.slug}/`);
     }
+
+    expect(moduleLinks.map((link) => link.category)).toEqual(
+      recommendedCategoryIds,
+    );
   });
 
   it("should calculate progress percentage from the real total doc count", () => {

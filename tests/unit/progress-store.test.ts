@@ -3,7 +3,6 @@ import {
   getProgress,
   markAsCompleted,
   isCompleted,
-  getCompletionCount,
   calculateProgressPercent,
 } from "../../src/lib/progress-store";
 
@@ -41,7 +40,14 @@ describe("progress-store", () => {
   it("should not duplicate completed entries", () => {
     markAsCompleted("api-assertion", "glossary");
     markAsCompleted("api-assertion", "glossary");
-    expect(getCompletionCount()).toBe(1);
+
+    const progress = getProgress();
+
+    expect(progress.completed).toHaveLength(1);
+    expect(progress.completed[0]).toMatchObject({
+      slug: "api-assertion",
+      category: "glossary",
+    });
   });
 
   it("should calculate progress percent", () => {

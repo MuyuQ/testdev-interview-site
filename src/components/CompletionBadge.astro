@@ -2,31 +2,41 @@
 const { slug, category } = Astro.props;
 ---
 
-<span class="completion-badge" data-slug={slug} data-category={category} aria-label="完成状态：未完成" role="status">
+<span
+  class="completion-badge"
+  data-slug={slug}
+  data-category={category}
+  aria-label="完成状态：未完成"
+  role="status"
+>
   <slot />
 </span>
 
 <script>
-  (function () {
-    const badge = document.querySelector<HTMLElement>('.completion-badge[data-slug]');
-    if (!badge) return;
+  import { isCompleted } from "../lib/progress-store";
 
-    const slug = badge.getAttribute('data-slug');
-    const category = badge.getAttribute('data-category');
+  function initializeCompletionBadges() {
+    document
+      .querySelectorAll<HTMLElement>(".completion-badge[data-slug]")
+      .forEach((badge) => {
+        const slug = badge.dataset.slug;
+        const category = badge.dataset.category;
 
-    try {
-      const data = JSON.parse(
-        localStorage.getItem('testdev:progress') || '{"completed":[]}',
-      ) as { completed: Array<{ slug: string; category: string }> };
-      const isComplete = data.completed.some(
-        (e) => e.slug === slug && e.category === category
-      );
-      if (isComplete) {
-        badge.classList.add('completed');
-        badge.setAttribute('aria-label', '完成状态：已完成');
-      }
-    } catch (e) {}
-  })();
+        if (!slug || !category) {
+          return;
+        }
+
+        const completed = isCompleted(slug, category);
+        badge.classList.toggle("completed", completed);
+        badge.setAttribute(
+          "aria-label",
+          completed ? "完成状态：已完成" : "完成状态：未完成",
+        );
+      });
+  }
+
+  initializeCompletionBadges();
+  document.addEventListener("astro:page-load", initializeCompletionBadges);
 </script>
 
 <style>

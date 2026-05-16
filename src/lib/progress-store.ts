@@ -48,3 +48,38 @@ export function calculateProgressPercent(total: number): number {
   if (total === 0) return 0;
   return Math.round((getCompletionCount() / total) * 100);
 }
+
+export function initializeCompletionControls(
+  root: ParentNode = document,
+): void {
+  root
+    .querySelectorAll<HTMLButtonElement>("[data-completion-button]")
+    .forEach((button) => {
+      if (button.dataset.bound === "true") {
+        return;
+      }
+
+      const slug = button.dataset.slug;
+      const category = button.dataset.category;
+
+      if (!slug || !category) {
+        return;
+      }
+
+      const updateState = () => {
+        const completed = isCompleted(slug, category);
+        button.classList.toggle("completed", completed);
+        button.setAttribute("aria-pressed", completed ? "true" : "false");
+        button.textContent = completed ? "已完成" : "标记完成";
+      };
+
+      updateState();
+
+      button.addEventListener("click", () => {
+        markAsCompleted(slug, category);
+        updateState();
+      });
+
+      button.dataset.bound = "true";
+    });
+}

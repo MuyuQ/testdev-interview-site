@@ -1,10 +1,12 @@
 ---
 import type { Props } from "@astrojs/starlight/props";
+import BookmarkButton from "./BookmarkButton.astro";
 import SelfTestQuiz from "./SelfTestQuiz.astro";
 import ShareButtons from "./ShareButtons.astro";
 
 const { entry } = Astro.props as Props;
-const selfTests = (entry.data as any).selfTests || [];
+const selfTests = entry.data.selfTests ?? [];
+const [category, slug] = entry.slug.split("/");
 ---
 
 <div class="content-panel" role="main">
@@ -16,6 +18,19 @@ const selfTests = (entry.data as any).selfTests || [];
         <SelfTestQuiz questions={selfTests} />
       </div>
     )}
+    <div class="content-actions" data-content-actions>
+      <button
+        class="completion-action"
+        type="button"
+        data-completion-button
+        data-category={category}
+        data-slug={slug}
+        aria-pressed="false"
+      >
+        标记完成
+      </button>
+      <BookmarkButton slug={`${category}/${slug}`} />
+    </div>
     <div class="share-section">
       <ShareButtons />
     </div>
@@ -25,6 +40,39 @@ const selfTests = (entry.data as any).selfTests || [];
 <style>
   .content-panel {
     padding: 2rem 0;
+  }
+  .content-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .completion-action {
+    min-height: 2.25rem;
+    padding: 0 var(--space-md);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-gray-1);
+    cursor: pointer;
+    font: inherit;
+    transition:
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+  }
+  .completion-action:hover {
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-accent);
+    background: var(--sl-color-accent-low);
+  }
+  .completion-action.completed {
+    border-color: var(--color-success);
+    color: var(--color-success);
+    background: rgba(34, 197, 94, 0.1);
   }
   .share-section {
     margin-top: var(--space-lg);
@@ -39,18 +87,19 @@ const selfTests = (entry.data as any).selfTests || [];
    * We only want to show the quiz in the second panel (with actual content).
    * Using :has() to detect if this panel contains markdown content.
    */
-  .content-panel:not(:has(.sl-markdown-content)) .self-test-quiz {
-    display: none !important;
-  }
-  /* Also hide share buttons in the first panel */
+  .content-panel:not(:has(.sl-markdown-content)) .content-actions,
+  .content-panel:not(:has(.sl-markdown-content)) .self-test-quiz,
   .content-panel:not(:has(.sl-markdown-content)) .share-section {
     display: none !important;
   }
 </style>
 
 <script>
+  import { initializeCompletionControls } from "../lib/progress-store";
+
   const KEY_PREFIX = "testdev:";
   const MAX_RECENT = 10;
+
   function trackView() {
     try {
       const path = window.location.pathname;
@@ -74,7 +123,6 @@ const selfTests = (entry.data as any).selfTests || [];
       localStorage.setItem(KEY_PREFIX + "recent", JSON.stringify(recent));
     } catch {}
   }
-  document.addEventListener("astro:page-load", trackView);
 
   // Remove duplicate self-test quizzes
   // Starlight renders ContentPanel twice for non-hero pages:
@@ -82,28 +130,33 @@ const selfTests = (entry.data as any).selfTests || [];
   // 2. Second panel: contains MarkdownContent (has .sl-markdown-content)
   // We only want to keep the quiz in the second panel (with actual content).
   function removeDuplicateQuizzes() {
-    const quizzes = document.querySelectorAll('[data-quiz]');
+    const quizzes = document.querySelectorAll("[data-quiz]");
     if (quizzes.length <= 1) return;
-    
+
     // Check if .sl-markdown-content exists (indicates content panel)
-    const hasMarkdownContent = document.querySelector('.sl-markdown-content') !== null;
+    const hasMarkdownContent =
+      document.querySelector(".sl-markdown-content") !== null;
     if (!hasMarkdownContent) return;
-    
+
     // Remove quizzes that are NOT in the content panel
     quizzes.forEach((quiz) => {
-      const contentPanel = quiz.closest('.content-panel');
+      const contentPanel = quiz.closest(".content-panel");
       if (!contentPanel) return;
-      
+
       // If this content panel doesn't contain .sl-markdown-content, remove the quiz
-      if (!contentPanel.querySelector('.sl-markdown-content')) {
+      if (!contentPanel.querySelector(".sl-markdown-content")) {
         quiz.remove();
       }
     });
   }
-  
+
+  function initializeContentPage() {
+    removeDuplicateQuizzes();
+    trackView();
+    initializeCompletionControls(document);
+  }
+
   // Run on initial load and after page transitions
-  removeDuplicateQuizzes();
-  trackView();
-  document.addEventListener("astro:page-load", removeDuplicateQuizzes);
-  document.addEventListener("astro:page-load", trackView);
+  initializeContentPage();
+  document.addEventListener("astro:page-load", initializeContentPage);
 </script>

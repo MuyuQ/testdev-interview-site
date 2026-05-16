@@ -4,48 +4,11 @@
 <script is:inline>
   (function () {
     const entries = document.querySelectorAll(
-      ".starlight-sidebar a[aria-current='page']"
+      ".starlight-sidebar a[aria-current='page']",
     );
     entries.forEach((entry) => {
       entry.classList.add("current-page");
     });
-
-    const article = document.querySelector("article");
-    if (!article) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const slug = entry.target.getAttribute("data-slug");
-            if (slug) {
-              try {
-                const data = JSON.parse(
-                  localStorage.getItem("testdev:progress") || '{"completed":[]}'
-                );
-                const exists = data.completed.some(
-                  (e) => e.slug === slug
-                );
-                if (!exists) {
-                  data.completed.push({
-                    slug,
-                    category: slug.split("/")[0] || "unknown",
-                    completedAt: new Date().toISOString(),
-                  });
-                  localStorage.setItem(
-                    "testdev:progress",
-                    JSON.stringify(data)
-                  );
-                }
-              } catch (e) {}
-            }
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(article);
   })();
 </script>
 

@@ -35,3 +35,32 @@ export function toggleBookmark(slug: string): boolean {
     return true;
   }
 }
+
+export function initializeBookmarkButtons(root: ParentNode = document): void {
+  root
+    .querySelectorAll<HTMLButtonElement>(".bookmark-btn[data-slug]")
+    .forEach((button) => {
+      if (button.dataset.bound === "true") {
+        return;
+      }
+
+      const slug = button.dataset.slug;
+      if (!slug) {
+        return;
+      }
+
+      const updateState = (marked: boolean) => {
+        button.classList.toggle("bookmarked", marked);
+        button.setAttribute("aria-label", marked ? "取消收藏" : "添加收藏");
+        button.setAttribute("aria-pressed", String(marked));
+      };
+
+      updateState(isBookmarked(slug));
+
+      button.addEventListener("click", () => {
+        updateState(toggleBookmark(slug));
+      });
+
+      button.dataset.bound = "true";
+    });
+}

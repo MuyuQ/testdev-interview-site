@@ -5,6 +5,34 @@ category: "tech"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["Mock", "依赖隔离", "接口测试", "自动化"]
+selfTests:
+  - id: "mock-framework-tech-1"
+    question: "Mock 的核心价值是什么？"
+    options:
+      - "让测试永远不需要真实环境"
+      - "隔离不可控依赖，让异常和边界场景可控可重复"
+      - "替代所有集成测试"
+      - "隐藏缺陷"
+    correctIndex: 1
+    explanation: "Mock 用于隔离外部依赖，稳定复现超时、错误码、异常字段等真实环境难触发的场景。"
+  - id: "mock-framework-tech-2"
+    question: "使用 Mock 最大的风险是什么？"
+    options:
+      - "测试执行太快"
+      - "Mock 与真实服务不一致，带来虚假的安全感"
+      - "无法写断言"
+      - "不能模拟错误"
+    correctIndex: 1
+    explanation: "Mock 如果没有契约约束，可能与真实服务行为偏离，所以需要契约测试和真实集成回归补充。"
+  - id: "mock-framework-tech-3"
+    question: "哪些场景适合优先使用 Mock？"
+    options:
+      - "外部依赖不可控、成本高、难构造异常或联调环境不稳定"
+      - "所有生产链路"
+      - "只要接口简单就 Mock"
+      - "不需要测试的功能"
+    correctIndex: 0
+    explanation: "Mock 适合外部系统不稳定、调用成本高、异常难触发或需要隔离依赖的测试场景。"
 ---
 
 ## 基础入门：[Mock](/testdev-interview-site/glossary/mock-stub/) 是什么 & 为什么学它

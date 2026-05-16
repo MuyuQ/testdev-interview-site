@@ -5,6 +5,34 @@ category: "tech"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["性能测试", "压测", "响应时间", "吞吐量"]
+selfTests:
+  - id: "performance-testing-intro-tech-1"
+    question: "性能测试最重要的不是跑出什么，而是什么？"
+    options:
+      - "并发数越大越好"
+      - "场景模型、指标口径、监控数据和瓶颈分析"
+      - "报告页数越多越好"
+      - "只看平均响应时间"
+    correctIndex: 1
+    explanation: "性能测试要先有合理场景模型和指标口径，再结合监控分析瓶颈，不能只跑一个数字。"
+  - id: "performance-testing-intro-tech-2"
+    question: "为什么只看平均响应时间不够？"
+    options:
+      - "平均值不能反映长尾请求，P95/P99 更能体现用户体验"
+      - "平均值一定错误"
+      - "平均值只适合前端"
+      - "平均值和性能无关"
+    correctIndex: 0
+    explanation: "平均值容易掩盖慢请求，性能测试要关注 P95/P99、错误率、吞吐量和资源指标。"
+  - id: "performance-testing-intro-tech-3"
+    question: "性能瓶颈定位通常要结合哪些数据？"
+    options:
+      - "接口耗时、错误率、CPU、内存、数据库、缓存和链路日志"
+      - "测试人员数量"
+      - "页面颜色"
+      - "代码提交次数"
+    correctIndex: 0
+    explanation: "瓶颈定位需要把压测结果和系统监控结合，看应用、数据库、缓存、网络和下游依赖的综合状态。"
 ---
 
 ## 基础入门：[性能测试](/testdev-interview-site/glossary/performance-testing-terms/)是什么 & 为什么学它

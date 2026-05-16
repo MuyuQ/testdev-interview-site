@@ -5,6 +5,34 @@ category: "tech"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["数据库", "SQL", "数据验证", "一致性"]
+selfTests:
+  - id: "database-testing-tech-1"
+    question: "SQL 在测试开发中的主要价值是什么？"
+    options:
+      - "只用来创建表"
+      - "验证数据正确性、构造测试数据和定位数据问题"
+      - "替代接口测试"
+      - "只用于 DBA 工作"
+    correctIndex: 1
+    explanation: "测试开发常用 SQL 做数据断言、测试数据准备、问题排查和业务状态验证。"
+  - id: "database-testing-tech-2"
+    question: "接口返回成功后，为什么还要查数据库？"
+    options:
+      - "为了增加测试步骤"
+      - "确认业务状态、字段落库、关联数据和副作用都正确"
+      - "因为接口返回一定不可信"
+      - "为了绕过接口"
+    correctIndex: 1
+    explanation: "接口成功不一定代表所有数据副作用都正确，数据库校验能确认状态流转、字段值、关联记录和审计记录。"
+  - id: "database-testing-tech-3"
+    question: "数据库测试中，事务场景重点验证什么？"
+    options:
+      - "SQL 是否写得短"
+      - "成功时全部提交，失败时正确回滚，避免部分成功"
+      - "只看连接是否成功"
+      - "只看查询速度"
+    correctIndex: 1
+    explanation: "事务测试要验证业务操作涉及多表时能保持原子性，失败时不会留下半成功数据。"
 ---
 
 ## SQL 是什么

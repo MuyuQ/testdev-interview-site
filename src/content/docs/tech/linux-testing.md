@@ -5,6 +5,34 @@ category: "tech"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["Linux", "命令行", "环境部署", "服务器操作"]
+selfTests:
+  - id: "linux-testing-tech-1"
+    question: "测试开发为什么必须掌握 Linux？"
+    options:
+      - "只为了切换目录"
+      - "服务器部署、日志排查、环境管理和自动化脚本都依赖 Linux"
+      - "因为 Windows 不能测试"
+      - "只为了背命令"
+    correctIndex: 1
+    explanation: "测试开发常在 Linux 服务器上部署服务、查看日志、排查资源问题和编写自动化脚本。"
+  - id: "linux-testing-tech-2"
+    question: "线上问题排查时，Linux 命令主要用于什么？"
+    options:
+      - "查看日志、进程、端口、磁盘、CPU、内存和网络状态"
+      - "修改页面样式"
+      - "替代所有监控系统"
+      - "只查看当前目录"
+    correctIndex: 0
+    explanation: "Linux 命令能快速查看系统资源、服务状态、日志和网络连接，是问题定位的基础。"
+  - id: "linux-testing-tech-3"
+    question: "测试环境部署中，最需要避免什么？"
+    options:
+      - "环境配置不可追溯、依赖版本混乱、启动脚本不稳定"
+      - "写部署文档"
+      - "使用脚本自动化"
+      - "保留日志"
+    correctIndex: 0
+    explanation: "测试环境要可重复、可追溯、可恢复，避免依赖版本和配置混乱导致问题不可复现。"
 ---
 
 ## Linux 是什么

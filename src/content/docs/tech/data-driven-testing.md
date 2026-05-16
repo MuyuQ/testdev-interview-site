@@ -5,6 +5,34 @@ category: "tech"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["数据驱动", "参数化", "自动化", "Pytest"]
+selfTests:
+  - id: "data-driven-testing-tech-1"
+    question: "数据驱动测试的核心思想是什么？"
+    options:
+      - "把所有数据写死在测试代码里"
+      - "测试逻辑与测试数据分离，通过参数化覆盖多组输入输出"
+      - "只用 Excel 写测试用例"
+      - "减少断言数量"
+    correctIndex: 1
+    explanation: "数据驱动通过外部数据源和参数化机制，让一套测试逻辑覆盖多组数据，降低维护成本。"
+  - id: "data-driven-testing-tech-2"
+    question: "哪些场景最适合数据驱动？"
+    options:
+      - "输入组合多、边界值多、规则判断多的接口或表单"
+      - "只有一个固定按钮"
+      - "没有断言的页面"
+      - "不可重复执行的线上操作"
+    correctIndex: 0
+    explanation: "数据驱动适合规则校验、边界值、等价类、表单输入和接口参数组合多的场景。"
+  - id: "data-driven-testing-tech-3"
+    question: "数据驱动测试维护不当会出现什么问题？"
+    options:
+      - "测试数据混乱、预期结果不清、失败难定位"
+      - "代码一定更少"
+      - "测试一定更准确"
+      - "不需要断言"
+    correctIndex: 0
+    explanation: "数据驱动需要规范数据格式、命名、预期结果和失败定位，否则会变成难维护的数据表。"
 ---
 
 ## 基础入门：数据驱动测试是什么 & 为什么学它

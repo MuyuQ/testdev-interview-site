@@ -5,6 +5,34 @@ category: "tech"
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["Python", "脚本", "测试框架", "基础入门"]
+selfTests:
+  - id: "python-tech-1"
+    question: "测试开发学习 Python 的核心价值是什么？"
+    options:
+      - "只为了写简单脚本"
+      - "用工程化方式构建自动化、数据处理和测试工具能力"
+      - "替代所有后端语言"
+      - "只用于面试背语法"
+    correctIndex: 1
+    explanation: "Python 对测试开发的价值在于快速实现接口测试、数据构造、自动化框架和内部工具，并形成工程化能力。"
+  - id: "python-tech-2"
+    question: "面试中讲 Python 能力时，最应该避免什么？"
+    options:
+      - "结合项目讲 pytest、requests、数据处理和脚本封装"
+      - "只背列表、字典等基础语法，不讲实际测试场景"
+      - "说明异常处理和日志封装"
+      - "讲清楚代码复用方式"
+    correctIndex: 1
+    explanation: "Python 面试不能停留在语法背诵，要结合接口自动化、数据处理、框架封装和问题定位讲应用能力。"
+  - id: "python-tech-3"
+    question: "Python 测试脚本从能跑到好维护，关键变化是什么？"
+    options:
+      - "把所有代码写在一个文件里"
+      - "抽离配置、封装公共方法、增加日志和异常处理"
+      - "减少断言"
+      - "只在本地运行"
+    correctIndex: 1
+    explanation: "可维护脚本要做到配置分离、公共能力封装、日志清晰、异常可定位，并能在 CI 中稳定运行。"
 ---
 
 ## Python 是什么

@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:components": "vitest run tests/unit/components/",
     "test:a11y": "vitest run tests/a11y/",
+    "test:a11y:e2e": "playwright test tests/e2e/a11y.spec.ts --project=chromium",
     "test:e2e": "playwright test",
     "test:e2e:smoke": "playwright test tests/e2e/navigation.spec.ts tests/e2e/content.spec.ts --project=chromium",
     "check": "npm run lint && npm run typecheck && npm run validate:content && npm run test && npm run build"
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.7",
+    "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^9.0.0",
     "@playwright/test": "^1.40.0",
     "@testing-library/dom": "^10.4.1",

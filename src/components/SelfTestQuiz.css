@@ -80,9 +80,9 @@
 
 .quiz-check-btn {
   padding: 0.5rem 1.25rem;
-  background: var(--sl-color-accent);
+  background: #315c85;
   color: #ffffff;
-  border: none;
+  border: 1px solid #315c85;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 0.875rem;
@@ -161,4 +161,9 @@
 
 [data-theme="dark"] .quiz-option.wrong {
   background: rgba(239, 68, 68, 0.15);
+}
+
+[data-theme="dark"] .quiz-check-btn {
+  background: #2f5f8f;
+  border-color: #7ea1c4;
 }

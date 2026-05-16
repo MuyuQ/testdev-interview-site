@@ -110,7 +110,8 @@
 
 .sl-markdown-content a {
   color: var(--sl-color-accent);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-underline-offset: 2px;
   transition: color var(--transition-fast);
 }

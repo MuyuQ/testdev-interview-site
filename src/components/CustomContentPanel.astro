@@ -154,9 +154,20 @@ const [category, slug] = entry.slug.split("/");
     removeDuplicateQuizzes();
     trackView();
     initializeCompletionControls(document);
+    document.querySelectorAll("pre").forEach((pre) => {
+      if (!pre.hasAttribute("tabindex")) {
+        pre.setAttribute("tabindex", "0");
+      }
+    });
   }
 
   // Run on initial load and after page transitions
-  initializeContentPage();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeContentPage, {
+      once: true,
+    });
+  } else {
+    initializeContentPage();
+  }
   document.addEventListener("astro:page-load", initializeContentPage);
 </script>

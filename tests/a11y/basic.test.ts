@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-describe("basic accessibility", () => {
+describe("static accessibility smoke", () => {
   it("should have proper lang attribute", () => {
     document.documentElement.lang = "zh-CN";
     expect(document.documentElement.lang).toBe("zh-CN");

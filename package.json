@@ -9,11 +9,12 @@
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --check .",
     "typecheck": "astro check",
+    "validate:content": "tsx scripts/validate-content.ts",
     "test": "vitest run",
     "test:components": "vitest run tests/unit/components/",
     "test:a11y": "vitest run tests/a11y/",
     "test:e2e": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run validate:content && npm run test && npm run build"
   },
   "dependencies": {
     "@astrojs/starlight": "0.28.6",
@@ -31,6 +32,7 @@
     "@types/jsdom": "^28.0.0",
     "axe-core": "^4.11.1",
     "eslint": "^9.0.0",
+    "gray-matter": "^4.0.3",
     "jsdom": "^28.1.0",
     "prettier": "^3.0.0",
     "tsx": "^4.21.0",

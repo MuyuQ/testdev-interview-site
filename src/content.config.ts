@@ -1,4 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 import { docsSchema } from "@astrojs/starlight/schema";
 
 const selfTestSchema = z.object({
@@ -30,6 +32,7 @@ const testdevMetadataSchema = z.object({
 
 export const collections = {
   docs: defineCollection({
+    loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/docs" }),
     schema: docsSchema({
       extend: testdevMetadataSchema,
     }),

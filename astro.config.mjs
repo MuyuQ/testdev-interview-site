@@ -142,39 +142,39 @@ export default defineConfig({
       sidebar: [
         {
           label: "术语体系",
-          autogenerate: { directory: "glossary" },
+          items: [{ autogenerate: { directory: "glossary" } }],
         },
         {
           label: "技术专题",
-          autogenerate: { directory: "tech" },
+          items: [{ autogenerate: { directory: "tech" } }],
         },
         {
           label: "项目类型",
-          autogenerate: { directory: "project" },
+          items: [{ autogenerate: { directory: "project" } }],
         },
         {
           label: "场景题",
-          autogenerate: { directory: "scenario" },
+          items: [{ autogenerate: { directory: "scenario" } }],
         },
         {
           label: "编码题",
-          autogenerate: { directory: "coding" },
+          items: [{ autogenerate: { directory: "coding" } }],
         },
         {
           label: "学习路线",
-          autogenerate: { directory: "roadmap" },
+          items: [{ autogenerate: { directory: "roadmap" } }],
         },
         {
           label: "AI 学习指南",
-          autogenerate: { directory: "ai-learning" },
+          items: [{ autogenerate: { directory: "ai-learning" } }],
         },
         {
           label: "练手模板",
-          autogenerate: { directory: "practice-template" },
+          items: [{ autogenerate: { directory: "practice-template" } }],
         },
         {
           label: "面试追问链",
-          autogenerate: { directory: "interview-chains" },
+          items: [{ autogenerate: { directory: "interview-chains" } }],
         },
         {
           label: "分类索引",

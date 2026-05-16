@@ -1,21 +1,25 @@
 ---
-const { pagination } = Astro.props;
+const pagination = Astro.locals.starlightRoute?.pagination;
+const previousPage = pagination?.prev;
+const nextPage = pagination?.next;
 ---
 
-<nav class="pagination" aria-label="页面导航" role="navigation">
-  {pagination.prev && (
-    <a href={pagination.prev.href} class="pagination-link prev">
-      <span class="pagination-label">上一页</span>
-      <span class="pagination-title">{pagination.prev.label}</span>
-    </a>
-  )}
-  {pagination.next && (
-    <a href={pagination.next.href} class="pagination-link next">
-      <span class="pagination-label">下一页</span>
-      <span class="pagination-title">{pagination.next.label}</span>
-    </a>
-  )}
-</nav>
+{(previousPage || nextPage) && (
+  <nav class="pagination" aria-label="页面导航" role="navigation">
+    {previousPage && (
+      <a href={previousPage.href} class="pagination-link prev" rel="prev">
+        <span class="pagination-label">上一页</span>
+        <span class="pagination-title">{previousPage.label}</span>
+      </a>
+    )}
+    {nextPage && (
+      <a href={nextPage.href} class="pagination-link next" rel="next">
+        <span class="pagination-label">下一页</span>
+        <span class="pagination-title">{nextPage.label}</span>
+      </a>
+    )}
+  </nav>
+)}
 
 <style>
   .pagination {

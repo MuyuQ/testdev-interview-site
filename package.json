@@ -20,13 +20,12 @@
     "check": "npm run lint && npm run typecheck && npm run validate:content && npm run test && npm run build"
   },
   "dependencies": {
-    "@astrojs/starlight": "0.28.6",
-    "astro": "4.16.19",
-    "sharp": "^0.33.0",
-    "zod": "3.25.76"
+    "@astrojs/starlight": "0.39.2",
+    "astro": "6.3.3",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.7",
+    "@astrojs/check": "0.9.9",
     "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^9.0.0",
     "@playwright/test": "^1.40.0",
@@ -42,11 +41,10 @@
     "tsx": "^4.21.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
-    "vitest": "^2.0.0",
+    "vitest": "^4.1.6",
     "vitest-axe": "^0.1.0"
   },
   "overrides": {
-    "@astrojs/sitemap": "3.4.2",
-    "zod": "3.25.76"
+    "volar-service-yaml": "0.0.71"
   }
 }

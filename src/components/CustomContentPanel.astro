@@ -1,12 +1,12 @@
 ---
-import type { Props } from "@astrojs/starlight/props";
+import { getContentParts } from "../lib/content-path";
 import BookmarkButton from "./BookmarkButton.astro";
 import SelfTestQuiz from "./SelfTestQuiz.astro";
 import ShareButtons from "./ShareButtons.astro";
 
-const { entry } = Astro.props as Props;
+const { entry } = Astro.locals.starlightRoute;
 const selfTests = entry.data.selfTests ?? [];
-const [category, slug] = entry.slug.split("/");
+const [category, slug] = getContentParts(entry.id);
 ---
 
 <div class="content-panel" role="main">

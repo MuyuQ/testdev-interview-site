@@ -5,6 +5,34 @@ category: "project"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["后台管理", "权限", "配置平台"]
+selfTests:
+  - id: "admin-platform-1"
+    question: "后台管理项目最需要突出哪类测试能力？"
+    options:
+      - "页面颜色检查"
+      - "权限矩阵、配置变更、审计追踪和导出一致性"
+      - "只做登录测试"
+      - "只测菜单是否展开"
+    correctIndex: 1
+    explanation: "后台管理项目的核心风险在权限、配置、审计和数据导出，需要体现对越权、误配置和操作可追踪性的测试能力。"
+  - id: "admin-platform-2"
+    question: "验证后台权限时，为什么要绕过前端直接调用接口？"
+    options:
+      - "接口调用更快"
+      - "确认服务端也做了权限校验，避免菜单隐藏但接口越权"
+      - "为了减少用例数量"
+      - "因为页面测试没有意义"
+    correctIndex: 1
+    explanation: "权限安全不能只依赖前端隐藏，必须验证服务端接口、按钮操作、导出和批量操作都做了权限校验。"
+  - id: "admin-platform-3"
+    question: "配置平台测试中，回滚验证的价值是什么？"
+    options:
+      - "证明配置页面好用"
+      - "确保误配置上线后能快速恢复到上一版本并留下审计记录"
+      - "减少审批流程"
+      - "让配置永远不变"
+    correctIndex: 1
+    explanation: "配置平台一旦误配会影响线上业务，回滚验证能确认上一版本可恢复、影响范围可控，并且变更可追溯。"
 ---
 
 ## 业务流程

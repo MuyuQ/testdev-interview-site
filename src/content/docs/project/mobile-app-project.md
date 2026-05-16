@@ -5,6 +5,34 @@ category: "project"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["移动端", "兼容性", "推送", "性能"]
+selfTests:
+  - id: "mobile-app-project-1"
+    question: "移动端 App 项目最常见的测试挑战是什么？"
+    options:
+      - "浏览器兼容"
+      - "设备碎片化、弱网、推送链路和版本升级"
+      - "数据库分库分表"
+      - "后台菜单权限"
+    correctIndex: 1
+    explanation: "移动端测试重点在设备和系统兼容、网络不稳定、推送链路、安装升级和本地缓存状态。"
+  - id: "mobile-app-project-2"
+    question: "推送链路测试应覆盖什么？"
+    options:
+      - "只看服务端发送成功"
+      - "发送、通道到达、通知展示、点击跳转和权限关闭"
+      - "只测通知标题"
+      - "只测 Android"
+    correctIndex: 1
+    explanation: "推送是端到端链路，服务端发送成功不代表设备收到，也不代表点击后能正确跳转。"
+  - id: "mobile-app-project-3"
+    question: "弱网测试重点验证什么？"
+    options:
+      - "页面图片是否更清晰"
+      - "超时、重试、离线提示、状态一致和网络切换恢复"
+      - "只看 WiFi 下是否正常"
+      - "只测首页"
+    correctIndex: 1
+    explanation: "移动端经常处于弱网或网络切换场景，测试要验证超时、重试、离线提示和状态恢复。"
 ---
 
 ## 业务流程

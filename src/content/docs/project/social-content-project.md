@@ -5,6 +5,34 @@ category: "project"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["社交", "内容", "审核", "推荐"]
+selfTests:
+  - id: "social-content-project-1"
+    question: "社交/内容项目测试最需要关注哪些链路？"
+    options:
+      - "发布、审核、互动、推荐分发和反作弊"
+      - "只关注登录"
+      - "只关注页面样式"
+      - "只关注图片大小"
+    correctIndex: 0
+    explanation: "社交/内容项目的核心在内容安全、互动一致性、推荐分发和作弊治理。"
+  - id: "social-content-project-2"
+    question: "内容审核测试为什么要关注误拦和漏放？"
+    options:
+      - "两者都会影响平台安全或用户体验"
+      - "为了减少测试数据"
+      - "因为审核只看关键词"
+      - "为了提高页面速度"
+    correctIndex: 0
+    explanation: "漏放会带来内容安全风险，误拦会伤害正常用户体验和创作者积极性，两者都要验证。"
+  - id: "social-content-project-3"
+    question: "互动计数一致性应如何验证？"
+    options:
+      - "只看按钮是否变色"
+      - "比对前端展示、接口返回、数据库计数和重复操作幂等"
+      - "只刷新页面"
+      - "只看评论内容"
+    correctIndex: 1
+    explanation: "点赞、评论、收藏等互动要验证前端、接口、数据库和缓存计数一致，并覆盖重复点击和并发场景。"
 ---
 
 ## 业务流程

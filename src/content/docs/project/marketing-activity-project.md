@@ -5,6 +5,34 @@ category: "project"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["营销活动", "高并发", "时间窗口", "奖品"]
+selfTests:
+  - id: "marketing-activity-project-1"
+    question: "营销活动项目最核心的两个测试关键词是什么？"
+    options:
+      - "颜色和动画"
+      - "时间窗口正确性和高并发稳定性"
+      - "页面标题和图片"
+      - "登录和退出"
+    correctIndex: 1
+    explanation: "营销活动通常在固定时间窗口内承接高流量，核心风险是时间配置、奖品库存、预算和并发稳定性。"
+  - id: "marketing-activity-project-2"
+    question: "奖品发放测试中，为什么要验证幂等？"
+    options:
+      - "防止同一用户因重复请求或重试多次领取奖品"
+      - "让奖品库存更多"
+      - "减少活动配置"
+      - "提高页面加载速度"
+    correctIndex: 0
+    explanation: "活动高峰期容易出现重复点击、网络重试和并发请求，幂等验证能防止重复发奖和预算超支。"
+  - id: "marketing-activity-project-3"
+    question: "活动时间窗口测试应覆盖哪些边界？"
+    options:
+      - "只测活动中间时间"
+      - "开始前、开始瞬间、结束瞬间、结束后和延期场景"
+      - "只测当天晚上"
+      - "只看配置页面时间"
+    correctIndex: 1
+    explanation: "活动时间窗口要覆盖开始前后、结束前后、跨时区、延期和定时任务触发，避免提前开始或延迟结束。"
 ---
 
 ## 业务流程

@@ -5,6 +5,34 @@ category: "project"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["第三方集成", "接口契约", "异常处理", "补偿"]
+selfTests:
+  - id: "third-party-integration-project-1"
+    question: "第三方集成项目最核心的测试能力是什么？"
+    options:
+      - "接口契约验证、异常兜底、重试补偿和对账"
+      - "页面布局检查"
+      - "只测正常响应"
+      - "只看第三方文档"
+    correctIndex: 0
+    explanation: "第三方集成依赖外部系统，测试要重点验证契约稳定性、异常处理、重试补偿和本地状态一致性。"
+  - id: "third-party-integration-project-2"
+    question: "调用成功但响应丢失时，系统应如何保障一致性？"
+    options:
+      - "直接判定失败并丢弃"
+      - "通过查询、补偿、重试和对账确认第三方最终状态"
+      - "让用户重复提交直到成功"
+      - "忽略该笔业务"
+    correctIndex: 1
+    explanation: "第三方调用可能出现成功但响应丢失，系统要通过状态查询、补偿任务、重试和对账确认最终状态。"
+  - id: "third-party-integration-project-3"
+    question: "契约测试主要防什么问题？"
+    options:
+      - "防止第三方字段、类型、错误码或版本变化导致本系统不兼容"
+      - "防止页面加载慢"
+      - "防止日志太多"
+      - "防止测试环境过多"
+    correctIndex: 0
+    explanation: "契约测试用于发现第三方接口字段、类型、错误码、版本或必填项变化，避免联调后或上线后才暴露兼容问题。"
 ---
 
 ## 业务流程

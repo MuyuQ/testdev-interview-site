@@ -5,6 +5,34 @@ category: "project"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["数据平台", "数据质量", "ETL", "链路"]
+selfTests:
+  - id: "data-platform-project-1"
+    question: "数据平台项目测试的核心目标是什么？"
+    options:
+      - "任务界面能打开"
+      - "采集、加工、存储、消费全链路的数据质量和稳定性"
+      - "数据库表越多越好"
+      - "报表颜色统一"
+    correctIndex: 1
+    explanation: "数据平台要保障数据从采集到消费的完整性、一致性、及时性和链路稳定性。"
+  - id: "data-platform-project-2"
+    question: "验证 ETL 链路时，最不能只看哪一项？"
+    options:
+      - "任务是否运行成功"
+      - "源端到目标端的行数、字段、指标和时间窗口是否一致"
+      - "任务名称是否规范"
+      - "调度页面是否美观"
+    correctIndex: 1
+    explanation: "任务成功只是执行层结果，数据质量还要看源端和目标端的行数、字段、指标口径和时间窗口是否一致。"
+  - id: "data-platform-project-3"
+    question: "实时指标场景重点验证什么？"
+    options:
+      - "只看报表是否展示"
+      - "延迟、准确性、幂等、乱序和 Checkpoint 恢复"
+      - "只看 SQL 是否能执行"
+      - "只检查页面刷新"
+    correctIndex: 1
+    explanation: "实时指标要关注数据延迟、指标准确性、重复数据幂等、乱序处理和任务失败后的状态恢复。"
 ---
 
 ## 项目概述

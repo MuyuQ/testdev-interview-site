@@ -5,6 +5,34 @@ category: "project"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["SaaS", "多租户", "配置", "隔离"]
+selfTests:
+  - id: "saas-platform-project-1"
+    question: "SaaS 平台项目的最高优先级风险是什么？"
+    options:
+      - "页面布局不一致"
+      - "租户间数据越权或缓存串扰"
+      - "按钮文案太长"
+      - "帮助文档太少"
+    correctIndex: 1
+    explanation: "SaaS 平台最重要的是租户隔离，跨租户数据越权、缓存串扰和文件混用都会造成严重安全事故。"
+  - id: "saas-platform-project-2"
+    question: "套餐降级测试应该重点关注什么？"
+    options:
+      - "新功能是否更多"
+      - "超出低套餐限制的数据如何处理，权限是否正确收回"
+      - "页面是否刷新"
+      - "是否能继续免费使用所有功能"
+    correctIndex: 1
+    explanation: "套餐降级要验证超限数据处理、权限收回、计费连续性和历史数据保留，避免数据丢失或权限残留。"
+  - id: "saas-platform-project-3"
+    question: "验证租户隔离时，哪种测试最关键？"
+    options:
+      - "用 A 租户 token 尝试访问 B 租户资源"
+      - "修改页面主题色"
+      - "刷新首页"
+      - "只创建一个租户"
+    correctIndex: 0
+    explanation: "跨租户访问测试能直接验证接口层、数据库层、缓存层和文件层是否真正按租户隔离。"
 ---
 
 ## 业务流程

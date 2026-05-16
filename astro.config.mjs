@@ -7,6 +7,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "测试开发面试速成站",
+      defaultLocale: "root",
+      locales: {
+        root: {
+          label: "简体中文",
+          lang: "zh-CN",
+        },
+      },
       head: [
         // Robots meta tag
         {
@@ -15,14 +22,6 @@ export default defineConfig({
             name: "robots",
             content:
               "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-          },
-        },
-        // Canonical URL (Starlight auto-generates from site + base)
-        {
-          tag: "link",
-          attrs: {
-            rel: "canonical",
-            href: "https://muyuq.github.io/testdev-interview-site/",
           },
         },
         // Open Graph - Site name
@@ -125,7 +124,6 @@ export default defineConfig({
             href: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
           },
         },
-
       ],
       customCss: [
         "./src/styles/tokens.css",

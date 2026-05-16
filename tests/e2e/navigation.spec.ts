@@ -18,6 +18,10 @@ function appUrl(path: string): string {
   return path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
 }
 
+function getSidebar(page: import("@playwright/test").Page) {
+  return page.locator("nav.sidebar");
+}
+
 test.describe("Navigation", () => {
   test("homepage loads correctly", async ({ page }) => {
     await page.goto(appUrl("/"));
@@ -38,7 +42,7 @@ test.describe("Navigation", () => {
 
   test("sidebar navigation works", async ({ page }) => {
     await page.goto(appUrl(CONTENT_PAGE));
-    const sidebar = page.locator("nav[aria-label='Main']");
+    const sidebar = getSidebar(page);
     await expect(sidebar).toHaveCount(1);
     await expect(sidebar.locator("a[href*='/glossary/']").first()).toHaveCount(1);
     await expect(sidebar.locator("a[href*='/tech/']").first()).toHaveCount(1);
@@ -47,7 +51,7 @@ test.describe("Navigation", () => {
 
   test("term links navigate correctly", async ({ page }) => {
     await page.goto(appUrl(CONTENT_PAGE));
-    const firstLink = page.locator("nav[aria-label='Main'] a[href*='/glossary/']").nth(1);
+    const firstLink = getSidebar(page).locator("a[href*='/glossary/']").nth(1);
     if (await firstLink.isVisible()) {
       const href = await firstLink.getAttribute("href");
       await firstLink.click();

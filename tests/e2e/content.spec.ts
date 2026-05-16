@@ -37,7 +37,9 @@ test.describe("Content Rendering", () => {
 
   test("term cross-links work", async ({ page }) => {
     await page.goto(appUrl("/glossary/api-assertion/"));
-    const links = page.locator("nav[aria-label='Main'] a[href*='/glossary/'], nav[aria-label='Main'] a[href*='/tech/']");
+    const links = page.locator(
+      "nav.sidebar a[href*='/glossary/'], nav.sidebar a[href*='/tech/']",
+    );
     const firstLink = links.first();
     if (await firstLink.isVisible()) {
       const href = await firstLink.getAttribute("href");

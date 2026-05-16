@@ -13,9 +13,12 @@ async function forceTheme(page: Page, theme: "light" | "dark") {
 }
 
 async function readStyle(page: Page, selector: string, property: string) {
-  return page.locator(selector).first().evaluate((node, cssProperty) => {
-    return getComputedStyle(node).getPropertyValue(cssProperty).trim();
-  }, property);
+  return page
+    .locator(selector)
+    .first()
+    .evaluate((node, cssProperty) => {
+      return getComputedStyle(node).getPropertyValue(cssProperty).trim();
+    }, property);
 }
 
 async function readRootTokens(page: Page) {
@@ -42,7 +45,9 @@ test.describe("paper theme regressions", () => {
       accent: "#315c85",
     });
     expect(await readStyle(page, ".roadmap-card", "border-radius")).toBe("0px");
-    expect(await readStyle(page, ".module-card", "background-color")).toBe("rgb(251, 247, 239)");
+    expect(await readStyle(page, ".module-card", "background-color")).toBe(
+      "rgb(251, 247, 239)",
+    );
   });
 
   test("dark homepage keeps the ink-paper shell", async ({ page }) => {
@@ -55,7 +60,9 @@ test.describe("paper theme regressions", () => {
       const hero = document.querySelector(".hero");
 
       return {
-        roadmapBg: roadmapCard ? getComputedStyle(roadmapCard).backgroundColor : "",
+        roadmapBg: roadmapCard
+          ? getComputedStyle(roadmapCard).backgroundColor
+          : "",
         heroBorder: hero ? getComputedStyle(hero).borderBottomColor : "",
         heroBorderWidth: hero ? getComputedStyle(hero).borderBottomWidth : "",
       };
@@ -71,10 +78,16 @@ test.describe("paper theme regressions", () => {
     await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
 
-    expect(await readStyle(page, ".sidebar-content a[aria-current='page']", "border-left-width")).toBe(
-      "2px",
+    expect(
+      await readStyle(
+        page,
+        ".sidebar-content a[aria-current='page']",
+        "border-left-width",
+      ),
+    ).toBe("2px");
+    expect(await readStyle(page, ".pagination-link", "border-radius")).toBe(
+      "0px",
     );
-    expect(await readStyle(page, ".pagination-link", "border-radius")).toBe("0px");
     expect(
       await page.evaluate(() => {
         const link = document.querySelector(".sl-markdown-content a");
@@ -105,8 +118,12 @@ test.describe("paper theme regressions", () => {
     await page.goto(appUrl("/scenario/payment-callback/"));
     await page.waitForLoadState("domcontentloaded");
 
-    expect(await readStyle(page, "header.header", "background-color")).toBe("rgb(247, 241, 231)");
-    expect(await readStyle(page, ".site-title", "color")).toBe("rgb(49, 92, 133)");
+    expect(await readStyle(page, "header.header", "background-color")).toBe(
+      "rgb(247, 241, 231)",
+    );
+    expect(await readStyle(page, ".site-title", "color")).toBe(
+      "rgb(49, 92, 133)",
+    );
   });
 
   test("shared controls stay square", async ({ page }) => {

@@ -45,6 +45,7 @@
 ### Task 1: Fix Starlight Localization, Canonical URLs, and Social Metadata
 
 **Files:**
+
 - Modify: `astro.config.mjs`
 - Create: `public/og-image.png`
 - Test: `tests/e2e/metadata.spec.ts`
@@ -272,6 +273,7 @@ git commit -m "fix: correct Chinese metadata and social preview"
 ### Task 2: Complete Progress and Bookmark User Features
 
 **Files:**
+
 - Modify: `src/components/CustomContentPanel.astro`
 - Modify: `src/components/HomePage.astro`
 - Modify: `src/components/BookmarkButton.astro`
@@ -329,7 +331,9 @@ Expected: test passes if existing helper already deduplicates; if it fails, fix 
 Create a new exported function in `src/lib/progress-store.ts`:
 
 ```ts
-export function initializeCompletionControls(root: ParentNode = document): void {
+export function initializeCompletionControls(
+  root: ParentNode = document,
+): void {
   root
     .querySelectorAll<HTMLButtonElement>("[data-completion-button]")
     .forEach((button) => {
@@ -347,10 +351,7 @@ export function initializeCompletionControls(root: ParentNode = document): void 
       const updateState = () => {
         const completed = isCompleted(slug, category);
         button.classList.toggle("completed", completed);
-        button.setAttribute(
-          "aria-pressed",
-          completed ? "true" : "false",
-        );
+        button.setAttribute("aria-pressed", completed ? "true" : "false");
         button.textContent = completed ? "已完成" : "标记完成";
       };
 
@@ -573,6 +574,7 @@ git commit -m "feat: wire content progress and bookmarks"
 ### Task 3: Add Content Integrity Validation
 
 **Files:**
+
 - Create: `scripts/validate-content.ts`
 - Modify: `package.json`
 - Modify: `src/lib/site-config.ts`
@@ -681,10 +683,12 @@ export function validateDocs(docs: DocInfo[]): {
         ? byFullSlug.has(related)
           ? [byFullSlug.get(related)!]
           : []
-        : bySlug.get(related) ?? [];
+        : (bySlug.get(related) ?? []);
 
       if (matches.length === 0) {
-        errors.push(`${doc.rel}: relatedSlugs entry "${related}" does not exist`);
+        errors.push(
+          `${doc.rel}: relatedSlugs entry "${related}" does not exist`,
+        );
       }
 
       if (matches.length > 1) {
@@ -710,7 +714,9 @@ export function validateDocs(docs: DocInfo[]): {
         selfTest.correctIndex < 0 ||
         selfTest.correctIndex >= selfTest.options.length
       ) {
-        errors.push(`${doc.rel}: selfTests "${selfTest.id}" has invalid correctIndex`);
+        errors.push(
+          `${doc.rel}: selfTests "${selfTest.id}" has invalid correctIndex`,
+        );
       }
 
       const previousFile = selfTestIds.get(selfTest.id);
@@ -812,10 +818,10 @@ describe("content validation", () => {
     ]);
 
     expect(result.errors).toContain(
-      "glossary/a.md: relatedSlugs entry \"missing\" does not exist",
+      'glossary/a.md: relatedSlugs entry "missing" does not exist',
     );
     expect(result.errors.join("\n")).toContain(
-      "relatedSlugs entry \"shared\" is ambiguous",
+      'relatedSlugs entry "shared" is ambiguous',
     );
   });
 });
@@ -891,6 +897,7 @@ git commit -m "test: validate content references"
 ### Task 4: Add Homepage Coverage for All Nine Categories
 
 **Files:**
+
 - Modify: `src/lib/site-config.ts`
 - Modify: `tests/unit/home-page.test.ts`
 - Test: `tests/e2e/navigation.spec.ts`
@@ -943,9 +950,10 @@ Expected: all homepage tests pass.
 In `tests/e2e/navigation.spec.ts`, add an assertion on the homepage:
 
 ```ts
-await expect(
-  page.getByRole("link", { name: /追问链/ }),
-).toHaveAttribute("href", /\/interview-chains\/api-testing-chain\//);
+await expect(page.getByRole("link", { name: /追问链/ })).toHaveAttribute(
+  "href",
+  /\/interview-chains\/api-testing-chain\//,
+);
 ```
 
 - [ ] **Step 5: Run targeted E2E**
@@ -970,6 +978,7 @@ git commit -m "feat: expose interview chains on homepage"
 ### Task 5: Clean Formatting and Generated Artifact Hygiene
 
 **Files:**
+
 - Create: `.prettierignore`
 - Modify: `.gitignore`
 - Modify: `package.json`
@@ -1064,6 +1073,7 @@ git commit -m "chore: enforce formatting hygiene"
 ### Task 6: Strengthen CI with Content Validation, Format Check, and Smoke E2E
 
 **Files:**
+
 - Modify: `.github/workflows/deploy.yml`
 - Modify: `package.json`
 - Test: local command dry run
@@ -1092,29 +1102,29 @@ Modify `package.json`:
 Modify `.github/workflows/deploy.yml` build job steps:
 
 ```yaml
-      - name: Format
-        run: npm run format
+- name: Format
+  run: npm run format
 
-      - name: Lint
-        run: npm run lint
+- name: Lint
+  run: npm run lint
 
-      - name: Typecheck
-        run: npm run typecheck
+- name: Typecheck
+  run: npm run typecheck
 
-      - name: Content validation
-        run: npm run validate:content
+- name: Content validation
+  run: npm run validate:content
 
-      - name: Unit tests
-        run: npm run test
+- name: Unit tests
+  run: npm run test
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+- name: Install Playwright Chromium
+  run: npx playwright install --with-deps chromium
 
-      - name: Smoke E2E
-        run: npm run test:e2e:smoke
+- name: Smoke E2E
+  run: npm run test:e2e:smoke
 
-      - name: Build
-        run: npm run build
+- name: Build
+  run: npm run build
 ```
 
 - [ ] **Step 4: Validate local smoke command**
@@ -1151,6 +1161,7 @@ git commit -m "ci: add content validation and smoke e2e"
 ### Task 7: Improve Real-Page Accessibility Coverage
 
 **Files:**
+
 - Modify: `tests/a11y/basic.test.ts`
 - Create: `tests/e2e/a11y.spec.ts`
 - Modify: `package.json`
@@ -1252,6 +1263,7 @@ git commit -m "test: add real page accessibility checks"
 ### Task 8: Plan and Execute Dependency Security Upgrade in Isolation
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `package-lock.json`
 - Potentially modify: `astro.config.mjs`
@@ -1371,6 +1383,7 @@ git commit -m "chore: upgrade Astro and Starlight"
 ### Task 9: Improve Chinese Search Quality
 
 **Files:**
+
 - Modify: `astro.config.mjs`
 - Modify: content metadata if needed
 - Test: `tests/e2e/search.spec.ts`
@@ -1452,6 +1465,7 @@ git commit -m "test: cover Chinese search behavior"
 ### Task 10: Content Depth Pass for Short and Quiz-Missing Pages
 
 **Files:**
+
 - Modify: `src/content/docs/**/*.md`
 - Use output from: `npm run validate:content`
 
@@ -1550,6 +1564,7 @@ git commit -m "docs: add Redis testing self checks"
 ### Task 11: Retire or Wire Unused Components
 
 **Files:**
+
 - Inspect: `src/components/BookmarkButton.astro`
 - Inspect: `src/components/CommonMistakes.astro`
 - Inspect: `src/components/CompletionBadge.astro`

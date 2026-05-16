@@ -27,6 +27,7 @@ temp-site/
 
 # Claude worktrees and agent directories
 .claude/
+.superpowers/
 .worktrees/
 
 # Superpowers documentation (design docs, not needed in production)
@@ -37,6 +38,10 @@ scripts/
 
 # Test coverage
 coverage/
+
+# Playwright output
+playwright-report/
+test-results/
 
 # Package lock (optional, uncomment if needed)
 # package-lock.json

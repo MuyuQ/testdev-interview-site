@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.astro/
+.git/
+.playwright-cli/
+playwright-report/
+test-results/
+.superpowers/
+.worktrees/
+temp-site/
+.next/
+output/
+coverage/
+package-lock.json
+CODE_REVIEW_REPORT.md

@@ -5,7 +5,8 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["测试设计", "用例设计", "风险分析", "覆盖策略"]
-relatedSlugs: ["boundary-value-analysis", "equivalence-class-partition", "error-guessing"]
+relatedSlugs:
+  ["boundary-value-analysis", "equivalence-class-partition", "error-guessing"]
 selfTests:
   - id: "test-design-1"
     question: "测试设计首先应该从哪里切入？"
@@ -34,4 +35,3 @@ selfTests:
 面试中回答测试设计，不要只说“写测试用例”。更好的表达是：我会先按业务流程拆主链路，再按风险拆异常链路，然后为每类风险设计数据和断言。比如支付功能不能只测支付成功，还要测重复回调、金额不一致、超时补偿、退款状态、消息投递和账务一致性。
 
 测试设计的价值在于让测试从“凭经验点页面”变成“按风险分层验证”。测试开发还要进一步说明哪些场景适合自动化，哪些场景更适合人工探索，哪些场景必须进入回归集和发布门禁。
-

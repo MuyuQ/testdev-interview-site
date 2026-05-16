@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { getHomePageData, getProgressPercentage } from "../../src/lib/home-page";
+import {
+  getHomePageData,
+  getProgressPercentage,
+} from "../../src/lib/home-page";
 import { categories } from "../../src/lib/site-config";
 
 const projectRoot = resolve(__dirname, "../..");

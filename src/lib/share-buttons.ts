@@ -44,10 +44,10 @@ export function attachShareButtons(
       return;
     }
 
-    const twitterButton = group.querySelector<HTMLButtonElement>(
-      ".share-btn.twitter",
-    );
-    const copyButton = group.querySelector<HTMLButtonElement>(".share-btn.copy");
+    const twitterButton =
+      group.querySelector<HTMLButtonElement>(".share-btn.twitter");
+    const copyButton =
+      group.querySelector<HTMLButtonElement>(".share-btn.copy");
 
     twitterButton?.addEventListener("click", () => {
       shareToTwitter(options);

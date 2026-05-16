@@ -30,9 +30,10 @@ test.describe("Navigation", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "测试开发面试速成站",
     );
-    await expect(
-      page.getByRole("link", { name: /追问链/ }),
-    ).toHaveAttribute("href", `${BASE_PATH}/interview-chains/api-testing-chain/`);
+    await expect(page.getByRole("link", { name: /追问链/ })).toHaveAttribute(
+      "href",
+      `${BASE_PATH}/interview-chains/api-testing-chain/`,
+    );
   });
 
   test("all category pages are accessible", async ({ page }) => {
@@ -47,9 +48,13 @@ test.describe("Navigation", () => {
     await page.goto(appUrl(CONTENT_PAGE));
     const sidebar = getSidebar(page);
     await expect(sidebar).toHaveCount(1);
-    await expect(sidebar.locator("a[href*='/glossary/']").first()).toHaveCount(1);
+    await expect(sidebar.locator("a[href*='/glossary/']").first()).toHaveCount(
+      1,
+    );
     await expect(sidebar.locator("a[href*='/tech/']").first()).toHaveCount(1);
-    await expect(sidebar.locator("a[href*='/interview-chains/']").first()).toHaveCount(1);
+    await expect(
+      sidebar.locator("a[href*='/interview-chains/']").first(),
+    ).toHaveCount(1);
   });
 
   test("term links navigate correctly", async ({ page }) => {

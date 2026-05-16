@@ -44,9 +44,12 @@ test.describe("Theme Switching", () => {
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-    const cardBg = await page.locator(".roadmap-card").first().evaluate((node) => {
-      return getComputedStyle(node).backgroundColor;
-    });
+    const cardBg = await page
+      .locator(".roadmap-card")
+      .first()
+      .evaluate((node) => {
+        return getComputedStyle(node).backgroundColor;
+      });
 
     expect(cardBg).toBe("rgb(24, 27, 34)");
   });
@@ -61,9 +64,12 @@ test.describe("Theme Switching", () => {
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-    const cardBg = await page.locator(".roadmap-card").first().evaluate((node) => {
-      return getComputedStyle(node).backgroundColor;
-    });
+    const cardBg = await page
+      .locator(".roadmap-card")
+      .first()
+      .evaluate((node) => {
+        return getComputedStyle(node).backgroundColor;
+      });
 
     expect(cardBg).toBe("rgb(24, 27, 34)");
   });
@@ -78,9 +84,12 @@ test.describe("Theme Switching", () => {
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    const shellColor = await page.locator(".roadmap-card").first().evaluate((node) => {
-      return getComputedStyle(node).backgroundColor;
-    });
+    const shellColor = await page
+      .locator(".roadmap-card")
+      .first()
+      .evaluate((node) => {
+        return getComputedStyle(node).backgroundColor;
+      });
 
     expect(shellColor).toBe("rgb(251, 247, 239)");
 

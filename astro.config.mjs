@@ -126,10 +126,12 @@ export default defineConfig({
         },
       ],
       customCss: [
-        "./src/styles/tokens.css",
-        "./src/styles/custom-layout.css",
-        "./src/styles/components.css",
-        "./src/styles/tabs-custom.css",
+        // 全新设计系统（v3.0）- 有机现代主义
+        "./src/styles/design-system-v3.css",
+        "./src/styles/components-v3.css",
+        "./src/styles/layout-v3.css",
+        "./src/styles/home-page-v3.css",
+        "./src/styles/starlight-overrides-v3.css",
       ],
       disable404Route: false,
       components: {

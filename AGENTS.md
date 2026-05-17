@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-This is a Chinese content site for test development interview preparation (测试开发面试速成站). The current production implementation is built with Astro 4, `@astrojs/starlight`, and TypeScript. The site currently organizes content across 9 categories: glossary, tech, project, scenario, coding, roadmap, ai-learning, practice-template, and interview-chains.
+This is a Chinese content site for test development interview preparation (测试开发面试速成站). The current production implementation is built with Astro 6, `@astrojs/starlight`, and TypeScript. The site currently organizes content across 9 categories: glossary, tech, project, scenario, coding, roadmap, ai-learning, practice-template, and interview-chains.
 
 ## Commands
 
@@ -17,6 +17,8 @@ npm run typecheck  # Run Astro type checking
 npm run test       # Run Vitest suite
 npm run check      # Lint + typecheck + test + build
 ```
+
+Use Node.js 22.12.0 or newer. The repository includes `.nvmrc`, `.node-version`, and `package.json` engines metadata to keep local and CI runtimes aligned.
 
 ## Architecture
 
@@ -41,7 +43,7 @@ npm run check      # Lint + typecheck + test + build
 
 ### Content Layer
 
-- `src/content/config.ts` - Content collection schema
+- `src/content.config.ts` - Content collection schema
 - `src/content/docs/` - Markdown source for all categories
 - `src/lib/site-config.ts` - Category metadata and homepage recommendations
 - `src/lib/home-page.ts` - Homepage link generation

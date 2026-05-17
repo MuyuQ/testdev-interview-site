@@ -32,25 +32,31 @@ async function readRootTokens(page: Page) {
   });
 }
 
-test.describe("paper theme regressions", () => {
-  test("light theme uses warm paper shell on homepage", async ({ page }) => {
+test.describe("v3 theme regressions", () => {
+  test("light theme uses the V3 neutral shell on homepage", async ({
+    page,
+  }) => {
     await forceTheme(page, "light");
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     expect(await readRootTokens(page)).toEqual({
-      bg: "#f4efe6",
-      card: "#fbf7ef",
-      accent: "#315c85",
+      bg: "#fafaf9",
+      card: "#ffffff",
+      accent: "#7c3aed",
     });
-    expect(await readStyle(page, ".roadmap-card", "border-radius")).toBe("0px");
+    expect(await readStyle(page, ".roadmap-card", "border-radius")).toBe(
+      "24px",
+    );
     expect(await readStyle(page, ".module-card", "background-color")).toBe(
-      "rgb(251, 247, 239)",
+      "rgb(255, 255, 255)",
     );
   });
 
-  test("dark homepage keeps the ink-paper shell", async ({ page }) => {
+  test("dark homepage keeps the V3 elevated gradient shell", async ({
+    page,
+  }) => {
     await forceTheme(page, "dark");
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
@@ -63,17 +69,25 @@ test.describe("paper theme regressions", () => {
         roadmapBg: roadmapCard
           ? getComputedStyle(roadmapCard).backgroundColor
           : "",
+        roadmapImage: roadmapCard
+          ? getComputedStyle(roadmapCard).backgroundImage
+          : "",
+        roadmapRadius: roadmapCard
+          ? getComputedStyle(roadmapCard).borderRadius
+          : "",
         heroBorder: hero ? getComputedStyle(hero).borderBottomColor : "",
         heroBorderWidth: hero ? getComputedStyle(hero).borderBottomWidth : "",
       };
     });
 
-    expect(home.roadmapBg).toBe("rgb(24, 27, 34)");
-    expect(home.heroBorder).toBe("rgba(217, 221, 214, 0.14)");
-    expect(home.heroBorderWidth).toBe("1px");
+    expect(home.roadmapBg).toBe("rgba(0, 0, 0, 0)");
+    expect(home.roadmapImage).toContain("rgb(37, 34, 47)");
+    expect(home.roadmapRadius).toBe("24px");
+    expect(home.heroBorder).toBe("rgb(245, 245, 244)");
+    expect(home.heroBorderWidth).toBe("0px");
   });
 
-  test("dark theme uses quiet docs chrome", async ({ page }) => {
+  test("dark theme uses V3 docs chrome", async ({ page }) => {
     await forceTheme(page, "dark");
     await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
@@ -84,9 +98,9 @@ test.describe("paper theme regressions", () => {
         ".sidebar-content a[aria-current='page']",
         "border-left-width",
       ),
-    ).toBe("2px");
+    ).toBe("3px");
     expect(await readStyle(page, ".pagination-link", "border-radius")).toBe(
-      "0px",
+      "16px",
     );
     expect(
       await page.evaluate(() => {
@@ -108,34 +122,34 @@ test.describe("paper theme regressions", () => {
         return result;
       }),
     ).toEqual({
-      linkColor: "rgb(126, 161, 196)",
-      accentColor: "rgb(126, 161, 196)",
+      linkColor: "rgb(167, 139, 250)",
+      accentColor: "rgb(167, 139, 250)",
     });
   });
 
-  test("light docs header keeps the paper title bar", async ({ page }) => {
+  test("light docs header uses V3 title bar", async ({ page }) => {
     await forceTheme(page, "light");
     await page.goto(appUrl("/scenario/payment-callback/"));
     await page.waitForLoadState("domcontentloaded");
 
     expect(await readStyle(page, "header.header", "background-color")).toBe(
-      "rgb(247, 241, 231)",
+      "rgb(255, 255, 255)",
     );
     expect(await readStyle(page, ".site-title", "color")).toBe(
-      "rgb(49, 92, 133)",
+      "rgb(124, 58, 237)",
     );
   });
 
-  test("shared controls stay square", async ({ page }) => {
+  test("shared controls use V3 radii", async ({ page }) => {
     await forceTheme(page, "light");
     await page.goto(appUrl("/coding/assertion-wrapper/"));
     await page.waitForLoadState("domcontentloaded");
 
-    expect(await readStyle(page, ".share-btn", "border-radius")).toBe("0px");
+    expect(await readStyle(page, ".share-btn", "border-radius")).toBe("8px");
 
     await page.goto(appUrl("/"));
     await page.waitForLoadState("domcontentloaded");
 
-    expect(await readStyle(page, ".recent-views", "border-radius")).toBe("0px");
+    expect(await readStyle(page, ".recent-card", "border-radius")).toBe("16px");
   });
 });

@@ -46,12 +46,13 @@
 
 ## 技术栈
 
-- `Astro 4`
+- `Astro 6`
 - `@astrojs/starlight`
 - `TypeScript`
 - `Vitest`
 - `Playwright`
 - `GitHub Pages`
+- `Node.js >= 22.12.0`
 
 ## 本地启动
 
@@ -61,6 +62,8 @@ npm run dev
 ```
 
 默认会启动 Astro 开发服务器，本地访问地址通常为 `http://localhost:4321`。
+
+建议使用 Node.js 22.12.0 或更高版本；仓库已提供 `.nvmrc`、`.node-version` 和 `package.json` engines 约束。
 
 ## 质量检查
 

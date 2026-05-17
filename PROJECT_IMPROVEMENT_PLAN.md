@@ -4,9 +4,9 @@
 
 **Goal:** Bring the Astro/Starlight Chinese interview-prep site to a more reliable, searchable, maintainable, and safely upgradable state.
 
-**Architecture:** Keep the current Astro 4 + Starlight static-docs architecture. Make improvements through small, verifiable changes: first fix SEO/localization metadata, then complete localStorage-backed user features, then add content validation and stronger quality gates, then handle dependency upgrades in an isolated branch.
+**Architecture:** Keep the current Astro 6 + Starlight static-docs architecture. Make improvements through small, verifiable changes: first fix SEO/localization metadata, then complete localStorage-backed user features, then add content validation and stronger quality gates, then handle dependency upgrades in an isolated branch.
 
-**Tech Stack:** Astro 4, `@astrojs/starlight`, TypeScript, Markdown content collections, Vitest, Playwright, ESLint, Prettier, GitHub Pages.
+**Tech Stack:** Astro 6, `@astrojs/starlight`, TypeScript, Markdown content collections, Vitest, Playwright, ESLint, Prettier, GitHub Pages, Node.js >= 22.12.0.
 
 ---
 
@@ -32,7 +32,7 @@
 - `src/lib/bookmark-store.ts` - Shared localStorage bookmark helpers.
 - `src/lib/home-page.ts` - Homepage link generation and category module data.
 - `src/lib/site-config.ts` - Category metadata and recommended entry points.
-- `src/content/config.ts` - Content metadata schema.
+- `src/content.config.ts` - Content metadata schema.
 - `scripts/validate-content.ts` - New content validation script for references, slugs, quiz quality, and homepage recommendations.
 - `tests/unit/` - Focused tests for validation helpers and localStorage behavior.
 - `tests/e2e/` - Browser tests for metadata, homepage links, progress, bookmarks, sharing, and smoke navigation.
@@ -1440,7 +1440,7 @@ npm run build
 Expected:
 
 - Build output should no longer say only `Discovered 1 language: en`.
-- If it still does, inspect Starlight/Pagefind language configuration for Astro 4/Starlight 0.28.
+- If it still does, inspect Starlight/Pagefind language configuration for the current Astro/Starlight versions.
 
 - [ ] **Step 4: Add search-specific metadata if needed**
 

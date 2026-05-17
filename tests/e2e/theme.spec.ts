@@ -44,14 +44,19 @@ test.describe("Theme Switching", () => {
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-    const cardBg = await page
+    const cardBackground = await page
       .locator(".roadmap-card")
       .first()
       .evaluate((node) => {
-        return getComputedStyle(node).backgroundColor;
+        const style = getComputedStyle(node);
+        return {
+          image: style.backgroundImage,
+          radius: style.borderRadius,
+        };
       });
 
-    expect(cardBg).toBe("rgb(24, 27, 34)");
+    expect(cardBackground.image).toContain("rgb(37, 34, 47)");
+    expect(cardBackground.radius).toBe("24px");
   });
 
   test("dark mode applies correctly", async ({ page }) => {
@@ -64,14 +69,19 @@ test.describe("Theme Switching", () => {
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-    const cardBg = await page
+    const cardBackground = await page
       .locator(".roadmap-card")
       .first()
       .evaluate((node) => {
-        return getComputedStyle(node).backgroundColor;
+        const style = getComputedStyle(node);
+        return {
+          image: style.backgroundImage,
+          radius: style.borderRadius,
+        };
       });
 
-    expect(cardBg).toBe("rgb(24, 27, 34)");
+    expect(cardBackground.image).toContain("rgb(37, 34, 47)");
+    expect(cardBackground.radius).toBe("24px");
   });
 
   test("light mode applies correctly", async ({ page }) => {
@@ -84,14 +94,19 @@ test.describe("Theme Switching", () => {
 
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    const shellColor = await page
+    const shell = await page
       .locator(".roadmap-card")
       .first()
       .evaluate((node) => {
-        return getComputedStyle(node).backgroundColor;
+        const style = getComputedStyle(node);
+        return {
+          color: style.backgroundColor,
+          radius: style.borderRadius,
+        };
       });
 
-    expect(shellColor).toBe("rgb(251, 247, 239)");
+    expect(shell.color).toBe("rgb(255, 255, 255)");
+    expect(shell.radius).toBe("24px");
 
     const rootColorScheme = await page.evaluate(() => {
       return getComputedStyle(document.documentElement).colorScheme;

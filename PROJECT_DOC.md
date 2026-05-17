@@ -87,20 +87,21 @@
 
 ## 技术方案
 
-- 框架：Astro 4
+- 框架：Astro 6
 - 文档壳层：`@astrojs/starlight`
 - 语言：TypeScript
 - 内容管理：仓库内 Markdown + schema 校验
 - 搜索：Pagefind（由 Starlight 构建流程产出）
 - 状态持久化：localStorage
 - 部署：GitHub Pages
+- 本地运行：Node.js >= 22.12.0
 
 ## 目录约定
 
 - `src/pages/` - 首页与额外索引页
 - `src/components/` - Astro 组件
 - `src/lib/` - 客户端和页面辅助逻辑
-- `src/content/config.ts` - 内容 schema
+- `src/content.config.ts` - 内容 schema
 - `src/content/docs/` - 全部站点内容
 - `tests/` - 单元、a11y、e2e 测试
 - `scripts/` - 内容迁移辅助脚本

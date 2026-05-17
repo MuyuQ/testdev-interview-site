@@ -5,6 +5,34 @@ category: "scenario"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["平台建设", "自动化", "工程化"]
+selfTests:
+  - id: "automation-platform-scenario-1"
+    question: "自动化平台建设首先要回答什么问题？"
+    options:
+      - "用什么颜色做界面"
+      - "平台要解决哪些团队痛点和效率瓶颈"
+      - "服务器买多大"
+      - "是否一定要自研"
+    correctIndex: 1
+    explanation: "平台不是目的，解决脚本维护、任务调度、报告可视化和协作效率等痛点才是核心。"
+  - id: "automation-platform-scenario-2"
+    question: "平台任务调度能力通常包括什么？"
+    options:
+      - "定时执行、CI 触发、并行执行、重试和队列管理"
+      - "只手动点击运行"
+      - "只保存用例名称"
+      - "只展示首页"
+    correctIndex: 0
+    explanation: "自动化平台要支持任务编排和调度，包括定时、触发、并行、重试、队列和执行资源管理。"
+  - id: "automation-platform-scenario-3"
+    question: "面试中讲平台收益时，最好怎么表达？"
+    options:
+      - "只说平台很好用"
+      - "用回归耗时、执行频次、问题定位时间、门禁覆盖等数据量化"
+      - "只说用了很多技术"
+      - "只强调界面漂亮"
+    correctIndex: 1
+    explanation: "平台建设要体现 ROI，最好用回归时间缩短、执行次数提升、失败定位更快等量化指标表达。"
 ---
 
 ## 场景背景

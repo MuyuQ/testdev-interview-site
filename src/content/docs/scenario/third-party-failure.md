@@ -5,6 +5,34 @@ category: "scenario"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["第三方服务", "降级", "熔断", "补偿"]
+selfTests:
+  - id: "third-party-failure-scenario-1"
+    question: "第三方服务故障场景的首要目标是什么？"
+    options:
+      - "证明第三方有问题"
+      - "核心业务不中断、用户感知可控、故障可恢复"
+      - "直接关闭所有请求"
+      - "忽略错误"
+    correctIndex: 1
+    explanation: "第三方不可控时，本系统要通过降级、熔断、重试和补偿保障核心业务和用户体验。"
+  - id: "third-party-failure-scenario-2"
+    question: "熔断测试重点验证什么？"
+    options:
+      - "阈值触发、降级响应、半开恢复和告警"
+      - "接口名称"
+      - "页面刷新"
+      - "第三方文档格式"
+    correctIndex: 0
+    explanation: "熔断机制要验证触发条件、降级结果、半开探测、恢复策略和监控告警。"
+  - id: "third-party-failure-scenario-3"
+    question: "第三方调用成功但本地状态未更新时，应如何兜底？"
+    options:
+      - "通过补偿任务、状态查询和对账修复一致性"
+      - "让用户重新操作"
+      - "直接标记失败"
+      - "删除本地记录"
+    correctIndex: 0
+    explanation: "第三方调用链路要有状态查询、补偿任务和对账机制，处理响应丢失或本地更新失败。"
 ---
 
 ## 场景背景

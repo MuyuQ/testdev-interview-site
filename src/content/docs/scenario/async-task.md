@@ -5,6 +5,34 @@ category: "scenario"
 difficulty: "interview"
 interviewWeight: 2
 tags: ["异步任务", "状态追踪", "重试", "一致性"]
+selfTests:
+  - id: "async-task-scenario-1"
+    question: "异步任务场景最核心的测试目标是什么？"
+    options:
+      - "接口立刻返回 200"
+      - "任务不丢、状态可追踪、结果正确、失败可恢复"
+      - "任务 ID 越短越好"
+      - "只看队列是否存在"
+    correctIndex: 1
+    explanation: "异步任务测试不能只看提交成功，要验证任务生命周期、最终结果、失败重试和补偿恢复。"
+  - id: "async-task-scenario-2"
+    question: "任务重复执行时，重点验证什么？"
+    options:
+      - "日志是否更多"
+      - "业务处理是否幂等，不产生重复数据或重复通知"
+      - "任务名称是否变化"
+      - "队列是否清空"
+    correctIndex: 1
+    explanation: "异步任务可能因重试或消费者异常被重复执行，必须验证幂等和状态机保护。"
+  - id: "async-task-scenario-3"
+    question: "异步任务超时后，测试应检查什么？"
+    options:
+      - "是否有超时状态、失败原因、重试策略、告警和人工补偿入口"
+      - "是否直接删除任务"
+      - "是否继续无限等待"
+      - "是否隐藏任务状态"
+    correctIndex: 0
+    explanation: "超时任务要有明确状态、原因、重试和补偿机制，否则用户和运维都无法判断任务是否可恢复。"
 ---
 
 ## 场景背景

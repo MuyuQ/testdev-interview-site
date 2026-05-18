@@ -96,9 +96,7 @@ const [category, slug] = getContentParts(entry.id);
 
 <script>
   import { initializeCompletionControls } from "../lib/progress-store";
-
-  const KEY_PREFIX = "testdev:";
-  const MAX_RECENT = 10;
+  import { addRecentView } from "../lib/recent-views";
 
   function trackView() {
     try {
@@ -107,20 +105,10 @@ const [category, slug] = getContentParts(entry.id);
       if (segments.length < 2) return;
       const category = segments[segments.length - 2];
       const slug = segments[segments.length - 1];
-      const title = document.querySelector("h1")?.textContent || document.title;
-      const recent = JSON.parse(
-        localStorage.getItem(KEY_PREFIX + "recent") || "[]",
-      ) as Array<{
-        slug: string;
-        title: string;
-        category: string;
-        viewedAt: string;
-      }>;
-      const existing = recent.findIndex((r) => r.slug === slug);
-      if (existing >= 0) recent.splice(existing, 1);
-      recent.unshift({ slug, title, category, viewedAt: new Date().toISOString() });
-      if (recent.length > MAX_RECENT) recent.pop();
-      localStorage.setItem(KEY_PREFIX + "recent", JSON.stringify(recent));
+      const title =
+        document.querySelector("h1")?.textContent?.trim() || document.title;
+
+      addRecentView({ slug, title, category });
     } catch {}
   }
 

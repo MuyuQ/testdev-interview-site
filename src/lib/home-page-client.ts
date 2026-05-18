@@ -1,38 +1,7 @@
-interface RecentView {
-  slug: string;
-  title: string;
-  category: string;
-  viewedAt?: string;
-}
-
-const KEY_PREFIX = "testdev:";
-const CATEGORY_LABELS: Record<string, string> = {
-  glossary: "术语体系",
-  tech: "技术专题",
-  project: "项目类型",
-  scenario: "场景题",
-  coding: "编码题",
-  roadmap: "学习路线",
-  "ai-learning": "AI 学习",
-  "practice-template": "练手模板",
-  "interview-chains": "面试追问链",
-};
-
-function loadRecentViews(): RecentView[] {
-  try {
-    const raw = localStorage.getItem(KEY_PREFIX + "recent");
-    if (!raw) {
-      return [];
-    }
-
-    return JSON.parse(raw) as RecentView[];
-  } catch {
-    return [];
-  }
-}
+import { getRecentViewLabel, getRecentViews } from "./recent-views";
 
 export function initializeRecentViews(base: string): void {
-  const recent = loadRecentViews().slice(0, 5);
+  const recent = getRecentViews(5);
   const list = document.getElementById("recent-views-list");
 
   if (!list) {
@@ -72,7 +41,7 @@ export function initializeRecentViews(base: string): void {
 
     const meta = document.createElement("span");
     meta.className = "recent-item-meta";
-    meta.textContent = CATEGORY_LABELS[item.category] ?? item.category;
+    meta.textContent = getRecentViewLabel(item.category);
 
     content.append(link, meta);
     li.append(icon, content);

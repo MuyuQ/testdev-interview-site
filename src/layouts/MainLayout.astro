@@ -1,6 +1,5 @@
 ---
 import JsonLd from "../components/JsonLd.astro";
-/** @type {any} */
 import ThemeProvider from "../components/ThemeProvider.astro";
 import "../styles/design-system-v3.css";
 import "../styles/components-v3.css";
@@ -60,7 +59,6 @@ const ogImageUrl = "https://muyuq.github.io/testdev-interview-site/og-image.png"
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <title>{title}</title>
-    {/* @ts-ignore */}
     <ThemeProvider />
   </head>
   <body>

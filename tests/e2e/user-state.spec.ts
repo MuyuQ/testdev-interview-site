@@ -44,4 +44,29 @@ test.describe("User state", () => {
 
     expect(bookmarks).toContain("tech/pytest");
   });
+
+  test("keeps same-slug recent views from different categories", async ({
+    page,
+  }) => {
+    await page.goto(appUrl("/glossary/data-driven-testing/"));
+    await page.goto(appUrl("/tech/data-driven-testing/"));
+
+    const recent = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("testdev:recent") ?? "[]"),
+    );
+
+    expect(
+      recent.map(
+        (item: { category: string; slug: string }) =>
+          `${item.category}/${item.slug}`,
+      ),
+    ).toEqual(["tech/data-driven-testing", "glossary/data-driven-testing"]);
+
+    await page.goto(appUrl("/"));
+    await expect(page.locator("#recent-views-list .recent-item")).toHaveCount(
+      2,
+    );
+    await expect(page.locator("#recent-views-list")).toContainText("技术专题");
+    await expect(page.locator("#recent-views-list")).toContainText("术语体系");
+  });
 });

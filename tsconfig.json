@@ -4,14 +4,20 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    ".astro",
-    "playwright-report",
-    "test-results",
-    "temp-site"
-  ]
+  "include": ["src/**/*", "scripts/**/*", "tests/**/*", "astro.config.mjs", ".astro/types.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }

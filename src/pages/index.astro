@@ -1,8 +1,149 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
-import HomePage from "../components/HomePage.astro";
+// 自定义首页 - 学习控制台
+// 使用 Starlight 自定义首页覆盖默认首页
+
+import { categories, layers } from '../lib/site-config';
+
+// 入口链接数据
+const entryLinks = [
+  {
+    id: 'beginner',
+    href: '/beginner-course/',
+    title: '我是初学者：从零开始',
+    description: '按 7 天路线建立测试开发基础，并完成第一个接口自动化小项目。',
+  },
+  {
+    id: 'interview',
+    href: '/roadmap/',
+    title: '我有基础：冲刺面试',
+    description: '直接进入术语速记、项目表达、场景题和追问链。',
+  },
+];
+
+// 学习路径数据
+const pathLinks = [
+  { id: 'beginner', href: '/beginner-course/', title: '新手基础路径', days: 7 },
+  { id: '3day', href: '/roadmap/3-day-interview-map/', title: '3天速记版', days: 3 },
+  { id: '7day', href: '/roadmap/7-day-interview-plan/', title: '7天面试版', days: 7 },
+];
 ---
 
-<Layout title="测试开发面试速成站">
-  <HomePage />
-</Layout>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测试开发面试速成站</title>
+  <meta name="description" content="帮助用户在短时间内补齐测试开发面试知识" />
+  <link rel="stylesheet" href="/src/styles/design-system-v3.css" />
+  <link rel="stylesheet" href="/src/styles/home-page-v3.css" />
+</head>
+<body>
+  <main class="page-container">
+    <!-- Hero 区域 -->
+    <section class="hero-section">
+      <h1 class="hero-title">测试开发面试速成站</h1>
+      <p class="hero-subtitle">
+        帮助用户在短时间内补齐测试开发面试知识，并把知识转化成可表达、可练习、可复盘的面试能力。
+      </p>
+      <div class="hero-cta">
+        <a href={entryLinks[0].href} class="cta-primary">选择学习路径</a>
+        <a href="#" id="continue-learning" class="cta-secondary">继续上次学习</a>
+      </div>
+    </section>
+
+    <!-- 双入口选择区 -->
+    <section class="entry-section">
+      <h2 class="entry-header">选择你的学习方式</h2>
+      <div class="entry-grid">
+        {entryLinks.map((entry) => (
+          <a href={entry.href} class={`entry-card entry-card-${entry.id}`}>
+            <h3>{entry.title}</h3>
+            <p>{entry.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- 学习路径区 -->
+    <section class="paths-section">
+      <h2 class="paths-header">学习路径</h2>
+      <div class="paths-grid">
+        {pathLinks.map((path) => (
+          <a href={path.href} class="path-card">
+            <h4>{path.title}</h4>
+            <span class="path-days">{path.days} 天路线</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- 模块地图区（按四层结构分组） -->
+    <section class="modules-section">
+      <h2 class="modules-header">模块地图</h2>
+      {layers.map((layer) => (
+        <div class="layer-group">
+          <h3 class="layer-title">{layer.name}</h3>
+          <div class="modules-grid">
+            {layer.categories.map((catId) => {
+              const cat = categories.find((c) => c.id === catId);
+              return cat ? (
+                <a href={`/${cat.id}/`} class="module-card">
+                  <span class="module-card-title">{cat.navLabel}</span>
+                  <span class="module-card-desc">{cat.description}</span>
+                </a>
+              ) : null;
+            })}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- 进度概览区 -->
+    <section class="progress-section" id="progress-section">
+      <h2 class="progress-header">学习进度</h2>
+      <div class="progress-overview">
+        <div class="progress-stat">
+          <span class="progress-stat-label">全站进度</span>
+          <span class="progress-stat-value" id="total-progress">0%</span>
+          <div class="progress-bar">
+            <div class="progress-bar-fill" id="total-progress-bar" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="progress-stat">
+          <span class="progress-stat-label">已完成</span>
+          <span class="progress-stat-value" id="completed-count">0 篇</span>
+        </div>
+        <div class="progress-stat">
+          <span class="progress-stat-label">自测题完成</span>
+          <span class="progress-stat-value" id="quiz-count">0 题</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 客户端脚本：初始化进度显示
+    function initProgress() {
+      try {
+        const progress = localStorage.getItem('testdev:progress');
+        if (progress) {
+          const data = JSON.parse(progress);
+          const total = data.total || 0;
+          const completed = data.completed || 0;
+          const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+          document.getElementById('total-progress').textContent = percentage + '%';
+          document.getElementById('total-progress-bar').style.width = percentage + '%';
+          document.getElementById('completed-count').textContent = completed + ' 篇';
+        }
+      } catch (e) {
+        console.error('Error loading progress:', e);
+      }
+    }
+
+    // 页面加载后初始化
+    document.addEventListener('DOMContentLoaded', initProgress);
+  </script>
+</body>
+</html>

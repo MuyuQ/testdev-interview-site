@@ -1,201 +1,90 @@
 ---
-import { getCollection } from "astro:content";
-import { getHomePageData } from "../lib/home-page";
+// 首页组件 - 学习控制台
+// 按照 WEBSITE_STRUCTURE_AND_FLOW_IMPROVEMENT_RECOMMENDATIONS.md 的 6 区域设计
 
-const totalDocsCount = (await getCollection("docs")).length;
-const base = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
-const { roadmapLinks, moduleLinks } = getHomePageData(base);
+// 临时数据（后续从 lib/home-page.ts 导入）
+const entryLinks = [
+  {
+    id: 'beginner',
+    href: '/beginner-course/',
+    title: '我是初学者：从零开始',
+    description: '按 7 天路线建立测试开发基础，并完成第一个接口自动化小项目。',
+  },
+  {
+    id: 'interview',
+    href: '/roadmap/',
+    title: '我有基础：冲刺面试',
+    description: '直接进入术语速记、项目表达、场景题和追问链。',
+  },
+];
+
+const moduleLinks = [
+  // 第一层：入门教学层
+  { layer: '入门教学层', modules: [
+    { href: '/beginner-course/', title: '新手教程', desc: '从零开始的学习路径' },
+    { href: '/glossary/', title: '术语体系', desc: '测试开发概念词典' },
+    { href: '/roadmap/', title: '学习路线', desc: '时间盒学习规划' },
+  ]},
+  // 第二层：技术能力层
+  { layer: '技术能力层', modules: [
+    { href: '/tech/', title: '技术专题', desc: 'Python、Pytest、接口测试等' },
+    { href: '/coding/', title: '编码题', desc: '小型工程能力训练' },
+    { href: '/practice-template/', title: '练手模板', desc: '可交付练习产物' },
+  ]},
+  // 第三层：项目和场景层
+  { layer: '项目和场景层', modules: [
+    { href: '/project/', title: '项目类型', desc: '电商、支付、后台等项目' },
+    { href: '/scenario/', title: '场景题', desc: '业务风险和测试设计' },
+  ]},
+  // 第四层：面试表达层
+  { layer: '面试表达层', modules: [
+    { href: '/interview-chains/', title: '面试追问链', desc: '连续追问训练' },
+    { href: '/ai-learning/', title: 'AI学习指南', desc: 'AI 工具和质量责任' },
+  ]},
+];
 ---
 
-<div class="home-page" role="main">
-  <section class="hero" aria-label="站点介绍">
-    <div class="hero-badge">
-      <svg class="hero-badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-        <path d="M2 17l10 5 10-5"/>
-        <path d="M2 12l10 5 10-5"/>
-      </svg>
-      面试速成
-    </div>
-    <h1 class="hero-title"><span class="hero-title-gradient">测试开发</span><br />面试速成站</h1>
-    <p class="hero-subtitle">
-      结构化内容帮助你快速补齐测试开发知识框架，在面试中说清楚概念、项目和方案
-    </p>
-    <div class="hero-actions">
-      <a href={`${base}roadmap/3-day-interview-map/`} class="btn btn-primary">开始学习</a>
-      <a href={`${base}glossary/api-assertion/`} class="btn btn-secondary">浏览术语</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-value">{totalDocsCount}+</span>
-        <span class="hero-stat-label">知识主题</span>
+<section class="hero-section">
+  <h1 class="hero-title">测试开发面试速成站</h1>
+  <p class="hero-subtitle">
+    帮助用户在短时间内补齐测试开发面试知识，并把知识转化成可表达、可练习、可复盘的面试能力。
+  </p>
+  <div class="hero-cta">
+    <a href={entryLinks[0].href} class="cta-primary">选择学习路径</a>
+    <a href="#" id="continue-learning" class="cta-secondary">继续上次学习</a>
+  </div>
+</section>
+
+<section class="entry-section">
+  <h2 class="entry-header">选择你的学习方式</h2>
+  <div class="entry-grid">
+    {entryLinks.map((entry) => (
+      <a href={entry.href} class={`entry-card entry-card-${entry.id}`}>
+        <h3>{entry.title}</h3>
+        <p>{entry.description}</p>
+      </a>
+    ))}
+  </div>
+</section>
+
+<section class="modules-section">
+  <h2 class="modules-header">模块地图</h2>
+  {moduleLinks.map((layer) => (
+    <div class="layer-group">
+      <h3 class="layer-title">{layer.layer}</h3>
+      <div class="modules-grid">
+        {layer.modules.map((module) => (
+          <a href={module.href} class="module-card">
+            <span class="module-card-title">{module.title}</span>
+            <span class="module-card-desc">{module.desc}</span>
+          </a>
+        ))}
       </div>
-      <div class="hero-stat">
-        <span class="hero-stat-value">9</span>
-        <span class="hero-stat-label">核心模块</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-value">2</span>
-        <span class="hero-stat-label">学习路线</span>
-      </div>
     </div>
-  </section>
+  ))}
+</section>
 
-  <section class="roadmap-section" aria-label="学习路线">
-    <div class="section-header">
-      <h2 class="section-title-home">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-        学习路线
-      </h2>
-      <a href={`${base}roadmap/3-day-interview-map/`} class="view-all-link">查看全部</a>
-    </div>
-    <div class="roadmap-grid">
-      {roadmapLinks.map((link, index) => (
-        <a href={link.href} class="roadmap-card">
-          <div class="roadmap-card-icon">{index === 0 ? "3" : "7"}</div>
-          <h3 class="roadmap-card-title">{link.title}</h3>
-          <p class="roadmap-card-description">{link.description}</p>
-          <div class="roadmap-card-meta">
-            <span>{index === 0 ? "3天" : "7天"}</span>
-            <span>•</span>
-            <span>{index === 0 ? "速记版" : "面试版"}</span>
-          </div>
-          <svg class="roadmap-card-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/>
-            <path d="M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="modules-section" aria-label="核心模块">
-    <div class="section-header">
-      <h2 class="section-title-home">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-          <line x1="8" y1="21" x2="16" y2="21"/>
-          <line x1="12" y1="17" x2="12" y2="21"/>
-        </svg>
-        核心模块
-      </h2>
-    </div>
-    <div class="module-grid">
-      {moduleLinks.map((link) => (
-        <a href={link.href} class="module-card">
-          <div class="module-card-header">
-            <h3 class="module-card-title">{link.title}</h3>
-            <svg class="module-card-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"/>
-              <path d="M12 5l7 7-7 7"/>
-            </svg>
-          </div>
-          <p class="module-card-description">{link.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section
-    class="progress-section"
-    aria-label="学习进度"
-    data-total-docs={totalDocsCount}
-    hidden
-  >
-    <div class="progress-card">
-      <div class="progress-header">
-        <h2 class="progress-title">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 20h9"/>
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-          </svg>
-          学习进度
-        </h2>
-        <span class="progress-stats" data-progress-text>已完成 0 / {totalDocsCount} 个主题</span>
-      </div>
-      <div class="progress-bar-home">
-        <div class="progress-bar-home-fill" data-progress-fill style="width: 0%"></div>
-      </div>
-      <p class="progress-message">继续加油，保持学习节奏！</p>
-    </div>
-  </section>
-
-  <section class="recent-section" aria-label="最近浏览" data-base={base}>
-    <div class="section-header">
-      <h2 class="section-title-home">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2v20M2 12h20"/>
-        </svg>
-        最近浏览
-      </h2>
-    </div>
-    <div class="recent-card">
-      <ul class="recent-list" id="recent-views-list">
-        <li class="recent-empty">还没有浏览记录，先打开一个主题吧。</li>
-      </ul>
-    </div>
-  </section>
-</div>
-
-<script>
-  import { initializeRecentViews } from "../lib/home-page-client";
-
-  function renderProgressOverview() {
-    const section = document.querySelector<HTMLElement>(".progress-section");
-    if (!section) return;
-
-    const total = Number.parseInt(section.dataset.totalDocs ?? "0", 10);
-    const text = section.querySelector<HTMLElement>("[data-progress-text]");
-    const fill = section.querySelector<HTMLElement>("[data-progress-fill]");
-
-    try {
-      const data = JSON.parse(
-        localStorage.getItem("testdev:progress") ?? '{"completed":[]}',
-      ) as { completed: unknown[] };
-      const completed = Array.isArray(data.completed)
-        ? data.completed.length
-        : 0;
-      const percent = total > 0 ? Math.min((completed / total) * 100, 100) : 0;
-
-      section.hidden = completed <= 0;
-      if (text) {
-        text.textContent = `已完成 ${completed} / ${total} 个主题`;
-      }
-      if (fill) {
-        fill.style.width = `${percent}%`;
-      }
-    } catch {
-      section.hidden = true;
-    }
-  }
-
-  function renderRecentViews() {
-    const base =
-      document
-        .querySelector<HTMLElement>(".recent-section")
-        ?.dataset.base ?? "/";
-
-    initializeRecentViews(base);
-  }
-
-  function initializeHomePage() {
-    renderProgressOverview();
-    renderRecentViews();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeHomePage, {
-      once: true,
-    });
-  } else {
-    initializeHomePage();
-  }
-
-  document.addEventListener("astro:page-load", initializeHomePage);
-</script>
+<style>
+  /* 从 home-page-v3.css 导入样式 */
+  @import '../styles/home-page-v3.css';
+</style>

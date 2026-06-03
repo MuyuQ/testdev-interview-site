@@ -1,191 +1,97 @@
-import { defineConfig } from "astro/config";
-import starlight from "@astrojs/starlight";
+// @ts-check
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
 
+// https://astro.build/config
 export default defineConfig({
-  site: "https://muyuq.github.io",
-  base: "/testdev-interview-site",
+  // GitHub Pages 配置
+  site: 'https://muyuq.github.io',
+  base: '/testdev-interview-site',
+
   integrations: [
     starlight({
-      title: "测试开发面试速成站",
-      defaultLocale: "root",
+      title: '测试开发面试速成站',
+      description: '帮助用户在短时间内补齐测试开发面试知识，并把知识转化成可表达、可练习、可复盘的面试能力',
+
+      // 社交链接
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/MuyuQ/testdev-interview-site' },
+      ],
+
+      // 多语言配置（中文为主）
+      defaultLocale: 'zh',
       locales: {
-        root: {
-          label: "简体中文",
-          lang: "zh-CN",
-        },
+        zh: { label: '简体中文' },
       },
-      head: [
-        // Robots meta tag
-        {
-          tag: "meta",
-          attrs: {
-            name: "robots",
-            content:
-              "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-          },
-        },
-        // Open Graph - Site name
-        {
-          tag: "meta",
-          attrs: {
-            property: "og:site_name",
-            content: "测试开发面试速成站",
-          },
-        },
-        // Open Graph - Locale
-        {
-          tag: "meta",
-          attrs: {
-            property: "og:locale",
-            content: "zh_CN",
-          },
-        },
-        // Open Graph - Type
-        {
-          tag: "meta",
-          attrs: {
-            property: "og:type",
-            content: "website",
-          },
-        },
-        // Open Graph - Image
-        {
-          tag: "meta",
-          attrs: {
-            property: "og:image",
-            content:
-              "https://muyuq.github.io/testdev-interview-site/og-image.png",
-          },
-        },
-        {
-          tag: "meta",
-          attrs: {
-            property: "og:image:width",
-            content: "1200",
-          },
-        },
-        {
-          tag: "meta",
-          attrs: {
-            property: "og:image:height",
-            content: "630",
-          },
-        },
-        // Twitter Card
-        {
-          tag: "meta",
-          attrs: {
-            name: "twitter:card",
-            content: "summary_large_image",
-          },
-        },
-        {
-          tag: "meta",
-          attrs: {
-            name: "twitter:title",
-            content: "测试开发面试速成站",
-          },
-        },
-        {
-          tag: "meta",
-          attrs: {
-            name: "twitter:description",
-            content: "结构化内容帮助你快速补齐测试开发知识框架",
-          },
-        },
-        {
-          tag: "meta",
-          attrs: {
-            name: "twitter:image",
-            content:
-              "https://muyuq.github.io/testdev-interview-site/og-image.png",
-          },
-        },
-        // Google Fonts
-        {
-          tag: "link",
-          attrs: {
-            rel: "preconnect",
-            href: "https://fonts.googleapis.com",
-          },
-        },
-        {
-          tag: "link",
-          attrs: {
-            rel: "preconnect",
-            href: "https://fonts.gstatic.com",
-            crossorigin: "true",
-          },
-        },
-        {
-          tag: "link",
-          attrs: {
-            rel: "stylesheet",
-            href: "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
-          },
-        },
-      ],
-      customCss: [
-        // 全新设计系统（v3.0）- 有机现代主义
-        "./src/styles/design-system-v3.css",
-        "./src/styles/components-v3.css",
-        "./src/styles/layout-v3.css",
-        "./src/styles/home-page-v3.css",
-        "./src/styles/starlight-overrides-v3.css",
-      ],
-      disable404Route: false,
-      components: {
-        Banner: "./src/components/Banner.astro",
-        Pagination: "./src/components/Pagination.astro",
-        Header: "./src/components/Header.astro",
-        ContentPanel: "./src/components/CustomContentPanel.astro",
-        ThemeProvider: "./src/components/ThemeProvider.astro",
-      },
+
+      // 侧边栏配置（按规划文件推荐顺序）
       sidebar: [
+        // 1. 新手教程
         {
-          label: "术语体系",
-          items: [{ autogenerate: { directory: "glossary" } }],
+          label: '新手教程',
+          items: [{ autogenerate: { directory: 'beginner-course' } }],
         },
+        // 2. 学习路线
         {
-          label: "技术专题",
-          items: [{ autogenerate: { directory: "tech" } }],
+          label: '学习路线',
+          items: [{ autogenerate: { directory: 'roadmap' } }],
         },
+        // 3. 术语体系
         {
-          label: "项目类型",
-          items: [{ autogenerate: { directory: "project" } }],
+          label: '术语体系',
+          items: [{ autogenerate: { directory: 'glossary' } }],
         },
+        // 4. 技术专题
         {
-          label: "场景题",
-          items: [{ autogenerate: { directory: "scenario" } }],
+          label: '技术专题',
+          items: [{ autogenerate: { directory: 'tech' } }],
         },
+        // 5. 编码题
         {
-          label: "编码题",
-          items: [{ autogenerate: { directory: "coding" } }],
+          label: '编码题',
+          items: [{ autogenerate: { directory: 'coding' } }],
         },
+        // 6. 项目类型
         {
-          label: "学习路线",
-          items: [{ autogenerate: { directory: "roadmap" } }],
+          label: '项目类型',
+          items: [{ autogenerate: { directory: 'project' } }],
         },
+        // 7. 场景题
         {
-          label: "AI 学习指南",
-          items: [{ autogenerate: { directory: "ai-learning" } }],
+          label: '场景题',
+          items: [{ autogenerate: { directory: 'scenario' } }],
         },
+        // 8. 面试追问链
         {
-          label: "练手模板",
-          items: [{ autogenerate: { directory: "practice-template" } }],
+          label: '面试追问链',
+          items: [{ autogenerate: { directory: 'interview-chains' } }],
         },
+        // 9. 练手模板
         {
-          label: "面试追问链",
-          items: [{ autogenerate: { directory: "interview-chains" } }],
+          label: '练手模板',
+          items: [{ autogenerate: { directory: 'practice-template' } }],
         },
+        // 10. AI 学习指南
         {
-          label: "分类索引",
-          items: [
-            { label: "标签", link: "/tags/" },
-            { label: "难度", link: "/difficulty/" },
-          ],
+          label: 'AI 学习指南',
+          items: [{ autogenerate: { directory: 'ai-learning' } }],
         },
+      ],
+
+      // 自定义 CSS
+      customCss: [
+        '/src/styles/design-system-v3.css',
+        '/src/styles/starlight-overrides-v3.css',
+        '/src/styles/home-page-v3.css',
+        '/src/styles/components-v3.css',
+        '/src/styles/layout-v3.css',
       ],
     }),
   ],
+
+  // 构建输出目录
+  outDir: 'dist',
+
+  // 预渲染所有页面
+  output: 'static',
 });

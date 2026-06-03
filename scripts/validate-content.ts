@@ -23,6 +23,7 @@ export interface DocInfo {
   slug: string;
   fullSlug: string;
   data: Frontmatter;
+  body: string;
   bodyLength: number;
 }
 
@@ -62,6 +63,7 @@ export function loadDocs(root = resolve("src/content/docs")): DocInfo[] {
       slug,
       fullSlug: `${category}/${slug}`,
       data: parsed.data as Frontmatter,
+      body: parsed.content,
       bodyLength: parsed.content.trim().length,
     };
   });
@@ -71,6 +73,8 @@ export function validateDocs(
   docs: DocInfo[],
   options: { checkSiteConfig?: boolean } = {},
 ): ValidationResult {
+  const siteBase = "/testdev-interview-site/";
+  const staticPages = new Set(["tags", "difficulty"]);
   const errors: string[] = [];
   const warnings: string[] = [];
   const bySlug = new Map<string, DocInfo[]>();
@@ -136,6 +140,38 @@ export function validateDocs(
         selfTestIds.set(selfTest.id, doc.rel);
       }
     }
+
+    for (const link of extractMarkdownLinks(doc.body)) {
+      if (link.startsWith("#") || /^[a-z][a-z0-9+.-]*:/i.test(link)) {
+        continue;
+      }
+
+      const pathWithoutHash = link.split("#", 1)[0] ?? "";
+      const pathWithoutQuery = pathWithoutHash.split("?", 1)[0] ?? "";
+
+      if (!pathWithoutQuery.startsWith("/")) {
+        continue;
+      }
+
+      if (!pathWithoutQuery.startsWith(siteBase)) {
+        errors.push(
+          `${doc.rel}: markdown link "${link}" must include "${siteBase}" for GitHub Pages`,
+        );
+        continue;
+      }
+
+      const route = pathWithoutQuery
+        .slice(siteBase.length)
+        .replace(/^\/+|\/+$/g, "");
+
+      if (!route || staticPages.has(route) || byFullSlug.has(route)) {
+        continue;
+      }
+
+      errors.push(
+        `${doc.rel}: markdown link "${link}" does not resolve to a known page`,
+      );
+    }
   }
 
   if (checkSiteConfig) {
@@ -159,6 +195,20 @@ export function validateDocs(
   }
 
   return { errors, warnings };
+}
+
+function extractMarkdownLinks(content: string): string[] {
+  const links: string[] = [];
+  const linkPattern = /(?<!!)\[[^\]]+\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
+
+  for (const match of content.matchAll(linkPattern)) {
+    const target = match[1]?.trim();
+    if (target) {
+      links.push(target);
+    }
+  }
+
+  return links;
 }
 
 function isDirectRun(): boolean {

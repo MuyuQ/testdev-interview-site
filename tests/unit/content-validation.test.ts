@@ -9,6 +9,7 @@ function doc(overrides: Partial<DocInfo>): DocInfo {
     slug: overrides.slug ?? "topic",
     fullSlug: overrides.fullSlug ?? "glossary/topic",
     data: overrides.data ?? { category: "glossary" },
+    body: overrides.body ?? "",
     bodyLength: overrides.bodyLength ?? 2000,
   };
 }
@@ -112,5 +113,75 @@ describe("content validation", () => {
     expect(result.errors).toContain(
       'tech/b.md: selfTests id "duplicate-id" duplicates glossary/a.md',
     );
+  });
+
+  it("reports broken site markdown links", () => {
+    const result = validateDocs([
+      doc({
+        rel: "glossary/a.md",
+        slug: "a",
+        fullSlug: "glossary/a",
+        body: "[Missing](/testdev-interview-site/tech/missing/)",
+      }),
+      doc({
+        rel: "tech/existing.md",
+        category: "tech",
+        slug: "existing",
+        fullSlug: "tech/existing",
+        data: { category: "tech" },
+      }),
+    ]);
+
+    expect(result.errors).toContain(
+      'glossary/a.md: markdown link "/testdev-interview-site/tech/missing/" does not resolve to a known page',
+    );
+  });
+
+  it("reports root-relative markdown links without the GitHub Pages base path", () => {
+    const result = validateDocs([
+      doc({
+        rel: "glossary/a.md",
+        slug: "a",
+        fullSlug: "glossary/a",
+        body: "[Wrong base](/tech/existing/)",
+      }),
+      doc({
+        rel: "tech/existing.md",
+        category: "tech",
+        slug: "existing",
+        fullSlug: "tech/existing",
+        data: { category: "tech" },
+      }),
+    ]);
+
+    expect(result.errors).toContain(
+      'glossary/a.md: markdown link "/tech/existing/" must include "/testdev-interview-site/" for GitHub Pages',
+    );
+  });
+
+  it("accepts valid site markdown links and ignores external links, anchors, and images", () => {
+    const result = validateDocs([
+      doc({
+        rel: "glossary/a.md",
+        slug: "a",
+        fullSlug: "glossary/a",
+        body: [
+          "[Existing](/testdev-interview-site/tech/existing/)",
+          "[Tags](/testdev-interview-site/tags/)",
+          "[Anchor](#section)",
+          "[External](https://example.com)",
+          "![Image](/testdev-interview-site/og-image.png)",
+        ].join("\n"),
+      }),
+      doc({
+        rel: "tech/existing.md",
+        category: "tech",
+        slug: "existing",
+        fullSlug: "tech/existing",
+        data: { category: "tech" },
+      }),
+    ]);
+
+    expect(result.errors).toEqual([]);
   });
 });

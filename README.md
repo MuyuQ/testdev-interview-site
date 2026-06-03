@@ -73,8 +73,10 @@ npm run check
 
 这个命令会依次执行：
 
+- `npm run format`
 - `npm run lint`
 - `npm run typecheck`
+- `npm run validate:content`
 - `npm run test`
 - `npm run build`
 
@@ -92,7 +94,7 @@ npx playwright install
 
 ## 部署
 
-项目当前面向 `GitHub Pages` 部署，站点基地址配置为 `/testdev-interview-site`。CI 会在部署前执行 `lint`、`typecheck`、`test` 和 `build`，避免把明显损坏的版本直接发布出去。
+项目当前面向 `GitHub Pages` 部署，站点基地址配置为 `/testdev-interview-site`。CI 会在部署前执行格式检查、lint、类型检查、内容校验、单元测试、构建和 Chromium 冒烟 E2E，避免把明显损坏的版本直接发布出去。
 
 ## 相关文档
 

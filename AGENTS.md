@@ -15,7 +15,8 @@ npm run preview    # Preview the built site locally
 npm run lint       # Run ESLint
 npm run typecheck  # Run Astro type checking
 npm run test       # Run Vitest suite
-npm run check      # Lint + typecheck + test + build
+npm run test:unit  # Run Vitest unit suite
+npm run check      # Format + lint + typecheck + content validation + test + build
 ```
 
 Use Node.js 22.12.0 or newer. The repository includes `.nvmrc`, `.node-version`, and `package.json` engines metadata to keep local and CI runtimes aligned.

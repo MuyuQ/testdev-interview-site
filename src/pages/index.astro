@@ -1,7 +1,5 @@
 ---
 // 自定义首页 - 学习控制台
-// 使用 Starlight 自定义首页覆盖默认首页
-
 import { categories, layers } from '../lib/site-config';
 
 // 入口链接数据
@@ -28,122 +26,226 @@ const pathLinks = [
 ];
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>测试开发面试速成站</title>
-  <meta name="description" content="帮助用户在短时间内补齐测试开发面试知识" />
-  <link rel="stylesheet" href="/src/styles/design-system-v3.css" />
-  <link rel="stylesheet" href="/src/styles/home-page-v3.css" />
-</head>
-<body>
-  <main class="page-container">
-    <!-- Hero 区域 -->
-    <section class="hero-section">
-      <h1 class="hero-title">测试开发面试速成站</h1>
-      <p class="hero-subtitle">
-        帮助用户在短时间内补齐测试开发面试知识，并把知识转化成可表达、可练习、可复盘的面试能力。
-      </p>
-      <div class="hero-cta">
-        <a href={entryLinks[0].href} class="cta-primary">选择学习路径</a>
-        <a href="#" id="continue-learning" class="cta-secondary">继续上次学习</a>
-      </div>
-    </section>
+<main class="page-container">
+  <!-- Hero 区域 -->
+  <section class="hero-section">
+    <h1 class="hero-title">测试开发面试速成站</h1>
+    <p class="hero-subtitle">
+      帮助用户在短时间内补齐测试开发面试知识，并把知识转化成可表达、可练习、可复盘的面试能力。
+    </p>
+    <div class="hero-cta">
+      <a href={entryLinks[0].href} class="cta-primary">选择学习路径</a>
+      <a href="#" id="continue-learning" class="cta-secondary">继续上次学习</a>
+    </div>
+  </section>
 
-    <!-- 双入口选择区 -->
-    <section class="entry-section">
-      <h2 class="entry-header">选择你的学习方式</h2>
-      <div class="entry-grid">
-        {entryLinks.map((entry) => (
-          <a href={entry.href} class={`entry-card entry-card-${entry.id}`}>
-            <h3>{entry.title}</h3>
-            <p>{entry.description}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- 学习路径区 -->
-    <section class="paths-section">
-      <h2 class="paths-header">学习路径</h2>
-      <div class="paths-grid">
-        {pathLinks.map((path) => (
-          <a href={path.href} class="path-card">
-            <h4>{path.title}</h4>
-            <span class="path-days">{path.days} 天路线</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- 模块地图区（按四层结构分组） -->
-    <section class="modules-section">
-      <h2 class="modules-header">模块地图</h2>
-      {layers.map((layer) => (
-        <div class="layer-group">
-          <h3 class="layer-title">{layer.name}</h3>
-          <div class="modules-grid">
-            {layer.categories.map((catId) => {
-              const cat = categories.find((c) => c.id === catId);
-              return cat ? (
-                <a href={`/${cat.id}/`} class="module-card">
-                  <span class="module-card-title">{cat.navLabel}</span>
-                  <span class="module-card-desc">{cat.description}</span>
-                </a>
-              ) : null;
-            })}
-          </div>
-        </div>
+  <!-- 双入口选择区 -->
+  <section class="entry-section">
+    <h2 class="entry-header">选择你的学习方式</h2>
+    <div class="entry-grid">
+      {entryLinks.map((entry) => (
+        <a href={entry.href} class={`entry-card entry-card-${entry.id}`}>
+          <h3>{entry.title}</h3>
+          <p>{entry.description}</p>
+        </a>
       ))}
-    </section>
+    </div>
+  </section>
 
-    <!-- 进度概览区 -->
-    <section class="progress-section" id="progress-section">
-      <h2 class="progress-header">学习进度</h2>
-      <div class="progress-overview">
-        <div class="progress-stat">
-          <span class="progress-stat-label">全站进度</span>
-          <span class="progress-stat-value" id="total-progress">0%</span>
-          <div class="progress-bar">
-            <div class="progress-bar-fill" id="total-progress-bar" style="width: 0%"></div>
-          </div>
-        </div>
-        <div class="progress-stat">
-          <span class="progress-stat-label">已完成</span>
-          <span class="progress-stat-value" id="completed-count">0 篇</span>
-        </div>
-        <div class="progress-stat">
-          <span class="progress-stat-label">自测题完成</span>
-          <span class="progress-stat-value" id="quiz-count">0 题</span>
+  <!-- 学习路径区 -->
+  <section class="paths-section">
+    <h2 class="paths-header">学习路径</h2>
+    <div class="paths-grid">
+      {pathLinks.map((path) => (
+        <a href={path.href} class="path-card">
+          <h4>{path.title}</h4>
+          <span class="path-days">{path.days} 天路线</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 模块地图区（按四层结构分组） -->
+  <section class="modules-section">
+    <h2 class="modules-header">模块地图</h2>
+    {layers.map((layer) => (
+      <div class="layer-group">
+        <h3 class="layer-title">{layer.name}</h3>
+        <div class="modules-grid">
+          {layer.categories.map((catId) => {
+            const cat = categories.find((c) => c.id === catId);
+            return cat ? (
+              <a href={`/${cat.id}/`} class="module-card">
+                <span class="module-card-title">{cat.navLabel}</span>
+                <span class="module-card-desc">{cat.description}</span>
+              </a>
+            ) : null;
+          })}
         </div>
       </div>
-    </section>
-  </main>
+    ))}
+  </section>
 
-  <script>
-    // 客户端脚本：初始化进度显示
-    function initProgress() {
-      try {
-        const progress = localStorage.getItem('testdev:progress');
-        if (progress) {
-          const data = JSON.parse(progress);
-          const total = data.total || 0;
-          const completed = data.completed || 0;
-          const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+  <!-- 进度概览区 -->
+  <section class="progress-section" id="progress-section">
+    <h2 class="progress-header">学习进度</h2>
+    <div class="progress-overview">
+      <div class="progress-stat">
+        <span class="progress-stat-label">全站进度</span>
+        <span class="progress-stat-value" id="total-progress">0%</span>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" id="total-progress-bar" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="progress-stat">
+        <span class="progress-stat-label">已完成</span>
+        <span class="progress-stat-value" id="completed-count">0 篇</span>
+      </div>
+      <div class="progress-stat">
+        <span class="progress-stat-label">自测题完成</span>
+        <span class="progress-stat-value" id="quiz-count">0 题</span>
+      </div>
+    </div>
+  </section>
+</main>
 
-          document.getElementById('total-progress').textContent = percentage + '%';
-          document.getElementById('total-progress-bar').style.width = percentage + '%';
-          document.getElementById('completed-count').textContent = completed + ' 篇';
-        }
-      } catch (e) {
-        console.error('Error loading progress:', e);
+<script>
+  // 客户端脚本：初始化进度显示
+  function initProgress() {
+    try {
+      const progress = localStorage.getItem('testdev:progress');
+      if (progress) {
+        const data = JSON.parse(progress);
+        const total = data.total || 0;
+        const completed = data.completed || 0;
+        const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+        const el = document.getElementById('total-progress');
+        const bar = document.getElementById('total-progress-bar');
+        const count = document.getElementById('completed-count');
+        if (el) el.textContent = percentage + '%';
+        if (bar) bar.style.width = percentage + '%';
+        if (count) count.textContent = completed + ' 篇';
       }
+    } catch (e) {
+      console.error('Error loading progress:', e);
     }
+  }
+  document.addEventListener('DOMContentLoaded', initProgress);
+</script>
 
-    // 页面加载后初始化
-    document.addEventListener('DOMContentLoaded', initProgress);
-  </script>
-</body>
-</html>
+<style is:global>
+  :root {
+    --color-primary: #3b82f6;
+    --color-primary-50: #eff6ff;
+    --color-primary-100: #dbeafe;
+    --color-primary-200: #bfdbfe;
+    --color-primary-600: #2563eb;
+    --color-primary-700: #1d4ed8;
+    --color-accent: #f59e0b;
+    --color-accent-100: #fef3c7;
+    --color-accent-200: #fde68a;
+    --color-accent-700: #b45309;
+    --color-success: #10b981;
+    --color-success-dark: #059669;
+    --color-success-light: #d1fae5;
+    --color-gray-0: #ffffff;
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+    --color-bg: var(--color-gray-0);
+    --color-bg-subtle: var(--color-gray-50);
+    --color-bg-muted: var(--color-gray-100);
+    --color-text: var(--color-gray-900);
+    --color-text-muted: var(--color-gray-500);
+    --color-text-subtle: var(--color-gray-400);
+    --color-border: var(--color-gray-200);
+    --color-border-muted: var(--color-gray-300);
+    --color-primary-subtle: rgba(59, 130, 246, 0.05);
+    --color-accent-subtle: rgba(245, 158, 11, 0.05);
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-sm: var(--space-2);
+    --space-md: var(--space-4);
+    --space-lg: var(--space-6);
+    --space-xl: var(--space-8);
+    --space-2xl: var(--space-12);
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-4xl: 2.25rem;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --leading-tight: 1.25;
+    --leading-relaxed: 1.625;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --duration-normal: 300ms;
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  }
+  .page-container { max-width: 1200px; margin: 0 auto; padding: var(--space-md); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--color-text); }
+  .hero-section { padding: var(--space-12) var(--space-6); text-align: center; background: linear-gradient(135deg, var(--color-primary-subtle) 0%, var(--color-bg) 50%); border-radius: var(--radius-xl); margin-bottom: var(--space-8); }
+  .hero-title { font-size: var(--text-4xl); font-weight: var(--font-bold); color: var(--color-text); margin-bottom: var(--space-4); line-height: var(--leading-tight); }
+  .hero-subtitle { font-size: var(--text-lg); color: var(--color-text-muted); margin-bottom: var(--space-6); max-width: 600px; line-height: var(--leading-relaxed); margin-left: auto; margin-right: auto; }
+  .hero-cta { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
+  .cta-primary { display: inline-flex; align-items: center; padding: var(--space-3) var(--space-6); background-color: var(--color-primary); color: white; font-weight: var(--font-semibold); border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out); }
+  .cta-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .cta-secondary { display: inline-flex; align-items: center; padding: var(--space-3) var(--space-6); background-color: var(--color-bg-muted); color: var(--color-text); font-weight: var(--font-medium); border-radius: var(--radius-lg); text-decoration: none; }
+  .entry-section { margin: var(--space-8) 0; }
+  .entry-header { font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); text-align: center; }
+  .entry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+  .entry-card { display: block; padding: var(--space-lg); border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text); text-decoration: none; border-radius: var(--radius-lg); transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out); }
+  .entry-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .entry-card-beginner { border-color: var(--color-primary-200); background: linear-gradient(135deg, var(--color-primary-subtle) 0%, var(--color-bg) 100%); }
+  .entry-card-interview { border-color: var(--color-accent-200); background: linear-gradient(135deg, var(--color-accent-subtle) 0%, var(--color-bg) 100%); }
+  .entry-card h3 { margin: 0 0 var(--space-sm); font-size: var(--text-lg); font-weight: var(--font-semibold); }
+  .entry-card p { margin: 0; color: var(--color-text-muted); font-size: var(--text-sm); }
+  .paths-section { margin: var(--space-8) 0; }
+  .paths-header { font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); }
+  .paths-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
+  .path-card { display: block; padding: var(--space-md); background: var(--color-bg-subtle); border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--duration-normal) var(--ease-out); }
+  .path-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .path-card h4 { margin: 0 0 var(--space-sm); font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text); }
+  .path-days { display: inline-block; padding: var(--space-1) var(--space-2); background: var(--color-primary-100); color: var(--color-primary-700); font-size: var(--text-xs); border-radius: var(--radius-sm); margin-top: var(--space-2); }
+  .modules-section { margin: var(--space-8) 0; }
+  .modules-header { font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); }
+  .layer-group { margin-bottom: var(--space-6); }
+  .layer-title { font-size: var(--text-base); font-weight: var(--font-medium); color: var(--color-text-muted); margin-bottom: var(--space-3); padding-bottom: var(--space-1); border-bottom: 1px solid var(--color-border); }
+  .modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-md); }
+  .module-card { display: block; padding: var(--space-md); background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); text-decoration: none; transition: background-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out); }
+  .module-card:hover { background: var(--color-bg-muted); box-shadow: var(--shadow-sm); }
+  .module-card-title { display: block; font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text); margin-bottom: var(--space-1); }
+  .module-card-desc { display: block; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .progress-section { margin: var(--space-8) 0; padding: var(--space-6); background: var(--color-bg-subtle); border-radius: var(--radius-lg); }
+  .progress-header { font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); }
+  .progress-overview { display: flex; gap: var(--space-8); flex-wrap: wrap; }
+  .progress-stat { flex: 1; min-width: 150px; }
+  .progress-stat-label { font-size: var(--text-sm); color: var(--color-text-muted); display: block; margin-bottom: var(--space-1); }
+  .progress-stat-value { font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-text); }
+  .progress-bar { width: 100%; height: 8px; background: var(--color-bg-muted); border-radius: var(--radius-full); overflow: hidden; margin-top: var(--space-2); }
+  .progress-bar-fill { height: 100%; background: var(--color-primary); border-radius: var(--radius-full); transition: width var(--duration-normal) var(--ease-out); }
+  @media (max-width: 720px) { .entry-grid { grid-template-columns: 1fr; } .paths-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .paths-grid { grid-template-columns: 1fr; } .progress-overview { flex-direction: column; gap: var(--space-4); } }
+</style>

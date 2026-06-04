@@ -41,6 +41,7 @@ coverage/
 # Claude Code
 .claude/
 .plans/
+.superpowers/
 
 # Playwright CLI
 .playwright-cli/

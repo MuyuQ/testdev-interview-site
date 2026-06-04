@@ -219,7 +219,7 @@ assert is_positive(0) == False
 
 ## 下一步
 
-下一节：[Pytest 第一个测试用例](../pytest-first-test/)
+下一节：[Pytest 第一个测试用例](../4-pytest-first-test/)
 
 延伸阅读：
 - [技术专题：Python](../../tech/python/)

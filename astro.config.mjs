@@ -26,10 +26,19 @@ export default defineConfig({
 
       // 侧边栏配置（按规划文件推荐顺序）
       sidebar: [
-        // 1. 新手教程
+        // 1. 新手教程（按学习顺序手动排列）
         {
           label: '新手教程',
-          items: [{ autogenerate: { directory: 'beginner-course' } }],
+          items: [
+            { label: '从零开始：学习路线', link: '/beginner-course/start-here' },
+            { label: '测试开发岗位认知', link: '/beginner-course/testdev-role-map' },
+            { label: 'Python 最小基础', link: '/beginner-course/python-testing-minimum' },
+            { label: 'Pytest 第一个测试', link: '/beginner-course/pytest-first-test' },
+            { label: 'HTTP 接口基础', link: '/beginner-course/http-api-basics' },
+            { label: '第一个接口测试', link: '/beginner-course/pytest-api-first-case' },
+            { label: '登录小项目', link: '/beginner-course/mock-login-mini-project' },
+            { label: '面试表达：讲项目', link: '/beginner-course/interview-expression-for-first-project' },
+          ],
         },
         // 2. 学习路线
         {

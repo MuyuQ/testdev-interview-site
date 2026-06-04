@@ -88,6 +88,7 @@ export default defineConfig({
         '/src/styles/home-page-v3.css',
         '/src/styles/components-v3.css',
         '/src/styles/layout-v3.css',
+        '/src/styles/learning-workbench-content.css',
       ],
     }),
   ],

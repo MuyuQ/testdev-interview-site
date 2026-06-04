@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-04T00:00:00+08:00",
+  "title": "Design System: 测试开发面试速成站",
+  "extensions": {
+    "colorMeta": {
+      "action-blue": {
+        "role": "primary",
+        "displayName": "行动蓝",
+        "canonical": "#3b82f6",
+        "tonalRamp": ["#172554", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#93c5fd", "#dbeafe", "#eff6ff"]
+      },
+      "prompt-amber": {
+        "role": "secondary",
+        "displayName": "提示琥珀",
+        "canonical": "#f59e0b",
+        "tonalRamp": ["#451a03", "#78350f", "#b45309", "#d97706", "#f59e0b", "#fcd34d", "#fef3c7", "#fffbeb"]
+      },
+      "progress-green": {
+        "role": "tertiary",
+        "displayName": "进度绿",
+        "canonical": "#10b981",
+        "tonalRamp": ["#022c22", "#064e3b", "#047857", "#059669", "#10b981", "#6ee7b7", "#d1fae5", "#ecfdf5"]
+      },
+      "body-ink": {
+        "role": "neutral",
+        "displayName": "正文墨色",
+        "canonical": "#111827",
+        "tonalRamp": ["#030712", "#111827", "#1f2937", "#374151", "#6b7280", "#d1d5db", "#f3f4f6", "#f9fafb"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "品牌标题",
+        "purpose": "首页首屏等少量品牌级标题。"
+      },
+      "body": {
+        "displayName": "教学正文",
+        "purpose": "长内容与学习说明，保持稳定阅读节奏。"
+      },
+      "label": {
+        "displayName": "行动标签",
+        "purpose": "按钮、导航与元信息。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "light-feedback",
+        "value": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
+        "purpose": "可点击卡片的悬停反馈。"
+      },
+      {
+        "name": "strong-feedback",
+        "value": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
+        "purpose": "少量强交互区域的提升反馈。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "fast",
+        "value": "150ms",
+        "purpose": "简单颜色与焦点反馈。"
+      },
+      {
+        "name": "normal",
+        "value": "300ms",
+        "purpose": "常规悬停与状态转换。"
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "默认进入与反馈缓动。"
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "600px" },
+      { "name": "tablet", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "每个区域唯一的主要行动。",
+      "html": "<button class=\"ds-btn-primary\">开始学习</button>",
+      "css": ".ds-btn-primary { background: var(--color-primary); color: #fff; padding: 12px 24px; border: 0; border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: var(--font-semibold); cursor: pointer; transition: background-color var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out); } .ds-btn-primary:hover { background: var(--color-primary-600); transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 3px solid var(--color-primary-200); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "不与主要行动竞争的次级操作。",
+      "html": "<button class=\"ds-btn-secondary\">查看模块地图</button>",
+      "css": ".ds-btn-secondary { background: var(--color-bg-muted); color: var(--color-text); padding: 12px 24px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: var(--font-medium); cursor: pointer; transition: background-color var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out); } .ds-btn-secondary:hover { background: var(--color-bg-subtle); border-color: var(--color-border-muted); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--color-primary-200); outline-offset: 2px; }"
+    },
+    {
+      "name": "Learning Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "用于独立学习入口，不作为默认页面骨架。",
+      "html": "<a class=\"ds-learning-card\" href=\"#\"><strong>新手教程</strong><span>从零开始建立测试开发基础能力。</span></a>",
+      "css": ".ds-learning-card { display: grid; gap: 8px; background: var(--color-bg); color: var(--color-text); padding: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-lg); text-decoration: none; transition: box-shadow var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out); } .ds-learning-card span { color: var(--color-text-muted); font-size: var(--text-sm); } .ds-learning-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); } .ds-learning-card:focus-visible { outline: 3px solid var(--color-primary-200); outline-offset: 2px; }"
+    },
+    {
+      "name": "Primary Tag",
+      "kind": "chip",
+      "refersTo": "tag-primary",
+      "description": "表示当前项或中级状态的轻量标签。",
+      "html": "<span class=\"ds-tag-primary\">当前建议学习</span>",
+      "css": ".ds-tag-primary { display: inline-flex; align-items: center; background: var(--color-primary-100); color: var(--color-primary-700); padding: 4px 8px; border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: var(--font-medium); }"
+    },
+    {
+      "name": "Learning Path",
+      "kind": "custom",
+      "description": "显示当前位置、下一步和完成结果的签名组件。",
+      "html": "<div class=\"ds-path\"><span class=\"ds-path-dot\"></span><div><strong>Pytest 第一个测试用例</strong><small>当前建议学习 · 50 分钟</small></div></div>",
+      "css": ".ds-path { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: center; color: var(--color-text); } .ds-path-dot { width: 20px; height: 20px; background: var(--color-primary); border: 2px solid var(--color-primary); border-radius: var(--radius-full); box-shadow: 0 0 0 4px var(--color-primary-100); } .ds-path strong, .ds-path small { display: block; } .ds-path strong { font-size: var(--text-sm); } .ds-path small { margin-top: 3px; color: var(--color-text-muted); font-size: var(--text-xs); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "工程师的学习工作台",
+    "overview": "这个系统把学习站设计成一张清楚、可靠、可执行的工作台。用户进入页面后，首先看到的是适合自己的下一步，而不是十个并列分类。视觉层级服务于学习决策，内容结构服务于能力成长。",
+    "keyCharacteristics": [
+      "学习路径和当前建议行动优先于完整内容目录。",
+      "大面积阅读白与结构灰保证长内容可读性。",
+      "行动蓝只承担主要操作、链接和当前状态。",
+      "提示琥珀用于面试冲刺等少量次级强调。",
+      "卡片仅用于需要独立点击或对比的内容，不能成为默认布局。"
+    ],
+    "rules": [
+      { "name": "The One Action Rule", "body": "每个视觉区域只能有一个最强的行动蓝目标。", "section": "colors" },
+      { "name": "The Meaningful Color Rule", "body": "颜色必须表达行动、提示、进度或错误，禁止把色彩当作无意义装饰。", "section": "colors" },
+      { "name": "The Teaching First Rule", "body": "新手教程的标题必须帮助用户理解学习顺序和产出，不能只复述技术名词。", "section": "typography" },
+      { "name": "The Flat By Default Rule", "body": "静态内容默认无阴影，深度必须来自真实交互或结构层级。", "section": "elevation" }
+    ],
+    "dos": [
+      "Do 先帮助用户判断下一步，再展示完整模块范围。",
+      "Do 保持行动蓝稀缺，让主要操作具有明确优先级。",
+      "Do 为新手教程保留教学顺序、练习产出和进入后续内容的连接。",
+      "Do 使用背景层级、分隔线和间距组织复杂内容。",
+      "Do 为键盘焦点、移动端触控和减少动态偏好提供完整支持。"
+    ],
+    "donts": [
+      "Don't 把页面做成培训机构招生页，不使用焦虑营销、夸张承诺或强推销式表达。",
+      "Don't 把页面做成默认文档模板，不满足于可靠但平淡的分类目录。",
+      "Don't 把页面做成游戏化打卡应用，不依赖鲜艳奖励、积分或过度娱乐化推动学习。",
+      "Don't 把页面做成企业后台系统，不以密集数据和控制面板取代内容温度与教学节奏。",
+      "Don't 使用重复的相同卡片网格、装饰性渐变文字、玻璃拟态或超大圆角。",
+      "Don't 让重要状态只依赖颜色表达。"
+    ]
+  }
+}

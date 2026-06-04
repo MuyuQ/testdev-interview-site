@@ -2,17 +2,21 @@
 // 自定义首页 - 学习控制台
 import { categories, layers } from '../lib/site-config';
 
+// 获取 base path（开发时为空，构建时为 /testdev-interview-site/）
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : rawBase + "/";
+
 // 入口链接数据
 const entryLinks = [
   {
     id: 'beginner',
-    href: '/beginner-course/',
+    href: base + 'beginner-course/',
     title: '我是初学者：从零开始',
     description: '按 7 天路线建立测试开发基础，并完成第一个接口自动化小项目。',
   },
   {
     id: 'interview',
-    href: '/roadmap/',
+    href: base + 'roadmap/',
     title: '我有基础：冲刺面试',
     description: '直接进入术语速记、项目表达、场景题和追问链。',
   },
@@ -20,9 +24,9 @@ const entryLinks = [
 
 // 学习路径数据
 const pathLinks = [
-  { id: 'beginner', href: '/beginner-course/', title: '新手基础路径', days: 7 },
-  { id: '3day', href: '/roadmap/3-day-interview-map/', title: '3天速记版', days: 3 },
-  { id: '7day', href: '/roadmap/7-day-interview-plan/', title: '7天面试版', days: 7 },
+  { id: 'beginner', href: base + 'beginner-course/', title: '新手基础路径', days: 7 },
+  { id: '3day', href: base + 'roadmap/3-day-interview-map/', title: '3天速记版', days: 3 },
+  { id: '7day', href: base + 'roadmap/7-day-interview-plan/', title: '7天面试版', days: 7 },
 ];
 ---
 
@@ -75,7 +79,7 @@ const pathLinks = [
           {layer.categories.map((catId) => {
             const cat = categories.find((c) => c.id === catId);
             return cat ? (
-              <a href={`/${cat.id}/`} class="module-card">
+              <a href={base + cat.id + "/"} class="module-card">
                 <span class="module-card-title">{cat.navLabel}</span>
                 <span class="module-card-desc">{cat.description}</span>
               </a>

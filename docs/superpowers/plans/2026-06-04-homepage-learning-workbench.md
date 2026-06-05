@@ -24,8 +24,8 @@ Add tests that assert:
 it('should expose the beginner learning path in teaching order', () => {
   const { beginnerPath } = getHomePageData('/testdev-interview-site/')
   expect(beginnerPath).toHaveLength(8)
-  expect(beginnerPath[0].slug).toBe('testdev-role-map')
-  expect(beginnerPath[2].slug).toBe('pytest-first-test')
+  expect(beginnerPath[0].slug).toBe('start-here')
+  expect(beginnerPath[3].slug).toBe('pytest-first-test')
   expect(beginnerPath[7].slug).toBe('interview-expression-for-first-project')
 })
 

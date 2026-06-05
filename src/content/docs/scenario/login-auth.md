@@ -3,7 +3,7 @@ title: "登录鉴权"
 description: "掌握登录鉴权的风险点识别、测试策略设计、Session/Token 验证机制以及多端登录场景的完整测试方案。"
 category: "scenario"
 difficulty: "interview"
-interviewWeight: 5
+interviewWeight: 3
 tags: ["鉴权测试", "Session管理", "Token验证", "多端登录", "面试场景题", "风险分析"]
 relatedSlugs: [
   "project/user-system-test",

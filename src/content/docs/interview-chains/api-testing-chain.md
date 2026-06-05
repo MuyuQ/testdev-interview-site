@@ -3,7 +3,7 @@ title: "接口测试追问链"
 description: "掌握接口测试全流程的面试追问技巧，从流程概述深入到具体实现细节，应对层层递进的面试考察。"
 category: "interview-chains"
 difficulty: "interview"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["接口测试", "面试追问", "测试流程", "实战经验", "技术深度"]
 relatedSlugs: ["tech/api-testing", "tech/pytest", "tech/postman"]
 selfTests:

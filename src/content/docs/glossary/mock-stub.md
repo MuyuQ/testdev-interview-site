@@ -3,7 +3,7 @@ title: "Mock 和 Stub"
 description: "两种隔离外部依赖的测试替身技术，Mock验证行为交互，Stub提供预设响应，是单元测试与集成测试分离的核心手段。"
 category: "glossary"
 difficulty: "beginner"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["自动化模式", "单元测试", "测试替身", "依赖隔离", "面试高频"]
 relatedSlugs: ["glossary/unit-testing", "glossary/integration-testing", "tech/api-testing"]
 selfTests:

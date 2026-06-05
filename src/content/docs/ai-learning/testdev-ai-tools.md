@@ -3,7 +3,7 @@ title: "测试开发AI工具实战"
 description: "掌握AI工具在测试开发中的四大核心场景：用例生成、代码审查、数据构造、文档生成"
 category: "ai-learning"
 difficulty: "interview"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["AI工具", "用例生成", "代码审查", "数据构造", "文档生成", "效率提升"]
 relatedSlugs: ["tech/api-testing", "tech/unit-testing", "glossary/test-case"]
 selfTests:

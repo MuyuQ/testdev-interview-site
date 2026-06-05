@@ -3,7 +3,7 @@ title: "夹具"
 description: "掌握 Pytest fixture 的三种作用域、setup/teardown 机制与依赖注入模式，解决测试数据准备与环境清理的重复代码问题。"
 category: "glossary"
 difficulty: "beginner"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["自动化模式", "Pytest", "测试隔离", "依赖注入", "面试高频"]
 relatedSlugs: ["tech/pytest", "glossary/test-isolation", "scenario/web-ui-testing"]
 selfTests:

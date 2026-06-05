@@ -3,7 +3,7 @@ title: "API 自动化模板"
 description: "一套可直接复用的接口自动化项目模板，包含目录结构、配置管理、测试用例编写规范和报告生成，帮助你快速搭建企业级 API 测试框架。"
 category: "practice-template"
 difficulty: "interview"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["接口自动化", "Pytest", "项目架构", "配置管理", "Allure报告", "面试实战"]
 relatedSlugs: ["tech/api-testing", "tech/pytest", "beginner-course/http-api-basics"]
 selfTests:

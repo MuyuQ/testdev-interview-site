@@ -3,7 +3,7 @@ title: "断言封装"
 description: "设计通用的断言封装层，统一处理状态码、响应体、业务字段和错误信息的验证逻辑，提升测试代码可维护性。"
 category: "coding"
 difficulty: "interview"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["断言设计", "代码封装", "API测试", "可维护性", "面试高频"]
 relatedSlugs: ["tech/api-testing", "practice-template/api-test-template", "interview-chains/assertion-deep-dive"]
 selfTests:

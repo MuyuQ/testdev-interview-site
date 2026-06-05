@@ -3,7 +3,7 @@ title: "项目故事模板"
 description: "一套可复用的项目经验表达模板，帮助你把测试工作包装成有深度的项目故事，避免流水账式的回答，在面试中脱颖而出。"
 category: "practice-template"
 difficulty: "interview"
-interviewWeight: 4
+interviewWeight: 3
 tags: ["项目表达", "面试模板", "经验包装", "故事结构", "追问应对", "简历素材"]
 relatedSlugs: ["roadmap/self-introduction-template", "project/payment-project", "project/ecommerce-project", "interview-chains/payment-scenario"]
 selfTests:

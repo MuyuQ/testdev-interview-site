@@ -2,7 +2,7 @@
 title: "页面对象模式"
 description: "将页面元素定位与操作逻辑封装成独立对象的UI自动化设计模式，实现测试代码与页面结构的解耦"
 category: "glossary"
-difficulty: "intermediate"
+difficulty: "interview"
 interviewWeight: 3
 tags: ["自动化模式", "UI测试", "设计模式", "Selenium", "Playwright", "Cypress"]
 relatedSlugs: ["tech/api-testing", "glossary/test-automation", "glossary/e2e-testing"]

@@ -2,7 +2,7 @@
 title: "Mock 服务模板"
 description: "快速搭建Mock服务的标准化模板，涵盖responses配置、路由设计和数据返回规范"
 category: "practice-template"
-difficulty: "intermediate"
+difficulty: "interview"
 interviewWeight: 3
 tags: ["mock", "api-testing", "responses", "node.js", "测试开发"]
 relatedSlugs: ["tech/api-testing", "practice-template/api-test-template", "glossary/api-assertion"]

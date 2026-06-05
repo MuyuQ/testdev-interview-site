@@ -6,7 +6,6 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["mock", "api-testing", "responses", "node.js", "测试开发"]
 relatedSlugs: ["tech/api-testing", "practice-template/api-test-template", "glossary/api-assertion"]
-estimatedTime: "2-3小时"
 selfTests:
   - id: "mock-service-template-q1"
     question: "Mock服务的核心价值是什么？"

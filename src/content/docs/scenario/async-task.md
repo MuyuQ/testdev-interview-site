@@ -6,8 +6,6 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["消息队列", "状态机", "分布式系统", "可靠性测试"]
 relatedSlugs: ["tech/api-testing", "scenario/distributed-system", "glossary/api-assertion"]
-estimatedTime: "45min"
-lastUpdated: "2026-06-05"
 selfTests:
   - id: "async-task-q1"
     question: "异步任务测试中最核心的关注点是什么？"

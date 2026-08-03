@@ -1,0 +1,11 @@
+{
+  "/(docs)/[category]/[slug]/page": "/[category]/[slug]",
+  "/(docs)/[category]/page": "/[category]",
+  "/(docs)/interview-simulator/page": "/interview-simulator",
+  "/(docs)/knowledge-map/page": "/knowledge-map",
+  "/(docs)/quiz/page": "/quiz",
+  "/(home)/page": "/",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico"
+}

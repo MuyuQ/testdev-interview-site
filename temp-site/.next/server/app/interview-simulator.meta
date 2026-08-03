@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(docs)/layout,_N_T_/(docs)/interview-simulator/layout,_N_T_/(docs)/interview-simulator/page,_N_T_/interview-simulator"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGRvY3Mp/interview-simulator/__PAGE__",
+    "/!KGRvY3Mp/interview-simulator",
+    "/!KGRvY3Mp",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(docs)/layout,_N_T_/(docs)/knowledge-map/layout,_N_T_/(docs)/knowledge-map/page,_N_T_/knowledge-map"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KGRvY3Mp/knowledge-map/__PAGE__",
+    "/!KGRvY3Mp/knowledge-map",
+    "/!KGRvY3Mp",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "/(docs)/[category]/[slug]/page": "app/(docs)/[category]/[slug]/page.js",
+  "/(docs)/[category]/page": "app/(docs)/[category]/page.js",
+  "/(docs)/interview-simulator/page": "app/(docs)/interview-simulator/page.js",
+  "/(docs)/knowledge-map/page": "app/(docs)/knowledge-map/page.js",
+  "/(docs)/quiz/page": "app/(docs)/quiz/page.js",
+  "/(home)/page": "app/(home)/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
+}

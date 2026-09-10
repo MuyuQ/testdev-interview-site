@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试设计", "等价类划分", "边界值分析", "场景法", "测试用例设计", "黑盒测试"]
-relatedSlugs: ["tech/api-testing", "glossary/test-case"]
+relatedSlugs: ["tech/api-testing"]
 selfTests:
   - id: "test-design-q1"
     question: "使用等价类划分法设计测试用例时，对于输入范围 1-100 的整数，最少需要几个测试用例？"
@@ -168,6 +168,5 @@ const scenarioTests = [
 
 ## 关联内容
 
-- [测试用例编写](/glossary/test-case) - 测试设计的产出物
 - [API 测试技术](/tech/api-testing) - 测试设计方法在接口测试中的应用
-- [边界值测试深入](/glossary/boundary-testing) - 边界值分析的进阶技巧
+- [测试金字塔](/glossary/test-pyramid) - 测试设计如何支撑分层测试策略

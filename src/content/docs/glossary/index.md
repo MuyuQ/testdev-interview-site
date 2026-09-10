@@ -183,20 +183,20 @@ CI/CD 和质量保障术语：
 
 - [API 测试技术](/tech/api-testing) - 接口测试的具体实现方法
 - [Pytest 框架](/tech/pytest) - Fixture 和断言的实战应用
-- [Web UI 测试](/scenario/web-ui-testing) - 页面对象模式的实际落地
+- [Web UI 测试](/tech/playwright) - 页面对象模式的实际落地
 
 ### 项目场景方向
 
 将术语应用到真实项目场景：
 
 - [自动化测试场景](/scenario/) - 各类测试场景的综合应用
-- [CI/CD 流水线](/tech/cicd-pipeline) - 质量门禁和分层测试的实际落地
+- [CI/CD 流水线](/tech/ci-cd) - 质量门禁和分层测试的实际落地
 
 ### 面试准备方向
 
 用术语模块支撑面试回答：
 
-- 参考 [面试指南](/career/interview-guide) 中的技术问题清单
+- 参考 [面试准备路线](/roadmap/) 中的技术问题清单
 - 对每个问题，用术语模块的标准定义构建回答框架
 
 ---

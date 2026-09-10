@@ -5,7 +5,7 @@ category: "project"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["CRUD", "权限体系", "配置管理", "批量操作", "接口测试", "自动化测试"]
-relatedSlugs: ["tech/api-testing", "tech/automation-framework", "glossary/api-assertion"]
+relatedSlugs: ["tech/api-testing", "interview-chains/test-framework", "glossary/api-assertion"]
 selfTests:
   - id: "admin-platform-q1"
     question: "管理后台测试中，权限体系验证的核心关注点是什么？"

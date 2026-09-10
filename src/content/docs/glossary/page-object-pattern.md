@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["自动化模式", "UI测试", "设计模式", "Selenium", "Playwright", "Cypress"]
-relatedSlugs: ["tech/api-testing", "glossary/test-automation", "glossary/e2e-testing"]
+relatedSlugs: ["tech/api-testing", "tech/playwright"]
 selfTests:
   - id: "page-object-pattern-q1"
     question: "页面对象模式的核心目的是什么？"

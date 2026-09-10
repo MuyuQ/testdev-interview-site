@@ -186,9 +186,9 @@ category: "project"
 
 | 项目类型 | 关联场景 | 关联追问链 |
 |---------|---------|-----------|
-| 支付项目 | [支付回调场景](/testdev-interview-site/scenario/payment-callback/) | [支付场景追问链](/testdev-interview-site/interview-chains/payment-scenario/) |
-| 电商项目 | [秒杀场景](/testdev-interview-site/scenario/flash-sale/) | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) |
-| 后台项目 | [权限变更场景](/testdev-interview-site/scenario/permission-change/) | [测试框架追问链](/testdev-interview-site/interview-chains/test-framework/) |
+| 支付项目 | [支付回调场景](/testdev-interview-site/scenario/payment-callback/) | 支付场景追问链 |
+| 电商项目 | 秒杀场景 | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) |
+| 后台项目 | 权限变更场景 | [测试框架追问链](/testdev-interview-site/interview-chains/test-framework/) |
 
 建议的学习路径：
 

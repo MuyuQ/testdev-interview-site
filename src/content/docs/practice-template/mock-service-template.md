@@ -5,7 +5,7 @@ category: "practice-template"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["mock", "api-testing", "responses", "node.js", "测试开发"]
-relatedSlugs: ["tech/api-testing", "practice-template/api-test-template", "glossary/api-assertion"]
+relatedSlugs: ["tech/api-testing", "practice-template/api-automation-template", "glossary/api-assertion"]
 selfTests:
   - id: "mock-service-template-q1"
     question: "Mock服务的核心价值是什么？"
@@ -409,7 +409,7 @@ pytest mock_service/tests/ -v
 
 ### 相关技术文档
 - [API测试技术](/docs/tech/api-testing) - 深入理解API测试方法论
-- [接口测试模板](/docs/practice-template/api-test-template) - 接口测试实践模板
+- [API 自动化模板](/docs/practice-template/api-automation-template) - 接口自动化项目骨架模板
 - [API断言术语](/docs/glossary/api-assertion) - 断言最佳实践
 
 ### 进阶学习路径

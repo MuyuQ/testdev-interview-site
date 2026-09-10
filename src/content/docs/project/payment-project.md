@@ -5,7 +5,7 @@ category: "project"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["支付系统", "状态机", "对账测试", "风控策略", "接口测试", "自动化测试"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "scene/interface-exception-handling"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "payment-project-q1"
     question: "支付订单从「支付中」到「支付成功」，应该验证哪些关键点？"

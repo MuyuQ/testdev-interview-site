@@ -5,7 +5,7 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["pytest", "测试框架", "夹具设计", "依赖注入"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "coding/mock-strategy"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "glossary/mock-stub"]
 selfTests:
   - id: "fixture-strategy-q1"
     question: "fixture 的 function 作用域有什么特点？"

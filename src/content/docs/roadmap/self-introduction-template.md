@@ -5,7 +5,7 @@ category: "roadmap"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["面试技巧", "自我介绍", "表达结构", "时间控制", "求职准备", "测试开发"]
-relatedSlugs: ["roadmap/interview-preparation", "roadmap/resume-optimization", "roadmap/mock-interview"]
+relatedSlugs: ["roadmap/7-day-interview-plan", "practice-template/project-story-template"]
 selfTests:
   - id: "self-introduction-template-q1"
     question: "自我介绍中最核心的目的是什么？"

@@ -146,15 +146,14 @@ description: "模拟连续追问，训练回答深度和抗压能力"
 
 - [接口测试技术详解](/tech/api-testing) - 补充接口测试技术知识
 - [Pytest 自动化框架](/tech/pytest) - 学习自动化框架实现
-- [测试框架设计](/tech/test-framework) - 深入框架设计方法论
+- [测试框架设计](/interview-chains/test-framework) - 深入框架设计方法论
 
 ### 面试准备延伸
 
-- [面试表达训练](/interview-expr) - 提升面试表达技巧
-- [项目包装指南](/project-package) - 学习项目经验包装方法
-- [面试自测题库](/self-tests) - 检验学习效果
+- [面试表达训练](/beginner-course/interview-expression-for-first-project) - 提升面试表达技巧
+- [项目包装指南](/practice-template/project-story-template) - 学习项目经验包装方法
 
 ### 实战能力提升
 
-- [实战项目训练](/projects) - 通过项目巩固技术能力
-- [测试用例设计](/test-design) - 补充用例设计方法论
+- [实战项目训练](/project) - 通过项目巩固技术能力
+- [测试用例设计](/glossary/test-design) - 补充用例设计方法论

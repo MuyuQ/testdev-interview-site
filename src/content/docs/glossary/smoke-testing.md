@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试基础", "CI/CD", "主链路验证", "快速反馈"]
-relatedSlugs: ["tech/api-testing", "glossary/regression-testing", "glossary/sanity-testing"]
+relatedSlugs: ["tech/api-testing", "glossary/regression-testing"]
 selfTests:
   - id: "smoke-testing-q1"
     question: "冒烟测试与回归测试的主要区别是什么？"

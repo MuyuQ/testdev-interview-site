@@ -5,7 +5,7 @@ category: "interview-chains"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["接口测试", "面试追问", "测试流程", "实战经验", "技术深度"]
-relatedSlugs: ["tech/api-testing", "tech/pytest", "tech/postman"]
+relatedSlugs: ["tech/api-testing", "tech/pytest"]
 selfTests:
   - id: "api-testing-chain-q1"
     question: "面试官问'你的接口测试流程是什么'，最合适的回答方式是？"
@@ -453,5 +453,4 @@ class TestUserAPI:
 
 - 深入学习：[接口测试技术详解](/tech/api-testing)
 - 实践工具：[Pytest 自动化框架](/tech/pytest)
-- 关联追问：[自动化测试追问链](/interview-chains/automation-chain)
-- 扩展阅读：[性能测试追问链](/interview-chains/performance-chain)
+- 关联追问：[自动化测试追问链](/interview-chains/test-framework)

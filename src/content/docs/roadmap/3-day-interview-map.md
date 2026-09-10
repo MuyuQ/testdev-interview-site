@@ -5,7 +5,7 @@ category: "roadmap"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["通用", "面试准备", "冲刺复习"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "roadmap/career-path"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "beginner-course/testdev-role-map"]
 selfTests:
   - id: "3-day-interview-map-q1"
     question: "3 天面试速记的核心目标是什么？"

@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["自动化模式", "Pytest", "测试隔离", "依赖注入", "面试高频"]
-relatedSlugs: ["tech/pytest", "glossary/test-isolation", "scenario/web-ui-testing"]
+relatedSlugs: ["tech/pytest", "glossary/mock-stub", "tech/playwright"]
 selfTests:
   - id: "fixture-scope-1"
     question: "以下哪个 fixture 作用域会在每个测试函数执行前后都运行？"
@@ -293,10 +293,10 @@ B        # session teardown（最后）
 
 ## 关联内容
 
-- **同家族术语**：[测试隔离](/glossary/test-isolation)、[Mock/Stub](/glossary/mock-stub)
+- **同家族术语**：[测试隔离](/glossary/mock-stub)、[Mock/Stub](/glossary/mock-stub)
 - **技术实践**：[Pytest 技术指南](/tech/pytest)
-- **应用场景**：[Web UI 测试场景](/scenario/web-ui-testing)
-- **进阶概念**：[conftest.py 共享机制](/tech/pytest-conftest)
+- **应用场景**：[Web UI 测试场景](/tech/playwright)
+- **进阶概念**：[Pytest 共享 fixture 机制](/tech/pytest)
 
 ## 下一步
 

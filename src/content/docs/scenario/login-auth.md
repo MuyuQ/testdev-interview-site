@@ -375,10 +375,9 @@ def make_expired_token(user_id: int, secret: str = "TEST_SECRET") -> str:
 
 ## 关联内容
 
-- **实战项目**：[用户系统测试实战](/docs/project/user-system-test)——完整的登录鉴权项目测试案例
 - **技术深入**：[API 测试](/docs/tech/api-testing)——鉴权接口的自动化测试技术
-- **面试追问链**：[鉴权追问链](/docs/interview-chains/auth-chain)——登录鉴权相关的深度追问链路
-- **概念补充**：[OAuth2 概念](/docs/glossary/oauth2)——第三方登录鉴权机制详解
+- **面试追问链**：[API 测试追问链](/docs/interview-chains/api-testing-chain)——接口测试相关的深度追问链路
+- **概念补充**：[API 断言](/docs/glossary/api-assertion)——接口断言与响应校验方法
 
 ---
 
@@ -386,6 +385,5 @@ def make_expired_token(user_id: int, secret: str = "TEST_SECRET") -> str:
 
 完成登录鉴权场景题后，建议继续学习：
 
-1. [权限变更测试](/docs/scenario/permission-change)——用户权限变更后的状态一致性测试
-2. [支付回调测试](/docs/scenario/payment-callback)——鉴权在支付场景的特殊要求
-3. [API 安全测试](/docs/tech/api-security)——深入鉴权接口的安全测试技术
+1. [支付回调测试](/docs/scenario/payment-callback)——鉴权在支付场景的特殊要求
+2. [API 测试](/docs/tech/api-testing)——把鉴权接口纳入接口自动化体系

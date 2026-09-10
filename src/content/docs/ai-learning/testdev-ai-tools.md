@@ -5,7 +5,7 @@ category: "ai-learning"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["AI工具", "用例生成", "代码审查", "数据构造", "文档生成", "效率提升"]
-relatedSlugs: ["tech/api-testing", "tech/unit-testing", "glossary/test-case"]
+relatedSlugs: ["tech/api-testing", "glossary/unit-testing", "glossary/test-design"]
 selfTests:
   - id: "testdev-ai-tools-q1"
     question: "AI在测试开发中最核心的价值是什么？"
@@ -280,10 +280,8 @@ def validate_test_data(data_list):
 ## 10. 关联内容
 
 - [接口测试](/docs/tech/api-testing)：AI生成用例的主要应用场景
-- [单元测试](/docs/tech/unit-testing)：AI辅助生成单元测试代码
-- [测试用例设计](/docs/glossary/test-case)：理解用例设计原则，更好指导AI生成
-- [代码质量](/docs/tech/code-quality)：AI代码审查的补充手段
-- [测试数据管理](/docs/tech/test-data)：数据构造的最佳实践
+- [单元测试](/docs/glossary/unit-testing)：AI辅助生成单元测试代码（术语释义见单元测试词条）
+- [测试用例设计](/docs/glossary/test-design)：理解用例设计原则，更好指导AI生成
 
 ## 总结
 

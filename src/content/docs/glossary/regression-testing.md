@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试基础", "自动化测试", "测试策略", "质量保障"]
-relatedSlugs: ["tech/api-testing", "glossary/test-automation", "glossary/test-pyramid"]
+relatedSlugs: ["tech/api-testing", "glossary/test-pyramid"]
 selfTests:
   - id: "regression-testing-q1"
     question: "以下哪种情况最适合进行回归测试？"
@@ -174,7 +174,5 @@ def select_regression_tests(changed_files, test_suite):
 
 ## 关联内容
 
-- [API 测试](/docs/glossary/api-testing) - 回归测试的重要实施层面
+- [API 测试](/docs/tech/api-testing) - 回归测试的重要实施层面
 - [测试金字塔](/docs/glossary/test-pyramid) - 理解回归测试在测试层次中的位置
-- [测试自动化](/docs/glossary/test-automation) - 回归测试自动化的实践方法
-- [持续集成](/docs/glossary/continuous-integration) - 回归测试在 CI/CD 中的集成

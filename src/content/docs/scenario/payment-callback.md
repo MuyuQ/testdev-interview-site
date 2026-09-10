@@ -5,7 +5,7 @@ category: "scenario"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["支付系统", "状态一致性", "幂等性", "异步回调", "对账验证", "分布式事务"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "scenario/distributed-transaction"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "payment-callback-q1"
     question: "支付回调接口收到重复的回调通知时，正确的处理方式是？"
@@ -477,8 +477,6 @@ groups:
 
 - [API 测试技术](/docs/tech/api-testing)：回调接口的自动化测试方法
 - [API 断言](/docs/glossary/api-assertion)：回调响应的验证策略
-- [分布式事务](/docs/scenario/distributed-transaction)：支付场景下的一致性保障
-- [幂等性设计](/docs/glossary/idempotency)：接口幂等性的实现原理
 
 ## 下一步学习建议
 

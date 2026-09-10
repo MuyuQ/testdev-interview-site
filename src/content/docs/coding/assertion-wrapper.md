@@ -5,7 +5,7 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["断言设计", "代码封装", "API测试", "可维护性", "面试高频"]
-relatedSlugs: ["tech/api-testing", "practice-template/api-test-template", "interview-chains/assertion-deep-dive"]
+relatedSlugs: ["tech/api-testing", "practice-template/api-automation-template", "glossary/api-assertion"]
 selfTests:
   - id: "assertion-wrapper-q1"
     question: "断言封装的主要目的是什么？"

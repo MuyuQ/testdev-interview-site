@@ -5,7 +5,7 @@ category: "project"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["电商", "自动化测试", "接口测试", "全链路", "性能测试"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "tech/performance-testing"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "ecommerce-project-q1"
     question: "电商项目测试开发的核心职责是什么？"

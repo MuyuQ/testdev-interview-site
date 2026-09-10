@@ -5,7 +5,7 @@ category: "scenario"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["数据迁移", "ETL测试", "数据一致性", "迁移策略", "风险控制", "测试设计"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "scenario/performance-testing"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "data-migration-q1"
     question: "数据迁移测试中最关键的风险点是什么？"
@@ -369,7 +369,6 @@ def row_hash(row: dict) -> str:
 ### 相关技术文档
 - [API测试技术](/docs/tech/api-testing) - 接口层面的数据校验
 - [断言机制](/docs/glossary/api-assertion) - 数据验证断言方法
-- [性能测试](/docs/scenario/performance-testing) - 迁移性能评估
 
 ### 扩展阅读
 - ETL测试最佳实践

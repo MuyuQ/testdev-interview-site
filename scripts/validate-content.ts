@@ -1,6 +1,6 @@
 // 内容验证脚本
 import { readdirSync, readFileSync, statSync } from 'fs'
-import { join, relative } from 'path'
+import { join, relative, basename } from 'path'
 import matter from 'gray-matter'
 
 const DOCS_DIR = join(process.cwd(), 'src/content/docs')
@@ -23,7 +23,9 @@ export function validateDocs() {
     if (!file.endsWith('.md') && !file.endsWith('.mdx')) continue
     const { data, content: body } = matter(readFileSync(file, 'utf-8'))
     const rel = relative(DOCS_DIR, file)
-    if (data.category === 'beginner-course') {
+    // 各分类的 index.md 是目录页，不参与正文小节校验（Windows 路径分隔符是 \，用 basename 判断）
+    const isIndexPage = basename(file) === 'index.md'
+    if (data.category === 'beginner-course' && !isIndexPage) {
       for (const s of beginnerRequiredSections) {
         if (!body.includes(s)) errors.push(rel + ': missing section "' + s + '"')
       }

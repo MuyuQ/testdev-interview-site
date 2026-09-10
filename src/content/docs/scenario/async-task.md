@@ -5,7 +5,7 @@ category: "scenario"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["消息队列", "状态机", "分布式系统", "可靠性测试"]
-relatedSlugs: ["tech/api-testing", "scenario/distributed-system", "glossary/api-assertion"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "async-task-q1"
     question: "异步任务测试中最核心的关注点是什么？"
@@ -394,7 +394,4 @@ groups:
 ## 12. 关联内容
 
 - [API测试技术](/docs/tech/api-testing) - 接口层面的测试方法
-- [分布式系统测试](/docs/scenario/distributed-system) - 分布式场景的测试策略
-- [消息队列测试](/docs/tech/message-queue-testing) - 消息队列专项测试
-- [测试数据管理](/docs/tech/test-data) - 测试数据的准备和管理
 - [API断言](/docs/glossary/api-assertion) - 接口断言的最佳实践

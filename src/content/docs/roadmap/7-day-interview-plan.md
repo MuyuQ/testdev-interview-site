@@ -5,7 +5,7 @@ category: "roadmap"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["面试准备", "冲刺计划", "实战演练"]
-relatedSlugs: ["tech/api-testing", "tech/test-automation", "glossary/api-assertion"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 estimatedDays: 7
 prerequisites: ["具备基础测试概念", "有至少1个项目的测试经验"]
 selfTests:

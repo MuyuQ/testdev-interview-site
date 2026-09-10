@@ -5,7 +5,7 @@ category: "tech"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["接口测试", "测试隔离", "Python"]
-relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "tech/api-test"]
+relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "tech/api-testing"]
 selfTests:
   - id: "mock-framework-q1"
     question: "Mock 框架的核心作用是什么？"

@@ -349,7 +349,6 @@ selfTests:
 | 不懂支付回调机制 | [支付回调场景](/testdev-interview-site/scenario/payment-callback/) |
 | 幂等性概念模糊 | [API 断言设计](/testdev-interview-site/glossary/api-assertion/) |
 | 状态机测试方法不清 | [测试设计方法](/testdev-interview-site/glossary/test-design/) |
-| 并发测试不会设计 | [性能测试基础](/testdev-interview-site/tech/performance-testing-intro/) |
 | 电商项目整体理解不足 | [电商项目详解](/testdev-interview-site/project/ecommerce-project/) |
 
 ---

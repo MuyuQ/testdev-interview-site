@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["工程质量", "CI/CD", "自动化测试", "代码审查"]
-relatedSlugs: ["tech/api-testing", "glossary/ci-cd", "glossary/code-review"]
+relatedSlugs: ["tech/api-testing", "tech/ci-cd"]
 selfTests:
   - id: "quality-gate-q1"
     question: "质量门禁检查失败时，正确的做法是？"

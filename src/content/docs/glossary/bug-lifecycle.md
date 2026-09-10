@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["项目协作", "缺陷管理", "测试流程", "Bug 跟踪"]
-relatedSlugs: ["glossary/test-priority", "glossary/test-report"]
+relatedSlugs: ["glossary/test-design"]
 selfTests:
   - id: "bug-lifecycle-q1"
     question: "一个 Bug 被开发标记为「无法复现」后，测试人员正确的做法是？"

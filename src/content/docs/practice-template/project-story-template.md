@@ -5,7 +5,7 @@ category: "practice-template"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["项目表达", "面试模板", "经验包装", "故事结构", "追问应对", "简历素材"]
-relatedSlugs: ["roadmap/self-introduction-template", "project/payment-project", "project/ecommerce-project", "interview-chains/payment-scenario"]
+relatedSlugs: ["roadmap/self-introduction-template", "project/payment-project", "project/ecommerce-project", "scenario/payment-callback"]
 selfTests:
   - id: "project-story-template-q1"
     question: "项目故事表达的核心结构是什么？"

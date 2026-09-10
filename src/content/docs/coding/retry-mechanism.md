@@ -5,7 +5,7 @@ category: "coding"
 difficulty: "interview"
 interviewWeight: 3
 tags: ["重试", "容错", "异步", "设计模式"]
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "coding/promise-concurrency"]
+relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "retry-mechanism-q1"
     question: "重试机制中，指数退避策略的主要目的是什么？"

@@ -5,7 +5,7 @@ category: "glossary"
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试基础", "集成测试", "接口测试", "测试层次"]
-relatedSlugs: ["tech/api-testing", "glossary/unit-testing", "glossary/system-testing"]
+relatedSlugs: ["tech/api-testing", "glossary/unit-testing"]
 selfTests:
   - id: "integration-testing-q1"
     question: "以下哪个场景最适合使用集成测试？"
@@ -179,6 +179,5 @@ describe('订单-库存模块集成测试', () => {
 
 - [API测试](/docs/tech/api-testing) - 接口集成测试的具体技术实现
 - [单元测试](/docs/glossary/unit-testing) - 集成测试的前置环节
-- [系统测试](/docs/glossary/system-testing) - 集成测试的后继环节
 - [测试金字塔](/docs/glossary/test-pyramid) - 理解测试层次的分布策略
 - [Mock与Stub](/docs/glossary/mock-stub) - 集成测试中的依赖隔离技术

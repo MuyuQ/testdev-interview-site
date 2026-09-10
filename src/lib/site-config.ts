@@ -1,5 +1,5 @@
 // 站点配置 - 10 个内容类别
-// 按照 MODULE_CONTENT_ORGANIZATION_GUIDE.md 的顺序排列
+// 顺序与 astro.config.mjs 的侧边栏保持一致
 
 export interface CategoryConfig {
   id: string;
@@ -9,7 +9,7 @@ export interface CategoryConfig {
   recommendedSlug: string;
 }
 
-// 10 个类别配置（按规划文件推荐顺序）
+// 10 个类别配置
 export const categories: CategoryConfig[] = [
   {
     id: 'beginner-course',

@@ -18,7 +18,7 @@ export default defineConfig({
         { icon: 'github', label: 'GitHub', href: 'https://github.com/MuyuQ/testdev-interview-site' },
       ],
 
-      // 侧边栏配置（按规划文件推荐顺序）
+      // 侧边栏配置（顺序与 src/lib/site-config.ts 的 categories 一致）
       sidebar: [
         // 1. 新手教程（按学习顺序手动排列）
         {

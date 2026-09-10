@@ -38,11 +38,15 @@ coverage/
 *.temp
 .temp/
 
-# Claude Code
+# Agent / AI tooling
 .claude/
 .plans/
 .superpowers/
 .worktrees/
+.workbuddy/
+
+# Cloud sync conflicts
+*.sync-conflict-*
 
 # Playwright CLI
 .playwright-cli/

@@ -95,6 +95,36 @@ await expect(page.locator('.status')).toHaveText('Success');
 expect(await page.locator('.count').textContent()).toBe('5');
 ```
 
+### 5. 定位器策略与推荐写法
+
+Playwright 提供多种定位方式，稳定性和可维护性差异很大。优先级从高到低：
+
+| 定位方式 | 写法示例 | 适用场景 |
+|---------|---------|---------|
+| 角色定位 | `page.getByRole('button', { name: '提交' })` | 基于可访问性文本，最稳定 |
+| 测试 ID | `page.getByTestId('submit-btn')` | 与样式解耦，推荐日常使用 |
+| 文本定位 | `page.getByText('欢迎回来')` | 校验用户可见文案 |
+| CSS 选择器 | `page.locator('.card .title')` | 无更好标识时的兜底方案 |
+
+**推荐**：优先用 `getByRole` / `getByTestId`，避免依赖 CSS 结构和文本样式。当产品改版调整样式时，这类用例最不容易断裂。
+
+### 6. 工具链：Codegen、Trace Viewer、Inspector
+
+光会写用例不够，排查与起手效率同样关键：
+
+- **Codegen**：`npx playwright codegen <url>` 边操作边生成脚本，适合快速起手
+- **Trace Viewer**：`--trace on` 记录操作时间线、DOM 快照、网络请求，是失败定位神器
+- **Inspector**：`PWDEBUG=1` 单步调试，实时查看 locator 实际匹配到哪些元素
+
+```bash
+# 录制并生成脚本
+npx playwright codegen --browser chromium https://example.com
+
+# 运行并保留 trace 供失败排查
+npx playwright test --trace on
+npx playwright show-trace trace.zip
+```
+
 ## 最小例子
 
 ```typescript
@@ -170,6 +200,31 @@ export class LoginPage {
   }
 }
 ```
+
+### 测试执行与报告
+
+```bash
+# 运行指定文件
+npx playwright test tests/e2e/login.spec.ts
+
+# 生成并查看 HTML 报告
+npx playwright test --reporter=html
+npx playwright show-report
+
+# 失败重试 + 并行执行
+npx playwright test --retries=2 --workers=4
+```
+
+**登录态复用**：每个测试都走一遍登录既慢又易错。用 `storageState` 在全局保存登录态，避免重复登录：
+
+```typescript
+// playwright.config.ts
+use: {
+  storageState: './auth/user.json',  // 预置的登录态文件
+}
+```
+
+登录态文件可在 `globalSetup` 中通过一次登录生成，显著缩短整体执行时间，也是 CI 中稳定登录的前提。
 
 ## 常见坑
 
@@ -253,7 +308,18 @@ Q5: 如何集成到CI/CD流程？
 
 ## 关联
 
-- [API断言最佳实践](/docs/tech/glossary/api-assertion) - API测试断言技巧
+- [API断言最佳实践](/docs/glossary/api-assertion) - API测试断言技巧
 - [断言封装设计](/docs/coding/assertion-wrapper) - 如何设计可复用的断言层
-- [测试金字塔理论](/docs/theory/testing-pyramid) - E2E测试在测试体系中的定位
-- [CI/CD集成指南](/docs/ops/cicd-integration) - 将Playwright集成到流水线
+- [测试金字塔理论](/docs/glossary/test-pyramid) - E2E测试在测试体系中的定位
+- [CI/CD集成指南](/docs/tech/ci-cd) - 将Playwright集成到流水线
+
+## 下一步
+
+掌握 Playwright 基础后，建议按以下路径深入：
+
+1. **测试架构**：把 Page Object 与 fixture 结合，抽离通用页面与数据工厂，参考 [page-object-pattern](/docs/glossary/page-object-pattern)
+2. **结合接口层**：UI 前置数据用 [接口测试](/docs/tech/api-testing) 准备，避免在 E2E 内部慢慢造数
+3. **接入流水线**：把 Playwright 跑进 [CI/CD](/docs/tech/ci-cd)，用 HTML 报告 + Trace 做失败分析
+4. **综合实战**：前往 [登录认证场景](/docs/scenario/login-auth) 或 [UI 自动化项目](/docs/project/index) 落地一套完整方案
+
+面试冲刺重点复盘三个追问：自动等待的原理、为什么 locator 优于 element handle、测试隔离怎么做。

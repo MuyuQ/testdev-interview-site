@@ -215,8 +215,8 @@ describe('Login E2E', () => {
 
 ## 关联内容
 
-- [[tech/api-testing]]：API 测试通常位于金字塔中层
-- [[glossary/unit-testing]]：金字塔底层，数量最多
-- [[glossary/integration-testing]]：金字塔中层
-- [[glossary/e2e-testing]]：金字塔顶层
-- [[tech/test-coverage]]：如何衡量测试充分性
+- [接口测试](/tech/api-testing/)：API 测试通常位于金字塔中层
+- [单元测试](./unit-testing/)：金字塔底层，数量最多
+- [集成测试](./integration-testing/)：金字塔中层
+- E2E 测试：金字塔顶层，覆盖完整用户链路，成本最高、数量最少
+- 测试覆盖率：衡量测试充分性的参考指标，金字塔各层的合理目标不同，底层高、顶层低

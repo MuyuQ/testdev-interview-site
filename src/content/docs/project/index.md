@@ -20,7 +20,7 @@ category: "project"
 | 零基础初学者 | 先完成新手教程和练习模板，再选择项目故事 | [新手教程](/testdev-interview-site/beginner-course/) |
 | 有项目经历者 | 查看同类项目的故事模板，学习表达技巧 | [支付项目](/testdev-interview-site/project/payment-project/) |
 | 面试冲刺者 | 快速掌握项目表达的五步结构，准备追问应对 | [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) |
-| 进阶测试开发 | 深入复杂项目的技术难点表达 | [微服务架构项目](/testdev-interview-site/project/microservice-architecture-project/) |
+| 进阶测试开发 | 深入复杂项目的技术难点表达 | 微服务架构项目 |
 
 ## 推荐学习顺序
 
@@ -33,7 +33,7 @@ category: "project"
 | 3 | [电商项目详解](/testdev-interview-site/project/ecommerce-project/) | 学习电商项目的故事示例 | 60 分钟 |
 | 4 | [管理后台项目](/testdev-interview-site/project/admin-platform/) | 学习后台管理项目的故事示例 | 50 分钟 |
 | 5 | [移动端项目](/testdev-interview-site/project/mobile-app-project/) | 学习移动端项目的故事示例 | 50 分钟 |
-| 6 | [支付场景追问链](/testdev-interview-site/interview-chains/payment-scenario/) | 训练支付项目追问应对 | 40 分钟 |
+| 6 | 支付场景追问链 | 训练支付项目追问应对 | 40 分钟 |
 | 7 | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) | 训练电商项目追问应对 | 40 分钟 |
 
 ## 如何选择适合的项目故事
@@ -46,7 +46,7 @@ category: "project"
 | 有支付或金融类经验 | [支付项目](/testdev-interview-site/project/payment-project/) | 支付回调、资金安全、对账机制 |
 | 有后台管理类经验 | [管理后台项目](/testdev-interview-site/project/admin-platform/) | 权限控制、数据校验、操作日志 |
 | 有移动端测试经验 | [移动端项目](/testdev-interview-site/project/mobile-app-project/) | 多端兼容、安装测试、推送验证 |
-| 有平台工具类经验 | [数据平台项目](/testdev-interview-site/project/data-platform-project/) | 数据管道、报表验证、定时任务 |
+| 有平台工具类经验 | 数据平台项目 | 数据管道、报表验证、定时任务 |
 
 ### 根据你想展示的能力选择
 
@@ -54,9 +54,9 @@ category: "project"
 |------------|-------------|---------|
 | 自动化框架能力 | [电商项目](/testdev-interview-site/project/ecommerce-project/) | 三层架构设计、数据驱动、Fixture策略 |
 | 专项测试能力 | [支付项目](/testdev-interview-site/project/payment-project/) | 幂等性测试、资金安全、对账验证 |
-| 工程化能力 | [微服务项目](/testdev-interview-site/project/microservice-architecture-project/) | CI集成、契约测试、Mock服务 |
+| 工程化能力 | 微服务项目 | CI集成、契约测试、Mock服务 |
 | 业务理解能力 | [电商项目](/testdev-interview-site/project/ecommerce-project/) | 业务流程、风险分析、测试策略 |
-| 复杂场景能力 | [第三方集成项目](/testdev-interview-site/project/third-party-integration-project/) | 外部依赖、故障模拟、补偿机制 |
+| 复杂场景能力 | 第三方集成项目 | 外部依赖、故障模拟、补偿机制 |
 
 ## 内容分组
 
@@ -72,28 +72,28 @@ category: "project"
 企业内部系统，强调权限、数据、操作验证。
 
 - [管理后台项目](/testdev-interview-site/project/admin-platform/) - 权限控制、数据校验、批量操作
-- [SaaS 平台项目](/testdev-interview-site/project/saas-platform-project/) - 多租户、配置隔离、数据安全
+- SaaS 平台项目 - 多租户、配置隔离、数据安全
 
 ### 数据与平台组
 
 数据类项目，强调管道、报表、定时任务测试。
 
-- [数据平台项目](/testdev-interview-site/project/data-platform-project/) - 数据管道、ETL验证、报表准确性
-- [微服务架构项目](/testdev-interview-site/project/microservice-architecture-project/) - 服务拆分、契约测试、Mock策略
+- 数据平台项目 - 数据管道、ETL验证、报表准确性
+- 微服务架构项目 - 服务拆分、契约测试、Mock策略
 
 ### 移动与内容组
 
 移动端和内容类项目，强调多端兼容和复杂交互。
 
 - [移动端项目](/testdev-interview-site/project/mobile-app-project/) - 安装测试、推送验证、多端兼容
-- [社交内容项目](/testdev-interview-site/project/social-content-project/) - 内容审核、推荐验证、UGC测试
+- 社交内容项目 - 内容审核、推荐验证、UGC测试
 
 ### 复杂协作组
 
 复杂协作场景，强调外部依赖和遗留系统改造。
 
-- [第三方集成项目](/testdev-interview-site/project/third-party-integration-project/) - 外部依赖、故障模拟、补偿机制
-- [遗留系统改造项目](/testdev-interview-site/project/legacy-system-refactor-project/) - 渐进改造、回归策略、兼容验证
+- 第三方集成项目 - 外部依赖、故障模拟、补偿机制
+- 遗留系统改造项目 - 渐进改造、回归策略、兼容验证
 
 ## 项目表达通用框架
 
@@ -203,4 +203,4 @@ category: "project"
 - [追问链模块](/testdev-interview-site/interview-chains/) - 训练项目追问的应对能力
 - [场景题模块](/testdev-interview-site/scenario/) - 深入项目的具体场景测试设计
 - [技术专题](/testdev-interview-site/tech/) - 补充项目中用到的技术知识
-- [面试表达训练](/testdev-interview-site/roadmap/interview-expression-training/) - 系统训练面试表达能力
+- 面试表达训练 - 系统训练面试表达能力

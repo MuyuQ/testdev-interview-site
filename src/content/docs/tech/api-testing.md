@@ -418,7 +418,7 @@ def test_login_assertion_design():
 
 ### 术语补充
 - [glossary/api-assertion](../../glossary/api-assertion) - API 断言术语详解
-- [glossary/http-status-code](../../glossary/http-status-code) - HTTP 状态码速查
+- HTTP 状态码速查 - HTTP 协议状态码术语参考（常用清单见上方"关键状态码"）
 
 ### 练习模板
 - [coding/assertion-wrapper](../../coding/assertion-wrapper) - 断言工具函数封装练习

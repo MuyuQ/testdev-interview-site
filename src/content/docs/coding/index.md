@@ -164,8 +164,8 @@ description: "训练小型工程能力和面试代码表达"
 完成编码题模块后，推荐的学习路径：
 
 - **向左深入** → [API 测试技术](/tech/api-testing) —— 将编码能力应用到接口测试场景
-- **向右扩展** → [实践模板](/practice-template/api-test-template) —— 学习测试项目的整体结构设计
-- **向上进阶** → [面试链](/interview-chains/assertion-deep-dive) —— 深度追问的应对训练
+- **向右扩展** → [实践模板](/practice-template/api-automation-template) —— 学习测试项目的整体结构设计
+- **向上进阶** → 面试链（深度追问训练） —— 进阶应对训练页待补充
 - **向下巩固** → [概念词典](/glossary/api-assertion) —— 补充断言相关的术语理解
 
 如果你的目标是「面试冲刺」，建议按此顺序推进：

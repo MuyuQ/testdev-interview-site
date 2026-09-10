@@ -111,6 +111,12 @@ function retry<T>(
 2. **退避策略分离**：将延迟计算逻辑抽离，支持扩展更多策略
 3. **透明包装**：重试函数返回类型与原函数一致，对调用方透明
 
+### 两个必须先想清楚的前提
+
+- **幂等性是重试的地基**：只有「重复执行结果一致」的操作才能安全重试。`GET`、幂等 `PUT` 天然安全；`POST` 创建类请求必须业务层加「幂等键（idempotency key）」，否则重试可能造成重复下单、重复扣款。面试里被问「POST 能重试吗」时，正确的回答永远是「取决于是否做了幂等设计」。
+- **重试风暴比单次失败更危险**：当上游大面积故障时，所有调用方同时退避后同时重试，会在恢复瞬间形成流量尖峰把服务再次打垮。所以退避必须加**随机抖动（jitter）**打散重试时刻，必要时配合熔断器在持续失败时快速失败。
+- **总时间预算可控**：最坏情况下用户等待时间 ≈ `单次超时 × maxAttempts + 各次延迟累加`。`maxAttempts=5` 配合指数退避可能让用户等十几秒，要结合业务 SLA 设上限，避免「重试到天荒地老」。
+
 ## 6. 最小实现
 
 ```typescript
@@ -232,30 +238,119 @@ describe('retry', () => {
     expect(delays.length).toBe(2);
   });
 });
+
+// 额外边界用例：固定间隔、无条件不重试、超时上限
+describe('retry 边界', () => {
+  // 固定间隔：每次延迟都等于 baseDelay
+  it('固定间隔每次延迟一致', async () => {
+    const error = new Error('fail');
+    error.code = 'ETIMEDOUT';
+    const fn = jest.fn().mockRejectedValue(error);
+    const delays: number[] = [];
+    let prev = 0;
+    const onRetry = () => {
+      const now = Date.now();
+      if (prev) delays.push(now - prev);
+      prev = now;
+    };
+    await retry(fn, { maxAttempts: 3, delay: 50, backoff: 'fixed', onRetry }).catch(() => {});
+    expect(delays.every(d => d >= 45 && d <= 80)).toBe(true);
+  });
+
+  // maxAttempts=1 等于不重试
+  it('maxAttempts=1 时直接失败', async () => {
+    const error = new Error('nope');
+    error.code = 'ETIMEDOUT';
+    const fn = jest.fn().mockRejectedValue(error);
+    await expect(retry(fn, { maxAttempts: 1 })).rejects.toThrow('nope');
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  // 延迟上限：指数退避不应无限增长
+  it('延迟不超过 30s 上限', () => {
+    const calc = (attempt: number) => Math.min(1000 * Math.pow(2, attempt - 1), 30000);
+    expect(calc(10)).toBe(30000); // 第10次仍被截断
+    expect(calc(1)).toBe(1000);
+  });
+});
 ```
 
 ## 8. 可扩展点
 
-1. **更多退避策略**：
-   - 随机抖动（Jitter）：避免重试风暴同步
-   - 等差数列退避：每次固定增加
-   - 可配置上限策略
+### 1. 随机抖动（Jitter）——阻止重试风暴
 
-2. **熔断集成**：
-   - 连续失败达到阈值后快速失败
-   - 半开状态探测恢复
+纯指数退避的问题是：所有调用方在同一时刻失败、同一时刻重试，恢复瞬间形成尖峰。加 jitter 把重试时刻打散：
 
-3. **可观测性**：
-   - 重试指标上报（次数、耗时、错误率）
-   - 日志追踪集成
+```typescript
+// 全抖动：在 [0, baseDelay*2^(n-1)] 间随机
+const fullJitter = (attempt: number, base: number) =>
+  Math.random() * Math.min(base * Math.pow(2, attempt - 1), 30000);
 
-4. **取消机制**：
-   - 支持 AbortSignal 取消正在进行的重试
-   - 与 fetch API 深度集成
+// 等比例抖动：在 base 与 base*(2^n) 之间取值
+const equalJitter = (attempt: number, base: number) => {
+  const cap = Math.min(base * Math.pow(2, attempt - 1), 30000);
+  return (base + cap) / 2 + Math.random() * (cap - base) / 2;
+};
+```
 
-5. **装饰器模式**：
-   - 提供类方法的装饰器版本
-   - 支持配置继承和覆盖
+### 2. 熔断集成——持续失败时快速失败
+
+重试解决「单次瞬态失败」，熔断解决「上游已挂、重试只会雪崩」：
+
+```typescript
+class CircuitBreaker {
+  private failures = 0;
+  private open = false;
+  constructor(private threshold = 5, private cooldown = 30000) {}
+  async exec<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.open) throw new Error('circuit open');
+    try {
+      const r = await fn();
+      this.failures = 0; // 成功即复位
+      return r;
+    } catch (e) {
+      if (++this.failures >= this.threshold) {
+        this.open = true;
+        setTimeout(() => (this.open = false), this.cooldown); // 半开探测
+      }
+      throw e;
+    }
+  }
+}
+```
+
+### 3. 取消机制——AbortSignal 与 fetch 集成
+
+```typescript
+async function retryFetch(url: string, options: RequestInit & { maxAttempts?: number }) {
+  const { maxAttempts = 3, signal, ...rest } = options;
+  return retry(
+    () => fetch(url, { ...rest, signal }),
+    { maxAttempts, retryIf: e => e.name !== 'AbortError' }
+  );
+}
+// 用户取消时 signal.abort() 立即终止，不触发重试
+```
+
+### 4. 可观测性
+
+- 上报重试次数、累计耗时、错误率到监控（如 Prometheus）
+- 每次重试附带 `attempt` 序号和错误类型，便于链路追踪（traceId）
+
+### 5. 装饰器模式
+
+提供类方法装饰器版本，复用同一套配置：
+
+```typescript
+function WithRetry(opts: RetryOptions) {
+  return (_, __: string, descriptor: PropertyDescriptor) => {
+    const original = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+      return retry(() => original.apply(this, args), opts);
+    };
+  };
+}
+```
 
 ## 9. 面试讲解
 
@@ -285,10 +380,9 @@ describe('retry', () => {
 | 重试和熔断如何配合？ | 熔断在持续失败后快速失败，重试在单次失败后重试；熔断保护服务端，重试保护客户端 |
 | 如何处理超时和重试的关系？ | 单次请求有超时，总时间 = 超时 × 重试次数 + 延迟累计；需设置合理的总超时 |
 
-## 11. 关联
+## 11. 关联技术和场景
 
 - **[API 测试](/tech/api-testing)**：理解接口测试中的超时和重试场景
-- **[断言机制](/glossary/api-assertion)**：重试后的结果验证
-- **[Promise 并发控制](/coding/promise-concurrency)**：批量请求时的重试策略
-- **[错误处理](/coding/error-handling)**：统一的错误分类和处理
-- **[设计模式]：策略模式在退避策略中的应用
+- **[断言机制](/glossary/api-assertion)**：重试后的结果验证，重试成功也要靠断言兜底
+- **设计模式**：退避策略本质是策略模式（Strategy），把「如何计算延迟」抽象成可替换的算法
+- **容错体系**：重试 + 熔断 + 超时三者协同，单一机制无法应对全部故障模式

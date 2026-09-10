@@ -234,7 +234,7 @@ describe('登录接口断言示例', () => {
 
 ## 关联内容
 
-- [[tech/api-testing]]：API 测试的核心技术，断言是其中关键环节
-- [[glossary/integration-testing]]：集成测试中的接口断言策略
-- [[tech/test-coverage]]：如何衡量断言覆盖的充分性
-- [[glossary/fixture]]：断言所需的测试数据准备
+- [接口测试](/tech/api-testing/)：API 测试的核心技术，断言是其中关键环节
+- [集成测试](./integration-testing/)：集成测试中的接口断言策略
+- 测试覆盖率：如何衡量断言覆盖的充分性（衡量口径见第一个自测题，重点看分支覆盖而非行覆盖）
+- [Fixture](./fixture/)：断言所需的测试数据准备

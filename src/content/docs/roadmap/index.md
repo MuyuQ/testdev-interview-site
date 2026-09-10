@@ -50,11 +50,11 @@ description: "提供时间盒学习路线和复盘方法"
 2. **[7天面试计划](./7-day-interview-plan)** - 面试系统准备，产出可见的面试作品集
 3. **[3天面试速记](./3-day-interview-map)** - 临门一脚冲刺，唤醒已有记忆
 4. `/tech/api-testing` - API测试核心知识（技术模块）
-5. `/tech/test-automation` - 自动化测试框架（技术模块）
+5. `/tech/pytest` - 自动化测试框架（技术模块）
 6. `/glossary` - 核心词条速查（词汇表模块）
 7. `/project` - 完整项目演练（实战模块）
-8. `/tech/performance-testing` - 性能测试要点（技术模块）
-9. `/tech/cicd` - CI/CD与工具链（技术模块）
+8. `/roadmap/7-day-interview-plan` - 性能测试要点（见 Day 4）
+9. `/tech/ci-cd` - CI/CD与工具链（技术模块）
 
 **时间建议**：
 - 面试在1周内 → 直接进入3天面试速记
@@ -174,7 +174,7 @@ description: "提供时间盒学习路线和复盘方法"
 
 | 薄弱环节 | 推荐下一步 |
 |----------|------------|
-| 自动化基础薄弱 | `/tech/test-automation` |
+| 自动化基础薄弱 | `/tech/pytest` |
 | API测试不够深入 | `/tech/api-testing` |
 | 编程能力不足 | `/tech/python` 或 `/tech/java` |
 | 项目经验不足 | `/project` 完整项目演练 |

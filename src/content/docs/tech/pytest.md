@@ -712,10 +712,10 @@ pytest --durations=10
 
 - [API 断言最佳实践](/docs/glossary/api-assertion) - 断言编写技巧
 - [断言封装模式](/docs/coding/assertion-wrapper) - 如何封装自定义断言
-- [unittest 对比](/docs/tech/unittest) - 与 Pytest 的差异分析
-- [测试数据管理](/docs/coding/test-data) - 测试数据的设计与管理
-- [Mock 技术](/docs/tech/mocking) - 测试替身详解
-- [CI/CD 集成](/docs/practices/cicd-testing) - 持续集成中的测试策略
+- unittest 对比 - 与 Pytest 的差异分析（标准库 unittest 的差异见下文对比）
+- 测试数据管理 - 测试数据的设计与管理（详见数据驱动章节）
+- [Mock 技术](/docs/tech/mock-framework) - 测试替身详解
+- [CI/CD 集成](/docs/tech/ci-cd) - 持续集成中的测试策略
 
 ---
 

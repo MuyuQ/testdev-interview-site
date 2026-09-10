@@ -170,31 +170,68 @@ selfTests:
 
 ## 七、自动化策略
 
-### 7.1 数据比对自动化
-```python
-# 数据比对核心逻辑示例
-def compare_migration(source_db, target_db, table_name, key_fields):
-    source_count = source_db.query(f"SELECT COUNT(*) FROM {table_name}")
-    target_count = target_db.query(f"SELECT COUNT(*) FROM {table_name}")
-    assert source_count == target_count, "数据量不一致"
+数据迁移能不能放心上线，关键看"比对"能不能自动化、能不能让人一眼看出差异在哪。手工逐条对比 500 万条数据不现实，必须靠脚本分层校验。
 
-    # 抽样比对
-    sample_records = source_db.query(f"SELECT * FROM {table_name} ORDER BY RAND() LIMIT 1000")
-    for record in sample_records:
-        target_record = target_db.query(f"SELECT * FROM {table_name} WHERE id = {record['id']}")
-        assert record == target_record, f"数据不一致: {record['id']}"
+### 7.1 数据比对自动化：分层策略
+
+比对不是"一条 SQL 查出来就完了"，而是按"由粗到细"分四层，任何一层不通过都立即止损，避免全量跑完才发现早错了：
+
+| 层级 | 比对方式 | 能发现的问题 | 速度 |
+|------|----------|--------------|------|
+| 行数级 | `COUNT(*)` 源表 = 目标表 | 整批丢失、整批多写 | 极快 |
+| 主键级 | 源/目标主键集合求差集 | 少写、多写、主键冲突 | 快 |
+| 抽样字段级 | 抽 1‰~1% 逐字段比对 | 字段错位、类型转换错、截断 | 中 |
+| 全量哈希级 | 每行关键字段拼串算 MD5，源/目标比对哈希 | 任何单字段细微差异 | 慢但最准 |
+
+```python
+# 数据比对核心逻辑示例（分层校验，先快后慢）
+def compare_migration(source_db, target_db, table_name, key="id"):
+    # 第一层：行数级
+    src_count = source_db.query(f"SELECT COUNT(*) FROM {table_name}")[0][0]
+    tgt_count = target_db.query(f"SELECT COUNT(*) FROM {table_name}")[0][0]
+    assert src_count == tgt_count, f"行数不一致：源{src_count} 目标{tgt_count}"
+
+    # 第二层：主键级（防止"行数对但记录不同"）
+    src_keys = {r[0] for r in source_db.query(f"SELECT {key} FROM {table_name}")}
+    tgt_keys = {r[0] for r in target_db.query(f"SELECT {key} FROM {table_name}")}
+    assert not (src_keys - tgt_keys), f"目标缺失主键：{src_keys - tgt_keys}"
+    assert not (tgt_keys - src_keys), f"目标多出主键：{tgt_keys - src_keys}"
+
+    # 第三层：抽样字段级（用参数化查询，避免 SQL 注入与特殊字符报错）
+    sample = source_db.query(
+        f"SELECT * FROM {table_name} ORDER BY RAND() LIMIT 1000"
+    )
+    for record in sample:
+        target = target_db.query_one(
+            f"SELECT * FROM {table_name} WHERE {key} = %s", [record[key]]
+        )
+        assert record == target, f"字段不一致：{record[key]}"
+
+def row_hash(row: dict) -> str:
+    """第四层：把关键字段拼成串算哈希，用于全量一致性兜底校验。"""
+    import hashlib
+    payload = "|".join(str(row[k]) for k in sorted(row))
+    return hashlib.md5(payload.encode()).hexdigest()
 ```
 
-### 7.2 自动化测试框架
-- 数据比对脚本：源库与目标库数据一致性校验
-- ETL流程监控：迁移任务状态实时监控
-- 差异报告生成：自动生成差异明细报告
-- 回归测试套件：迁移后业务功能验证
+> 注意：上面用 `%s` 占位传参，比直接用 f-string 拼 `record['id']` 更安全，也避免 id 含特殊字符时 SQL 报错。
 
-### 7.3 CI/CD集成
-- 迁移脚本单元测试
-- 数据格式校验集成测试
-- 迁移后自动触发回归测试
+### 7.2 自动化测试框架
+
+- **数据比对脚本**：源库与目标库按"行数→主键→抽样字段→全量哈希"四层校验，输出差异明细。
+- **ETL 流程监控**：迁移任务状态（抽取中/转换中/写入中/完成）实时上报，卡住超阈值即告警。
+- **差异报告生成**：把不一致的记录导出成 CSV，标注"缺失/多出/字段错"三类，方便开发定位。
+- **回归测试套件**：迁移完成后自动跑核心业务用例（注册、登录、下单、查历史订单），验证功能不受迁移影响。
+- **可重复执行**：比对脚本要做成"幂等"的，可对任意两张表反复跑，也支持只比某一时间窗口的增量数据。
+
+### 7.3 CI/CD 集成
+
+把迁移质量卡进流水线，而不是上线前临时补：
+
+1. **迁移脚本单元测试**：每个 ETL 转换函数单独测（如金额单位换算、时间格式标准化），保证单点逻辑对。
+2. **数据格式校验集成测试**：在测试库跑一遍完整迁移，触发四层比对，比对不通过则流水线标红。
+3. **迁移后自动回归**：迁移成功立刻触发业务回归套件，功能用例全绿才允许进入预发。
+4. **门禁指标**：设定"丢失率 < 0.01%、字段不一致条数 = 0"作为发布门禁，未达标不允许切流。
 
 ## 八、数据环境
 

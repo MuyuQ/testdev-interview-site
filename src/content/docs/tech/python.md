@@ -295,3 +295,14 @@ def func_a():
 - **接口测试**：Python + requests 库实现 API 自动化测试
 - **数据驱动测试**：结合 JSON/YAML 配置文件实现参数化测试
 - **测试报告**：Allure、HTMLTestRunner 生成可视化测试报告
+
+## 11. 下一步
+
+掌握 Python 基础后，下一步是把语言能力转化为测试工程能力：
+
+1. **进阶框架**：直接学习 [pytest](/docs/tech/pytest)，用 fixture、parametrize 组织可维护的测试工程
+2. **接口实战**：用 [接口测试](/docs/tech/api-testing) 把 requests 与断言设计结合起来写 API 用例
+3. **断言沉淀**：把常用校验抽成工具函数，参考 [断言封装](/docs/coding/assertion-wrapper)
+4. **避坑巩固**：对照本文"常见坑"逐条写反例，确保吃透可变默认参数、循环导入等陷阱
+
+面试冲刺把"深拷贝 vs 浅拷贝""异常链""模块缓存机制"三个追问作为必背项。

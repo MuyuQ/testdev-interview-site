@@ -500,16 +500,16 @@ public void handleCallback(CallbackRequest request) {
 
 ### 关联场景
 
-- [接口异常处理](../scene/interface-exception-handling.md)：支付接口的超时、重试、降级策略
-- [并发场景测试](../scene/concurrent-testing.md)：支付回调的并发幂等性
-- [数据一致性测试](../scene/data-consistency.md)：支付链路的分布式事务验证
-- [性能测试实战](../scene/performance-testing.md)：支付高峰期压测方案
+- 接口异常处理：支付接口的超时、重试、降级策略（详见场景题模块）
+- 并发场景测试：支付回调的并发幂等性（详见场景题模块）
+- 数据一致性测试：支付链路的分布式事务验证（详见场景题模块）
+- 性能测试实战：支付高峰期压测方案（详见场景题模块）
 
 ### 关联技术
 
 - [API 测试](../tech/api-testing.md)：支付接口测试框架设计
-- [测试数据构造](../tech/test-data-builder.md)：支付测试数据生成策略
-- [Mock 和 Stub](../tech/mock-stub.md)：第三方渠道 Mock 方案
+- [测试数据构造](../glossary/fixture.md)：支付测试数据生成策略
+- [Mock 和 Stub](../glossary/mock-stub.md)：第三方渠道 Mock 方案
 
 ### 延伸学习
 
@@ -625,5 +625,5 @@ LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
 ## 下一步关联
 
 - 深入学习 [接口测试技术](../tech/api-testing.md) 提升自动化能力
-- 阅读 [数据一致性测试](../scene/data-consistency.md) 理解分布式事务
-- 实践 [性能测试实战](../scene/performance-testing.md) 掌握支付压测方法
+- 阅读「数据一致性测试」相关场景，理解分布式事务
+- 实践性能测试实战，掌握支付压测方法

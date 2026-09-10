@@ -325,5 +325,16 @@ SELECT * FROM orders WHERE create_time LIKE '2024-01%'
 - [API断言](/docs/glossary/api-assertion)：数据库验证是API断言的延伸和补充
 - [断言封装](/docs/coding/assertion-wrapper)：可复用的数据库断言方法封装
 - [API测试](/docs/tech/api-testing)：API测试与数据库测试的结合实践
-- [测试数据管理](/docs/tech/test-data-management)：测试数据的准备与维护策略
-- [性能测试](/docs/tech/performance-testing)：数据库性能测试的方法与工具
+- 测试数据管理：测试数据的准备与维护策略（建议结合数据工厂与事务回滚）
+- 性能测试：慢查询、索引缺失等数据库性能瓶颈的发现方法
+
+## 下一步
+
+掌握数据库验证后，建议向"全链路数据一致性"方向深入：
+
+1. **打通接口层**：把数据库断言嵌进 [接口测试](/docs/tech/api-testing) 流程，验证落库与返回一致
+2. **隔离外部依赖**：用 [Mock 框架](/docs/tech/mock-framework) 屏蔽第三方调用，专注数据逻辑
+3. **综合实战**：前往 [登录认证场景](/docs/scenario/login-auth) 做注册/登录的全链路数据校验
+4. **工程化**：结合 [CI/CD](/docs/tech/ci-cd) 在流水线里跑数据库回归，配事务回滚保证隔离
+
+面试冲刺重点讲清"API 返回成功但数据没落库"的排查思路。

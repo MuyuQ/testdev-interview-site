@@ -236,6 +236,13 @@ selfTests:
 
 让朋友或同事模拟追问，检查回答是否有深度，是否会被追问打断节奏。
 
+### 练习达标线（可操作自检）
+
+- 用手机录音朗读"项目概述"，计时落在 **2 分 00 秒 ~ 2 分 40 秒** 之间；太短没信息量，太长易被叫停
+- 回放时数"我们"出现几次——凡能落到你个人动作的，改成"我"（"我们搭了框架"→"我设计了三层架构"）
+- 回放时标记所有"工具名罗列"处（如"用了 Pytest、Jenkins"），补一句"为什么选它"
+- 挑选 1 个技术难点，确保能讲清"问题→分析→尝试→最终方案→验证"五环
+
 ---
 
 ## 验收清单
@@ -250,6 +257,9 @@ selfTests:
 - [ ] 结果部分有至少3个量化数据
 - [ ] 复盘部分有具体收获和改进点
 - [ ] 追问应对清单有至少5个追问点
+- [ ] 项目概述录音时长在 2~2分40秒 区间
+- [ ] 录音回放中"我们"已替换为可归因到个人的"我"
+- [ ] 概述能自然衔接到至少一个技术难点并讲清五环（问题-分析-尝试-方案-验证）
 - [ ] 练习录音听起来自然，不是背诵感
 
 ---
@@ -305,5 +315,5 @@ selfTests:
 - **自我介绍模板**：[自我介绍模板](/testdev-interview-site/roadmap/self-introduction-template/) - 项目在自我介绍中的表达
 - **支付项目详解**：[支付项目](/testdev-interview-site/project/payment-project/) - 支付项目的故事示例
 - **电商项目详解**：[电商项目](/testdev-interview-site/project/ecommerce-project/) - 电商项目的故事示例
-- **追问链练习**：[支付场景追问链](/testdev-interview-site/interview-chains/payment-scenario/) - 项目追问的应对练习
-- **面试表达训练**：[面试表达训练](/testdev-interview-site/roadmap/interview-expression-training/) - 系统训练面试表达能力
+- **支付回调场景**：[支付回调场景](/testdev-interview-site/scenario/payment-callback/) - 支付回调相关的追问与应对练习
+- **面试表达训练**：面试表达训练 - 系统训练面试表达能力（详见 roadmap 面试表达相关章节）

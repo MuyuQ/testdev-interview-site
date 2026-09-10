@@ -349,3 +349,14 @@ docker-compose up --force-recreate
 - **性能测试**：使用 Docker 进行可重复的性能测试
 - **测试框架**：pytest、JUnit 等框架与 Docker 的集成
 - **服务虚拟化**：使用 WireMock、MockServer 容器模拟外部服务
+
+## 11. 下一步
+
+搭建好容器化测试环境后，建议往"可复现的交付链路"延伸：
+
+1. **接流水线**：把测试容器跑进 [CI/CD](/docs/tech/ci-cd)，实现 PR 自动触发、失败即阻断
+2. **服务虚拟化**：用 WireMock / MockServer 容器替代不稳定外部服务，配合 [Mock 框架](/docs/tech/mock-framework)
+3. **数据库隔离**：结合 [数据库测试](/docs/tech/database-testing) 的临时卷与事务回滚做干净环境
+4. **进阶玩法**：尝试 Testcontainers 在测试代码里动态拉起依赖，比手写 Compose 更内聚
+
+面试冲刺讲清"depends_on 只管启动不管就绪"以及就绪检查怎么做。

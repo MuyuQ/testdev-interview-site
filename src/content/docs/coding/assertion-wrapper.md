@@ -564,8 +564,8 @@ def assert_business_field(response, field_path, expected,
 ## 关联技术和场景
 
 - **tech/api-testing**：断言封装是 API 测试的核心能力
-- **practice-template/api-test-template**：模板中使用断言封装简化测试代码
-- **interview-chains/assertion-deep-dive**：断言设计的深度面试链
+- **practice-template/api-automation-template**：模板中使用断言封装简化测试代码
+- **glossary/api-assertion**：断言相关术语与概念对照，配合本文理解断言语义
 
 **相关技术**：
 - JSON Schema 验证

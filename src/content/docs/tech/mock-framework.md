@@ -377,5 +377,16 @@ def test_with_cleanup():
 
 - [API 断言](/glossary/api-assertion) - Mock 响应后的断言验证
 - [断言封装](/coding/assertion-wrapper) - 统一的断言工具
-- [接口测试](/tech/api-test) - 完整的接口测试方案
-- [pytest Fixture](/tech/pytest-fixture) - Mock 的 fixture 集成
+- [接口测试](/tech/api-testing) - 完整的接口测试方案
+- [pytest Fixture](/tech/pytest) - Mock 的 fixture 集成
+
+## 11. 下一步
+
+掌握 Mock 后，建议把它放进真实的测试工程闭环里：
+
+1. **接口实战**：在 [接口测试](/docs/tech/api-testing) 中用 responses 隔离第三方，专注业务断言
+2. **框架集成**：结合 [pytest](/docs/tech/pytest) 的 fixture 管理 Mock 生命周期，避免用例污染
+3. **契约保障**：用 OpenAPI + Prism 或 Pact 让 Mock 与真实接口保持同步
+4. **综合实战**：前往 [登录认证场景](/docs/scenario/login-auth) 用 Mock 模拟短信/支付回调
+
+面试冲刺讲清"Mock 和 Stub 区别""什么时候不该用 Mock"。

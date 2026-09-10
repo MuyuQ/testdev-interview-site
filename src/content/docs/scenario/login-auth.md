@@ -6,10 +6,9 @@ difficulty: "interview"
 interviewWeight: 3
 tags: ["鉴权测试", "Session管理", "Token验证", "多端登录", "面试场景题", "风险分析"]
 relatedSlugs: [
-  "project/user-system-test",
   "tech/api-testing",
-  "interview-chains/auth-chain",
-  "glossary/oauth2"
+  "interview-chains/api-testing-chain",
+  "glossary/api-assertion"
 ]
 selfTests:
   - id: "login-auth-token-expire"
@@ -288,17 +287,37 @@ class TestAuthFlow:
 
 ## 数据准备和环境依赖
 
+登录鉴权测试很吃"前置数据"，如果临场才去造账号、造 Token，用例会写得又慢又脆。建议把数据准备标准化。
+
 ### 测试数据准备
 
-- **账号数据**：准备多种角色账号（普通用户、管理员、VIP）
-- **过期 Token**：构造已过期的 JWT 用于过期测试
-- **验证码数据**：模拟短信验证码发送和验证环境
+- **多角色账号矩阵**：至少覆盖普通用户、VIP、管理员三类，且每类都要有"正常态"和"异常态"（已禁用、已删除、密码过期）。
+- **过期 / 非法 Token 样本**：不能用业务接口实时去"等它过期"，要能直接造出各种异常 Token：
+  - 已过期 Token：把 `exp` 设成过去时间签一个 JWT；
+  - 篡改签名 Token：对合法 Token 改一个字符再重新 base64；
+  - 越权角色 Token：payload 里把 `role` 改成 `admin` 但用普通用户密钥签，验证服务端不认。
+- **验证码数据**：固定一个测试手机号（如 `13800138000`），配合 Mock 短信网关，让"获取验证码"永远返回已知固定码，避免真发短信——又慢又不可控。
+
+```python
+# 造一个已过期的 JWT（专供 Token 过期逻辑用例使用）
+import jwt, datetime
+
+def make_expired_token(user_id: int, secret: str = "TEST_SECRET") -> str:
+    """exp 设为 1 小时前，签发即过期。"""
+    payload = {
+        "user_id": user_id,
+        "role": "user",
+        "exp": datetime.datetime.utcnow() - datetime.timedelta(hours=1),
+    }
+    return jwt.encode(payload, secret, algorithm="HS256")
+```
 
 ### 环境依赖
 
-- **Redis/Session 存储**：确保 Session 存储服务稳定
-- **短信网关**：Mock 或真实短信服务（推荐 Mock 提高效率）
-- **Token 服务**：独立的 Token 生成和校验服务（若有）
+- **Redis / Session 存储**：Session 或 Token 黑名单通常落在 Redis，测试环境要保证它独立、可随时清空，避免用例间 Token 串味。
+- **短信网关 Mock**：用 Mock 服务接管发送接口，返回固定验证码；同时保留"发送失败""超时"两种异常响应，供异常用例复用。
+- **Token 服务**：若有独立的鉴权服务（如 OAuth2 / SSO），要能单独启停，方便验证"校验服务挂了"时的降级逻辑。
+- **多端客户端**：Web、App、小程序如果鉴权机制不同（如小程序用 code 换 session_key），需分别准备对应的登录入口和测试账号。
 
 ---
 

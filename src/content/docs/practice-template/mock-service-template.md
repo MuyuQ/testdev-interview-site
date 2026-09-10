@@ -313,6 +313,21 @@ def test_delayed_response(mock_api, mock_config):
     )
 ```
 
+### 运行与验证
+
+按 Step 1~5 建好文件后，在 `mock_service/` 目录下执行：
+
+```bash
+pip install -r requirements.txt
+pytest mock_service/tests/ -v
+```
+
+验证要点：
+
+- 成功 / 失败 / 超时三类用例都应跑通，且失败用例能被稳定复现（改 Mock 数据后用例随之失败）
+- 删除某个 `mock_api.get(...)` 注册后，对应请求应报"未注册"错误，说明 Mock 真实生效而非命中真实接口
+- 把 `assert_all_requests_are_fired` 改为 `True` 再跑，可检查是否有"注册了但没被调用"的冗余 Mock
+
 ## 7. 验收清单
 
 完成以下检查项，确保Mock服务符合规范：
@@ -337,6 +352,8 @@ def test_delayed_response(mock_api, mock_config):
   - [ ] 覆盖失败场景（4xx错误）
   - [ ] 覆盖服务端错误（5xx错误）
   - [ ] 覆盖异常场景（超时、网络错误）
+  - [ ] Mock 真实生效（断网也能跑通，不命中真实接口）
+  - [ ] 失败用例可稳定复现（改 Mock 数据用例随之失败）
 
 - [ ] **代码质量**
   - [ ] 无硬编码的敏感信息

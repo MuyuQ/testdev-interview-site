@@ -1,0 +1,15 @@
+---
+// 覆盖 Starlight 的正文容器：正文之后追加自测题与相关阅读
+import SelfTests from './SelfTests.astro';
+import RelatedLinks from './RelatedLinks.astro';
+import { buildArticleMeta } from '../lib/article-meta';
+
+const { entry } = Astro.locals.starlightRoute;
+const meta = await buildArticleMeta(entry, import.meta.env.BASE_URL);
+const tests = (entry.data as { selfTests?: unknown[] }).selfTests ?? [];
+---
+
+<div class="sl-markdown-content"><slot /></div>
+
+<RelatedLinks items={meta.related} />
+<SelfTests tests={tests} />

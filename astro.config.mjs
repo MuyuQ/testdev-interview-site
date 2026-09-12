@@ -81,6 +81,12 @@ export default defineConfig({
         },
       ],
 
+      // 组件覆盖：文章标题下渲染元数据，正文后渲染自测题与相关阅读
+      components: {
+        PageTitle: './src/components/PageTitle.astro',
+        MarkdownContent: './src/components/MarkdownContent.astro',
+      },
+
       // 自定义 CSS
       customCss: [
         '/src/styles/design-system-v3.css',

@@ -1,0 +1,173 @@
+---
+// 自测题卡片：渲染 frontmatter 里的 selfTests，点击选项即时判定并给出解析
+interface SelfTest {
+  id: string;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+interface Props {
+  tests: SelfTest[];
+}
+
+const { tests } = Astro.props;
+---
+
+{
+  tests.length > 0 && (
+    <section class="self-tests" aria-label="自测题">
+      <h2 class="self-tests-title">自测一下</h2>
+      <p class="self-tests-hint">选一个答案，立即看到解析。共 {tests.length} 题。</p>
+      {tests.map((test, index) => (
+        <div class="quiz-container" data-quiz={test.id}>
+          <p class="quiz-question">
+            {index + 1}. {test.question}
+          </p>
+          <div class="quiz-options" role="group" aria-label={test.question}>
+            {test.options.map((option, i) => (
+              <button
+                type="button"
+                class="quiz-option"
+                data-index={i}
+                data-correct={i === test.correctIndex ? 'true' : 'false'}
+              >
+                <span class="quiz-option-mark">{String.fromCharCode(65 + i)}.</span>
+                <span>{option}</span>
+              </button>
+            ))}
+          </div>
+          <p class="quiz-explanation" hidden>
+            {test.explanation}
+          </p>
+        </div>
+      ))}
+    </section>
+  )
+}
+
+<script>
+  // 每题独立判定：选中后锁定本题，标注对错并显示解析
+  document.querySelectorAll<HTMLElement>('.self-tests [data-quiz]').forEach((quiz) => {
+    const options = quiz.querySelectorAll<HTMLButtonElement>('.quiz-option');
+    const explanation = quiz.querySelector<HTMLElement>('.quiz-explanation');
+
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        if (quiz.dataset.answered === 'true') return;
+        quiz.dataset.answered = 'true';
+
+        options.forEach((item) => {
+          item.classList.remove('selected');
+          item.classList.add(item.dataset.correct === 'true' ? 'correct' : 'wrong');
+          item.disabled = true;
+        });
+        option.classList.add('selected');
+
+        if (explanation) {
+          explanation.hidden = false;
+          explanation.classList.add('is-visible');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .self-tests {
+    margin-top: var(--space-8, 2.5rem);
+    padding-top: var(--space-4, 1rem);
+    border-top: 1px solid var(--sl-color-gray-6, #243b55);
+  }
+
+  .self-tests-title {
+    margin: 0;
+    font-size: var(--sl-text-h4, 1.15rem);
+    color: var(--sl-color-white);
+  }
+
+  .self-tests-hint {
+    margin: 0.3rem 0 0;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  .quiz-container {
+    margin-top: var(--space-4, 1rem);
+    padding: var(--space-md, 1rem);
+    background-color: var(--sl-color-black);
+    border: 1px solid var(--sl-color-gray-6, #243b55);
+    border-radius: var(--sl-radius, 0.5rem);
+  }
+
+  .quiz-question {
+    margin: 0 0 0.75rem;
+    font-size: var(--sl-text-base);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    text-align: left;
+    color: var(--sl-color-gray-1);
+    background-color: var(--sl-color-gray-6, #172a3f);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: var(--sl-radius, 0.5rem);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .quiz-option:hover:not(:disabled) {
+    border-color: var(--sl-color-accent, #3b82f6);
+  }
+
+  .quiz-option:disabled {
+    cursor: default;
+  }
+
+  .quiz-option-mark {
+    font-weight: 600;
+    color: var(--sl-color-gray-3);
+  }
+
+  .quiz-option.selected {
+    border-color: var(--sl-color-accent, #3b82f6);
+    outline: 2px solid var(--sl-color-accent, #3b82f6);
+    outline-offset: -2px;
+  }
+
+  .quiz-option.correct {
+    background-color: rgba(34, 197, 94, 0.14);
+    border-color: #22c55e;
+  }
+
+  .quiz-option.wrong {
+    background-color: rgba(239, 68, 68, 0.12);
+    border-color: #ef4444;
+  }
+
+  .quiz-explanation {
+    margin: 0.85rem 0 0;
+    padding: 0.7rem 0.9rem;
+    font-size: var(--sl-text-sm);
+    line-height: 1.7;
+    color: var(--sl-color-gray-1);
+    background-color: var(--sl-color-gray-6, #172a3f);
+    border-left: 3px solid var(--sl-color-accent, #3b82f6);
+    border-radius: 0 var(--sl-radius, 0.5rem) var(--sl-radius, 0.5rem) 0;
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+// 覆盖 Starlight 的页面标题：标题下方渲染元数据徽标、可验证产出与前置知识
+import { buildArticleMeta, weightLabel } from '../lib/article-meta';
+
+// 与 Starlight 内部常量保持一致（@astrojs/starlight 未导出该子路径）
+const PAGE_TITLE_ID = '_top';
+
+const { entry } = Astro.locals.starlightRoute;
+const meta = await buildArticleMeta(entry, import.meta.env.BASE_URL);
+const hasBadges =
+  Boolean(meta.stageLabel || meta.difficultyLabel || meta.minutes || meta.interviewWeight);
+---
+
+<h1 id={PAGE_TITLE_ID}>{entry.data.title}</h1>
+
+{
+  hasBadges && (
+    <div class="article-meta">
+      {meta.stageLabel && <span class="meta-badge meta-stage">{meta.stageLabel}</span>}
+      {meta.difficultyLabel && (
+        <span class:list={['meta-badge', `difficulty-${entry.data.difficulty}`]}>
+          {meta.difficultyLabel}
+        </span>
+      )}
+      {meta.interviewWeight && (
+        <span class="meta-badge meta-weight">{weightLabel(meta.interviewWeight)}</span>
+      )}
+      {meta.minutes && <span class="meta-badge meta-minutes">约 {meta.minutes} 分钟</span>}
+    </div>
+  )
+}
+
+{
+  meta.outcomes.length > 0 && (
+    <div class="article-outcomes">
+      <p class="outcomes-title">学完你能做到</p>
+      <ul>
+        {meta.outcomes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+{
+  meta.prerequisites.length > 0 && (
+    <p class="article-prereq">
+      建议先读：
+      {meta.prerequisites.map((p, i) => (
+        <>
+          {i > 0 && '、'}
+          <a href={p.href}>{p.title}</a>
+        </>
+      ))}
+    </p>
+  )
+}
+
+<style>
+  h1 {
+    margin-top: 1rem;
+    font-size: var(--sl-text-h1);
+    line-height: var(--sl-line-height-headings);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2, 0.5rem);
+    margin-top: var(--space-3, 0.75rem);
+  }
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 999px;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-2);
+    background-color: var(--sl-color-black);
+  }
+
+  .meta-stage {
+    border-color: var(--sl-color-accent, var(--sl-color-gray-5));
+    color: var(--sl-color-white);
+  }
+
+  .meta-weight {
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .article-outcomes {
+    margin-top: var(--space-4, 1rem);
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--sl-color-accent, var(--sl-color-gray-4));
+    background-color: var(--sl-color-black);
+    border-radius: 0 var(--sl-radius, 0.5rem) var(--sl-radius, 0.5rem) 0;
+  }
+
+  .outcomes-title {
+    margin: 0 0 0.35rem;
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--sl-color-gray-2);
+  }
+
+  .article-outcomes ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .article-outcomes li {
+    font-size: var(--sl-text-sm);
+    line-height: 1.7;
+    color: var(--sl-color-gray-1);
+  }
+
+  .article-prereq {
+    margin: 0.6rem 0 0;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  .article-prereq a {
+    color: var(--sl-color-gray-2);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

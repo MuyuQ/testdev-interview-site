@@ -1,0 +1,77 @@
+---
+// 相关阅读卡片：把 frontmatter 的 relatedSlugs 渲染成可点击入口
+import type { RelatedEntry } from '../lib/article-meta';
+
+interface Props {
+  items: RelatedEntry[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="related-links" aria-label="相关阅读">
+      <h2 class="related-title">接着读</h2>
+      <ul>
+        {items.map((item) => (
+          <li>
+            <a href={item.href}>
+              <span class="related-category">{item.categoryLabel}</span>
+              <span class="related-name">{item.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .related-links {
+    margin-top: var(--space-6, 1.75rem);
+  }
+
+  .related-title {
+    margin: 0 0 0.6rem;
+    font-size: var(--sl-text-h5, 1rem);
+    color: var(--sl-color-white);
+  }
+
+  .related-links ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .related-links a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    height: 100%;
+    padding: 0.7rem 0.9rem;
+    text-decoration: none;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: var(--sl-radius, 0.5rem);
+    background-color: var(--sl-color-black);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .related-links a:hover {
+    border-color: var(--sl-color-accent, #3b82f6);
+    transform: translateY(-1px);
+  }
+
+  .related-category {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  .related-name {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-1);
+  }
+</style>

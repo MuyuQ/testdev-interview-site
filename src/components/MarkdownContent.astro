@@ -4,21 +4,28 @@ import SelfTests from './SelfTests.astro';
 import RelatedLinks from './RelatedLinks.astro';
 import LearningPath from './LearningPath.astro';
 import { buildArticleMeta } from '../lib/article-meta';
+import type { SelfTest } from '../lib/self-tests';
+import { isKnownCategory } from '../lib/site-config';
 import { getPathByCategory, resolvePath, findStepIndex } from '../lib/learning-paths';
 
 const { entry } = Astro.locals.starlightRoute;
 const meta = await buildArticleMeta(entry, import.meta.env.BASE_URL);
-const tests = (entry.data as { selfTests?: unknown[] }).selfTests ?? [];
+const tests = (entry.data as { selfTests?: SelfTest[] }).selfTests ?? [];
 
 // 学习路径：分类目录页展示整条路径，文章页展示当前步与上一步/下一步
-// 注意：分类目录页（如 glossary/index.md）的 frontmatter 没有 category 字段，
-// 所以统一从 entry.id 推导，取不到时再回退到 frontmatter
-const currentId = entry.id.replace(/\.mdx?$/, '');
-// 目录页的 entry.id 可能就是分类名本身（Starlight 会去掉 index），两种情况都要覆盖
-const dirCategory = currentId.includes('/') ? currentId.split('/')[0] : currentId;
-const isIndexPage = currentId.endsWith('/index') || !currentId.includes('/');
-const category =
-  dirCategory ?? (entry.data as { category?: string }).category ?? null;
+// 分类取值优先级：frontmatter 的 category > entry.id 推导（目录页历史上缺该字段）
+// 解析规则：entry.id 可能是 "<cat>/<slug>"、"<cat>/index" 或 "<cat>" 三种形态，
+// 统一去掉结尾的 /index 再取首段，最后用 categories 白名单确认，避免误命中
+// tags.md / difficulty.md 这类顶层页面。
+const currentId = entry.id.replace(/\.mdx?$/, '').replace(/\/index$/, '');
+const idCategory = currentId.includes('/') ? currentId.split('/')[0] : currentId;
+const declaredCategory = (entry.data as { category?: string }).category ?? null;
+const category = isKnownCategory(declaredCategory)
+  ? declaredCategory
+  : isKnownCategory(idCategory)
+    ? idCategory
+    : null;
+const isIndexPage = !currentId.includes('/');
 const path = category ? getPathByCategory(category) : undefined;
 const resolved = path ? await resolvePath(path, import.meta.env.BASE_URL) : null;
 const articleSlug = isIndexPage || !category ? null : currentId.slice(category.length + 1);

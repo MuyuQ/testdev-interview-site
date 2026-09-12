@@ -1,8 +1,21 @@
 // 站点配置 - 10 个内容类别
 // 顺序与 astro.config.mjs 的侧边栏保持一致
 
+// 内容分类 ID 联合类型，供 isKnownCategory 做类型收紧
+export type CategoryId =
+  | 'beginner-course'
+  | 'roadmap'
+  | 'glossary'
+  | 'tech'
+  | 'coding'
+  | 'project'
+  | 'scenario'
+  | 'interview-chains'
+  | 'practice-template'
+  | 'ai-learning';
+
 export interface CategoryConfig {
-  id: string;
+  id: CategoryId;
   title: string;
   navLabel: string;
   description: string;
@@ -91,6 +104,11 @@ export function getCategoryById(id: string): CategoryConfig | undefined {
 // 获取所有类别 ID
 export function getAllCategoryIds(): string[] {
   return categories.map((c) => c.id);
+}
+
+// 判断一个字符串是否是已定义的分类 ID（用于把任意来源的取值收紧成合法分类）
+export function isKnownCategory(id: string | null | undefined): id is CategoryId {
+  return Boolean(id) && categories.some((c) => c.id === id);
 }
 
 // 四层信息架构

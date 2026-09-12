@@ -1,6 +1,7 @@
 ---
 title: "学习路线"
 description: "提供时间盒学习路线和复盘方法"
+category: "roadmap"
 ---
 
 ## 模块定位

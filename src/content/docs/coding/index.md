@@ -1,6 +1,7 @@
 ---
 title: "编码题"
 description: "训练小型工程能力和面试代码表达"
+category: "coding"
 ---
 
 ## 模块定位

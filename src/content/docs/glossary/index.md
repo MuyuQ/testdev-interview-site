@@ -1,6 +1,7 @@
 ---
 title: "术语体系"
 description: "建立共同语言，降低阅读其他模块的门槛"
+category: "glossary"
 ---
 
 ## 模块定位

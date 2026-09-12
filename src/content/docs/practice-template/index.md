@@ -1,6 +1,7 @@
 ---
 title: "练手模板"
 description: "提供可复用练习产物和面试素材模板"
+category: "practice-template"
 ---
 
 ## 模块定位

@@ -1,6 +1,7 @@
 ---
 title: "技术专题"
 description: "解释测试开发技术，并连接项目落地"
+category: "tech"
 ---
 
 ## 模块定位

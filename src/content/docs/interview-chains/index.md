@@ -1,6 +1,7 @@
 ---
 title: "面试追问链"
 description: "模拟连续追问，训练回答深度和抗压能力"
+category: "interview-chains"
 ---
 
 ## 模块定位

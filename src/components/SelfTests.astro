@@ -1,12 +1,6 @@
 ---
 // 自测题卡片：渲染 frontmatter 里的 selfTests，点击选项即时判定并给出解析
-interface SelfTest {
-  id: string;
-  question: string;
-  options: string[];
-  correctIndex: number;
-  explanation: string;
-}
+import type { SelfTest } from '../lib/self-tests';
 
 interface Props {
   tests: SelfTest[];

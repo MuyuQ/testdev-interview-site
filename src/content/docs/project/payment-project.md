@@ -2,9 +2,18 @@
 title: "支付项目"
 description: "深入掌握支付系统测试的核心方法，包括渠道对接、状态机设计、对账机制和风控策略，能够独立设计支付链路测试方案并在面试中清晰表达项目经验"
 category: "project"
+stage: "project"
+estimatedMinutes: 35
 difficulty: "interview"
 interviewWeight: 3
 tags: ["支付系统", "状态机", "对账测试", "风控策略", "接口测试", "自动化测试"]
+prerequisites:
+  - "tech/api-testing"
+  - "scenario/payment-callback"
+outcomes:
+  - "能画出支付链路的状态流转图并标出测试点"
+  - "能设计支付回调重复通知的幂等性用例"
+  - "能2分钟讲清支付链路的质量风险点"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "payment-project-q1"
@@ -507,9 +516,9 @@ public void handleCallback(CallbackRequest request) {
 
 ### 关联技术
 
-- [API 测试](../tech/api-testing.md)：支付接口测试框架设计
-- [测试数据构造](../glossary/fixture.md)：支付测试数据生成策略
-- [Mock 和 Stub](../glossary/mock-stub.md)：第三方渠道 Mock 方案
+- [API 测试](/testdev-interview-site/tech/api-testing/)：支付接口测试框架设计
+- [测试数据构造](/testdev-interview-site/glossary/fixture/)：支付测试数据生成策略
+- [Mock 和 Stub](/testdev-interview-site/glossary/mock-stub/)：第三方渠道 Mock 方案
 
 ### 延伸学习
 
@@ -624,6 +633,6 @@ LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
 
 ## 下一步关联
 
-- 深入学习 [接口测试技术](../tech/api-testing.md) 提升自动化能力
+- 深入学习 [接口测试技术](/testdev-interview-site/tech/api-testing/) 提升自动化能力
 - 阅读「数据一致性测试」相关场景，理解分布式事务
 - 实践性能测试实战，掌握支付压测方法

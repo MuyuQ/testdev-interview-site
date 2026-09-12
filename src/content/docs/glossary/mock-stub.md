@@ -2,9 +2,18 @@
 title: "Mock 和 Stub"
 description: "两种隔离外部依赖的测试替身技术，Mock验证行为交互，Stub提供预设响应，是单元测试与集成测试分离的核心手段。"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 17
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["自动化模式", "单元测试", "测试替身", "依赖隔离", "面试高频"]
+prerequisites:
+  - "glossary/unit-testing"
+  - "glossary/fixture"
+outcomes:
+  - "能区分 Mock 验证行为、Stub 提供响应"
+  - "能举例说明何时该用 Mock 而非 Stub"
+  - "面试时能讲清测试替身如何隔离外部依赖"
 relatedSlugs: ["glossary/unit-testing", "glossary/integration-testing", "tech/api-testing"]
 selfTests:
   - id: "mock-stub-q1"
@@ -287,10 +296,10 @@ expect(mock.sendEmail).toHaveBeenCalledWith('test@example.com', '主题', '内�
 
 ## 关联
 
-- **前置概念**：[单元测试](/glossary/unit-testing) - 理解为什么需要隔离依赖
-- **后置概念**：[集成测试](/glossary/integration-testing) - 用真实依赖验证协作
+- **前置概念**：[单元测试](/testdev-interview-site/glossary/unit-testing/) - 理解为什么需要隔离依赖
+- **后置概念**：[集成测试](/testdev-interview-site/glossary/integration-testing/) - 用真实依赖验证协作
 - **同家族术语**：Fake、Spy、Dummy - 其他测试替身类型
-- **技术实践**：[API测试](/tech/api-testing) - 接口层面的Mock策略
+- **技术实践**：[API测试](/testdev-interview-site/tech/api-testing/) - 接口层面的Mock策略
 - **框架工具**：Jest Mock、unittest.mock、Mockito
 
 ## 下一步

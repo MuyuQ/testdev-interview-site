@@ -2,9 +2,18 @@
 title: "页面对象模式"
 description: "将页面元素定位与操作逻辑封装成独立对象的UI自动化设计模式，实现测试代码与页面结构的解耦"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 12
 difficulty: "interview"
 interviewWeight: 3
 tags: ["自动化模式", "UI测试", "设计模式", "Selenium", "Playwright", "Cypress"]
+prerequisites:
+  - "tech/playwright"
+  - "glossary/test-pyramid"
+outcomes:
+  - "能把页面元素与操作封装成独立的页面对象类"
+  - "能说明 UI 变化时只需改页面对象而用例不变"
+  - "面试时能讲清页面对象模式解耦的好处"
 relatedSlugs: ["tech/api-testing", "tech/playwright"]
 selfTests:
   - id: "page-object-pattern-q1"

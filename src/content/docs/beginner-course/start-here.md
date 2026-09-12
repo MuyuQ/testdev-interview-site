@@ -2,9 +2,16 @@
 title: "从零开始：测试开发学习路线"
 description: "面向初学者的 7 天测试开发入门路径，先学会基础能力，再进入面试冲刺。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 25
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["新手教程", "测试开发入门", "学习路线"]
+prerequisites: []
+outcomes:
+  - "能根据 7 天路线说出每天应掌握的能力模块"
+  - "能区分基础能力阶段与面试冲刺阶段的不同目标"
+  - "面试时能讲清为什么测开要先打基础再进面试"
 relatedSlugs:
   - "beginner-course/testdev-role-map"
   - "roadmap/3-day-interview-map"

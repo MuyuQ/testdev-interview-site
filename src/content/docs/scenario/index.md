@@ -16,10 +16,10 @@ category: "scenario"
 
 | 学习者类型 | 如何使用这个模块 |
 |------------|-----------------|
-| **初学者** | 先学 [登录鉴权](./login-auth) 作为入门场景，理解"场景题答题框架"的基本结构，再学 [支付回调](./payment-callback) 掌握更复杂的状态一致性分析 |
+| **初学者** | 先学 [登录鉴权](/testdev-interview-site/scenario/login-auth/) 作为入门场景，理解"场景题答题框架"的基本结构，再学 [支付回调](/testdev-interview-site/scenario/payment-callback/) 掌握更复杂的状态一致性分析 |
 | **冲刺面试者** | 按面试高频度排序学习：支付回调、登录鉴权、异步任务。重点背诵每个场景的"面试回答骨架"，形成 2-3 分钟的标准表达模板 |
 | **项目包装者** | 将场景题中的测试用例示例改写成自己项目中的实际案例，充实简历中的"项目测试方案"描述 |
-| **进阶测试开发** | 研究 [异步任务](./async-task) 中的消息队列可靠性测试、[数据迁移](./data-migration) 中的数据一致性验证，理解分布式系统的测试难点 |
+| **进阶测试开发** | 研究 [异步任务](/testdev-interview-site/scenario/async-task/) 中的消息队列可靠性测试、[数据迁移](/testdev-interview-site/scenario/data-migration/) 中的数据一致性验证，理解分布式系统的测试难点 |
 
 ## 推荐学习顺序
 
@@ -27,10 +27,10 @@ category: "scenario"
 
 | 序号 | 场景题 | 面试权重 | 核心收获 | 预计时间 |
 |------|--------|---------|---------|---------|
-| 1 | [登录鉴权](./login-auth) | 5 | 掌握鉴权风险分析、Token验证测试、多端登录场景 | 60 分钟 |
-| 2 | [支付回调](./payment-callback) | 3 | 掌握幂等性设计、状态一致性验证、对账系统测试 | 55 分钟 |
-| 3 | [异步任务](./async-task) | 3 | 掌握消息队列测试、延迟处理、失败重试策略 | 45 分钟 |
-| 4 | [数据迁移](./data-migration) | 3 | 掌握迁移验证方法、数据一致性检查 | 30 分钟 |
+| 1 | [登录鉴权](/testdev-interview-site/scenario/login-auth/) | 5 | 掌握鉴权风险分析、Token验证测试、多端登录场景 | 60 分钟 |
+| 2 | [支付回调](/testdev-interview-site/scenario/payment-callback/) | 3 | 掌握幂等性设计、状态一致性验证、对账系统测试 | 55 分钟 |
+| 3 | [异步任务](/testdev-interview-site/scenario/async-task/) | 3 | 掌握消息队列测试、延迟处理、失败重试策略 | 45 分钟 |
+| 4 | [数据迁移](/testdev-interview-site/scenario/data-migration/) | 3 | 掌握迁移验证方法、数据一致性检查 | 30 分钟 |
 
 > 注：当前模块持续建设中，后续将新增更多高频场景（如分布式事务、库存扣减、订单取消等）。
 
@@ -42,7 +42,7 @@ category: "scenario"
 - 掌握"风险分析 → 测试维度 → 核心用例"的分析路径
 - 理解功能、性能、安全、兼容四维测试模型
 
-**入口**：[登录鉴权](./login-auth) 是最适合入门的场景，业务直观、风险点清晰。
+**入口**：[登录鉴权](/testdev-interview-site/scenario/login-auth/) 是最适合入门的场景，业务直观、风险点清晰。
 
 ### 实践组：动手设计测试用例
 
@@ -50,7 +50,7 @@ category: "scenario"
 - 建议在自己项目中复现至少一个场景的测试用例
 - 练习将"面试回答骨架"转化成实际项目描述
 
-**入口**：[支付回调](./payment-callback) 的幂等性测试用例最适合动手实践。
+**入口**：[支付回调](/testdev-interview-site/scenario/payment-callback/) 的幂等性测试用例最适合动手实践。
 
 ### 面试组：背诵标准表达模板
 
@@ -58,11 +58,11 @@ category: "scenario"
 - 重点掌握开场白、核心展开、项目成果的三段式结构
 - 准备应对"追问"的标准应答要点
 
-**入口**：所有场景题的面试回答骨架都需要背诵，优先 [登录鉴权](./login-auth) 和 [支付回调](./payment-callback)。
+**入口**：所有场景题的面试回答骨架都需要背诵，优先 [登录鉴权](/testdev-interview-site/scenario/login-auth/) 和 [支付回调](/testdev-interview-site/scenario/payment-callback/)。
 
 ### 进阶组：分布式系统测试思维
 
-- 研究 [异步任务](./async-task) 的消息队列可靠性测试
+- 研究 [异步任务](/testdev-interview-site/scenario/async-task/) 的消息队列可靠性测试
 - 理解幂等性、最终一致性、分布式事务等概念
 - 掌握混沌测试、契约测试等进阶方法
 
@@ -89,10 +89,10 @@ category: "scenario"
 
 完成场景题模块后，建议进入：
 
-- **[面试追问链](../interview-chains/)** - 场景题的深度追问链路，训练连续应对能力
-- **[技术专题](../tech/)** - 补充 API 测试、Mock 框架等技术细节
-- **[项目实战](../project/)** - 将场景题测试方案落地到完整项目案例
-- **[术语体系](../glossary/)** - 补充幂等性、分布式事务等概念定义
+- **[面试追问链](/testdev-interview-site/interview-chains/)** - 场景题的深度追问链路，训练连续应对能力
+- **[技术专题](/testdev-interview-site/tech/)** - 补充 API 测试、Mock 框架等技术细节
+- **[项目实战](/testdev-interview-site/project/)** - 将场景题测试方案落地到完整项目案例
+- **[术语体系](/testdev-interview-site/glossary/)** - 补充幂等性、分布式事务等概念定义
 
 ---
 

@@ -2,9 +2,19 @@
 title: AI 接口测试
 description: "AI 辅助接口测试：文档解析、断言建议、异常场景覆盖，提升接口测试效率与覆盖率。"
 category: "ai-learning"
+stage: "advanced"
+estimatedMinutes: 14
 difficulty: "interview"
 interviewWeight: 3
 tags: ["通用"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/api-assertion"
+  - "ai-learning/ai-testcase-design"
+outcomes:
+  - "能用 AI 从 Swagger 解析出接口测试骨架"
+  - "能审校 AI 生成的断言是否符合真实字段"
+  - "能补足 AI 遗漏的业务特例场景"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "ai-api-testing-q1"

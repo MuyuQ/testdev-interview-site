@@ -2,9 +2,18 @@
 title: "集成测试"
 description: "集成测试是在单元测试基础上，验证多个模块组合后接口交互、数据流转和业务协作是否正确的测试活动，是连接单元测试与系统测试的关键桥梁。"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 12
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试基础", "集成测试", "接口测试", "测试层次"]
+prerequisites:
+  - "glossary/unit-testing"
+  - "tech/api-testing"
+outcomes:
+  - "能说清集成测试与单元测试的边界"
+  - "能指出订单调用支付这类场景该用集成测试"
+  - "面试时能讲清集成测试为什么比单测更接近真实协作"
 relatedSlugs: ["tech/api-testing", "glossary/unit-testing"]
 selfTests:
   - id: "integration-testing-q1"
@@ -177,7 +186,7 @@ describe('订单-库存模块集成测试', () => {
 
 ## 关联内容
 
-- [API测试](/docs/tech/api-testing) - 接口集成测试的具体技术实现
-- [单元测试](/docs/glossary/unit-testing) - 集成测试的前置环节
-- [测试金字塔](/docs/glossary/test-pyramid) - 理解测试层次的分布策略
-- [Mock与Stub](/docs/glossary/mock-stub) - 集成测试中的依赖隔离技术
+- [API测试](/testdev-interview-site/tech/api-testing/) - 接口集成测试的具体技术实现
+- [单元测试](/testdev-interview-site/glossary/unit-testing/) - 集成测试的前置环节
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 理解测试层次的分布策略
+- [Mock与Stub](/testdev-interview-site/glossary/mock-stub/) - 集成测试中的依赖隔离技术

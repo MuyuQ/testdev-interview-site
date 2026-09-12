@@ -2,9 +2,19 @@
 title: "Docker 测试"
 description: "容器化测试环境：使用 Docker 构建隔离、可复现的测试环境，解决环境一致性、依赖管理、并行测试等核心痛点"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 18
 difficulty: "interview"
 interviewWeight: 3
 tags: ["工程化", "容器化", "CI/CD", "环境隔离"]
+prerequisites:
+  - "tech/ci-cd"
+  - "tech/python"
+  - "glossary/quality-gate"
+outcomes:
+  - "能用 docker-compose 编排带依赖的测试环境"
+  - "能配置等待依赖就绪的健康检查避免误启"
+  - "能定位容器与本地环境不一致导致的失败"
 relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "tech/ci-cd"]
 selfTests:
   - id: "docker-testing-q1"
@@ -354,9 +364,9 @@ docker-compose up --force-recreate
 
 搭建好容器化测试环境后，建议往"可复现的交付链路"延伸：
 
-1. **接流水线**：把测试容器跑进 [CI/CD](/docs/tech/ci-cd)，实现 PR 自动触发、失败即阻断
-2. **服务虚拟化**：用 WireMock / MockServer 容器替代不稳定外部服务，配合 [Mock 框架](/docs/tech/mock-framework)
-3. **数据库隔离**：结合 [数据库测试](/docs/tech/database-testing) 的临时卷与事务回滚做干净环境
+1. **接流水线**：把测试容器跑进 [CI/CD](/testdev-interview-site/tech/ci-cd/)，实现 PR 自动触发、失败即阻断
+2. **服务虚拟化**：用 WireMock / MockServer 容器替代不稳定外部服务，配合 [Mock 框架](/testdev-interview-site/tech/mock-framework/)
+3. **数据库隔离**：结合 [数据库测试](/testdev-interview-site/tech/database-testing/) 的临时卷与事务回滚做干净环境
 4. **进阶玩法**：尝试 Testcontainers 在测试代码里动态拉起依赖，比手写 Compose 更内聚
 
 面试冲刺讲清"depends_on 只管启动不管就绪"以及就绪检查怎么做。

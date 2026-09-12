@@ -53,9 +53,9 @@ description: "模拟连续追问，训练回答深度和抗压能力"
 
 以下是本模块的核心学习入口，建议按顺序学习：
 
-1. [接口测试追问链](./api-testing-chain.md) - 面试最高频考点，从流程概述到断言设计层层深入
-2. [测试框架追问链](./test-framework.md) - 框架设计能力考察，从架构到实现细节
-3. [电商订单追问链](./ecommerce-order-chain.md) - 项目经验追问场景，业务逻辑深度考察
+1. [接口测试追问链](/testdev-interview-site/interview-chains/api-testing-chain/) - 面试最高频考点，从流程概述到断言设计层层深入
+2. [测试框架追问链](/testdev-interview-site/interview-chains/test-framework/) - 框架设计能力考察，从架构到实现细节
+3. [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) - 项目经验追问场景，业务逻辑深度考察
 
 ---
 
@@ -144,16 +144,16 @@ description: "模拟连续追问，训练回答深度和抗压能力"
 
 ### 技术能力补充
 
-- [接口测试技术详解](/tech/api-testing) - 补充接口测试技术知识
-- [Pytest 自动化框架](/tech/pytest) - 学习自动化框架实现
-- [测试框架设计](/interview-chains/test-framework) - 深入框架设计方法论
+- [接口测试技术详解](/testdev-interview-site/tech/api-testing/) - 补充接口测试技术知识
+- [Pytest 自动化框架](/testdev-interview-site/tech/pytest/) - 学习自动化框架实现
+- [测试框架设计](/testdev-interview-site/interview-chains/test-framework/) - 深入框架设计方法论
 
 ### 面试准备延伸
 
-- [面试表达训练](/beginner-course/interview-expression-for-first-project) - 提升面试表达技巧
-- [项目包装指南](/practice-template/project-story-template) - 学习项目经验包装方法
+- [面试表达训练](/testdev-interview-site/beginner-course/interview-expression-for-first-project/) - 提升面试表达技巧
+- [项目包装指南](/testdev-interview-site/practice-template/project-story-template/) - 学习项目经验包装方法
 
 ### 实战能力提升
 
-- [实战项目训练](/project) - 通过项目巩固技术能力
-- [测试用例设计](/glossary/test-design) - 补充用例设计方法论
+- [实战项目训练](/testdev-interview-site/project/) - 通过项目巩固技术能力
+- [测试用例设计](/testdev-interview-site/glossary/test-design/) - 补充用例设计方法论

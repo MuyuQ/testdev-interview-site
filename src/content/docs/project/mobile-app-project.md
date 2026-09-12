@@ -2,9 +2,19 @@
 title: "移动应用"
 description: "某电商移动应用测试项目全流程实践，涵盖多端兼容、安装升级、推送、弱网、状态流转、性能监控及故障复盘等核心测试场景"
 category: "project"
+stage: "project"
+estimatedMinutes: 18
 difficulty: "interview"
 interviewWeight: 3
 tags: ["移动测试", "Appium自动化", "兼容性测试", "性能测试", "持续集成", "用户体验"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/page-object-pattern"
+  - "scenario/login-auth"
+outcomes:
+  - "能设计机型优先级兼容性测试矩阵"
+  - "能编写弱网支付回调丢失的补偿用例"
+  - "能2分钟讲清移动端四大测试风险"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "mobile-app-project-q1"
@@ -296,11 +306,11 @@ def test_pay_callback_lost_then_query():
 
 ## 关联场景和技术
 
-- [API 测试](../tech/api-testing.md)：移动端与后端接口交互验证
-- [断言机制](../glossary/api-assertion.md)：测试结果验证
-- [Mock 与 Stub](../glossary/mock-stub.md)：后端依赖 Mock 方案
-- [页面对象模式](../glossary/page-object-pattern.md)：Appium PO 设计
-- [回归测试](../glossary/regression-testing.md)：发版前回归策略
+- [API 测试](/testdev-interview-site/tech/api-testing/)：移动端与后端接口交互验证
+- [断言机制](/testdev-interview-site/glossary/api-assertion/)：测试结果验证
+- [Mock 与 Stub](/testdev-interview-site/glossary/mock-stub/)：后端依赖 Mock 方案
+- [页面对象模式](/testdev-interview-site/glossary/page-object-pattern/)：Appium PO 设计
+- [回归测试](/testdev-interview-site/glossary/regression-testing/)：发版前回归策略
 
 ## 练习任务
 
@@ -345,6 +355,6 @@ assert page_restored()        # 回前台后数据/页面应还原
 
 ## 下一步关联
 
-- 深入 [接口测试技术](../tech/api-testing.md) 提升端到端能力
-- 阅读 [页面对象模式](../glossary/page-object-pattern.md) 优化自动化结构
-- 实践 [Mock 与 Stub](../glossary/mock-stub.md) 隔离后端依赖
+- 深入 [接口测试技术](/testdev-interview-site/tech/api-testing/) 提升端到端能力
+- 阅读 [页面对象模式](/testdev-interview-site/glossary/page-object-pattern/) 优化自动化结构
+- 实践 [Mock 与 Stub](/testdev-interview-site/glossary/mock-stub/) 隔离后端依赖

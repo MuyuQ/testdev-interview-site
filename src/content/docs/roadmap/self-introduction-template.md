@@ -2,9 +2,18 @@
 title: "自我介绍模板"
 description: "掌握面试自我介绍的标准结构，学会用背景-能力-项目-目标四段式表达，控制在1-3分钟内展示核心竞争力"
 category: "roadmap"
+stage: "interview"
+estimatedMinutes: 16
 difficulty: "interview"
 interviewWeight: 3
 tags: ["面试技巧", "自我介绍", "表达结构", "时间控制", "求职准备", "测试开发"]
+prerequisites:
+  - "practice-template/project-story-template"
+  - "project/ecommerce-project"
+outcomes:
+  - "能按四段式讲出 1 分钟自我介绍"
+  - "能针对目标岗位调整项目经历的讲法"
+  - "能在被打断后接回主线继续讲"
 relatedSlugs: ["roadmap/7-day-interview-plan", "practice-template/project-story-template"]
 selfTests:
   - id: "self-introduction-template-q1"
@@ -48,7 +57,7 @@ selfTests:
 
 ### 推荐准备
 
-- 完成[项目故事模板](/practice-template/project-story-template/)（原简历/项目素材整理方向）的学习
+- 完成[项目故事模板](/testdev-interview-site/practice-template/project-story-template/)（原简历/项目素材整理方向）的学习
 - 整理好项目清单和技术栈清单
 - 了解目标公司的业务和技术方向
 
@@ -338,10 +347,10 @@ selfTests:
 
 完成自我介绍模板的学习后，建议按以下顺序进入相关模块：
 
-1. **[项目故事模板](/practice-template/project-story-template/)**：把自我介绍里提到的亮点，沉淀成可深挖的项目故事，准备 3W1H 追问
-2. **[3 天面试速记](/roadmap/3-day-interview-map/)（模拟面试模块）**：在真实或对练场景中检验自我介绍效果，训练追问应对
-3. **技术问答准备**：基于自我介绍里点到的技术栈，回到对应技术页（如 [API 测试](/tech/api-testing/)）准备深入追问
-4. **项目深挖准备**：用[项目故事模板](/practice-template/project-story-template/)把每个项目拆成「背景-难点-方案-成果」，应对深挖
+1. **[项目故事模板](/testdev-interview-site/practice-template/project-story-template/)**：把自我介绍里提到的亮点，沉淀成可深挖的项目故事，准备 3W1H 追问
+2. **[3 天面试速记](/testdev-interview-site/roadmap/3-day-interview-map/)（模拟面试模块）**：在真实或对练场景中检验自我介绍效果，训练追问应对
+3. **技术问答准备**：基于自我介绍里点到的技术栈，回到对应技术页（如 [API 测试](/testdev-interview-site/tech/api-testing/)）准备深入追问
+4. **项目深挖准备**：用[项目故事模板](/testdev-interview-site/practice-template/project-story-template/)把每个项目拆成「背景-难点-方案-成果」，应对深挖
 
 ---
 

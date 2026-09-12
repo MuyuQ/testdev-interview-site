@@ -2,9 +2,19 @@
 title: "管理后台"
 description: "后台管理系统测试实战：CRUD操作、权限体系、配置管理与批量操作的全链路测试策略"
 category: "project"
+stage: "project"
+estimatedMinutes: 33
 difficulty: "interview"
 interviewWeight: 3
 tags: ["CRUD", "权限体系", "配置管理", "批量操作", "接口测试", "自动化测试"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/api-assertion"
+  - "glossary/regression-testing"
+outcomes:
+  - "能设计角色-权限-资源三层权限测试矩阵"
+  - "能编写批量导入部分失败的幂等性用例"
+  - "能2分钟讲清管理后台的越权风险点"
 relatedSlugs: ["tech/api-testing", "interview-chains/test-framework", "glossary/api-assertion"]
 selfTests:
   - id: "admin-platform-q1"
@@ -426,12 +436,12 @@ def update_goods(gid, payload, base_version):
 
 ## 关联场景和技术
 
-- [接口测试](../tech/api-testing.md)：后台接口测试设计与自动化
-- [断言机制](../glossary/api-assertion.md)：响应与数据库多维断言
-- [测试框架追问链](../interview-chains/test-framework.md)：框架设计追问训练
-- [Mock 与 Stub](../glossary/mock-stub.md)：第三方依赖 Mock 方案
-- [回归测试](../glossary/regression-testing.md)：发版前回归策略
-- [冒烟测试](../glossary/smoke-testing.md)：每次提交的冒烟门禁
+- [接口测试](/testdev-interview-site/tech/api-testing/)：后台接口测试设计与自动化
+- [断言机制](/testdev-interview-site/glossary/api-assertion/)：响应与数据库多维断言
+- [测试框架追问链](/testdev-interview-site/interview-chains/test-framework/)：框架设计追问训练
+- [Mock 与 Stub](/testdev-interview-site/glossary/mock-stub/)：第三方依赖 Mock 方案
+- [回归测试](/testdev-interview-site/glossary/regression-testing/)：发版前回归策略
+- [冒烟测试](/testdev-interview-site/glossary/smoke-testing/)：每次提交的冒烟门禁
 
 ## 练习任务
 
@@ -478,6 +488,6 @@ assert GoodsDao.count_dirty() == 0      # 无脏数据残留
 
 ## 下一步关联
 
-- 深入 [接口测试技术](../tech/api-testing.md) 提升自动化能力
-- 阅读 [Mock 与 Stub](../glossary/mock-stub.md) 掌握依赖隔离
-- 练习 [权限框架追问链](../interview-chains/test-framework.md) 准备面试表达
+- 深入 [接口测试技术](/testdev-interview-site/tech/api-testing/) 提升自动化能力
+- 阅读 [Mock 与 Stub](/testdev-interview-site/glossary/mock-stub/) 掌握依赖隔离
+- 练习 [权限框架追问链](/testdev-interview-site/interview-chains/test-framework/) 准备面试表达

@@ -25,14 +25,14 @@ description: "提供时间盒学习路线和复盘方法"
 
 即将面临面试（1-2周内），需要快速梳理知识体系、打磨项目表达。本模块提供了两条面试冲刺路线：
 
-- **[3天面试速记](./3-day-interview-map)**：临门一脚的冲刺路线，唤醒已有记忆，适合基础扎实但需要快速回顾的学习者
-- **[7天面试计划](./7-day-interview-plan)**：高密度面试冲刺路线，每天4个核心任务，产出面试作品集
+- **[3天面试速记](/testdev-interview-site/roadmap/3-day-interview-map/)**：临门一脚的冲刺路线，唤醒已有记忆，适合基础扎实但需要快速回顾的学习者
+- **[7天面试计划](/testdev-interview-site/roadmap/7-day-interview-plan/)**：高密度面试冲刺路线，每天4个核心任务，产出面试作品集
 
 ### 项目包装者
 
 有项目经验但不知道如何有效表达，需要将项目经历转化为结构化的面试素材。
 
-- **[自我介绍模板](./self-introduction-template)**：掌握面试自我介绍的标准结构，用四段式表达展示核心竞争力
+- **[自我介绍模板](/testdev-interview-site/roadmap/self-introduction-template/)**：掌握面试自我介绍的标准结构，用四段式表达展示核心竞争力
 - 结合7天面试计划的Day 1-2项目经历打磨任务
 
 ### 进阶测试开发
@@ -46,9 +46,9 @@ description: "提供时间盒学习路线和复盘方法"
 
 以下是本模块的核心入口，建议按以下顺序学习：
 
-1. **[自我介绍模板](./self-introduction-template)** - 面试第一关，掌握四段式结构（1-3分钟版本）
-2. **[7天面试计划](./7-day-interview-plan)** - 面试系统准备，产出可见的面试作品集
-3. **[3天面试速记](./3-day-interview-map)** - 临门一脚冲刺，唤醒已有记忆
+1. **[自我介绍模板](/testdev-interview-site/roadmap/self-introduction-template/)** - 面试第一关，掌握四段式结构（1-3分钟版本）
+2. **[7天面试计划](/testdev-interview-site/roadmap/7-day-interview-plan/)** - 面试系统准备，产出可见的面试作品集
+3. **[3天面试速记](/testdev-interview-site/roadmap/3-day-interview-map/)** - 临门一脚冲刺，唤醒已有记忆
 4. `/tech/api-testing` - API测试核心知识（技术模块）
 5. `/tech/pytest` - 自动化测试框架（技术模块）
 6. `/glossary` - 核心词条速查（词汇表模块）

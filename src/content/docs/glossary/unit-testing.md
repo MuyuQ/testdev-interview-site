@@ -2,9 +2,18 @@
 title: "单元测试"
 description: "对软件中最小可测试单元进行验证的测试方法"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 14
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["测试基础", "代码质量", "TDD"]
+prerequisites:
+  - "tech/pytest"
+  - "beginner-course/python-testing-minimum"
+outcomes:
+  - "能说清单元测试与集成测试的核心区别"
+  - "能解释代码覆盖率 80% 不代表质量 80%"
+  - "面试时能讲清单测为什么要隔离外部依赖"
 relatedSlugs: ["tech/api-testing", "glossary/integration-testing"]
 selfTests:
   - id: "unit-testing-q1"
@@ -149,7 +158,7 @@ describe('购物车计算', () => {
 | **Fake** | 简化版真实实现 | 用内存数据库代替真实 MySQL，又快又真 |
 | **Spy** | 包装真实对象记录调用 | 想知道真实对象被调了几次，但不改变其行为 |
 
-细节可参考 [Mock/Stub](/glossary/mock-stub)。原则是：**能不 mock 就不 mock**，纯逻辑优先用真实代码，只在隔离外部依赖时使用替身。
+细节可参考 [Mock/Stub](/testdev-interview-site/glossary/mock-stub/)。原则是：**能不 mock 就不 mock**，纯逻辑优先用真实代码，只在隔离外部依赖时使用替身。
 
 ## 面试怎么说
 
@@ -224,7 +233,7 @@ describe('购物车计算', () => {
 
 ## 关联内容
 
-- [集成测试](/glossary/integration-testing) - 理解单元测试后的下一层
-- [API 测试](/tech/api-testing) - 接口层面的测试策略
-- [Mock/Stub](/glossary/mock-stub) - 隔离依赖的常用技术手段
-- [测试金字塔](/glossary/test-pyramid) - 单测在测试分层中的占比与定位
+- [集成测试](/testdev-interview-site/glossary/integration-testing/) - 理解单元测试后的下一层
+- [API 测试](/testdev-interview-site/tech/api-testing/) - 接口层面的测试策略
+- [Mock/Stub](/testdev-interview-site/glossary/mock-stub/) - 隔离依赖的常用技术手段
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 单测在测试分层中的占比与定位

@@ -2,9 +2,19 @@
 title: "异步任务"
 description: "异步任务状态管理、消息队列测试、延迟处理与失败重试策略"
 category: "scenario"
+stage: "project"
+estimatedMinutes: 21
 difficulty: "interview"
 interviewWeight: 3
 tags: ["消息队列", "状态机", "分布式系统", "可靠性测试"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/integration-testing"
+  - "glossary/regression-testing"
+outcomes:
+  - "能设计异步任务成功失败重试的状态用例"
+  - "能验证消息队列重复消费的幂等性"
+  - "能2分钟讲清异步任务可靠性测试点"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "async-task-q1"
@@ -393,5 +403,5 @@ groups:
 
 ## 12. 关联内容
 
-- [API测试技术](/docs/tech/api-testing) - 接口层面的测试方法
-- [API断言](/docs/glossary/api-assertion) - 接口断言的最佳实践
+- [API测试技术](/testdev-interview-site/tech/api-testing/) - 接口层面的测试方法
+- [API断言](/testdev-interview-site/glossary/api-assertion/) - 接口断言的最佳实践

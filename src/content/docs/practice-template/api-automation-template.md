@@ -2,9 +2,19 @@
 title: "API 自动化模板"
 description: "一套可直接复用的接口自动化项目模板，包含目录结构、配置管理、测试用例编写规范和报告生成，帮助你快速搭建企业级 API 测试框架。"
 category: "practice-template"
+stage: "interview"
+estimatedMinutes: 30
 difficulty: "interview"
 interviewWeight: 3
 tags: ["接口自动化", "Pytest", "项目架构", "配置管理", "Allure报告", "面试实战"]
+prerequisites:
+  - "beginner-course/pytest-api-first-case"
+  - "tech/api-testing"
+  - "tech/pytest"
+outcomes:
+  - "能按模板搭出分层结构的 API 自动化项目骨架"
+  - "能用 conftest 定义可复用的 fixtures"
+  - "能生成带用例趋势的 Allure 测试报告"
 relatedSlugs: ["tech/api-testing", "tech/pytest", "beginner-course/http-api-basics"]
 selfTests:
   - id: "api-automation-template-q1"
@@ -62,7 +72,7 @@ selfTests:
 - **HTTP API 基本概念**：请求方法、状态码、JSON 报文结构
 - **Python 基础编程**：类、装饰器、文件读写（YAML 解析会用上）
 
-如果 Pytest 还不熟，先走 [Pytest 基础](/docs/tech/pytest)；如果 HTTP 概念模糊，先补 [HTTP API 基础](/docs/beginner-course/http-api-basics)。
+如果 Pytest 还不熟，先走 [Pytest 基础](/testdev-interview-site/tech/pytest/)；如果 HTTP 概念模糊，先补 [HTTP API 基础](/testdev-interview-site/beginner-course/http-api-basics/)。
 
 ## 4. 最终产物长什么样
 
@@ -421,8 +431,8 @@ allure serve reports/allure-results   # 应能看到用例列表且无报错
 
 ## 10. 关联内容
 
-- [API 测试技术](/docs/tech/api-testing) - 深入学习接口断言与测试技巧
-- [Pytest 进阶](/docs/tech/pytest) - 掌握 fixture、marker 等高级特性
-- [HTTP API 基础](/docs/beginner-course/http-api-basics) - 补充 API 测试理论底座
-- [Mock 服务模板](/docs/practice-template/mock-service-template) - 学习如何用 Mock 隔离外部依赖
-- [项目故事模板](/docs/practice-template/project-story-template) - 把本项目包装成面试可讲的项目故事
+- [API 测试技术](/testdev-interview-site/tech/api-testing/) - 深入学习接口断言与测试技巧
+- [Pytest 进阶](/testdev-interview-site/tech/pytest/) - 掌握 fixture、marker 等高级特性
+- [HTTP API 基础](/testdev-interview-site/beginner-course/http-api-basics/) - 补充 API 测试理论底座
+- [Mock 服务模板](/testdev-interview-site/practice-template/mock-service-template/) - 学习如何用 Mock 隔离外部依赖
+- [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) - 把本项目包装成面试可讲的项目故事

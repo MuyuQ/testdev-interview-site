@@ -18,7 +18,7 @@ AI 学习模块不是追逐工具热度，而是帮助你理解 AI 如何改变�
 |---------|---------|---------|
 | 零基础初学者 | 先不急着学 AI，先建立测试基础能力 | [新手教程](/testdev-interview-site/beginner-course/) |
 | 有测试经验者 | 学习 AI 如何提升现有工作效率 | [测试开发 AI 工具概览](/testdev-interview-site/ai-learning/testdev-ai-tools/) |
-| 面试冲刺者 | 掌握 AI 面试高频问题回答结构 | [AI 测试追问链](/testdev-interview-site/interview-chains/ai-testing-chain/) |
+| 面试冲刺者 | 掌握 AI 面试高频问题的回答结构 | 每篇文末的「面试追问」小节 |
 | 进阶测试开发 | 深入 AI 辅助测试设计的实践方法 | [AI 测试用例设计](/testdev-interview-site/ai-learning/ai-testcase-design/) |
 
 ## 推荐学习顺序
@@ -28,12 +28,9 @@ AI 学习模块不是追逐工具热度，而是帮助你理解 AI 如何改变�
 | 序号 | 文章 | 学习目标 | 预计时间 |
 |-----|------|---------|---------|
 | 1 | [测试开发 AI 工具概览](/testdev-interview-site/ai-learning/testdev-ai-tools/) | 建立 AI 工具分类认知，知道有哪些可用工具 | 40 分钟 |
-| 2 | [LLM 的能力边界](/testdev-interview-site/ai-learning/llm-boundaries/) | 理解大语言模型能做什么、不能做什么 | 50 分钟 |
-| 3 | [AI 辅助测试用例设计](/testdev-interview-site/ai-learning/ai-testcase-design/) | 学习用 AI 辅助生成和优化测试用例 | 60 分钟 |
-| 4 | [AI 辅助测试数据构造](/testdev-interview-site/ai-learning/ai-test-data/) | 学习用 AI 构造结构化测试数据 | 50 分钟 |
-| 5 | [AI 辅助接口测试](/testdev-interview-site/ai-learning/ai-api-testing/) | 学习用 AI 辅助接口测试脚本编写和断言设计 | 55 分钟 |
-| 6 | [AI 辅助代码审查](/testdev-interview-site/ai-learning/ai-code-review/) | 学习用 AI 辅助代码审查和缺陷发现 | 45 分钟 |
-| 7 | [AI 辅助文档生成](/testdev-interview-site/ai-learning/ai-doc-generation/) | 学习用 AI 自动生成测试文档和报告 | 40 分钟 |
+| 2 | [AI 辅助测试用例设计](/testdev-interview-site/ai-learning/ai-testcase-design/) | 学习用 AI 辅助生成和优化测试用例，含数据构造与场景补充 | 60 分钟 |
+| 3 | [AI 辅助接口测试](/testdev-interview-site/ai-learning/ai-api-testing/) | 学习用 AI 辅助接口测试脚本编写和断言设计 | 55 分钟 |
+| 4 | [面试表达：讲第一个项目](/testdev-interview-site/beginner-course/interview-expression-for-first-project/) | 把 AI 辅助产出的成果转成面试能讲的表达 | 45 分钟 |
 
 ## 内容分组
 
@@ -41,30 +38,29 @@ AI 学习模块不是追逐工具热度，而是帮助你理解 AI 如何改变�
 
 帮助建立对 AI 工具的正确认知，避免盲目追逐或过度依赖。
 
-- [测试开发 AI 工具概览](/testdev-interview-site/ai-learning/testdev-ai-tools/) - 分类和选型指南
-- [LLM 的能力边界](/testdev-interview-site/ai-learning/llm-boundaries/) - 知道什么能做、什么不能做
+- [测试开发 AI 工具概览](/testdev-interview-site/ai-learning/testdev-ai-tools/) - 分类、选型与 LLM 能力边界
 
 ### 测试设计组
 
 学习如何用 AI 辅助测试设计工作，提升效率但不替代判断。
 
-- [AI 辅助测试用例设计](/testdev-interview-site/ai-learning/ai-testcase-design/) - 用例生成和优化
-- [AI 辅助测试数据构造](/testdev-interview-site/ai-learning/ai-test-data/) - 数据构造和场景模拟
+- [AI 辅助测试用例设计](/testdev-interview-site/ai-learning/ai-testcase-design/) - 用例生成和优化，含测试数据构造与场景模拟
 
 ### 工程协作组
 
 学习如何用 AI 辅助测试工程化工作，提升代码质量。
 
 - [AI 辅助接口测试](/testdev-interview-site/ai-learning/ai-api-testing/) - 接口脚本编写和断言设计
-- [AI 辅助代码审查](/testdev-interview-site/ai-learning/ai-code-review/) - 代码审查和缺陷发现
-- [AI 辅助文档生成](/testdev-interview-site/ai-learning/ai-doc-generation/) - 测试文档自动生成
 
 ### 场景扩展组
 
-探索 AI 在复杂测试场景中的应用，适合进阶学习。
+把 AI 辅助方法接到更复杂的工程环境里，这部分目前靠技术专题和场景题补齐：
 
-- [AI 辅助性能测试](/testdev-interview-site/ai-learning/ai-performance-testing/) - 性能场景设计
-- [云原生测试开发](/testdev-interview-site/ai-learning/cloud-native-for-testdev/) - 云原生环境下的测试实践
+- [Docker 测试环境](/testdev-interview-site/tech/docker-testing/) - 在容器化环境里跑 AI 辅助生成的用例
+- [Mock 框架](/testdev-interview-site/tech/mock-framework/) - 用 AI 生成 Mock 规则后再人工校验边界
+- [异步任务场景](/testdev-interview-site/scenario/async-task/) - AI 容易漏掉的时序与最终一致性问题
+
+> 说明：AI 辅助性能测试、云原生测试这两个方向暂未单独成文，可先按上面的工程场景练习。
 
 ## 最小完成标准
 

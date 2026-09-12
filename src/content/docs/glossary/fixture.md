@@ -2,9 +2,18 @@
 title: "夹具"
 description: "掌握 Pytest fixture 的三种作用域、setup/teardown 机制与依赖注入模式，解决测试数据准备与环境清理的重复代码问题。"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 18
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["自动化模式", "Pytest", "测试隔离", "依赖注入", "面试高频"]
+prerequisites:
+  - "tech/pytest"
+  - "beginner-course/pytest-first-test"
+outcomes:
+  - "能写出一个带 setup/teardown 的 Pytest fixture"
+  - "能说清 function/session 等不同作用域的差异"
+  - "面试时能讲清 fixture 如何用依赖注入减少重复代码"
 relatedSlugs: ["tech/pytest", "glossary/mock-stub", "tech/playwright"]
 selfTests:
   - id: "fixture-scope-1"
@@ -293,10 +302,10 @@ B        # session teardown（最后）
 
 ## 关联内容
 
-- **同家族术语**：[测试隔离](/glossary/mock-stub)、[Mock/Stub](/glossary/mock-stub)
-- **技术实践**：[Pytest 技术指南](/tech/pytest)
-- **应用场景**：[Web UI 测试场景](/tech/playwright)
-- **进阶概念**：[Pytest 共享 fixture 机制](/tech/pytest)
+- **同家族术语**：[测试隔离](/testdev-interview-site/glossary/mock-stub/)、[Mock/Stub](/testdev-interview-site/glossary/mock-stub/)
+- **技术实践**：[Pytest 技术指南](/testdev-interview-site/tech/pytest/)
+- **应用场景**：[Web UI 测试场景](/testdev-interview-site/tech/playwright/)
+- **进阶概念**：[Pytest 共享 fixture 机制](/testdev-interview-site/tech/pytest/)
 
 ## 下一步
 

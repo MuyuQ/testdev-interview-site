@@ -2,9 +2,18 @@
 title: "测试设计"
 description: "测试设计是确定测试目标、选择测试方法、设计测试用例的系统性过程，核心方法包括等价类划分、边界值分析和场景法"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 12
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试设计", "等价类划分", "边界值分析", "场景法", "测试用例设计", "黑盒测试"]
+prerequisites:
+  - "glossary/unit-testing"
+  - "tech/api-testing"
+outcomes:
+  - "能用等价类划分和边界值设计输入用例"
+  - "能针对一个区间写出完整的边界值组合"
+  - "面试时能讲清场景法怎么覆盖业务流程"
 relatedSlugs: ["tech/api-testing"]
 selfTests:
   - id: "test-design-q1"
@@ -168,5 +177,5 @@ const scenarioTests = [
 
 ## 关联内容
 
-- [API 测试技术](/tech/api-testing) - 测试设计方法在接口测试中的应用
-- [测试金字塔](/glossary/test-pyramid) - 测试设计如何支撑分层测试策略
+- [API 测试技术](/testdev-interview-site/tech/api-testing/) - 测试设计方法在接口测试中的应用
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 测试设计如何支撑分层测试策略

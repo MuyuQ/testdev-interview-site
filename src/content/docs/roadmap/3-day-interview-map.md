@@ -2,9 +2,19 @@
 title: "3 天面试速记"
 description: "临门一脚的面试冲刺路线，帮助你在短时间内系统回顾核心知识、打磨项目表达、模拟追问应对"
 category: "roadmap"
+stage: "interview"
+estimatedMinutes: 15
 difficulty: "interview"
 interviewWeight: 3
 tags: ["通用", "面试准备", "冲刺复习"]
+prerequisites:
+  - "beginner-course/testdev-role-map"
+  - "beginner-course/python-testing-minimum"
+  - "practice-template/project-story-template"
+outcomes:
+  - "能列出面试前 3 天每天的核心复习重点"
+  - "能用 STAR 结构复述至少一个项目亮点"
+  - "能在 2 分钟内完成一次模拟自我介绍"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "beginner-course/testdev-role-map"]
 selfTests:
   - id: "3-day-interview-map-q1"
@@ -17,11 +27,6 @@ selfTests:
     options: ["STAR 结构讲述项目亮点", "背诵项目文档", "列举所有技术栈", "详细描述代码实现"]
     correctIndex: 0
     explanation: "面试官关注的是你的思考和解决问题的能力，STAR 结构能有效展示这些。"
-estimatedDays: 3
-prerequisites:
-  - "有至少一个可讲述的项目经验"
-  - "掌握测试开发基础知识"
-  - "已学习本站核心模块内容"
 ---
 
 ## 适合谁
@@ -292,7 +297,7 @@ Day 3 要求产出「面试当天的应急笔记（1 页纸以内）」。它不
 ### 面试未通过
 - 根据面试反馈，回到对应的知识模块深入学习
 - 补充项目经验，积累更多可讲述的案例
-- 考虑是否需要 **系统学习路径**：从 [从零开始：测试开发学习路线](/beginner-course/start-here/) 补齐基础
+- 考虑是否需要 **系统学习路径**：从 [从零开始：测试开发学习路线](/testdev-interview-site/beginner-course/start-here/) 补齐基础
 
 ### 需要持续提升
 - **技术深度**：选择一个技术栈深入学习（如 `/tech/api-testing`）

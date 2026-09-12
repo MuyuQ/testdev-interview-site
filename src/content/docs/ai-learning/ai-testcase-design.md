@@ -2,9 +2,19 @@
 title: "AI 测试用例设计"
 description: "学习如何利用AI工具辅助测试用例设计，提升覆盖率与设计效率，掌握Prompt编写技巧与风险把控方法。"
 category: "ai-learning"
+stage: "advanced"
+estimatedMinutes: 24
 difficulty: "interview"
 interviewWeight: 3
 tags: ["AI测试", "测试用例设计", "Prompt工程", "测试覆盖率", "智能测试"]
+prerequisites:
+  - "glossary/test-design"
+  - "tech/api-testing"
+  - "ai-learning/ai-api-testing"
+outcomes:
+  - "能编写带约束与格式的用例设计 Prompt"
+  - "能校验 AI 用例的业务正确性与去重"
+  - "能讲清 AI 在用例设计中的能力边界"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "ai-testcase-design-q1"

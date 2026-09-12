@@ -2,9 +2,19 @@
 title: "Pytest"
 description: "Python 生态最流行的测试框架，支持 fixture 依赖注入、参数化测试、标记筛选和丰富插件生态，是自动化测试工程师的必备技能。"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 42
 difficulty: "interview"
 interviewWeight: 3
 tags: ["自动化框架", "Python", "单元测试", "fixture", "参数化", "插件生态"]
+prerequisites:
+  - "beginner-course/pytest-first-test"
+  - "glossary/fixture"
+  - "glossary/unit-testing"
+outcomes:
+  - "能写出带 fixture 的参数化测试用例"
+  - "能排查断言失败的根因并判断问题归属"
+  - "面试时能讲清 pytest 插件与标记的用法"
 relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper"]
 selfTests:
   - id: "pytest-q1"
@@ -710,12 +720,12 @@ pytest --durations=10
 
 ## 关联内容
 
-- [API 断言最佳实践](/docs/glossary/api-assertion) - 断言编写技巧
-- [断言封装模式](/docs/coding/assertion-wrapper) - 如何封装自定义断言
+- [API 断言最佳实践](/testdev-interview-site/glossary/api-assertion/) - 断言编写技巧
+- [断言封装模式](/testdev-interview-site/coding/assertion-wrapper/) - 如何封装自定义断言
 - unittest 对比 - 与 Pytest 的差异分析（标准库 unittest 的差异见下文对比）
 - 测试数据管理 - 测试数据的设计与管理（详见数据驱动章节）
-- [Mock 技术](/docs/tech/mock-framework) - 测试替身详解
-- [CI/CD 集成](/docs/tech/ci-cd) - 持续集成中的测试策略
+- [Mock 技术](/testdev-interview-site/tech/mock-framework/) - 测试替身详解
+- [CI/CD 集成](/testdev-interview-site/tech/ci-cd/) - 持续集成中的测试策略
 
 ---
 

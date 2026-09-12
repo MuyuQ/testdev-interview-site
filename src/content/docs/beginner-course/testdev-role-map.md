@@ -2,9 +2,17 @@
 title: "测试开发是什么：岗位能力地图"
 description: "理解测试开发和功能测试、自动化测试、开发的区别，建立岗位认知。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 35
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["新手教程", "测试开发岗位", "岗位认知"]
+prerequisites:
+  - "beginner-course/start-here"
+outcomes:
+  - "能说清测开与功能测试、自动化测试的核心区别"
+  - "能列出测试开发岗位的三类核心能力（代码/框架/质量）"
+  - "面试时能解释为什么测开岗位要求会写代码"
 relatedSlugs:
   - "beginner-course/python-testing-minimum"
   - "roadmap/self-introduction-template"

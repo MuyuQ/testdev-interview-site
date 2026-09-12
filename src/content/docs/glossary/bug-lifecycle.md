@@ -2,9 +2,18 @@
 title: "Bug 生命周期"
 description: "Bug 从发现、报告、修复到最终关闭的完整状态流转过程，包含状态定义、严重程度划分和规范化的 Bug 报告要素"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 15
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["项目协作", "缺陷管理", "测试流程", "Bug 跟踪"]
+prerequisites:
+  - "glossary/test-design"
+  - "glossary/regression-testing"
+outcomes:
+  - "能说出 Bug 从提交到关闭的完整状态流转"
+  - "能按严重程度正确划分一个缺陷的级别"
+  - "面试时能讲清 Bug 无法复现时测试该怎么做"
 relatedSlugs: ["glossary/test-design"]
 selfTests:
   - id: "bug-lifecycle-q1"
@@ -231,6 +240,6 @@ D. 告诉开发口头沟通即可
 
 ## 关联内容
 
-- [测试设计](/glossary/test-design) - 好的用例设计能在执行阶段更早暴露 Bug
-- [回归测试](/glossary/regression-testing) - Bug 修复后的验证策略
-- [测试优先级](/glossary/test-design) - 理解如何安排 Bug 修复顺序
+- [测试设计](/testdev-interview-site/glossary/test-design/) - 好的用例设计能在执行阶段更早暴露 Bug
+- [回归测试](/testdev-interview-site/glossary/regression-testing/) - Bug 修复后的验证策略
+- [测试优先级](/testdev-interview-site/glossary/test-design/) - 理解如何安排 Bug 修复顺序

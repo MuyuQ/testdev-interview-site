@@ -26,7 +26,7 @@ description: "训练小型工程能力和面试代码表达"
 - 学习 Python/JavaScript 异步编程的基础模式
 - 理解测试框架的核心机制（如 pytest fixture）
 
-**推荐起点**：[重试机制](retry-mechanism) —— 从最实用的容错技能开始
+**推荐起点**：[重试机制](/testdev-interview-site/coding/retry-mechanism/) —— 从最实用的容错技能开始
 
 ### 冲刺面试者
 
@@ -36,7 +36,7 @@ description: "训练小型工程能力和面试代码表达"
 - 学会如何向面试官讲解代码设计思路
 - 建立追问应对库，覆盖常见扩展问题
 
-**推荐起点**：[断言封装](assertion-wrapper) —— 面试权重最高的编码题
+**推荐起点**：[断言封装](/testdev-interview-site/coding/assertion-wrapper/) —— 面试权重最高的编码题
 
 ### 项目包装者
 
@@ -62,9 +62,9 @@ description: "训练小型工程能力和面试代码表达"
 
 按照「从能写到能封装」的能力递进顺序：
 
-1. [重试机制](retry-mechanism) —— 写出健壮的容错逻辑（异步编程基础）
-2. [Fixture 策略](fixture-strategy) —— 设计测试资源管理方案（框架机制理解）
-3. [断言封装](assertion-wrapper) —— 设计通用断言组件（抽象能力综合）
+1. [重试机制](/testdev-interview-site/coding/retry-mechanism/) —— 写出健壮的容错逻辑（异步编程基础）
+2. [Fixture 策略](/testdev-interview-site/coding/fixture-strategy/) —— 设计测试资源管理方案（框架机制理解）
+3. [断言封装](/testdev-interview-site/coding/assertion-wrapper/) —— 设计通用断言组件（抽象能力综合）
 
 建议每个题目至少完成「最小实现」代码的编写，并运行配套测试用例验证理解。
 
@@ -163,10 +163,10 @@ description: "训练小型工程能力和面试代码表达"
 
 完成编码题模块后，推荐的学习路径：
 
-- **向左深入** → [API 测试技术](/tech/api-testing) —— 将编码能力应用到接口测试场景
-- **向右扩展** → [实践模板](/practice-template/api-automation-template) —— 学习测试项目的整体结构设计
+- **向左深入** → [API 测试技术](/testdev-interview-site/tech/api-testing/) —— 将编码能力应用到接口测试场景
+- **向右扩展** → [实践模板](/testdev-interview-site/practice-template/api-automation-template/) —— 学习测试项目的整体结构设计
 - **向上进阶** → 面试链（深度追问训练） —— 进阶应对训练页待补充
-- **向下巩固** → [概念词典](/glossary/api-assertion) —— 补充断言相关的术语理解
+- **向下巩固** → [概念词典](/testdev-interview-site/glossary/api-assertion/) —— 补充断言相关的术语理解
 
 如果你的目标是「面试冲刺」，建议按此顺序推进：
 

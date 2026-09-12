@@ -2,9 +2,19 @@
 title: "接口测试追问链"
 description: "掌握接口测试全流程的面试追问技巧，从流程概述深入到具体实现细节，应对层层递进的面试考察。"
 category: "interview-chains"
+stage: "interview"
+estimatedMinutes: 27
 difficulty: "interview"
 interviewWeight: 3
 tags: ["接口测试", "面试追问", "测试流程", "实战经验", "技术深度"]
+prerequisites:
+  - "beginner-course/pytest-api-first-case"
+  - "tech/api-testing"
+  - "tech/pytest"
+outcomes:
+  - "能按面试追问链讲清接口测试全流程"
+  - "能设计覆盖正向异常的接口用例集"
+  - "能2分钟回答接口自动化框架选型"
 relatedSlugs: ["tech/api-testing", "tech/pytest"]
 selfTests:
   - id: "api-testing-chain-q1"
@@ -451,6 +461,6 @@ class TestUserAPI:
 
 ## 下一步建议
 
-- 深入学习：[接口测试技术详解](/tech/api-testing)
-- 实践工具：[Pytest 自动化框架](/tech/pytest)
-- 关联追问：[自动化测试追问链](/interview-chains/test-framework)
+- 深入学习：[接口测试技术详解](/testdev-interview-site/tech/api-testing/)
+- 实践工具：[Pytest 自动化框架](/testdev-interview-site/tech/pytest/)
+- 关联追问：[自动化测试追问链](/testdev-interview-site/interview-chains/test-framework/)

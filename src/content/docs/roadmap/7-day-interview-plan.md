@@ -2,12 +2,21 @@
 title: "7 天面试计划"
 description: "高密度面试冲刺路线，每天4个核心任务，产出可见，加练可选，7天完成测试开发面试核心准备"
 category: "roadmap"
+stage: "interview"
+estimatedMinutes: 18
 difficulty: "interview"
 interviewWeight: 3
 tags: ["面试准备", "冲刺计划", "实战演练"]
+prerequisites:
+  - "beginner-course/testdev-role-map"
+  - "beginner-course/pytest-first-test"
+  - "practice-template/project-story-template"
+outcomes:
+  - "能按天拆解 7 天面试准备的每日任务清单"
+  - "能独立搭出一个可演示的 API 自动化小项目"
+  - "能针对薄弱项调整计划并产出作品集"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 estimatedDays: 7
-prerequisites: ["具备基础测试概念", "有至少1个项目的测试经验"]
 selfTests:
   - id: "7-day-interview-plan-q1"
     question: "7 天面试计划的核心目标是什么？"

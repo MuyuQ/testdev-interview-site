@@ -60,14 +60,14 @@ description: "解释测试开发技术，并连接项目落地"
 
 以下是技术专题模块的核心学习路径，建议按顺序学习：
 
-1. [Python 测试开发基础](python) - 编程语言基础，函数、列表、字典、异常处理
-2. [Pytest](pytest) - Python 生态最流行的测试框架，fixture、参数化、标记
-3. [接口测试](api-testing) - HTTP 协议与 requests 库，断言设计与数据驱动
-4. [Mock 框架](mock-framework) - 模拟外部依赖，隔离测试环境，提升稳定性
-5. [CI/CD](ci-cd) - 持续集成与持续部署，自动化流水线，质量门禁
-6. [Docker 测试](docker-testing) - 容器化测试环境，解决环境一致性问题
-7. [Playwright](playwright) - 现代浏览器自动化工具，UI 测试场景扩展
-8. [数据库测试](database-testing) - 数据库验证方法，SQL 断言与数据校验
+1. [Python 测试开发基础](/testdev-interview-site/tech/python/) - 编程语言基础，函数、列表、字典、异常处理
+2. [Pytest](/testdev-interview-site/tech/pytest/) - Python 生态最流行的测试框架，fixture、参数化、标记
+3. [接口测试](/testdev-interview-site/tech/api-testing/) - HTTP 协议与 requests 库，断言设计与数据驱动
+4. [Mock 框架](/testdev-interview-site/tech/mock-framework/) - 模拟外部依赖，隔离测试环境，提升稳定性
+5. [CI/CD](/testdev-interview-site/tech/ci-cd/) - 持续集成与持续部署，自动化流水线，质量门禁
+6. [Docker 测试](/testdev-interview-site/tech/docker-testing/) - 容器化测试环境，解决环境一致性问题
+7. [Playwright](/testdev-interview-site/tech/playwright/) - 现代浏览器自动化工具，UI 测试场景扩展
+8. [数据库测试](/testdev-interview-site/tech/database-testing/) - 数据库验证方法，SQL 断言与数据校验
 
 **学习节奏建议**：
 
@@ -197,7 +197,7 @@ description: "解释测试开发技术，并连接项目落地"
 
 ### 跳向场景模块
 
-技术是骨架，场景是血肉。学完技术后，建议进入[场景模块](../scenario)进行综合实战：
+技术是骨架，场景是血肉。学完技术后，建议进入[场景模块](/testdev-interview-site/scenario/)进行综合实战：
 
 - **登录认证场景**：综合运用接口测试、Mock、断言设计
 - **数据驱动场景**：综合运用 pytest 参数化、数据文件管理
@@ -205,7 +205,7 @@ description: "解释测试开发技术，并连接项目落地"
 
 ### 跳向项目模块
 
-如果想将技术转化为项目成果，进入[项目模块](../project)：
+如果想将技术转化为项目成果，进入[项目模块](/testdev-interview-site/project/)：
 
 - **接口自动化项目**：完整的接口测试项目搭建
 - **UI 自动化项目**：Playwright 项目实战
@@ -213,7 +213,7 @@ description: "解释测试开发技术，并连接项目落地"
 
 ### 跳向术语模块
 
-如果想深入理解技术细节，进入[术语模块](../glossary)：
+如果想深入理解技术细节，进入[术语模块](/testdev-interview-site/glossary/)：
 
 - **API 断言**：断言设计的术语与概念
 - **HTTP 状态码**：HTTP 协议的术语速查
@@ -221,7 +221,7 @@ description: "解释测试开发技术，并连接项目落地"
 
 ### 跳向核心路径模块
 
-如果是初学者，建议回顾[核心路径模块](../beginner-course/start-here)，将技术与学习方法论结合：
+如果是初学者，建议回顾[核心路径模块](/testdev-interview-site/beginner-course/start-here/)，将技术与学习方法论结合：
 
 - **自动化测试入门**：技术学习的方法论指导
 - **测试开发思维**：技术背后的思维方式

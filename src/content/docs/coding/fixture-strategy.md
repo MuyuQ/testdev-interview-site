@@ -2,9 +2,19 @@
 title: "Fixture 策略"
 description: "Pytest 夹具设计：作用域选择、依赖注入、数据隔离的实战应用"
 category: "coding"
+stage: "practice"
+estimatedMinutes: 31
 difficulty: "interview"
 interviewWeight: 3
 tags: ["pytest", "测试框架", "夹具设计", "依赖注入"]
+prerequisites:
+  - "tech/pytest"
+  - "glossary/fixture"
+  - "tech/api-testing"
+outcomes:
+  - "能按成本选对 fixture 的作用域"
+  - "能用工厂 fixture 自动清理测试数据"
+  - "能讲清并行下 fixture 隔离的注意点"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "glossary/mock-stub"]
 selfTests:
   - id: "fixture-strategy-q1"
@@ -378,8 +388,8 @@ def test_xxx(): ...
 
 ## 11. 关联技术和场景
 
-- **[Mock 与 Stub](/glossary/mock-stub)**：fixture 与 mock 配合实现依赖替换，是隔离外部依赖的常用手段
-- **[API 测试](/tech/api-testing)**：fixture 提供 API 客户端和测试数据
+- **[Mock 与 Stub](/testdev-interview-site/glossary/mock-stub/)**：fixture 与 mock 配合实现依赖替换，是隔离外部依赖的常用手段
+- **[API 测试](/testdev-interview-site/tech/api-testing/)**：fixture 提供 API 客户端和测试数据
 - **参数化测试**：fixture 的 `params` 与 `@pytest.mark.parametrize` 配合，复用同一套测试逻辑
 - **测试并行**：数据隔离是实现并行测试（pytest-xdist）的前提
 - **工厂模式**：fixture 工厂是测试数据管理的最佳实践，避免散落的硬编码数据

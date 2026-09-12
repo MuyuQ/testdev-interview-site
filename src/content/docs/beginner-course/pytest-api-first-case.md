@@ -2,9 +2,18 @@
 title: "用 Pytest 写第一个接口测试"
 description: "用代码请求接口并断言返回结果，完成第一个最小接口测试。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 60
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["新手教程", "接口测试", "Pytest"]
+prerequisites:
+  - "beginner-course/http-api-basics"
+  - "beginner-course/pytest-first-test"
+outcomes:
+  - "能用代码请求接口并对状态码和业务字段做断言"
+  - "能写出一个最小可运行的接口自动化测试用例"
+  - "面试时能讲清接口测试为什么要同时断言状态与业务"
 relatedSlugs:
   - "beginner-course/mock-login-mini-project"
   - "coding/assertion-wrapper"

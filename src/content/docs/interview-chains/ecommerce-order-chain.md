@@ -2,9 +2,19 @@
 title: "电商订单追问链"
 description: "电商订单场景面试追问全链路，从订单流程概述深入到幂等性、并发扣减、状态机等核心考点，训练面试回答深度和抗压能力。"
 category: "interview-chains"
+stage: "interview"
+estimatedMinutes: 18
 difficulty: "interview"
 interviewWeight: 3
 tags: ["电商项目", "订单流程", "幂等性", "并发测试", "状态机", "面试追问"]
+prerequisites:
+  - "project/ecommerce-project"
+  - "scenario/payment-callback"
+  - "glossary/test-pyramid"
+outcomes:
+  - "能按面试追问链讲清订单全链路流程"
+  - "能设计电商订单并发扣减的幂等用例"
+  - "能2分钟回答电商订单状态机测试点"
 relatedSlugs: ["project/ecommerce-project", "scenario/payment-callback", "tech/api-testing", "glossary/test-pyramid"]
 selfTests:
   - id: "ecommerce-order-chain-q1"

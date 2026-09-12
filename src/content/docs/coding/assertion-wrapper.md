@@ -2,9 +2,19 @@
 title: "断言封装"
 description: "设计通用的断言封装层，统一处理状态码、响应体、业务字段和错误信息的验证逻辑，提升测试代码可维护性。"
 category: "coding"
+stage: "practice"
+estimatedMinutes: 41
 difficulty: "interview"
 interviewWeight: 3
 tags: ["断言设计", "代码封装", "API测试", "可维护性", "面试高频"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/api-assertion"
+  - "tech/pytest"
+outcomes:
+  - "能封装统一的状态码与字段断言函数"
+  - "能设计携带上下文信息的失败断言"
+  - "能判断何时该封装、何时避免过度设计"
 relatedSlugs: ["tech/api-testing", "practice-template/api-automation-template", "glossary/api-assertion"]
 selfTests:
   - id: "assertion-wrapper-q1"

@@ -2,9 +2,19 @@
 title: "重试机制"
 description: "实现健壮的重试机制，掌握重试条件判断、次数控制策略、间隔退避算法等核心技能"
 category: "coding"
+stage: "practice"
+estimatedMinutes: 27
 difficulty: "interview"
 interviewWeight: 3
 tags: ["重试", "容错", "异步", "设计模式"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/api-assertion"
+  - "tech/python"
+outcomes:
+  - "能实现指数退避加抖动的重试函数"
+  - "能区分哪些错误该重试、哪些直接失败"
+  - "能讲清重试幂等性与熔断的配合"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "retry-mechanism-q1"
@@ -382,7 +392,7 @@ function WithRetry(opts: RetryOptions) {
 
 ## 11. 关联技术和场景
 
-- **[API 测试](/tech/api-testing)**：理解接口测试中的超时和重试场景
-- **[断言机制](/glossary/api-assertion)**：重试后的结果验证，重试成功也要靠断言兜底
+- **[API 测试](/testdev-interview-site/tech/api-testing/)**：理解接口测试中的超时和重试场景
+- **[断言机制](/testdev-interview-site/glossary/api-assertion/)**：重试后的结果验证，重试成功也要靠断言兜底
 - **设计模式**：退避策略本质是策略模式（Strategy），把「如何计算延迟」抽象成可替换的算法
 - **容错体系**：重试 + 熔断 + 超时三者协同，单一机制无法应对全部故障模式

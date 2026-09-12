@@ -2,9 +2,17 @@
 title: "HTTP 和接口测试基础"
 description: "理解请求、响应、状态码、JSON 和接口断言的基本概念。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 55
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["新手教程", "HTTP", "接口测试"]
+prerequisites:
+  - "beginner-course/pytest-first-test"
+outcomes:
+  - "能说出一次 HTTP 请求包含方法、URL、请求头、请求体四部分"
+  - "能解释为什么接口断言不能只看状态码 200"
+  - "面试时能讲清接口测试相比 UI 测试的优势"
 relatedSlugs:
   - "beginner-course/pytest-api-first-case"
   - "tech/api-testing"

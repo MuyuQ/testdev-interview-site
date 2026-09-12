@@ -2,9 +2,19 @@
 title: "接口测试"
 description: "掌握 HTTP 协议基础与 requests 库实战，学会设计清晰的断言与数据驱动测试方案，解决前后端联调验证和自动化测试覆盖问题。"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 29
 difficulty: "interview"
 interviewWeight: 3
 tags: ["接口测试", "HTTP协议", "requests库", "断言设计", "数据驱动", "自动化测试"]
+prerequisites:
+  - "beginner-course/http-api-basics"
+  - "beginner-course/pytest-first-test"
+  - "glossary/api-assertion"
+outcomes:
+  - "能写出状态码与业务字段的分层断言"
+  - "能设计参数缺失、类型错误的异常用例"
+  - "能用 requests 跑通带断言的接口测试"
 relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "scenario/login-auth"]
 selfTests:
   - id: "api-testing-http-method"
@@ -57,7 +67,7 @@ selfTests:
 | JSON 格式 | 熟悉 | 接口数据交换的主流格式 |
 | Pytest 基础 | 了解 | 测试框架组织与运行 |
 
-可先学习 [beginner-course/http-api-basics](../beginner-course/http-api-basics) 补充 HTTP 基础。
+可先学习 [beginner-course/http-api-basics](/testdev-interview-site/beginner-course/http-api-basics/) 补充 HTTP 基础。
 
 ## 核心概念拆解
 

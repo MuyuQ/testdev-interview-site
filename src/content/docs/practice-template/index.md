@@ -49,18 +49,18 @@ description: "提供可复用练习产物和面试素材模板"
 根据学习目标选择不同路径：
 
 **路径一：接口自动化方向（推荐）**
-1. [API 自动化模板](./api-automation-template) - 掌握项目结构和配置管理
-2. [Mock 服务模板](./mock-service-template) - 学习隔离外部依赖
+1. [API 自动化模板](/testdev-interview-site/practice-template/api-automation-template/) - 掌握项目结构和配置管理
+2. [Mock 服务模板](/testdev-interview-site/practice-template/mock-service-template/) - 学习隔离外部依赖
 
 **路径二：面试冲刺方向**
-1. [API 自动化模板](./api-automation-template) - 先有项目基础
-2. [Mock 服务模板](./mock-service-template) - 补充技术亮点
-3. [项目故事模板](./project-story-template) - 打磨面试表达
+1. [API 自动化模板](/testdev-interview-site/practice-template/api-automation-template/) - 先有项目基础
+2. [Mock 服务模板](/testdev-interview-site/practice-template/mock-service-template/) - 补充技术亮点
+3. [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) - 打磨面试表达
 
 **路径三：完整学习路径**
-1. [API 自动化模板](./api-automation-template) - 入门项目架构
-2. [Mock 服务模板](./mock-service-template) - 进阶测试隔离
-3. [项目故事模板](./project-story-template) - 输出面试素材
+1. [API 自动化模板](/testdev-interview-site/practice-template/api-automation-template/) - 入门项目架构
+2. [Mock 服务模板](/testdev-interview-site/practice-template/mock-service-template/) - 进阶测试隔离
+3. [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) - 输出面试素材
 
 ## 内容分组
 
@@ -173,16 +173,19 @@ description: "提供可复用练习产物和面试素材模板"
 
 ### 深入接口测试
 
-- [HTTP API 基础](/beginner-course/http-api-basics) - 补充 API 测试的理论基础
-- [API 测试技术](/tech/api-testing) - 学习更复杂的接口测试技巧
-- [Pytest 进阶](/tech/pytest) - 掌握 fixture、marker 等高级特性
+- [HTTP API 基础](/testdev-interview-site/beginner-course/http-api-basics/) - 补充 API 测试的理论基础
+- [API 测试技术](/testdev-interview-site/tech/api-testing/) - 学习更复杂的接口测试技巧
+- [Pytest 进阶](/testdev-interview-site/tech/pytest/) - 掌握 fixture、marker 等高级特性
 
 ### 扩展技术栈
 
-- [UI 自动化入门](/tech/selenium) - 从接口到界面的测试自动化
-- [性能测试基础](/tech/performance) - 了解性能测试的方法论
+- [Playwright 端到端测试](/testdev-interview-site/tech/playwright/) - 从接口自动化延伸到界面自动化
+- [Mock 框架](/testdev-interview-site/tech/mock-framework/) - 练手时用来隔离外部依赖
+- [异步任务场景](/testdev-interview-site/scenario/async-task/) - 接口之外的场景化练习
+
+> 说明：性能测试目前站内没有独立专题，涉及性能指标时可先看 [Docker 测试环境](/testdev-interview-site/tech/docker-testing/) 里的环境搭建部分。
 
 ### 面试冲刺
 
-- [面试题库](/interview/questions) - 刷题准备
-- [简历优化](/career/resume) - 将项目经验写入简历
+- [接口测试追问链](/testdev-interview-site/interview-chains/api-testing-chain/) - 按追问节奏刷接口测试问题
+- [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) - 把练手项目写成简历和面试能用的版本

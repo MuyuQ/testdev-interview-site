@@ -2,9 +2,19 @@
 title: "测试框架追问链"
 description: "自动化测试框架面试追问全链路，从框架选型深入到架构设计、数据管理、报告生成、CI集成等核心考点，训练面试回答深度和抗压能力。"
 category: "interview-chains"
+stage: "interview"
+estimatedMinutes: 22
 difficulty: "interview"
 interviewWeight: 3
 tags: ["自动化框架", "Pytest", "框架设计", "数据驱动", "CI集成", "面试追问"]
+prerequisites:
+  - "tech/pytest"
+  - "coding/fixture-strategy"
+  - "glossary/fixture"
+outcomes:
+  - "能按面试追问链讲清框架分层架构"
+  - "能设计数据驱动与夹具管理的框架方案"
+  - "能2分钟回答框架的持续集成策略"
 relatedSlugs: ["tech/pytest", "practice-template/api-automation-template", "coding/fixture-strategy", "glossary/fixture"]
 selfTests:
   - id: "test-framework-q1"

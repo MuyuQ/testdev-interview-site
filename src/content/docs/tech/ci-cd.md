@@ -2,9 +2,19 @@
 title: "CI/CD"
 description: "持续集成与持续部署：自动化构建、测试、部署流水线，实现代码提交到生产发布的全流程自动化"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 24
 difficulty: "interview"
 interviewWeight: 3
 tags: ["工程化", "DevOps", "自动化", "质量门禁", "流水线"]
+prerequisites:
+  - "beginner-course/pytest-first-test"
+  - "tech/pytest"
+  - "glossary/quality-gate"
+outcomes:
+  - "能配置 push 触发自动跑 pytest 的流水线"
+  - "能设置覆盖率低于阈值即阻断的质量门禁"
+  - "面试时能讲清 CI 与 CD 的区别与价值"
 relatedSlugs: ["tech/docker-testing", "coding/assertion-wrapper", "glossary/api-assertion"]
 selfTests:
   - id: "ci-cd-q1"
@@ -451,9 +461,9 @@ strategy:
 
 搭好流水线后，建议往"质量可观测、交付可回滚"演进：
 
-1. **环境一致性**：用 [Docker 测试](/docs/tech/docker-testing) 容器化构建与测试环境，消除"本地能跑"
-2. **测试分层**：把 [接口测试](/docs/tech/api-testing)、[数据库测试](/docs/tech/database-testing) 分阶段接入流水线
+1. **环境一致性**：用 [Docker 测试](/testdev-interview-site/tech/docker-testing/) 容器化构建与测试环境，消除"本地能跑"
+2. **测试分层**：把 [接口测试](/testdev-interview-site/tech/api-testing/)、[数据库测试](/testdev-interview-site/tech/database-testing/) 分阶段接入流水线
 3. **报告闭环**：接 Allure / JUnit 报告，让失败用例可一键定位
-4. **工程实战**：参考 [项目模块](/docs/project/index) 把流水线包装成可展示的项目成果
+4. **工程实战**：参考 [项目模块](/testdev-interview-site/project/index/) 把流水线包装成可展示的项目成果
 
 面试冲刺讲清"如何平衡速度与质量""并发构建冲突怎么解"。

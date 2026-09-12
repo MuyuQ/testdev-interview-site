@@ -2,9 +2,19 @@
 title: "Mock 服务模板"
 description: "快速搭建Mock服务的标准化模板，涵盖responses配置、路由设计和数据返回规范"
 category: "practice-template"
+stage: "interview"
+estimatedMinutes: 25
 difficulty: "interview"
 interviewWeight: 3
 tags: ["mock", "api-testing", "responses", "node.js", "测试开发"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/mock-stub"
+  - "practice-template/api-automation-template"
+outcomes:
+  - "能用 responses 定义带路由的 Mock 接口"
+  - "能模拟超时与 500 等异常返回场景"
+  - "能把 Mock 服务接入自动化测试流程"
 relatedSlugs: ["tech/api-testing", "practice-template/api-automation-template", "glossary/api-assertion"]
 selfTests:
   - id: "mock-service-template-q1"
@@ -408,9 +418,9 @@ pytest mock_service/tests/ -v
 ## 10. 关联内容
 
 ### 相关技术文档
-- [API测试技术](/docs/tech/api-testing) - 深入理解API测试方法论
-- [API 自动化模板](/docs/practice-template/api-automation-template) - 接口自动化项目骨架模板
-- [API断言术语](/docs/glossary/api-assertion) - 断言最佳实践
+- [API测试技术](/testdev-interview-site/tech/api-testing/) - 深入理解API测试方法论
+- [API 自动化模板](/testdev-interview-site/practice-template/api-automation-template/) - 接口自动化项目骨架模板
+- [API断言术语](/testdev-interview-site/glossary/api-assertion/) - 断言最佳实践
 
 ### 进阶学习路径
 1. **基础阶段**：掌握responses库基础用法（本文档）

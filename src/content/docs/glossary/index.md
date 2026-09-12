@@ -25,18 +25,18 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 如果你刚接触测试开发，建议从本模块开始。先掌握核心术语，再学技术实践，事半功倍。
 
-**推荐路径**：先看 [单元测试](unit-testing) → [集成测试](integration-testing) → [测试金字塔](test-pyramid)，建立测试层次的基本认知，然后看 [测试设计](test-design) 学会用例设计方法，再看 [冒烟测试](smoke-testing) 和 [回归测试](regression-testing) 理解测试流程。
+**推荐路径**：先看 [单元测试](/testdev-interview-site/glossary/unit-testing/) → [集成测试](/testdev-interview-site/glossary/integration-testing/) → [测试金字塔](/testdev-interview-site/glossary/test-pyramid/)，建立测试层次的基本认知，然后看 [测试设计](/testdev-interview-site/glossary/test-design/) 学会用例设计方法，再看 [冒烟测试](/testdev-interview-site/glossary/smoke-testing/) 和 [回归测试](/testdev-interview-site/glossary/regression-testing/) 理解测试流程。
 
 ### 冲刺面试者
 
 面试高频术语集中在：测试层次、测试方法、自动化模式、Bug 管理。
 
 **重点突击**：
-- [单元测试](unit-testing) - 必问，覆盖率和 Mock 是高频追问点
-- [测试金字塔](test-pyramid) - 测试策略类问题必考
-- [测试设计](test-design) - 等价类、边界值是手撕用例题的基础
-- [Bug 生命周期](bug-lifecycle) - 项目经验类问题常用
-- [夹具](fixture) - Pytest 面试必问，作用域和依赖注入是考点
+- [单元测试](/testdev-interview-site/glossary/unit-testing/) - 必问，覆盖率和 Mock 是高频追问点
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 测试策略类问题必考
+- [测试设计](/testdev-interview-site/glossary/test-design/) - 等价类、边界值是手撕用例题的基础
+- [Bug 生命周期](/testdev-interview-site/glossary/bug-lifecycle/) - 项目经验类问题常用
+- [夹具](/testdev-interview-site/glossary/fixture/) - Pytest 面试必问，作用域和依赖注入是考点
 
 ### 项目包装者
 
@@ -44,7 +44,7 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 **关键操作**：对照每个术语的"面试怎么说"和"易错点"部分，检查你的项目经验是否覆盖了这些关键点，补充缺失的理论表述。
 
-**例如**：你项目中一直在写回归测试，但面试时说不清楚回归测试与重新测试的区别，看 [回归测试](regression-testing) 的"混淆概念"部分即可补充。
+**例如**：你项目中一直在写回归测试，但面试时说不清楚回归测试与重新测试的区别，看 [回归测试](/testdev-interview-site/glossary/regression-testing/) 的"混淆概念"部分即可补充。
 
 ### 进阶测试开发
 
@@ -59,18 +59,18 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 以下是本模块的核心入口，按学习优先级排序：
 
-1. [单元测试](unit-testing) - 测试层次的起点，理解什么是"最小可测试单元"
-2. [测试金字塔](test-pyramid) - 测试策略的指导思想，理解为什么要分层测试
-3. [集成测试](integration-testing) - 单元测试的下一层，理解模块间协作验证
-4. [测试设计](test-design) - 用例设计方法论，等价类和边界值是基本功
-5. [冒烟测试](smoke-testing) - CI/CD 的第一道关卡，验证主链路畅通
-6. [回归测试](regression-testing) - 变更验证的核心手段，自动化的主要场景
-7. [Bug 生命周期](bug-lifecycle) - 缺陷管理的标准流程，项目协作必备
-8. [夹具](fixture) - Pytest 核心特性，自动化面试高频
-9. [Mock 和 Stub](mock-stub) - 依赖隔离技术，单元测试必备
-10. [页面对象模式](page-object-pattern) - UI 自动化的设计模式
-11. [接口断言](api-assertion) - API 测试的验证方法
-12. [质量门禁](quality-gate) - CI/CD 质量控制机制
+1. [单元测试](/testdev-interview-site/glossary/unit-testing/) - 测试层次的起点，理解什么是"最小可测试单元"
+2. [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 测试策略的指导思想，理解为什么要分层测试
+3. [集成测试](/testdev-interview-site/glossary/integration-testing/) - 单元测试的下一层，理解模块间协作验证
+4. [测试设计](/testdev-interview-site/glossary/test-design/) - 用例设计方法论，等价类和边界值是基本功
+5. [冒烟测试](/testdev-interview-site/glossary/smoke-testing/) - CI/CD 的第一道关卡，验证主链路畅通
+6. [回归测试](/testdev-interview-site/glossary/regression-testing/) - 变更验证的核心手段，自动化的主要场景
+7. [Bug 生命周期](/testdev-interview-site/glossary/bug-lifecycle/) - 缺陷管理的标准流程，项目协作必备
+8. [夹具](/testdev-interview-site/glossary/fixture/) - Pytest 核心特性，自动化面试高频
+9. [Mock 和 Stub](/testdev-interview-site/glossary/mock-stub/) - 依赖隔离技术，单元测试必备
+10. [页面对象模式](/testdev-interview-site/glossary/page-object-pattern/) - UI 自动化的设计模式
+11. [接口断言](/testdev-interview-site/glossary/api-assertion/) - API 测试的验证方法
+12. [质量门禁](/testdev-interview-site/glossary/quality-gate/) - CI/CD 质量控制机制
 
 ## 内容分组
 
@@ -80,10 +80,10 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 | 术语 | 核心要点 | 阅读入口 |
 |------|----------|----------|
-| 单元测试 | 最小单元 + 隔离依赖 + 快速反馈 | [unit-testing](unit-testing) |
-| 集成测试 | 模块协作 + 接口契约 + 数据流转 | [integration-testing](integration-testing) |
-| 测试金字塔 | 分层策略 + 成本控制 + ROI 优化 | [test-pyramid](test-pyramid) |
-| 测试设计 | 等价类 + 边界值 + 场景法 | [test-design](test-design) |
+| 单元测试 | 最小单元 + 隔离依赖 + 快速反馈 | [unit-testing](/testdev-interview-site/glossary/unit-testing/) |
+| 集成测试 | 模块协作 + 接口契约 + 数据流转 | [integration-testing](/testdev-interview-site/glossary/integration-testing/) |
+| 测试金字塔 | 分层策略 + 成本控制 + ROI 优化 | [test-pyramid](/testdev-interview-site/glossary/test-pyramid/) |
+| 测试设计 | 等价类 + 边界值 + 场景法 | [test-design](/testdev-interview-site/glossary/test-design/) |
 
 ### 测试流程
 
@@ -91,8 +91,8 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 | 术语 | 核心要点 | 阅读入口 |
 |------|----------|----------|
-| 冒烟测试 | 主链路验证 + 快速反馈 + CI 守门员 | [smoke-testing](smoke-testing) |
-| 回归测试 | 变更验证 + 范围选择 + 自动化主战场 | [regression-testing](regression-testing) |
+| 冒烟测试 | 主链路验证 + 快速反馈 + CI 守门员 | [smoke-testing](/testdev-interview-site/glossary/smoke-testing/) |
+| 回归测试 | 变更验证 + 范围选择 + 自动化主战场 | [regression-testing](/testdev-interview-site/glossary/regression-testing/) |
 
 ### 自动化模式
 
@@ -100,10 +100,10 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 | 术语 | 核心要点 | 阅读入口 |
 |------|----------|----------|
-| 夹具（Fixture） | 依赖注入 + 作用域控制 + setup/teardown | [fixture](fixture) |
-| Mock 和 Stub | 依赖隔离 + 行为模拟 + 状态验证 | [mock-stub](mock-stub) |
-| 页面对象模式 | UI 封装 + 维护性提升 + 关注点分离 | [page-object-pattern](page-object-pattern) |
-| 接口断言 | 响应验证 + 状态码 + 数据结构 | [api-assertion](api-assertion) |
+| 夹具（Fixture） | 依赖注入 + 作用域控制 + setup/teardown | [fixture](/testdev-interview-site/glossary/fixture/) |
+| Mock 和 Stub | 依赖隔离 + 行为模拟 + 状态验证 | [mock-stub](/testdev-interview-site/glossary/mock-stub/) |
+| 页面对象模式 | UI 封装 + 维护性提升 + 关注点分离 | [page-object-pattern](/testdev-interview-site/glossary/page-object-pattern/) |
+| 接口断言 | 响应验证 + 状态码 + 数据结构 | [api-assertion](/testdev-interview-site/glossary/api-assertion/) |
 
 ### 项目协作
 
@@ -111,7 +111,7 @@ description: "建立共同语言，降低阅读其他模块的门槛"
 
 | 术语 | 核心要点 | 阅读入口 |
 |------|----------|----------|
-| Bug 生命周期 | 状态流转 + 严重程度 + 报告规范 | [bug-lifecycle](bug-lifecycle) |
+| Bug 生命周期 | 状态流转 + 严重程度 + 报告规范 | [bug-lifecycle](/testdev-interview-site/glossary/bug-lifecycle/) |
 
 ### 工程质量
 
@@ -119,7 +119,7 @@ CI/CD 和质量保障术语：
 
 | 术语 | 核心要点 | 阅读入口 |
 |------|----------|----------|
-| 质量门禁 | 合并前检查 + 覆盖率门槛 + 自动化拦截 | [quality-gate](quality-gate) |
+| 质量门禁 | 合并前检查 + 覆盖率门槛 + 自动化拦截 | [quality-gate](/testdev-interview-site/glossary/quality-gate/) |
 
 ## 最小完成标准
 
@@ -181,22 +181,22 @@ CI/CD 和质量保障术语：
 
 术语建立认知后，需要学习具体技术实现：
 
-- [API 测试技术](/tech/api-testing) - 接口测试的具体实现方法
-- [Pytest 框架](/tech/pytest) - Fixture 和断言的实战应用
-- [Web UI 测试](/tech/playwright) - 页面对象模式的实际落地
+- [API 测试技术](/testdev-interview-site/tech/api-testing/) - 接口测试的具体实现方法
+- [Pytest 框架](/testdev-interview-site/tech/pytest/) - Fixture 和断言的实战应用
+- [Web UI 测试](/testdev-interview-site/tech/playwright/) - 页面对象模式的实际落地
 
 ### 项目场景方向
 
 将术语应用到真实项目场景：
 
-- [自动化测试场景](/scenario/) - 各类测试场景的综合应用
-- [CI/CD 流水线](/tech/ci-cd) - 质量门禁和分层测试的实际落地
+- [自动化测试场景](/testdev-interview-site/scenario/) - 各类测试场景的综合应用
+- [CI/CD 流水线](/testdev-interview-site/tech/ci-cd/) - 质量门禁和分层测试的实际落地
 
 ### 面试准备方向
 
 用术语模块支撑面试回答：
 
-- 参考 [面试准备路线](/roadmap/) 中的技术问题清单
+- 参考 [面试准备路线](/testdev-interview-site/roadmap/) 中的技术问题清单
 - 对每个问题，用术语模块的标准定义构建回答框架
 
 ---

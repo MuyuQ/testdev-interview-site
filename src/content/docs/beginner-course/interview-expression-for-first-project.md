@@ -2,9 +2,17 @@
 title: "面试表达：如何讲第一个接口自动化项目"
 description: "把练习项目转成可面试表达，准备一段 2 分钟项目介绍。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 45
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["新手教程", "面试表达", "项目介绍"]
+prerequisites:
+  - "beginner-course/mock-login-mini-project"
+outcomes:
+  - "能把练习项目转成一段 2 分钟结构化的项目介绍"
+  - "能按背景-目标-实现-用例-结果-复盘讲清项目"
+  - "面试时能自信表达第一个接口自动化项目的价值"
 relatedSlugs:
   - "practice-template/project-story-template"
   - "interview-chains/api-testing-chain"

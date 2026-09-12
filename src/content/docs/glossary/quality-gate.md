@@ -2,9 +2,18 @@
 title: "质量门禁"
 description: "质量门禁是一组预定义的质量标准，代码必须满足这些标准才能进入下一阶段（如合并到主分支或部署到生产环境）"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 14
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["工程质量", "CI/CD", "自动化测试", "代码审查"]
+prerequisites:
+  - "tech/ci-cd"
+  - "tech/api-testing"
+outcomes:
+  - "能列出质量门禁常见的几条准入标准"
+  - "能解释门禁失败时为何要阻止合并而非强合"
+  - "面试时能讲清哪些指标不适合做质量门禁"
 relatedSlugs: ["tech/api-testing", "tech/ci-cd"]
 selfTests:
   - id: "quality-gate-q1"
@@ -183,5 +192,5 @@ SonarQube 的优势在于它区分"存量"和"增量"——你可以只对新提
 ## 关联内容
 
 - [CI/CD](../../tech/ci-cd/) - 质量门禁的承载平台
-- [API 测试](/tech/api-testing) - 门禁中接口自动化回归的常见检查项
-- [单元测试](./unit-testing/) - 门禁中最基础、最高频的检查项
+- [API 测试](/testdev-interview-site/tech/api-testing/) - 门禁中接口自动化回归的常见检查项
+- [单元测试](/testdev-interview-site/glossary/unit-testing/) - 门禁中最基础、最高频的检查项

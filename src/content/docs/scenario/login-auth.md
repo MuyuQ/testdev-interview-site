@@ -2,9 +2,19 @@
 title: "登录鉴权"
 description: "掌握登录鉴权的风险点识别、测试策略设计、Session/Token 验证机制以及多端登录场景的完整测试方案。"
 category: "scenario"
+stage: "project"
+estimatedMinutes: 26
 difficulty: "interview"
 interviewWeight: 3
 tags: ["鉴权测试", "Session管理", "Token验证", "多端登录", "面试场景题", "风险分析"]
+prerequisites:
+  - "beginner-course/http-api-basics"
+  - "tech/api-testing"
+  - "glossary/api-assertion"
+outcomes:
+  - "能设计令牌过期刷新后的登录态用例"
+  - "能验证多端互踢导致的会话冲突场景"
+  - "能2分钟讲清登录鉴权安全风险点"
 relatedSlugs: [
   "tech/api-testing",
   "interview-chains/api-testing-chain",
@@ -375,9 +385,9 @@ def make_expired_token(user_id: int, secret: str = "TEST_SECRET") -> str:
 
 ## 关联内容
 
-- **技术深入**：[API 测试](/docs/tech/api-testing)——鉴权接口的自动化测试技术
-- **面试追问链**：[API 测试追问链](/docs/interview-chains/api-testing-chain)——接口测试相关的深度追问链路
-- **概念补充**：[API 断言](/docs/glossary/api-assertion)——接口断言与响应校验方法
+- **技术深入**：[API 测试](/testdev-interview-site/tech/api-testing/)——鉴权接口的自动化测试技术
+- **面试追问链**：[API 测试追问链](/testdev-interview-site/interview-chains/api-testing-chain/)——接口测试相关的深度追问链路
+- **概念补充**：[API 断言](/testdev-interview-site/glossary/api-assertion/)——接口断言与响应校验方法
 
 ---
 
@@ -385,5 +395,5 @@ def make_expired_token(user_id: int, secret: str = "TEST_SECRET") -> str:
 
 完成登录鉴权场景题后，建议继续学习：
 
-1. [支付回调测试](/docs/scenario/payment-callback)——鉴权在支付场景的特殊要求
-2. [API 测试](/docs/tech/api-testing)——把鉴权接口纳入接口自动化体系
+1. [支付回调测试](/testdev-interview-site/scenario/payment-callback/)——鉴权在支付场景的特殊要求
+2. [API 测试](/testdev-interview-site/tech/api-testing/)——把鉴权接口纳入接口自动化体系

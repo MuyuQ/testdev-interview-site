@@ -2,9 +2,19 @@
 title: "电商项目"
 description: "电商系统全链路测试开发实战，覆盖浏览、下单、支付、发货核心流程，深入质量风险评估与自动化策略落地"
 category: "project"
+stage: "project"
+estimatedMinutes: 29
 difficulty: "interview"
 interviewWeight: 3
 tags: ["电商", "自动化测试", "接口测试", "全链路", "性能测试"]
+prerequisites:
+  - "beginner-course/http-api-basics"
+  - "tech/api-testing"
+  - "scenario/payment-callback"
+outcomes:
+  - "能画出浏览到收货的全链路状态流转图"
+  - "能设计支付回调重复通知的幂等性用例"
+  - "能说出电商核心质量风险并设计用例"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "ecommerce-project-q1"

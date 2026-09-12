@@ -2,9 +2,19 @@
 title: "数据库测试"
 description: "深入讲解数据库测试的核心方法、验证策略与工程化落地实践，涵盖数据校验、隔离策略与常见面试考点"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 21
 difficulty: "interview"
 interviewWeight: 3
 tags: ["数据库", "数据验证", "测试隔离", "SQL", "测试策略"]
+prerequisites:
+  - "tech/api-testing"
+  - "tech/pytest"
+  - "glossary/api-assertion"
+outcomes:
+  - "能写验证落库记录的数据库断言"
+  - "能用事务回滚保证测试间数据隔离"
+  - "能排查接口成功但数据未落库的问题"
 relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "tech/api-testing"]
 selfTests:
   - id: "database-testing-q1"
@@ -322,9 +332,9 @@ SELECT * FROM orders WHERE create_time LIKE '2024-01%'
 
 ## 关联
 
-- [API断言](/docs/glossary/api-assertion)：数据库验证是API断言的延伸和补充
-- [断言封装](/docs/coding/assertion-wrapper)：可复用的数据库断言方法封装
-- [API测试](/docs/tech/api-testing)：API测试与数据库测试的结合实践
+- [API断言](/testdev-interview-site/glossary/api-assertion/)：数据库验证是API断言的延伸和补充
+- [断言封装](/testdev-interview-site/coding/assertion-wrapper/)：可复用的数据库断言方法封装
+- [API测试](/testdev-interview-site/tech/api-testing/)：API测试与数据库测试的结合实践
 - 测试数据管理：测试数据的准备与维护策略（建议结合数据工厂与事务回滚）
 - 性能测试：慢查询、索引缺失等数据库性能瓶颈的发现方法
 
@@ -332,9 +342,9 @@ SELECT * FROM orders WHERE create_time LIKE '2024-01%'
 
 掌握数据库验证后，建议向"全链路数据一致性"方向深入：
 
-1. **打通接口层**：把数据库断言嵌进 [接口测试](/docs/tech/api-testing) 流程，验证落库与返回一致
-2. **隔离外部依赖**：用 [Mock 框架](/docs/tech/mock-framework) 屏蔽第三方调用，专注数据逻辑
-3. **综合实战**：前往 [登录认证场景](/docs/scenario/login-auth) 做注册/登录的全链路数据校验
-4. **工程化**：结合 [CI/CD](/docs/tech/ci-cd) 在流水线里跑数据库回归，配事务回滚保证隔离
+1. **打通接口层**：把数据库断言嵌进 [接口测试](/testdev-interview-site/tech/api-testing/) 流程，验证落库与返回一致
+2. **隔离外部依赖**：用 [Mock 框架](/testdev-interview-site/tech/mock-framework/) 屏蔽第三方调用，专注数据逻辑
+3. **综合实战**：前往 [登录认证场景](/testdev-interview-site/scenario/login-auth/) 做注册/登录的全链路数据校验
+4. **工程化**：结合 [CI/CD](/testdev-interview-site/tech/ci-cd/) 在流水线里跑数据库回归，配事务回滚保证隔离
 
 面试冲刺重点讲清"API 返回成功但数据没落库"的排查思路。

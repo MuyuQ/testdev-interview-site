@@ -2,9 +2,18 @@
 title: "测试金字塔"
 description: "一种指导测试投资策略的分层模型，主张底层单元测试数量最多、顶层端到端测试最少，以实现高ROI的测试体系"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 13
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["工程质量", "测试策略", "单元测试", "集成测试", "E2E测试"]
+prerequisites:
+  - "glossary/unit-testing"
+  - "glossary/integration-testing"
+outcomes:
+  - "能画出单元测试-集成-E2E 三层金字塔"
+  - "能解释为什么不该把金字塔做成倒三角"
+  - "面试时能讲清底层测试多而顶层少的原因"
 relatedSlugs: ["tech/api-testing", "glossary/unit-testing"]
 selfTests:
   - id: "test-pyramid-q1"
@@ -215,8 +224,8 @@ describe('Login E2E', () => {
 
 ## 关联内容
 
-- [接口测试](/tech/api-testing/)：API 测试通常位于金字塔中层
-- [单元测试](./unit-testing/)：金字塔底层，数量最多
-- [集成测试](./integration-testing/)：金字塔中层
+- [接口测试](/testdev-interview-site/tech/api-testing/)：API 测试通常位于金字塔中层
+- [单元测试](/testdev-interview-site/glossary/unit-testing/)：金字塔底层，数量最多
+- [集成测试](/testdev-interview-site/glossary/integration-testing/)：金字塔中层
 - E2E 测试：金字塔顶层，覆盖完整用户链路，成本最高、数量最少
 - 测试覆盖率：衡量测试充分性的参考指标，金字塔各层的合理目标不同，底层高、顶层低

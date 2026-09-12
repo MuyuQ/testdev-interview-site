@@ -2,9 +2,19 @@
 title: "数据迁移"
 description: "系统间数据迁移的完整测试策略，涵盖边界确认、风险分析、测试维度设计、监控回滚方案等核心环节"
 category: "scenario"
+stage: "project"
+estimatedMinutes: 19
 difficulty: "interview"
 interviewWeight: 3
 tags: ["数据迁移", "ETL测试", "数据一致性", "迁移策略", "风险控制", "测试设计"]
+prerequisites:
+  - "tech/database-testing"
+  - "glossary/test-design"
+  - "glossary/regression-testing"
+outcomes:
+  - "能对比迁移前后数据行数并发现差异"
+  - "能设计字段类型变更的边界校验用例"
+  - "能2分钟讲清数据迁移的回滚方案"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "data-migration-q1"
@@ -367,8 +377,8 @@ def row_hash(row: dict) -> str:
 ## 十二、关联
 
 ### 相关技术文档
-- [API测试技术](/docs/tech/api-testing) - 接口层面的数据校验
-- [断言机制](/docs/glossary/api-assertion) - 数据验证断言方法
+- [API测试技术](/testdev-interview-site/tech/api-testing/) - 接口层面的数据校验
+- [断言机制](/testdev-interview-site/glossary/api-assertion/) - 数据验证断言方法
 
 ### 扩展阅读
 - ETL测试最佳实践

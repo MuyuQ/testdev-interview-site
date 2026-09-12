@@ -2,9 +2,19 @@
 title: "Playwright"
 description: "微软开源的现代浏览器自动化测试框架，支持多浏览器、多语言的端到端测试"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 20
 difficulty: "interview"
 interviewWeight: 3
 tags: ["E2E测试", "浏览器自动化", "跨浏览器测试", "测试框架", "Web测试"]
+prerequisites:
+  - "glossary/page-object-pattern"
+  - "glossary/test-pyramid"
+  - "tech/ci-cd"
+outcomes:
+  - "能写出带自动等待的稳定端到端用例"
+  - "能用 Page Object 模式组织页面与步骤"
+  - "能把 Playwright 接入 CI 产出 HTML 报告"
 relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper"]
 selfTests:
   - id: "playwright-q1"
@@ -308,18 +318,18 @@ Q5: 如何集成到CI/CD流程？
 
 ## 关联
 
-- [API断言最佳实践](/docs/glossary/api-assertion) - API测试断言技巧
-- [断言封装设计](/docs/coding/assertion-wrapper) - 如何设计可复用的断言层
-- [测试金字塔理论](/docs/glossary/test-pyramid) - E2E测试在测试体系中的定位
-- [CI/CD集成指南](/docs/tech/ci-cd) - 将Playwright集成到流水线
+- [API断言最佳实践](/testdev-interview-site/glossary/api-assertion/) - API测试断言技巧
+- [断言封装设计](/testdev-interview-site/coding/assertion-wrapper/) - 如何设计可复用的断言层
+- [测试金字塔理论](/testdev-interview-site/glossary/test-pyramid/) - E2E测试在测试体系中的定位
+- [CI/CD集成指南](/testdev-interview-site/tech/ci-cd/) - 将Playwright集成到流水线
 
 ## 下一步
 
 掌握 Playwright 基础后，建议按以下路径深入：
 
-1. **测试架构**：把 Page Object 与 fixture 结合，抽离通用页面与数据工厂，参考 [page-object-pattern](/docs/glossary/page-object-pattern)
-2. **结合接口层**：UI 前置数据用 [接口测试](/docs/tech/api-testing) 准备，避免在 E2E 内部慢慢造数
-3. **接入流水线**：把 Playwright 跑进 [CI/CD](/docs/tech/ci-cd)，用 HTML 报告 + Trace 做失败分析
-4. **综合实战**：前往 [登录认证场景](/docs/scenario/login-auth) 或 [UI 自动化项目](/docs/project/index) 落地一套完整方案
+1. **测试架构**：把 Page Object 与 fixture 结合，抽离通用页面与数据工厂，参考 [page-object-pattern](/testdev-interview-site/glossary/page-object-pattern/)
+2. **结合接口层**：UI 前置数据用 [接口测试](/testdev-interview-site/tech/api-testing/) 准备，避免在 E2E 内部慢慢造数
+3. **接入流水线**：把 Playwright 跑进 [CI/CD](/testdev-interview-site/tech/ci-cd/)，用 HTML 报告 + Trace 做失败分析
+4. **综合实战**：前往 [登录认证场景](/testdev-interview-site/scenario/login-auth/) 或 [UI 自动化项目](/testdev-interview-site/project/index/) 落地一套完整方案
 
 面试冲刺重点复盘三个追问：自动等待的原理、为什么 locator 优于 element handle、测试隔离怎么做。

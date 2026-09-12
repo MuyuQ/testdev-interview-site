@@ -2,9 +2,18 @@
 title: "回归测试"
 description: "在软件修改后重新执行已有测试用例，验证修改是否引入新缺陷或导致原有功能异常的测试活动"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 12
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试基础", "自动化测试", "测试策略", "质量保障"]
+prerequisites:
+  - "glossary/bug-lifecycle"
+  - "tech/api-testing"
+outcomes:
+  - "能说清回归测试与冒烟测试的区别"
+  - "能判断修复 Bug 后该补哪些回归用例"
+  - "面试时能讲清为什么要保留自动化回归套件"
 relatedSlugs: ["tech/api-testing", "glossary/test-pyramid"]
 selfTests:
   - id: "regression-testing-q1"
@@ -174,5 +183,5 @@ def select_regression_tests(changed_files, test_suite):
 
 ## 关联内容
 
-- [API 测试](/docs/tech/api-testing) - 回归测试的重要实施层面
-- [测试金字塔](/docs/glossary/test-pyramid) - 理解回归测试在测试层次中的位置
+- [API 测试](/testdev-interview-site/tech/api-testing/) - 回归测试的重要实施层面
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 理解回归测试在测试层次中的位置

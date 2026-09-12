@@ -2,9 +2,18 @@
 title: "项目故事模板"
 description: "一套可复用的项目经验表达模板，帮助你把测试工作包装成有深度的项目故事，避免流水账式的回答，在面试中脱颖而出。"
 category: "practice-template"
+stage: "interview"
+estimatedMinutes: 15
 difficulty: "interview"
 interviewWeight: 3
 tags: ["项目表达", "面试模板", "经验包装", "故事结构", "追问应对", "简历素材"]
+prerequisites:
+  - "practice-template/api-automation-template"
+  - "project/ecommerce-project"
+outcomes:
+  - "能按 STAR 结构写出一段 2 分钟项目介绍"
+  - "能列出面试官 5 个高频追问并给出应答"
+  - "能用量化指标呈现项目结果价值"
 relatedSlugs: ["roadmap/self-introduction-template", "project/payment-project", "project/ecommerce-project", "scenario/payment-callback"]
 selfTests:
   - id: "project-story-template-q1"

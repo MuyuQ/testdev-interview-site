@@ -2,9 +2,17 @@
 title: "Pytest 第一个测试用例"
 description: "写出第一个可运行的 Pytest 测试，理解测试发现和运行机制。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 50
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["新手教程", "Pytest入门", "单元测试"]
+prerequisites:
+  - "beginner-course/python-testing-minimum"
+outcomes:
+  - "能独立写出并运行一个以 test_ 开头的 Pytest 用例"
+  - "能解释 Pytest 的测试发现与执行机制"
+  - "面试时能讲清测试函数命名规范的作用"
 relatedSlugs:
   - "beginner-course/http-api-basics"
   - "tech/pytest"

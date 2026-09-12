@@ -2,9 +2,18 @@
 title: "冒烟测试"
 description: "在软件发布前，对核心业务流程进行快速验证，确保主链路畅通的轻量级测试方法"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 14
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["测试基础", "CI/CD", "主链路验证", "快速反馈"]
+prerequisites:
+  - "tech/api-testing"
+  - "glossary/regression-testing"
+outcomes:
+  - "能说清冒烟测试只验主链路而非全覆盖"
+  - "能在 CI 中把冒烟放在回归之前快速反馈"
+  - "面试时能讲清冒烟测试失败意味着什么"
 relatedSlugs: ["tech/api-testing", "glossary/regression-testing"]
 selfTests:
   - id: "smoke-testing-q1"
@@ -202,7 +211,7 @@ smoke_test:
 
 ## 关联内容
 
-- [API 测试](/tech/api-testing) - 冒烟测试常用 API 层实现
-- [回归测试](/glossary/regression-testing) - 冒烟测试通过后的下一步
-- [CI/CD](/tech/ci-cd) - 冒烟测试在流水线中的配置载体
-- [测试金字塔](/glossary/test-pyramid) - 理解冒烟在分层测试中的位置
+- [API 测试](/testdev-interview-site/tech/api-testing/) - 冒烟测试常用 API 层实现
+- [回归测试](/testdev-interview-site/glossary/regression-testing/) - 冒烟测试通过后的下一步
+- [CI/CD](/testdev-interview-site/tech/ci-cd/) - 冒烟测试在流水线中的配置载体
+- [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 理解冒烟在分层测试中的位置

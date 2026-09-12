@@ -2,9 +2,17 @@
 title: "Python 测试最小基础"
 description: "掌握写测试需要的最小 Python 知识：函数、列表、字典、条件判断、断言。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 50
 difficulty: "beginner"
 interviewWeight: 2
 tags: ["新手教程", "Python入门", "测试基础"]
+prerequisites:
+  - "beginner-course/start-here"
+outcomes:
+  - "能写出带函数、条件判断和断言的最小 Python 脚本"
+  - "能区分列表、字典在测试数据准备中的用法"
+  - "面试时能讲清为什么写测试要先掌握 Python 基础"
 relatedSlugs:
   - "beginner-course/pytest-first-test"
   - "tech/python"

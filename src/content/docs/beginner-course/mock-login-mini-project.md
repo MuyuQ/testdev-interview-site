@@ -2,9 +2,17 @@
 title: "小项目：模拟登录接口测试"
 description: "把前面知识串成一个小项目，完成登录接口自动化测试。"
 category: "beginner-course"
+stage: "foundation"
+estimatedMinutes: 90
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["新手教程", "小项目", "接口自动化"]
+prerequisites:
+  - "beginner-course/pytest-api-first-case"
+outcomes:
+  - "能把登录接口串成含成功与异常的自动化测试小项目"
+  - "能覆盖登录成功、密码错误、缺参数三个场景"
+  - "面试时能讲清一个接口自动化小项目的结构"
 relatedSlugs:
   - "beginner-course/interview-expression-for-first-project"
   - "practice-template/api-automation-template"

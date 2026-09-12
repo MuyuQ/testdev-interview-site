@@ -2,9 +2,18 @@
 title: "接口断言"
 description: "验证 API 响应符合预期的技术手段，包含状态码、响应体、响应头等多维度校验，是自动化测试的核心能力"
 category: "glossary"
+stage: "foundation"
+estimatedMinutes: 16
 difficulty: "beginner"
 interviewWeight: 3
 tags: ["自动化测试", "API测试", "断言策略", "测试验证"]
+prerequisites:
+  - "beginner-course/http-api-basics"
+  - "tech/api-testing"
+outcomes:
+  - "能区分状态码断言与业务字段断言"
+  - "能写出一个同时校验状态码和余额的接口断言"
+  - "面试时能讲清只断言 200 会漏掉什么"
 relatedSlugs: ["tech/api-testing", "glossary/integration-testing"]
 selfTests:
   - id: "api-assertion-q1"
@@ -234,7 +243,7 @@ describe('登录接口断言示例', () => {
 
 ## 关联内容
 
-- [接口测试](/tech/api-testing/)：API 测试的核心技术，断言是其中关键环节
-- [集成测试](./integration-testing/)：集成测试中的接口断言策略
+- [接口测试](/testdev-interview-site/tech/api-testing/)：API 测试的核心技术，断言是其中关键环节
+- [集成测试](/testdev-interview-site/glossary/integration-testing/)：集成测试中的接口断言策略
 - 测试覆盖率：如何衡量断言覆盖的充分性（衡量口径见第一个自测题，重点看分支覆盖而非行覆盖）
-- [Fixture](./fixture/)：断言所需的测试数据准备
+- [Fixture](/testdev-interview-site/glossary/fixture/)：断言所需的测试数据准备

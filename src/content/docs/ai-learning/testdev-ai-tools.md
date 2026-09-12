@@ -2,9 +2,19 @@
 title: "测试开发AI工具实战"
 description: "掌握AI工具在测试开发中的四大核心场景：用例生成、代码审查、数据构造、文档生成"
 category: "ai-learning"
+stage: "advanced"
+estimatedMinutes: 14
 difficulty: "interview"
 interviewWeight: 3
 tags: ["AI工具", "用例生成", "代码审查", "数据构造", "文档生成", "效率提升"]
+prerequisites:
+  - "ai-learning/ai-testcase-design"
+  - "glossary/test-design"
+  - "tech/api-testing"
+outcomes:
+  - "能用 AI 在四类场景生成测试初稿"
+  - "能建立 AI 输出的校验把关流程"
+  - "能讲清 AI 提效与质量责任归属"
 relatedSlugs: ["tech/api-testing", "glossary/unit-testing", "glossary/test-design"]
 selfTests:
   - id: "testdev-ai-tools-q1"
@@ -279,9 +289,9 @@ def validate_test_data(data_list):
 
 ## 10. 关联内容
 
-- [接口测试](/docs/tech/api-testing)：AI生成用例的主要应用场景
-- [单元测试](/docs/glossary/unit-testing)：AI辅助生成单元测试代码（术语释义见单元测试词条）
-- [测试用例设计](/docs/glossary/test-design)：理解用例设计原则，更好指导AI生成
+- [接口测试](/testdev-interview-site/tech/api-testing/)：AI生成用例的主要应用场景
+- [单元测试](/testdev-interview-site/glossary/unit-testing/)：AI辅助生成单元测试代码（术语释义见单元测试词条）
+- [测试用例设计](/testdev-interview-site/glossary/test-design/)：理解用例设计原则，更好指导AI生成
 
 ## 总结
 

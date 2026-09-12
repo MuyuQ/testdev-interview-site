@@ -2,9 +2,19 @@
 title: "支付回调"
 description: "掌握支付回调链路的完整测试策略，包括状态一致性保障、超时重试机制验证、对账系统设计，以及面试中高频的回调安全与幂等性问题解答。"
 category: "scenario"
+stage: "project"
+estimatedMinutes: 23
 difficulty: "interview"
 interviewWeight: 3
 tags: ["支付系统", "状态一致性", "幂等性", "异步回调", "对账验证", "分布式事务"]
+prerequisites:
+  - "tech/api-testing"
+  - "project/payment-project"
+  - "glossary/api-assertion"
+outcomes:
+  - "能设计重复回调的幂等性验证用例"
+  - "能模拟支付回调超时并验证补单机制"
+  - "能2分钟讲清支付回调的对账逻辑"
 relatedSlugs: ["tech/api-testing", "glossary/api-assertion"]
 selfTests:
   - id: "payment-callback-q1"
@@ -475,8 +485,8 @@ groups:
 
 ## 关联内容
 
-- [API 测试技术](/docs/tech/api-testing)：回调接口的自动化测试方法
-- [API 断言](/docs/glossary/api-assertion)：回调响应的验证策略
+- [API 测试技术](/testdev-interview-site/tech/api-testing/)：回调接口的自动化测试方法
+- [API 断言](/testdev-interview-site/glossary/api-assertion/)：回调响应的验证策略
 
 ## 下一步学习建议
 

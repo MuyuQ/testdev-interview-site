@@ -2,11 +2,20 @@
 title: "Python 测试开发基础"
 description: "掌握函数、列表、字典、异常处理与模块导入，构建测试自动化核心能力"
 category: "tech"
+stage: "practice"
+estimatedMinutes: 18
 difficulty: "interview"
 interviewWeight: 3
 tags: ["编程基础", "Python", "测试开发"]
 relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper"]
-prerequisites: []
+prerequisites:
+  - "beginner-course/python-testing-minimum"
+  - "beginner-course/pytest-first-test"
+  - "glossary/unit-testing"
+outcomes:
+  - "能用列表推导与字典处理测试结果数据"
+  - "能写出带异常捕获的健壮请求函数"
+  - "能解释可变默认参数与循环导入的坑"
 selfTests:
   - id: "python-q1"
     question: "以下哪个是 Python 列表推导式的正确语法？"
@@ -300,9 +309,9 @@ def func_a():
 
 掌握 Python 基础后，下一步是把语言能力转化为测试工程能力：
 
-1. **进阶框架**：直接学习 [pytest](/docs/tech/pytest)，用 fixture、parametrize 组织可维护的测试工程
-2. **接口实战**：用 [接口测试](/docs/tech/api-testing) 把 requests 与断言设计结合起来写 API 用例
-3. **断言沉淀**：把常用校验抽成工具函数，参考 [断言封装](/docs/coding/assertion-wrapper)
+1. **进阶框架**：直接学习 [pytest](/testdev-interview-site/tech/pytest/)，用 fixture、parametrize 组织可维护的测试工程
+2. **接口实战**：用 [接口测试](/testdev-interview-site/tech/api-testing/) 把 requests 与断言设计结合起来写 API 用例
+3. **断言沉淀**：把常用校验抽成工具函数，参考 [断言封装](/testdev-interview-site/coding/assertion-wrapper/)
 4. **避坑巩固**：对照本文"常见坑"逐条写反例，确保吃透可变默认参数、循环导入等陷阱
 
 面试冲刺把"深拷贝 vs 浅拷贝""异常链""模块缓存机制"三个追问作为必背项。

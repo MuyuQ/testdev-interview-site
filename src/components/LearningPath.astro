@@ -1,0 +1,229 @@
+---
+// 学习路径导航
+// 文章页：显示"本模块第 N / M 步"与上一步/下一步
+// 分类目录页：显示该分类的完整路径清单
+import type { ResolvedPath } from '../lib/learning-paths';
+
+interface Props {
+  path: ResolvedPath;
+  currentSlug: string | null; // 目录页传 null
+}
+
+const { path, currentSlug } = Astro.props;
+const currentIndex = currentSlug
+  ? path.steps.findIndex((step) => step.slug === currentSlug)
+  : -1;
+const current = currentIndex >= 0 ? path.steps[currentIndex] : null;
+const prev = current && currentIndex > 0 ? path.steps[currentIndex - 1] : null;
+const next =
+  current && currentIndex < path.steps.length - 1 ? path.steps[currentIndex + 1] : null;
+const progress = current ? Math.round((current.index / path.steps.length) * 100) : 0;
+---
+
+{
+  current ? (
+    <nav class="learning-path" aria-label="学习路径">
+      <div class="lp-head">
+        <span class="lp-label">学习路径 · {path.title}</span>
+        <span class="lp-position">第 {current.index} / {path.steps.length} 步</span>
+      </div>
+      <div class="lp-bar" aria-hidden="true">
+        <span class="lp-bar-fill" style={`width:${progress}%`}></span>
+      </div>
+      <p class="lp-goal">
+        <span class="lp-goal-tag">这一步</span>
+        {current.goal}
+      </p>
+      <div class="lp-nav">
+        {prev ? (
+          <a class="lp-prev" href={prev.href}>
+            ← 上一步：{prev.title}
+          </a>
+        ) : (
+          <span class="lp-prev is-disabled">← 已是第一步</span>
+        )}
+        {next ? (
+          <a class="lp-next" href={next.href}>
+            下一步：{next.title} →
+          </a>
+        ) : (
+          <span class="lp-next is-disabled">已是最后一步 →</span>
+        )}
+      </div>
+    </nav>
+  ) : (
+    <section class="learning-path learning-path-full" aria-label="学习路径">
+      <div class="lp-head">
+        <span class="lp-label">学习路径 · {path.title}</span>
+        <span class="lp-position">
+          共 {path.steps.length} 步 · 约 {path.totalMinutes} 分钟
+        </span>
+      </div>
+      <p class="lp-desc">{path.description}</p>
+      <ol class="lp-steps">
+        {path.steps.map((step) => (
+          <li>
+            <a href={step.href}>
+              <span class="lp-step-index">{step.index}</span>
+              <span class="lp-step-copy">
+                <strong>{step.title}</strong>
+                <span class="lp-step-goal">{step.goal}</span>
+                <span class="lp-step-output">产出：{step.output}</span>
+              </span>
+              {step.minutes && <span class="lp-step-time">{step.minutes} 分钟</span>}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
+<style>
+  .learning-path {
+    margin: 0 0 1.5rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: var(--sl-radius, 0.5rem);
+    background-color: var(--sl-color-black);
+  }
+
+  .lp-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .lp-label {
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .lp-position {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  .lp-bar {
+    height: 4px;
+    margin: 0.5rem 0 0.7rem;
+    background-color: var(--sl-color-gray-6, #172a3f);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .lp-bar-fill {
+    display: block;
+    height: 100%;
+    background-color: var(--sl-color-accent, #3b82f6);
+  }
+
+  .lp-goal {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-1);
+  }
+
+  .lp-goal-tag {
+    display: inline-block;
+    margin-right: 0.4rem;
+    padding: 0 0.4rem;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 4px;
+  }
+
+  .lp-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+    margin-top: 0.7rem;
+    font-size: var(--sl-text-sm);
+  }
+
+  .lp-nav a {
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+
+  .lp-nav a:hover {
+    color: var(--sl-color-white);
+    text-decoration: underline;
+  }
+
+  .lp-nav .is-disabled {
+    color: var(--sl-color-gray-4);
+  }
+
+  .lp-desc {
+    margin: 0.5rem 0 0.9rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  .lp-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lp-steps li + li {
+    margin-top: 0.5rem;
+  }
+
+  .lp-steps a {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.65rem 0.8rem;
+    text-decoration: none;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: var(--sl-radius, 0.5rem);
+    transition: border-color 0.15s ease;
+  }
+
+  .lp-steps a:hover {
+    border-color: var(--sl-color-accent, #3b82f6);
+  }
+
+  .lp-step-index {
+    flex: 0 0 auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: grid;
+    place-items: center;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-2);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 50%;
+  }
+
+  .lp-step-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1 1 auto;
+  }
+
+  .lp-step-copy strong {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-white);
+  }
+
+  .lp-step-goal,
+  .lp-step-output {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  .lp-step-time {
+    flex: 0 0 auto;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+</style>

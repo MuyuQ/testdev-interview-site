@@ -1,13 +1,31 @@
 ---
-// 覆盖 Starlight 的正文容器：正文之后追加自测题与相关阅读
+// 覆盖 Starlight 的正文容器：正文前渲染学习路径，正文后追加相关阅读与自测题
 import SelfTests from './SelfTests.astro';
 import RelatedLinks from './RelatedLinks.astro';
+import LearningPath from './LearningPath.astro';
 import { buildArticleMeta } from '../lib/article-meta';
+import { getPathByCategory, resolvePath, findStepIndex } from '../lib/learning-paths';
 
 const { entry } = Astro.locals.starlightRoute;
 const meta = await buildArticleMeta(entry, import.meta.env.BASE_URL);
 const tests = (entry.data as { selfTests?: unknown[] }).selfTests ?? [];
+
+// 学习路径：分类目录页展示整条路径，文章页展示当前步与上一步/下一步
+// 注意：分类目录页（如 glossary/index.md）的 frontmatter 没有 category 字段，
+// 所以统一从 entry.id 推导，取不到时再回退到 frontmatter
+const currentId = entry.id.replace(/\.mdx?$/, '');
+// 目录页的 entry.id 可能就是分类名本身（Starlight 会去掉 index），两种情况都要覆盖
+const dirCategory = currentId.includes('/') ? currentId.split('/')[0] : currentId;
+const isIndexPage = currentId.endsWith('/index') || !currentId.includes('/');
+const category =
+  dirCategory ?? (entry.data as { category?: string }).category ?? null;
+const path = category ? getPathByCategory(category) : undefined;
+const resolved = path ? await resolvePath(path, import.meta.env.BASE_URL) : null;
+const articleSlug = isIndexPage || !category ? null : currentId.slice(category.length + 1);
+const inPath = articleSlug && path ? findStepIndex(path, articleSlug) >= 0 : false;
 ---
+
+{resolved && (isIndexPage || inPath) && <LearningPath path={resolved} currentSlug={articleSlug} />}
 
 <div class="sl-markdown-content"><slot /></div>
 

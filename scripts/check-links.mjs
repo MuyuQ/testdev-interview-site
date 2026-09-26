@@ -1,158 +1,173 @@
-import fs from 'fs';
-import path from 'path';
+// 构建产物链接检查:
+// 1. 扫描 dist 里所有 HTML 的 href,校验站内路径真实存在
+// 2. 扫描 markdown 源文件里的相对链接,校验目标 slug 真实存在
+// 发现损坏链接时以非零码退出,可被 CI 和 npm scripts 直接使用
+import fs from "fs";
+import path from "path";
 
+const BASE = "/testdev-interview-site";
+
+// ---------- 收集 dist 下的 HTML ----------
 const htmlFiles = [];
 function walkDir(dir) {
   for (const item of fs.readdirSync(dir)) {
     const f = path.join(dir, item);
     if (fs.statSync(f).isDirectory()) walkDir(f);
-    else if (item.endsWith('.html')) htmlFiles.push(f);
+    else if (item.endsWith(".html")) htmlFiles.push(f);
   }
 }
-walkDir('dist');
+walkDir("dist");
 
-// 从 _astro 目录收集 CSS/JS 资源
-const assetFiles = new Set();
-for (const file of htmlFiles) {
-  const content = fs.readFileSync(file, 'utf-8');
-  const cssRegex = /href="\/testdev-interview-site\/(_astro\/[^"]+)"/g;
-  let m;
-  while ((m = cssRegex.exec(content)) !== null) {
-    assetFiles.add('/testdev-interview-site/' + m[1]);
-  }
-}
-
-// 收集所有 dist 下的文件路径（带 base path）
-const BASE = '/testdev-interview-site';
+// ---------- 构建有效路径集合 ----------
 const distFiles = new Set();
 for (const file of htmlFiles) {
-  const rel = file.replace('dist', '').replace(/\\/g, '/');
-  // HTML 文件作为页面路径
-  const pagePath = rel.endsWith('/index.html') ? rel.replace('/index.html', '/') : rel.replace('.html', '');
+  const rel = file.replace(/^dist/, "").replace(/\\/g, "/");
+  const pagePath = rel.endsWith("/index.html")
+    ? rel.replace("/index.html", "/")
+    : rel.replace(/\.html$/, "");
   distFiles.add(BASE + pagePath);
-  if (pagePath.endsWith('/')) distFiles.add(BASE + pagePath.slice(0, -1));
+  if (pagePath.endsWith("/")) distFiles.add(BASE + pagePath.slice(0, -1));
 }
 
-// 添加静态资源
-const publicDir = 'dist';
-for (const f of fs.readdirSync(publicDir)) {
-  if (f.endsWith('.svg') || f.endsWith('.xml')) {
-    distFiles.add(BASE + '/' + f);
-  }
-  if (f === '_astro') {
-    const astroDir = path.join(publicDir, f);
-    if (fs.statSync(astroDir).isDirectory()) {
-      for (const af of fs.readdirSync(astroDir)) {
-        distFiles.add(BASE + '/_astro/' + af);
-      }
+// 静态资源:favicon/sitemap 等根文件 + _astro 产物
+for (const f of fs.readdirSync("dist")) {
+  if (f.endsWith(".svg") || f.endsWith(".xml")) distFiles.add(`${BASE}/${f}`);
+  if (f === "_astro") {
+    for (const af of fs.readdirSync(path.join("dist", f))) {
+      distFiles.add(`${BASE}/_astro/${af}`);
     }
   }
 }
 
+// ---------- 检查 HTML 里的链接 ----------
 const linkRegex = /href="([^"]+)"/g;
 const allLinks = new Set();
 const linkSources = new Map();
 
 for (const file of htmlFiles) {
-  const content = fs.readFileSync(file, 'utf-8');
+  const content = fs.readFileSync(file, "utf-8");
+  linkRegex.lastIndex = 0;
   let match;
   while ((match = linkRegex.exec(content)) !== null) {
     const href = match[1];
-    if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('/@') && !href.startsWith('data:')) {
+    if (
+      href &&
+      !href.startsWith("#") &&
+      !href.startsWith("mailto:") &&
+      !href.startsWith("/@") &&
+      !href.startsWith("data:")
+    ) {
       allLinks.add(href);
       if (!linkSources.has(href)) linkSources.set(href, []);
-      const relFile = file.replace('dist', '').replace(/\\/g, '/');
+      const relFile = file.replace(/^dist/, "").replace(/\\/g, "/");
       linkSources.get(href).push(relFile);
     }
   }
 }
 
-console.log('=== 内部链接检查 ===\n');
-console.log('总链接数:', allLinks.size);
-console.log('有效路径数:', distFiles.size);
+console.log("=== 内部链接检查 ===\n");
+console.log("总链接数:", allLinks.size);
+console.log("有效路径数:", distFiles.size);
 
 const broken = [];
 const working = [];
 
 for (const link of [...allLinks].sort()) {
-  // 相对链接需要解析
-  if (link.startsWith('/')) {
-    if (distFiles.has(link)) {
+  if (link.startsWith("/")) {
+    // 去掉 fragment 和 query 后再比对路径
+    const purePath = link.split("#")[0].split("?")[0];
+    const candidate = purePath === "" ? BASE + "/" : purePath;
+    if (distFiles.has(candidate) || distFiles.has(link)) {
       working.push(link);
     } else {
       broken.push(link);
     }
-  } else if (link.startsWith('http')) {
-    working.push(link); // 外部链接跳过
   } else {
-    // 相对链接 - 不检查（Starlight 处理）
+    // 外部链接与相对链接交由 Starlight/浏览器处理,这里跳过
     working.push(link);
   }
 }
 
-console.log('\n有效链接:', working.length);
-console.log('损坏链接:', broken.length);
+console.log("\n有效链接:", working.length);
+console.log("损坏链接:", broken.length);
 
 if (broken.length > 0) {
-  console.log('\n=== 损坏链接详情 ===');
+  console.log("\n=== 损坏链接详情 ===");
   for (const link of broken) {
-    const sources = linkSources.get(link) || [];
-    console.log('  BROKEN: ' + link);
-    console.log('    Found in: ' + [...new Set(sources)].slice(0, 2).join(', '));
+    const sources = [...new Set(linkSources.get(link) || [])].slice(0, 2);
+    console.log(`  BROKEN: ${link}  (in ${sources.join(", ")})`);
   }
-} else {
-  console.log('\n所有链接都有效!');
 }
 
-// 额外：检查 markdown 源文件中的链接
-console.log('\n=== Markdown 源文件链接检查 ===\n');
+// ---------- 检查 markdown 源文件里的链接 ----------
+console.log("\n=== Markdown 源文件链接检查 ===\n");
 const mdFiles = [];
 function walkMdDir(dir) {
   for (const item of fs.readdirSync(dir)) {
     const f = path.join(dir, item);
     if (fs.statSync(f).isDirectory()) walkMdDir(f);
-    else if (item.endsWith('.md') || item.endsWith('.mdx')) mdFiles.push(f);
+    else if (item.endsWith(".md") || item.endsWith(".mdx")) mdFiles.push(f);
   }
 }
-walkMdDir('src/content/docs');
+walkMdDir("src/content/docs");
 
-const mdLinkRegex = /\[([^\]]*)\]\(([^)]+)\)/g;
+const mdLinkRegex = /\[([^\]]*)\]\(([^)\s]+)[^)]*\)/g;
 const mdBroken = [];
 const mdValidSlugs = new Set();
 
-// 收集所有有效的 slug
 for (const file of mdFiles) {
-  const rel = file.replace('src/content/docs/', '').replace(/\\/g, '/');
-  const slug = rel.replace(/\.mdx?$/, '').replace(/\/index$/, '');
+  const rel = file.replace(/^src\/content\/docs\//, "").replace(/\\/g, "/");
+  const slug = rel.replace(/\.mdx?$/, "").replace(/\/index$/, "");
   mdValidSlugs.add(slug);
 }
 
 for (const file of mdFiles) {
-  const content = fs.readFileSync(file, 'utf-8');
-  const relFile = file.replace('src/content/docs/', '').replace(/\\/g, '/');
+  const content = fs.readFileSync(file, "utf-8");
+  const relFile = file.replace(/^src\/content\/docs\//, "").replace(/\\/g, "/");
+  mdLinkRegex.lastIndex = 0;
   let match;
   while ((match = mdLinkRegex.exec(content)) !== null) {
     const href = match[2];
-    if (href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('/src/')) continue;
-    // 解析链接目标
-    let target = href;
-    if (target.startsWith('/testdev-interview-site/')) {
-      target = target.replace('/testdev-interview-site/', '');
+    if (
+      href.startsWith("http") ||
+      href.startsWith("#") ||
+      href.startsWith("mailto:")
+    ) {
+      continue;
     }
-    if (target.startsWith('/')) {
-      target = target.slice(1);
+    // 解析成相对于 docs 根目录的 slug(去掉 fragment/query/末尾斜杠/.md)
+    let target = href.split("#")[0].split("?")[0];
+    if (target.startsWith("/")) {
+      // 绝对链接(可能带 BASE 前缀):相对 docs 根目录
+      if (target.startsWith(BASE + "/")) target = target.slice(BASE.length);
+      target = target.replace(/^\//, "").replace(/\/$/, "");
+    } else {
+      // 相对链接:Starlight 按页面 URL 目录解析,即把文件 slug 本身当作一层目录
+      // 例: beginner-course/pytest-first-test.md 里的 ../http-api-basics/ → beginner-course/http-api-basics
+      let baseDir = relFile.replace(/\.mdx?$/, "");
+      baseDir = baseDir.replace(/\/index$/, "");
+      target = path.posix
+        .normalize(path.posix.join(baseDir, target))
+        .replace(/\/$/, "");
     }
-    target = target.replace(/\/$/, '');
-    if (target && !target.includes('..') && !mdValidSlugs.has(target)) {
+    target = target.replace(/\.mdx?$/, "");
+    if (target && !mdValidSlugs.has(target)) {
       mdBroken.push({ file: relFile, link: href, target });
     }
   }
 }
 
-console.log('Markdown 有效 slug:', mdValidSlugs.size);
-console.log('Markdown 损坏链接:', mdBroken.length);
+console.log("Markdown 有效 slug:", mdValidSlugs.size);
+console.log("Markdown 损坏链接:", mdBroken.length);
 if (mdBroken.length > 0) {
   for (const b of mdBroken) {
-    console.log('  BROKEN: ' + b.link + ' (in ' + b.file + ')');
+    console.log(`  BROKEN: ${b.link}  (in ${b.file}, target: ${b.target})`);
   }
 }
+
+// ---------- 汇总退出码 ----------
+if (broken.length > 0 || mdBroken.length > 0) {
+  console.log("\n链接检查未通过。");
+  process.exit(1);
+}
+console.log("\n所有链接都有效!");

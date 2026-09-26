@@ -1,44 +1,57 @@
 // 内容验证脚本
-import { readdirSync, readFileSync, statSync } from 'fs'
-import { join, relative, basename } from 'path'
-import matter from 'gray-matter'
+import { readdirSync, readFileSync, statSync } from "fs";
+import { join, relative, basename } from "path";
+import matter from "gray-matter";
 
-const DOCS_DIR = join(process.cwd(), 'src/content/docs')
-const beginnerRequiredSections = ['## 你会学到什么', '## 为什么要学', '## 前置知识', '## 核心概念', '## 最小示例', '## 手把手练习', '## 检查标准', '## 常见错误', '## 面试怎么说', '## 下一步']
+const DOCS_DIR = join(process.cwd(), "src/content/docs");
+const beginnerRequiredSections = [
+  "## 你会学到什么",
+  "## 为什么要学",
+  "## 前置知识",
+  "## 核心概念",
+  "## 最小示例",
+  "## 手把手练习",
+  "## 检查标准",
+  "## 常见错误",
+  "## 面试怎么说",
+  "## 下一步",
+];
 
-function walkDir(dir) {
-  const results = []
+function walkDir(dir: string): string[] {
+  const results: string[] = [];
   for (const item of readdirSync(dir)) {
-    const f = join(dir, item)
-    if (statSync(f).isDirectory()) results.push(...walkDir(f))
-    else results.push(f)
+    const f = join(dir, item);
+    if (statSync(f).isDirectory()) results.push(...walkDir(f));
+    else results.push(f);
   }
-  return results
+  return results;
 }
 
 export function validateDocs() {
-  const errors = []
-  const warnings = []
+  const errors = [];
+  const warnings = [];
   for (const file of walkDir(DOCS_DIR)) {
-    if (!file.endsWith('.md') && !file.endsWith('.mdx')) continue
-    const { data, content: body } = matter(readFileSync(file, 'utf-8'))
-    const rel = relative(DOCS_DIR, file)
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) continue;
+    const { data, content: body } = matter(readFileSync(file, "utf-8"));
+    const rel = relative(DOCS_DIR, file);
     // 各分类的 index.md 是目录页，不参与正文小节校验（Windows 路径分隔符是 \，用 basename 判断）
-    const isIndexPage = basename(file) === 'index.md'
-    if (data.category === 'beginner-course' && !isIndexPage) {
+    const isIndexPage = basename(file) === "index.md";
+    if (data.category === "beginner-course" && !isIndexPage) {
       for (const s of beginnerRequiredSections) {
-        if (!body.includes(s)) errors.push(rel + ': missing section "' + s + '"')
+        if (!body.includes(s))
+          errors.push(rel + ': missing section "' + s + '"');
       }
     }
-    if (body.length < 500) warnings.push(rel + ': short content (' + body.length + ' chars)')
+    if (body.length < 500)
+      warnings.push(rel + ": short content (" + body.length + " chars)");
   }
-  return { errors, warnings }
+  return { errors, warnings };
 }
 
-if (process.argv[1] && process.argv[1].includes('validate-content')) {
-  const { errors, warnings } = validateDocs()
-  for (const w of warnings) console.warn('WARN:', w)
-  for (const e of errors) console.error('ERROR:', e)
-  if (errors.length > 0) process.exit(1)
-  console.log('Validation passed!')
+if (process.argv[1] && process.argv[1].includes("validate-content")) {
+  const { errors, warnings } = validateDocs();
+  for (const w of warnings) console.warn("WARN:", w);
+  for (const e of errors) console.error("ERROR:", e);
+  if (errors.length > 0) process.exit(1);
+  console.log("Validation passed!");
 }

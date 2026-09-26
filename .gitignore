@@ -38,6 +38,11 @@ coverage/
 *.temp
 .temp/
 
+# 废弃实验目录与本地产物(不进仓库)
+temp-site/
+output/
+.venv/
+
 # Agent / AI tooling
 .claude/
 .plans/

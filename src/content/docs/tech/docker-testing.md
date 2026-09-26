@@ -15,11 +15,13 @@ outcomes:
   - "能用 docker-compose 编排带依赖的测试环境"
   - "能配置等待依赖就绪的健康检查避免误启"
   - "能定位容器与本地环境不一致导致的失败"
-relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "tech/ci-cd"]
+relatedSlugs:
+  ["glossary/api-assertion", "coding/assertion-wrapper", "tech/ci-cd"]
 selfTests:
   - id: "docker-testing-q1"
     question: "Docker 测试环境相比传统测试环境的最大优势是什么？"
-    options: ["运行速度更快", "环境一致性和可复现性", "占用资源更少", "部署更简单"]
+    options:
+      ["运行速度更快", "环境一致性和可复现性", "占用资源更少", "部署更简单"]
     correctIndex: 1
     explanation: "Docker 通过容器化确保测试环境在不同机器上完全一致，解决'在我机器上能跑'的问题。"
   - id: "docker-testing-q2"
@@ -29,9 +31,21 @@ selfTests:
     explanation: "Docker Compose 用于定义和运行多容器应用，非常适合测试需要数据库、缓存等依赖的场景。"
   - id: "docker-testing-q3"
     question: "如何在 Docker 中实现测试环境的隔离？"
-    options: ["使用不同的镜像", "使用容器网络和卷隔离", "只用一台服务器", "不需要隔离"]
+    options:
+      ["使用不同的镜像", "使用容器网络和卷隔离", "只用一台服务器", "不需要隔离"]
     correctIndex: 1
     explanation: "通过 Docker 网络命名空间和卷管理，可以为每个测试实例创建独立的网络和存储隔离。"
+  - id: "docker-testing-q4"
+    question: "docker compose 中 depends_on 默认只保证什么？"
+    options:
+      [
+        "依赖服务已健康可用",
+        "依赖容器已启动（启动顺序）",
+        "依赖服务端口已就绪",
+        "依赖服务数据已同步",
+      ]
+    correctIndex: 1
+    explanation: "depends_on 默认只控制容器启动顺序，不等待服务真正就绪；数据库进程启动后仍需初始化时间，首个连接仍可能失败。需要配合 healthcheck 与 condition: service_healthy 才能等到服务可用。"
 ---
 
 ## 1. 这项技术解决什么问题
@@ -97,7 +111,7 @@ ENTRYPOINT ["pytest"]
 
 ```yaml
 # docker-compose.test.yml
-version: '3.8'
+version: "3.8"
 services:
   app:
     build: .
@@ -115,7 +129,7 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_DB: testdb
     tmpfs:
-      - /var/lib/postgresql/data  # 使用内存存储提升速度
+      - /var/lib/postgresql/data # 使用内存存储提升速度
 
   redis:
     image: redis:7-alpine
@@ -143,11 +157,37 @@ docker-compose -f docker-compose.test.yml exec app pytest
 docker-compose -f docker-compose.test.yml down -v
 ```
 
+### 4.5 镜像分层与缓存优化
+
+测试镜像构建慢、拉取慢，大多是没有利用好分层缓存：
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# 依赖声明先复制并安装——依赖不变时，这层缓存永远命中
+COPY requirements-test.txt .
+RUN pip install --no-cache-dir -r requirements-test.txt
+
+# 源码后复制——代码频繁变动，只重建这一层
+COPY tests/ ./tests/
+
+ENTRYPOINT ["pytest"]
+```
+
+三条原则：
+
+- **变动少的层放前面**：依赖安装层在前、源码层在后，日常构建只重建源码层，从几分钟降到几秒
+- **配合 .dockerignore**：把 `.git`、`__pycache__`、测试报告目录排除，构建上下文变小，传输与缓存都更快
+- **基础镜像选 slim 而不是完整版**：`python:3.11-slim` 比完整镜像小一个数量级，跑测试功能足够；alpine 用 musl libc 兼容坑多，非必要不用
+
 ## 5. 最小可运行例子
 
 创建一个完整的 API 测试环境示例：
 
 **项目结构**：
+
 ```
 demo/
 ├── docker-compose.test.yml
@@ -158,6 +198,7 @@ demo/
 ```
 
 **Dockerfile.test**：
+
 ```dockerfile
 FROM python:3.11-slim
 WORKDIR /app
@@ -166,10 +207,11 @@ COPY tests/ ./tests/
 ```
 
 **docker-compose.test.yml**：
+
 ```yaml
-version: '3.8'
+version: "3.8"
 services:
-  sut:  # System Under Test
+  sut: # System Under Test
     build:
       context: .
       dockerfile: Dockerfile.test
@@ -184,6 +226,7 @@ services:
 ```
 
 **tests/test_api.py**：
+
 ```python
 import requests
 
@@ -195,6 +238,7 @@ def test_api_endpoint():
 ```
 
 **运行测试**：
+
 ```bash
 docker-compose -f docker-compose.test.yml up --abort-on-container-exit
 ```
@@ -242,9 +286,9 @@ services:
   db:
     image: postgres:15
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 初始化数据
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # 初始化数据
     tmpfs:
-      - /var/lib/postgresql/data  # 测试后自动清理
+      - /var/lib/postgresql/data # 测试后自动清理
 ```
 
 ### 6.4 环境变量管理
@@ -267,12 +311,13 @@ TEST_TIMEOUT=30
 **原因**：`depends_on` 只保证启动顺序，不保证服务就绪
 
 **解决**：
+
 ```yaml
 services:
   app:
     depends_on:
       db:
-        condition: service_healthy  # 等待健康检查通过
+        condition: service_healthy # 等待健康检查通过
   db:
     image: postgres:15
     healthcheck:
@@ -287,6 +332,7 @@ services:
 **现象**：容器间无法通信
 
 **排查**：
+
 ```bash
 # 检查容器网络
 docker network ls
@@ -301,6 +347,7 @@ docker-compose exec app ping db
 **现象**：测试间歇性失败
 
 **解决**：每次测试后彻底清理
+
 ```bash
 docker-compose down -v --remove-orphans
 docker system prune -f
@@ -311,6 +358,7 @@ docker system prune -f
 **现象**：代码更新后测试仍跑旧版本
 
 **解决**：
+
 ```bash
 # 强制重新构建
 docker-compose build --no-cache
@@ -322,6 +370,7 @@ docker-compose up --force-recreate
 ### Q1：Docker 测试环境有什么缺点？
 
 回答骨架：
+
 1. 启动开销：容器启动有秒级延迟，不适合高频执行的单元测试
 2. 资源消耗：每个容器占用独立资源，并行测试需要合理规划
 3. 学习成本：团队需要掌握 Docker 技能栈
@@ -330,6 +379,7 @@ docker-compose up --force-recreate
 ### Q2：如何选择哪些测试用 Docker 运行？
 
 回答骨架：
+
 - 单元测试：本地运行，速度优先
 - 集成测试：Docker 运行，需要真实依赖
 - E2E 测试：Docker 运行，完整环境模拟
@@ -338,9 +388,27 @@ docker-compose up --force-recreate
 ### Q3：Docker 测试环境在生产环境如何延伸？
 
 回答骨架：
+
 - 测试环境镜像可作为生产镜像的 base
 - 通过多阶段构建分离测试和生产内容
 - 使用相同的 Compose 配置，通过环境变量切换
+
+### Q4：镜像太大导致 CI 拉取慢，怎么优化？
+
+回答骨架：
+
+1. 基础镜像瘦身：换 slim/alpine 变体，去掉编译工具链
+2. 多阶段构建：构建阶段的依赖不进最终镜像
+3. 清理痕迹：RUN 里合并命令并清理 pip/apt 缓存
+4. 传输优化：内网镜像仓库 + registry mirror，或 CI 节点预热常用镜像
+
+### Q5：Testcontainers 和 docker compose 怎么选？
+
+回答骨架：
+
+- Compose：声明式编排、可复用，适合固定依赖栈（如固定 MySQL + Redis），团队都要本地复现时优先
+- Testcontainers：容器生命周期跟用例绑定，动态创建销毁，隔离性最好，适合并行测试和动态端口场景
+- 常见组合：本地开发用 Compose 起环境，CI 并行测试用 Testcontainers 保证用例级隔离
 
 ## 9. 练习任务
 
@@ -351,6 +419,34 @@ docker-compose up --force-recreate
 3. **综合练习**：在 GitHub Actions 中配置 Docker 测试流水线，实现 PR 自动触发测试
 
 4. **挑战练习**：使用 Testcontainers 库（Python/Java），在测试代码中动态创建容器
+
+## 性能与规模化
+
+并行测试规模上去之后，容器资源要显式管理，否则会出现"本地快、CI 慢"的资源争抢：
+
+```yaml
+services:
+  db:
+    image: postgres:15
+    # 限制容器资源，防止一批并行测试把 runner 打爆
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+    tmpfs:
+      - /var/lib/postgresql/data # 数据落内存，写入速度提升明显
+```
+
+规模化实践清单：
+
+1. **项目名隔离**：`docker compose -p "run_${CI_JOB_ID}" up`，每个流水线任务独立一套容器和网络，互不干扰；结束时用同名 `-p` down 一次清干净
+2. **内存盘加速数据库**：tmpfs 挂载数据目录，PostgreSQL/MySQL 初始化从十几秒降到几秒，测试写入也更快
+3. **容器内并行 + 容器外分片**：容器内 pytest-xdist 跑满 CPU，容器外矩阵策略把用例集分到多个 runner，两层叠加支撑千级用例
+4. **镜像预热**：CI 节点定时 pull 常用基础镜像，或搭内网 mirror，避免每次构建从公网拉取
+5. **资源上限**：不设 CPU/内存上限时，一个失控的压测脚本可能拖垮同节点所有任务；上限值参考"并行数 x 单用例峰值内存"
+
+监控重点看两个信号：CI 节点的内存水位（OOM 会表现为神秘的用例失败）和磁盘水位（镜像与卷堆积会写满节点盘，表现为拉取镜像失败）。
 
 ## 10. 关联内容
 

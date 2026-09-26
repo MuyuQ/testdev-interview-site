@@ -3,16 +3,16 @@
 // 时长不在这里写，统一取文章 frontmatter 的 estimatedMinutes，避免两处不一致。
 
 export type CategoryId =
-  | 'beginner-course'
-  | 'roadmap'
-  | 'glossary'
-  | 'tech'
-  | 'coding'
-  | 'project'
-  | 'scenario'
-  | 'interview-chains'
-  | 'practice-template'
-  | 'ai-learning';
+  | "beginner-course"
+  | "roadmap"
+  | "glossary"
+  | "tech"
+  | "coding"
+  | "project"
+  | "scenario"
+  | "interview-chains"
+  | "practice-template"
+  | "ai-learning";
 
 // 路径中的一步：slug 是该分类下的文章文件名（不含分类前缀、不含 .md）
 export interface PathStep {

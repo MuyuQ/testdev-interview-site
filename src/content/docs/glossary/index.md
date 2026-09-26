@@ -9,16 +9,20 @@ category: "glossary"
 术语体系模块解决的是**测试开发学习中的语言门槛问题**。
 
 当你阅读技术文档、参与团队讨论、准备面试时，经常会遇到一些术语概念：
+
 - 什么是"单元测试"和"集成测试"，它们有什么区别？
 - "Mock"和"Stub"听起来差不多，到底怎么区分？
 - 测试金字塔说的是什么，为什么面试老问？
 
 这些术语如果不理解，会导致：
+
 - 技术文章读不懂，学习效率低
 - 团队沟通有障碍，协作成本高
 - 面试答不清楚，错失机会
 
 本模块提供**一套统一的术语定义体系**，每个术语包含：一句话定义、为什么重要、工作流位置、最小例子、面试怎么说、易错点、混淆概念辨析。看完之后，你能建立与其他模块、与面试官、与团队成员的共同语言。
+
+**高效读法（三遍法）**：每个术语页建议读三遍——第一遍只看"一句话定义 + 最小例子"，建立直觉；第二遍精读"易错点"和"容易混淆的概念"，这是面试追问的高发区；第三遍合上文档，用自己的项目经历把"面试怎么说"复述一遍。某个术语说不出项目里的对应场景，就说明还没真正掌握，而不是背得不够熟。
 
 ## 适合谁
 
@@ -33,6 +37,7 @@ category: "glossary"
 面试高频术语集中在：测试层次、测试方法、自动化模式、Bug 管理。
 
 **重点突击**：
+
 - [单元测试](/testdev-interview-site/glossary/unit-testing/) - 必问，覆盖率和 Mock 是高频追问点
 - [测试金字塔](/testdev-interview-site/glossary/test-pyramid/) - 测试策略类问题必考
 - [测试设计](/testdev-interview-site/glossary/test-design/) - 等价类、边界值是手撕用例题的基础
@@ -52,6 +57,7 @@ category: "glossary"
 如果你已经是测试开发工程师，本模块帮你**统一团队术语**、**指导新人学习**。
 
 **实用场景**：
+
 - 技术评审时，用术语的标准定义避免理解偏差
 - 指导新人时，让新人按模块顺序学习，减少碎片化
 - 文档编写时，参考术语模块的标准表述
@@ -79,47 +85,47 @@ category: "glossary"
 
 测试层次和核心方法的术语：
 
-| 术语 | 核心要点 | 阅读入口 |
-|------|----------|----------|
-| 单元测试 | 最小单元 + 隔离依赖 + 快速反馈 | [unit-testing](/testdev-interview-site/glossary/unit-testing/) |
-| 集成测试 | 模块协作 + 接口契约 + 数据流转 | [integration-testing](/testdev-interview-site/glossary/integration-testing/) |
-| 测试金字塔 | 分层策略 + 成本控制 + ROI 优化 | [test-pyramid](/testdev-interview-site/glossary/test-pyramid/) |
-| 测试设计 | 等价类 + 边界值 + 场景法 | [test-design](/testdev-interview-site/glossary/test-design/) |
+| 术语       | 核心要点                       | 阅读入口                                                                     |
+| ---------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| 单元测试   | 最小单元 + 隔离依赖 + 快速反馈 | [unit-testing](/testdev-interview-site/glossary/unit-testing/)               |
+| 集成测试   | 模块协作 + 接口契约 + 数据流转 | [integration-testing](/testdev-interview-site/glossary/integration-testing/) |
+| 测试金字塔 | 分层策略 + 成本控制 + ROI 优化 | [test-pyramid](/testdev-interview-site/glossary/test-pyramid/)               |
+| 测试设计   | 等价类 + 边界值 + 场景法       | [test-design](/testdev-interview-site/glossary/test-design/)                 |
 
 ### 测试流程
 
 测试执行环节的关键术语：
 
-| 术语 | 核心要点 | 阅读入口 |
-|------|----------|----------|
-| 冒烟测试 | 主链路验证 + 快速反馈 + CI 守门员 | [smoke-testing](/testdev-interview-site/glossary/smoke-testing/) |
+| 术语     | 核心要点                           | 阅读入口                                                                   |
+| -------- | ---------------------------------- | -------------------------------------------------------------------------- |
+| 冒烟测试 | 主链路验证 + 快速反馈 + CI 守门员  | [smoke-testing](/testdev-interview-site/glossary/smoke-testing/)           |
 | 回归测试 | 变更验证 + 范围选择 + 自动化主战场 | [regression-testing](/testdev-interview-site/glossary/regression-testing/) |
 
 ### 自动化模式
 
 自动化测试设计模式和技术手段：
 
-| 术语 | 核心要点 | 阅读入口 |
-|------|----------|----------|
-| 夹具（Fixture） | 依赖注入 + 作用域控制 + setup/teardown | [fixture](/testdev-interview-site/glossary/fixture/) |
-| Mock 和 Stub | 依赖隔离 + 行为模拟 + 状态验证 | [mock-stub](/testdev-interview-site/glossary/mock-stub/) |
-| 页面对象模式 | UI 封装 + 维护性提升 + 关注点分离 | [page-object-pattern](/testdev-interview-site/glossary/page-object-pattern/) |
-| 接口断言 | 响应验证 + 状态码 + 数据结构 | [api-assertion](/testdev-interview-site/glossary/api-assertion/) |
+| 术语            | 核心要点                               | 阅读入口                                                                     |
+| --------------- | -------------------------------------- | ---------------------------------------------------------------------------- |
+| 夹具（Fixture） | 依赖注入 + 作用域控制 + setup/teardown | [fixture](/testdev-interview-site/glossary/fixture/)                         |
+| Mock 和 Stub    | 依赖隔离 + 行为模拟 + 状态验证         | [mock-stub](/testdev-interview-site/glossary/mock-stub/)                     |
+| 页面对象模式    | UI 封装 + 维护性提升 + 关注点分离      | [page-object-pattern](/testdev-interview-site/glossary/page-object-pattern/) |
+| 接口断言        | 响应验证 + 状态码 + 数据结构           | [api-assertion](/testdev-interview-site/glossary/api-assertion/)             |
 
 ### 项目协作
 
 缺陷管理和流程协作术语：
 
-| 术语 | 核心要点 | 阅读入口 |
-|------|----------|----------|
+| 术语         | 核心要点                       | 阅读入口                                                         |
+| ------------ | ------------------------------ | ---------------------------------------------------------------- |
 | Bug 生命周期 | 状态流转 + 严重程度 + 报告规范 | [bug-lifecycle](/testdev-interview-site/glossary/bug-lifecycle/) |
 
 ### 工程质量
 
 CI/CD 和质量保障术语：
 
-| 术语 | 核心要点 | 阅读入口 |
-|------|----------|----------|
+| 术语     | 核心要点                             | 阅读入口                                                       |
+| -------- | ------------------------------------ | -------------------------------------------------------------- |
 | 质量门禁 | 合并前检查 + 覆盖率门槛 + 自动化拦截 | [quality-gate](/testdev-interview-site/glossary/quality-gate/) |
 
 ## 最小完成标准
@@ -158,6 +164,7 @@ CI/CD 和质量保障术语：
 很多学习者认为术语之间互不相干，实际上大量面试题考察的是术语辨析能力。
 
 **正确做法**：重点关注每个术语的"混淆概念"表格。例如：
+
 - 单元测试 vs 集成测试的区别是高频考点
 - 回归测试 vs 重新测试的区别面试必问
 - Mock vs Stub 的区别社招常考
@@ -173,6 +180,61 @@ CI/CD 和质量保障术语：
 每个术语的易错点部分容易被忽视，但这恰恰是面试官追问的方向。
 
 **正确做法**：易错点就是面试高频追问点。例如单元测试的"过度 Mock"问题、测试金字塔的"倒金字塔反模式"问题，面试官很可能追问"你在项目中遇到过这些问题吗？怎么解决的？"
+
+## 术语关系网络：什么时候用哪个
+
+术语的价值不在背定义，而在**判断场景**。以下是四条最常用的判断链，遇到具体问题时按链路走即可。
+
+### 判断链一：这次变更之后该跑什么测试？
+
+```text
+代码改动了
+├─ 只想知道"部署后系统还能不能用" → 冒烟测试（5~15 条主链路用例，分钟级）
+├─ 修复了一个 Bug → 重新测试（验证原缺陷修好没）+ 回归测试（验证关联功能没被改坏）
+├─ 大版本合并 / 发版前 → 全量回归 + 冒烟兜底
+└─ 每天夜间 → 定时全量回归
+```
+
+### 判断链二：这个验证点该写在哪一层？
+
+```text
+新的验证需求
+├─ 纯函数逻辑（计算、转换、校验规则）→ 单元测试（隔离依赖，毫秒级）
+├─ 模块间调用、数据落库、服务间契约 → 集成测试（真实依赖，秒~分钟级）
+└─ 完整用户旅程（登录→下单→支付）→ E2E 测试（只留 P0 链路）
+```
+
+### 判断链三：外部依赖该用哪种替身？
+
+```text
+需要替换外部依赖
+├─ 只需要它"返回个东西"让流程继续 → Stub（状态验证）
+├─ 要验证"调没调、调了几次、参数对不对" → Mock（行为验证）
+├─ 想要简化但真实的行为 → Fake（如内存数据库）
+└─ 用真实对象但想记录调用 → Spy
+```
+
+### 判断链四：测试数据该用哪种手段准备？
+
+```text
+测试需要前置数据
+├─ 多个用例共享且只读（配置、连接）→ fixture 上提到 session/module 作用域
+├─ 每个用例要独立可变的数据 → function 作用域 fixture 或数据工厂
+└─ 依赖第三方接口的数据 → Mock/Stub 服务（参考 [Mock 服务模板](/testdev-interview-site/practice-template/mock-service-template/)）
+```
+
+这四条链把本模块的术语串成了**决策工具**。建议存一份在手边：设计测试方案、搭自动化框架、回答面试场景题时，先走一遍判断链再开口，回答的结构感会完全不同。
+
+### 面试高频对比题速查
+
+| 对比题               | 考察点                         | 详见                                                             |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| 回归测试 vs 重新测试 | "验证没被改坏" vs "验证修好了" | [回归测试](/testdev-interview-site/glossary/regression-testing/) |
+| 冒烟 vs 健全 vs 回归 | 范围由窄到宽的递进关系         | [冒烟测试](/testdev-interview-site/glossary/smoke-testing/)      |
+| Mock vs Stub         | 行为验证 vs 状态验证           | [Mock 和 Stub](/testdev-interview-site/glossary/mock-stub/)      |
+| 单元测试 vs 集成测试 | 隔离依赖 vs 连接依赖           | [单元测试](/testdev-interview-site/glossary/unit-testing/)       |
+| 严重程度 vs 优先级   | 技术破坏力 vs 修复紧迫度       | [Bug 生命周期](/testdev-interview-site/glossary/bug-lifecycle/)  |
+| fixture 四种作用域   | 生命周期与资源共享边界         | [夹具](/testdev-interview-site/glossary/fixture/)                |
 
 ## 下一步
 

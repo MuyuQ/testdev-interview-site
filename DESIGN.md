@@ -15,6 +15,21 @@ colors:
   structure-border: "#e5e7eb"
   body-ink: "#111827"
   secondary-ink: "#6b7280"
+dark-theme:
+  action-blue: "#60a5fa"
+  action-blue-strong: "#93c5fd"
+  action-blue-soft: "rgba(59, 130, 246, 0.14)"
+  prompt-amber: "#fbbf24"
+  prompt-amber-soft: "rgba(245, 158, 11, 0.14)"
+  progress-green: "#34d399"
+  error-red: "#f87171"
+  workbench-bg: "#0b1120"
+  surface: "#111827"
+  surface-muted: "#172033"
+  structure-border: "#253147"
+  body-ink: "#f9fafb"
+  secondary-ink: "#cbd5e1"
+  tertiary-ink: "#94a3b8"
 typography:
   display:
     fontFamily: "PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif"
@@ -97,6 +112,16 @@ components:
 - 行动蓝只承担主要操作、链接和当前状态。
 - 提示琥珀用于面试冲刺等少量次级强调。
 - 卡片仅用于需要独立点击或对比的内容，不能成为默认布局。
+
+## Themes
+
+系统采用统一的双主题约定,首页与 Starlight 文档页共享同一套状态:
+
+- **默认跟随系统**:无存储偏好时,按 `prefers-color-scheme` 决定深浅;`color-scheme` 同步设置。
+- **存储键统一**:切换偏好写入 `localStorage["starlight-theme"]`,首页与文档页互通——在首页切到深色,进入文档页同样是深色。
+- **实现约定**:`<html data-theme="light|dark">` 是唯一状态源;样式只认 `data-theme` 与 `:root` 默认值,禁止用媒体查询单独再写一套深色。
+- **浅色 = 阅读白**(默认长内容阅读场景),深色 = 工作台深蓝。两套色板在上方 YAML 的 `colors` 与 `dark-theme` 中一一对应,语义同名、明度重映射。
+- 首页首屏之前有内联脚本同步设置主题,避免闪色(FOUC)。
 
 ## Colors
 

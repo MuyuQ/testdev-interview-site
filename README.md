@@ -1,172 +1,100 @@
 # 测试开发面试速成站
 
-帮助用户在短时间内补齐测试开发面试知识，并把知识转化成可表达、可练习、可复盘的面试能力。
+帮助学习者找到下一步，并把测试开发知识练成可表达的能力。基于 Astro 6 + Starlight 构建的纯静态学习站，部署在 GitHub Pages。
 
-## 项目简介
+**线上地址**: https://muyuq.github.io/testdev-interview-site
 
-这是一个基于 Astro 6 + Starlight 构建的测试开发面试学习平台，旨在为测试开发岗位求职者提供系统化的学习资源。平台包含新手教程、技术专题、编码练习、项目实战等多个模块，帮助用户全面提升面试能力。
+## 站点概况
+
+- **67 篇结构化内容**,覆盖 10 个模块,总量约 1.2MB
+- **200 道自测题**,随文交互判定并给出解析
+- **每篇文章带学习元数据**:阶段、预计用时、前置知识、可验证产出、相关阅读、学习路径位置
+- **深浅双主题**:跟随系统偏好,首页与文档页共享同一份主题约定(切换状态互通)
+- **真实数据首页**:内容统计在构建时从内容集合实时计算,不会过期
 
 ## 技术栈
 
-- **前端框架**: Astro 6 + Starlight
-- **开发语言**: TypeScript
-- **部署平台**: GitHub Pages
-- **测试框架**: Vitest (单元测试) + Playwright (端到端测试)
-- **代码质量**: ESLint + Prettier
-- **包管理**: npm
-- **Node.js**: >=22.0.0
+- **框架**: Astro 6 + Starlight 0.39(纯静态输出)
+- **语言**: TypeScript(strict 模式)
+- **测试**: Vitest(单元)+ Playwright(端到端冒烟)
+- **质量**: ESLint(flat config)+ Prettier + 内容结构校验 + 构建产物链接检查
+- **部署**: GitHub Actions → GitHub Pages
+- **运行环境**: Node.js >= 22
 
-## 内容结构
+## 10 个内容模块
 
-平台包含 10 个核心模块：
-
-1. **新手教程** (`beginner-course`) - 从零开始的学习路线
-2. **术语体系** (`glossary`) - 测试开发专业术语
-3. **技术专题** (`tech`) - 深入技术知识点
-4. **项目类型** (`project`) - 常见项目类型解析
-5. **场景题** (`scenario`) - 实际场景问题解决方案
-6. **编码题** (`coding`) - 编码练习与面试题
-7. **学习路线** (`roadmap`) - 系统化学习路径
-8. **AI 学习指南** (`ai-learning`) - AI 辅助学习资源
-9. **练手模板** (`practice-template`) - 实践练习模板
-10. **面试追问链** (`interview-chains`) - 面试常见追问问题
+| 模块        | 目录                | 定位                                                |
+| ----------- | ------------------- | --------------------------------------------------- |
+| 新手教程    | `beginner-course`   | 从零开始的 8 步学习路线,教学优先结构                |
+| 术语体系    | `glossary`          | 12 个高频术语,含易混淆对比与面试追问                |
+| 技术专题    | `tech`              | API 测试、pytest、Playwright、CI/CD 等技术深讲      |
+| 编码题      | `coding`            | 夹具、断言封装、重试机制与限时进阶训练              |
+| 项目类型    | `project`           | 4 类可包装项目,含简历表述与追问应对                 |
+| 场景题      | `scenario`          | 7 个高频场景:登录、支付回调、分布式事务、库存扣减等 |
+| 学习路线    | `roadmap`           | 3 天/7 天时间盒计划与自我介绍模板                   |
+| 面试追问链  | `interview-chains`  | 连环追问训练,含压力应对策略                         |
+| 练手模板    | `practice-template` | 可直接跑通的自动化/Mock/项目故事模板                |
+| AI 学习指南 | `ai-learning`       | AI 时代的用例设计、脚本生成与能力边界               |
 
 ## 快速开始
 
-### 环境要求
-
-- Node.js >= 22.0.0
-- npm 或 yarn
-
-### 安装与运行
-
 ```bash
-# 克隆仓库
 git clone https://github.com/MuyuQ/testdev-interview-site.git
 cd testdev-interview-site
-
-# 安装依赖
 npm install
-
-# 启动开发服务器
-npm run dev
+npm run dev        # http://localhost:4321/testdev-interview-site
 ```
 
-访问 `http://localhost:4321` 查看网站。
+## 常用命令
 
-## 构建与部署
-
-### 本地构建
-
-```bash
-npm run build
-```
-
-构建产物将输出到 `dist` 目录。
-
-### 预览构建结果
-
-```bash
-npm run preview
-```
-
-### 部署到 GitHub Pages
-
-项目已配置 GitHub Actions 自动部署。当推送到 `main` 分支时，会自动触发构建并部署到 GitHub Pages。
-
-部署地址: https://muyuq.github.io/testdev-interview-site
-
-## 测试
-
-### 单元测试
-
-```bash
-npm run test:unit
-```
-
-### 端到端测试
-
-```bash
-npm run test:e2e
-```
-
-### 内容验证
-
-```bash
-npm run validate:content
-```
-
-### 代码检查
-
-```bash
-# 格式化代码
-npm run format
-
-# 检查代码格式
-npm run format:check
-
-# 代码检查
-npm run lint
-
-# 类型检查
-npm run typecheck
-
-# 完整检查流程
-npm run check
-```
+| 命令                                 | 作用                                                  |
+| ------------------------------------ | ----------------------------------------------------- |
+| `npm run dev`                        | 启动开发服务器(带 base path)                          |
+| `npm run build`                      | 构建到 `dist/`                                        |
+| `npm run preview`                    | 本地预览构建产物                                      |
+| `npm run check`                      | 一键全链路:格式化 + lint + 类型检查 + 构建 + 链接检查 |
+| `npm run validate:content`           | 校验 frontmatter 与新手教程必需章节                   |
+| `npm run check:links`                | 校验构建产物与 markdown 源的内部链接                  |
+| `npm run test:unit`                  | Vitest 单元测试                                       |
+| `npm run test:e2e:smoke`             | Playwright 端到端冒烟(chromium)                       |
+| `npm run lint` / `npm run typecheck` | 代码检查 / 类型检查                                   |
 
 ## 项目结构
 
 ```
 src/
-├── components/          # Astro 组件
-├── content/docs/        # 文档内容（Markdown）
-├── layouts/             # 布局组件
-├── lib/                 # 工具函数库
-├── pages/               # 页面路由
-└── styles/              # 样式文件
+├── components/          # Starlight 组件覆盖(PageTitle/MarkdownContent/SelfTests 等)
+├── content/docs/        # 全部内容(10 个分类目录 + difficulty/tags)
+├── lib/                 # 数据层:site-config、home-page、learning-paths、进度/收藏存储
+├── pages/index.astro    # 自定义首页(独立于 Starlight 布局,深浅双主题)
+└── styles/              # 设计令牌 + Starlight 主题覆盖 + 文档工作台主题
 
 tests/
-├── unit/                # 单元测试
-├── e2e/                 # 端到端测试
-└── setup.ts             # 测试配置
+├── unit/                # Vitest:首页数据/标记、内容主题、内容校验
+├── e2e/smoke.spec.ts    # Playwright 冒烟:首页、文章页、自测交互、分类页
+└── setup.ts             # localStorage 等测试环境准备
+
+scripts/
+├── validate-content.ts  # 内容结构校验(CI 门禁)
+└── check-links.mjs      # 链接完整性校验(CI 门禁)
 ```
 
-## 贡献指南
+## CI/CD
 
-欢迎贡献内容！请遵循以下步骤：
+推送或 PR 到 `main` 时,GitHub Actions 依次执行:
 
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 创建 Pull Request
+1. **quality**:内容校验 → 格式检查 → lint → 类型检查 → 单元测试 → 构建 → 链接检查
+2. **e2e**:chromium 端到端冒烟
+3. **deploy**(仅 push main):上传构建产物并发布到 GitHub Pages
 
-### 内容贡献规范
+## 内容贡献规范
 
-- 文档使用 Markdown 格式
-- 文件名使用小写字母和连字符
-- 新内容需要添加到对应的侧边栏配置中
-- 确保内容符合项目整体结构
+- frontmatter 遵循 `src/content.config.ts` 的 schema(category/stage/estimatedMinutes/prerequisites/outcomes/selfTests 等)
+- 新手教程正文必须包含 10 个必需章节(validate:content 会强制检查)
+- 站内链接统一使用 `/testdev-interview-site/<slug>/` 形式,slug 必须真实存在
+- beginner-course 保持教学优先结构;中文行文,代码注释用中文
+- 新增分类文章后,同步更新 `src/lib/paths/` 下对应分类的学习路径
 
 ## 许可证
 
-本项目采用 MIT 许可证。详情请参阅 [LICENSE](LICENSE) 文件。
-
-## 联系方式
-
-- GitHub: [MuyuQ](https://github.com/MuyuQ)
-- 项目地址: [testdev-interview-site](https://github.com/MuyuQ/testdev-interview-site)
-
-## 致谢
-
-感谢所有为测试开发社区做出贡献的开发者们！
-
----
-*最后更新: 2026-08-03*
-
----
-*最后更新: 2026-08-14*
-
----
-*最后更新: 2026-08-25*
+MIT

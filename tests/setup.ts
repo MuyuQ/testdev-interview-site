@@ -1,5 +1,5 @@
 // 测试设置文件
-import { vi, afterEach } from 'vitest';
+import { vi, afterEach } from "vitest";
 
 // Mock localStorage
 const localStorageMock = (() => {
@@ -22,21 +22,21 @@ const localStorageMock = (() => {
   };
 })();
 
-Object.defineProperty(global, 'localStorage', {
+Object.defineProperty(global, "localStorage", {
   value: localStorageMock,
   writable: true,
 });
 
 // Mock window.location
 const locationMock = {
-  href: 'http://localhost:4321/testdev-interview-site/',
-  origin: 'http://localhost:4321',
-  pathname: '/testdev-interview-site/',
-  search: '',
-  hash: '',
+  href: "http://localhost:4321/testdev-interview-site/",
+  origin: "http://localhost:4321",
+  pathname: "/testdev-interview-site/",
+  search: "",
+  hash: "",
 };
 
-Object.defineProperty(global, 'location', {
+Object.defineProperty(global, "location", {
   value: locationMock,
   writable: true,
 });

@@ -45,6 +45,15 @@ selfTests:
       - "不需要产出"
     correctIndex: 0
     explanation: "产出是可运行的测试用例。"
+  - id: "mock-login-mini-project-q4"
+    question: "把 BASE_URL 放进 conftest 的 fixture 而不是写死在每个用例里，主要好处是什么？"
+    options:
+      - "测试运行速度更快"
+      - "换测试环境时只需要改一处"
+      - "可以少写几条用例"
+      - "Pytest 强制要求这样写"
+    correctIndex: 1
+    explanation: "fixture 让共享配置集中在一处，切换环境（测试、预发）时只改 conftest 一行，所有用例自动生效。这正是用例与配置分离的工程价值。"
 ---
 
 ## 你会学到什么
@@ -85,11 +94,11 @@ GET https://httpbin.org/basic-auth/{用户名}/{密码}
 
 ### 三个核心场景
 
-| 场景 | 输入 | 预期结果 |
-| --- | --- | --- |
-| 登录成功 | 正确用户名 + 密码 | 200，authenticated 为 true |
-| 密码错误 | 正确用户名 + 错误密码 | 401 |
-| 缺少凭证 | 不带用户名密码 | 401 |
+| 场景     | 输入                  | 预期结果                   |
+| -------- | --------------------- | -------------------------- |
+| 登录成功 | 正确用户名 + 密码     | 200，authenticated 为 true |
+| 密码错误 | 正确用户名 + 错误密码 | 401                        |
+| 缺少凭证 | 不带用户名密码        | 401                        |
 
 正常路径一条、异常路径两条——这是最小项目的覆盖面：不求全，但正反两面都要有。
 
@@ -113,6 +122,26 @@ def base_url():
 ```
 
 测试函数只要声明 `base_url` 参数，Pytest 就会自动把夹具的值传进来。
+
+### fixture 的价值与边界
+
+fixture 解决的是"多个用例都要用的东西放哪"：BASE_URL、登录后的 token、初始化的数据库连接，都适合进 fixture。两个使用要点：
+
+- 用例参数里写名字就能拿到值，Pytest 按名字自动注入——所以 fixture 函数名要起得像资源（`base_url`、`login_token`）
+- fixture 也能做"前置动作 + 返回值"，比如先调登录接口再返回 token，这就是后面[夹具策略](/testdev-interview-site/coding/fixture-strategy/)的雏形
+
+边界：只有一个用例用的东西不必抽 fixture，过度抽取会让读用例的人来回跳文件。共享的才抽，是判断标准。
+
+### 测试数据的演进路线
+
+本项目凭证直接写在用例里，入门没问题，但要知道工程里的演进方向：
+
+1. **写死在用例里**（本节）：直观，适合最小项目
+2. **抽到配置文件**：环境相关的（URL、测试账号）进 config，代码零改动切环境
+3. **数据驱动**：同一场景多组数据用参数化跑，比如 10 组错误密码一次验证
+4. **造数服务**：用例需要的数据（如未注册账号）由工具动态生成，避免测试数据被人改坏
+
+每一步都是为了解决上一步的真实痛点，不必一步到位。后面读到[夹具](/testdev-interview-site/glossary/fixture/)和[数据库测试](/testdev-interview-site/tech/database-testing/)的进阶内容，对应的就是第 2-4 步。
 
 ## 最小示例
 
@@ -151,11 +180,11 @@ def test_login_missing_credential(base_url):
 
 每条用例的断言按三层自查：
 
-| 层次 | 断什么 | 本项目例子 |
-| --- | --- | --- |
-| 状态码 | HTTP 层面结果 | 200 / 401 |
-| 业务字段 | 响应体的业务语义 | `authenticated is True` |
-| 关键字段 | 后续流程依赖的数据 | `user` 字段正确返回 |
+| 层次     | 断什么             | 本项目例子              |
+| -------- | ------------------ | ----------------------- |
+| 状态码   | HTTP 层面结果      | 200 / 401               |
+| 业务字段 | 响应体的业务语义   | `authenticated is True` |
+| 关键字段 | 后续流程依赖的数据 | `user` 字段正确返回     |
 
 异常用例至少要断状态码；如果接口在异常时也返回错误码或错误消息，一并断言。
 
@@ -177,6 +206,35 @@ def test_login_success(base_url):
 
 从练习项目迁移到真实项目，要换的只有三样：请求方法、URL、断言字段。**骨架完全复用**——这正是小项目的意义。
 
+### 从"能跑"到"工程可用"：参数化版
+
+三个"凭证被拒"的用例结构高度相似——都是"给一组凭证，断言 401"。参数化（parametrize）能把它们合并成一个测试函数：
+
+```python
+import pytest
+import requests
+
+@pytest.mark.parametrize(
+    "desc, username, password",          # 1. 声明参数名，顺序对应下面的元组
+    [
+        ("密码错误",   "demo",   "wrong"),
+        ("空密码",     "demo",   ""),
+        ("用户名不存在", "nobody", "correct"),
+    ],
+)
+def test_login_rejected(base_url, desc, username, password):
+    # 2. desc 会拼进用例名：test_login_rejected[密码错误-wrong-...]
+    #    失败时一眼看出是哪组数据挂了
+    response = requests.get(
+        f"{base_url}/basic-auth/{username}/{password}",
+        auth=(username, password),
+        timeout=10,                      # 3. 工程习惯：带超时
+    )
+    assert response.status_code == 401, f"{desc} 场景应返回 401，实际 {response.status_code}"
+```
+
+运行 `pytest test_login.py -v`，原来的异常用例变成 3 条参数化用例，每条有独立名字和独立失败信息。**新增一个异常场景只需在列表里加一行元组**，这就是参数化带来的扩展性。参数化不是本节必须掌握的内容，这里先埋个种子，正式学习在框架阶段。
+
 ## 手把手练习
 
 **练习：完成登录测试小项目**
@@ -190,6 +248,14 @@ def test_login_success(base_url):
 
 加练二：故意把 `authenticated` 断言改成 `is False`，运行后读报错信息，说出实际值和期望值各是什么。
 
+**练习变体**：
+
+- 变体 1（加异常路径）：写第五个测试 `test_login_wrong_user`，用 `auth=("nobody", "correct")`，先预测状态码再运行（预期 401：用户名不存在同样被拒）
+- 变体 2（验证 fixture 生效）：把 `conftest.py` 里的 URL 临时改成错误域名，运行后所有用例应集体报连接错误——这证明每条用例确实在读同一个 fixture
+- 变体 3（单独执行一条）：运行 `pytest test_login.py::test_login_wrong_password -v`，确认这条用例不依赖其他用例也能通过
+
+**预期输出**：变体 3 是"用例独立性"的验收动作，输出应只有这一条的结果 `1 passed`。如果它必须先跑别的用例才能过，说明用例之间有隐藏依赖，要回头改。
+
 ## 检查标准
 
 - 你完成了 3 个登录测试，全部通过
@@ -197,6 +263,8 @@ def test_login_success(base_url):
 - BASE_URL 在 conftest.py 里，用例里没有写死
 - 你能说出三层断言清单各断什么
 - 你能说出换成真实登录接口要改哪三处
+- 你知道 fixture 抽取的边界：共享的才抽，单个用例用的不抽
+- 你会用 `pytest 文件::函数名` 单独执行一条用例来验证独立性
 
 ## 常见错误
 
@@ -216,6 +284,18 @@ def test_login_success(base_url):
 
 环境一切换就要改十几处。易变项（URL、账号）集中到 conftest 或配置文件。
 
+**错误 5：conftest.py 文件名或位置不对，fixture 找不到**
+
+```text
+E       fixture 'base_url' not found
+```
+
+Pytest 只认 `conftest.py` 这个确切文件名（不能是 conftest.txt、Conftest.py），且它必须和测试文件在同一目录或父级目录。排查步骤：①确认文件名拼写；②确认它和 `test_login.py` 在同一目录；③运行 `pytest --fixtures`，确认 `base_url` 出现在列表里。
+
+**错误 6：公共接口偶发超时，用例"时好时坏"**
+
+httpbin 是公共服务，偶发的慢响应会让用例一次过一次挂。排查方法：看失败报错是不是 `ReadTimeout` / `ConnectTimeout`——是的话是网络问题，不是你的代码问题。缓解手段：每个请求加 `timeout`，失败先本地重跑确认。要根治可以把外部接口换成本地 Mock 服务（参考[Mock 服务模板](/testdev-interview-site/practice-template/mock-service-template/)），这也是团队隔离不稳定依赖的标准做法。
+
 ## 面试怎么说
 
 如果面试官问："介绍一下你做的接口自动化项目？"，可以回答：
@@ -224,10 +304,19 @@ def test_login_success(base_url):
 
 这段话的每个细节都对应这个项目里的真实决策，讲的时候有底气。
 
+**追问 1**："如果登录前还要先调验证码接口怎么办？"
+
+参考回答："把'登录成功拿到 token'本身做成一个 fixture：先请求验证码接口取值，再请求登录接口，把 token 返回给用例。用例只声明参数，不关心登录细节；流程变复杂时只改 fixture 一处，所有用例自动生效。"
+
+**追问 2**："这个项目怎么接入 CI？"
+
+参考回答："项目本身就是 `pytest` 一条命令可跑，接入 CI 只需要流水线里装好依赖（pytest、requests），然后执行 `python -m pytest`，按退出码判断结果：0 是全过，非 0 是有失败。这也是我把用例做成'一条命令可重复执行'的原因——它是 CI 集成的前提。"
+
 ## 下一步
 
 下一节：[面试表达](../interview-expression-for-first-project/)
 
 延伸阅读：
+
 - [练手模板：API 自动化](../../practice-template/api-automation-template/)
 - [场景题：登录鉴权](../../scenario/login-auth/)

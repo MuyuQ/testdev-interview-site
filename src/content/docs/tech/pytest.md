@@ -19,19 +19,38 @@ relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper"]
 selfTests:
   - id: "pytest-q1"
     question: "Pytest 的 fixture 相比传统的 setUp/tearDown 有什么优势？"
-    options: ["依赖注入，自动管理生命周期", "只能在类中使用", "必须手动调用", "不支持参数化"]
+    options:
+      [
+        "依赖注入，自动管理生命周期",
+        "只能在类中使用",
+        "必须手动调用",
+        "不支持参数化",
+      ]
     correctIndex: 0
     explanation: "fixture 采用依赖注入模式，支持不同作用域（function/class/module/session），可自动管理资源创建和清理。"
   - id: "pytest-q2"
     question: "如何只运行被 @pytest.mark.smoke 标记的测试用例？"
-    options: ["pytest -m smoke", "pytest --smoke", "pytest -k smoke", "pytest smoke"]
+    options:
+      ["pytest -m smoke", "pytest --smoke", "pytest -k smoke", "pytest smoke"]
     correctIndex: 0
     explanation: "-m 选项用于按标记筛选测试，-k 用于按名称模糊匹配。"
   - id: "pytest-q3"
     question: "参数化测试 @pytest.mark.parametrize 的作用是什么？"
-    options: ["用同一测试逻辑运行多组输入数据", "跳过测试", "标记慢测试", "并行执行"]
+    options:
+      ["用同一测试逻辑运行多组输入数据", "跳过测试", "标记慢测试", "并行执行"]
     correctIndex: 0
     explanation: "参数化让测试更 DRY，避免重复编写相似用例，便于覆盖边界值和异常场景。"
+  - id: "pytest-q4"
+    question: "使用 pytest-xdist（-n auto）并行执行时，session 级 fixture 的行为是？"
+    options:
+      [
+        "整个运行只创建一次",
+        "每个 worker 进程各自创建一份",
+        "每个测试函数创建一次",
+        "不会被创建",
+      ]
+    correctIndex: 1
+    explanation: "xdist 把用例分发到多个独立进程，每个 worker 有自己的执行环境，session 级 fixture 在每个 worker 内各创建一次。因此依赖全局唯一的资源（如内存缓存、端口监听）在并行下会出现多份实例，设计 fixture 时必须保证多实例安全。"
 ---
 
 ## 这项技术解决什么问题
@@ -55,12 +74,12 @@ Pytest 以"约定优于配置"的理念，提供简洁的断言语法、强大�
 
 ## 学习前置条件
 
-| 前置知识 | 重要程度 | 说明 |
-|---------|---------|------|
-| Python 基础语法 | 必须 | 函数、类、装饰器、上下文管理器 |
-| 单元测试概念 | 必须 | 断言、测试用例、测试套件 |
-| 命令行操作 | 重要 | 运行 pytest 命令、理解参数 |
-| pip 包管理 | 重要 | 安装插件、管理依赖 |
+| 前置知识        | 重要程度 | 说明                           |
+| --------------- | -------- | ------------------------------ |
+| Python 基础语法 | 必须     | 函数、类、装饰器、上下文管理器 |
+| 单元测试概念    | 必须     | 断言、测试用例、测试套件       |
+| 命令行操作      | 重要     | 运行 pytest 命令、理解参数     |
+| pip 包管理      | 重要     | 安装插件、管理依赖             |
 
 ## 核心概念拆解
 
@@ -104,13 +123,13 @@ fixture 是 Pytest 的核心特性，用于提供测试所需的资源（数据�
 
 **作用域（scope）决定 fixture 的生命周期**：
 
-| 作用域 | 生命周期 | 适用场景 |
-|-------|---------|---------|
-| function（默认） | 每个测试函数调用前后 | 测试数据、临时文件 |
-| class | 每个测试类前后 | 类级别共享数据 |
-| module | 每个测试文件前后 | 模块级配置 |
-| package | 每个包前后 | 包级共享资源 |
-| session | 整个测试会话前后 | 数据库连接池、全局配置 |
+| 作用域           | 生命周期             | 适用场景               |
+| ---------------- | -------------------- | ---------------------- |
+| function（默认） | 每个测试函数调用前后 | 测试数据、临时文件     |
+| class            | 每个测试类前后       | 类级别共享数据         |
+| module           | 每个测试文件前后     | 模块级配置             |
+| package          | 每个包前后           | 包级共享资源           |
+| session          | 整个测试会话前后     | 数据库连接池、全局配置 |
 
 ```python
 import pytest
@@ -293,15 +312,15 @@ markers =
 
 常用插件及其用途：
 
-| 插件 | 用途 | 安装 |
-|-----|------|------|
-| pytest-html | HTML 测试报告 | `pip install pytest-html` |
-| pytest-cov | 代码覆盖率 | `pip install pytest-cov` |
-| pytest-xdist | 并行执行 | `pip install pytest-xdist` |
-| pytest-timeout | 超时控制 | `pip install pytest-timeout` |
-| pytest-rerunfailures | 失败重跑 | `pip install pytest-rerunfailures` |
-| pytest-mock | Mock 增强 | `pip install pytest-mock` |
-| allure-pytest | Allure 报告 | `pip install allure-pytest` |
+| 插件                 | 用途          | 安装                               |
+| -------------------- | ------------- | ---------------------------------- |
+| pytest-html          | HTML 测试报告 | `pip install pytest-html`          |
+| pytest-cov           | 代码覆盖率    | `pip install pytest-cov`           |
+| pytest-xdist         | 并行执行      | `pip install pytest-xdist`         |
+| pytest-timeout       | 超时控制      | `pip install pytest-timeout`       |
+| pytest-rerunfailures | 失败重跑      | `pip install pytest-rerunfailures` |
+| pytest-mock          | Mock 增强     | `pip install pytest-mock`          |
+| allure-pytest        | Allure 报告   | `pip install allure-pytest`        |
 
 **插件使用示例**：
 
@@ -321,6 +340,21 @@ pytest --cov=src --cov-report=html
 # 超时控制（单测试最多 5 秒）
 pytest --timeout=5
 ```
+
+### 6. 与 unittest 的差异对比
+
+团队里常有两套测试并存，pytest 能直接运行 unittest 风格的用例，但两者工程能力差距明显：
+
+| 维度     | pytest                                  | unittest                            |
+| -------- | --------------------------------------- | ----------------------------------- |
+| 断言     | 原生 `assert`，失败时自动展开左右值     | 必须 `self.assertEqual` 等 30+ 方法 |
+| 样板代码 | 纯函数即可，无需继承                    | 必须继承 TestCase                   |
+| 资源管理 | fixture + 依赖注入，按 scope 管生命周期 | setUp/tearDown/setUpClass 手动组织  |
+| 参数化   | `@parametrize` 一行数据一组用例         | `subTest`，写法繁琐                 |
+| 筛选运行 | `-m` 标记、`-k` 表达式、`--lf` 失败优先 | 需要自己组织 TestLoader/Suite       |
+| 插件生态 | 数百个插件即插即用                      | 标准库能力，扩展靠自己写            |
+
+迁移建议：存量 unittest 用例不用重写，pytest 直接兼容运行；新用例一律用 pytest 风格，团队逐步过渡。面试被问"为什么不统一成 unittest"时，用断言质量和 fixture 复用两个点回答即可。
 
 ## 最小可运行例子
 
@@ -517,7 +551,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: pip install -r requirements-test.txt
@@ -537,13 +571,13 @@ jobs:
 
 ### 4. 命名规范
 
-| 类型 | 规范 | 示例 |
-|-----|------|------|
-| 测试文件 | `test_{module}.py` | `test_user.py` |
-| 测试类 | `Test{Feature}` | `TestLogin` |
+| 类型     | 规范                        | 示例                                |
+| -------- | --------------------------- | ----------------------------------- |
+| 测试文件 | `test_{module}.py`          | `test_user.py`                      |
+| 测试类   | `Test{Feature}`             | `TestLogin`                         |
 | 测试函数 | `test_{action}_{condition}` | `test_login_with_valid_credentials` |
-| fixture | 小写下划线 | `db_session` |
-| 标记 | 小写 | `@pytest.mark.smoke` |
+| fixture  | 小写下划线                  | `db_session`                        |
+| 标记     | 小写                        | `@pytest.mark.smoke`                |
 
 ## 常见坑和排查方法
 
@@ -625,6 +659,29 @@ def test_user():
     assert user.name == "Alice", f"用户数据: {user.__dict__}"
 ```
 
+### 坑6：ScopeMismatch——作用域冲突的真实报错
+
+```text
+ScopeMismatch: You tried to access the 'function' scoped fixture 'clean_db'
+with a 'module' scoped request object, involved factories:
+conftest.py:20:  def test_data(clean_db)
+```
+
+**根因**：module 级 fixture 依赖了 function 级 fixture——大作用域无法引用小作用域，因为小作用域资源在大作用域存活期间要反复创建和销毁，生命周期矛盾。这与上文"坑2"是同一类问题，这里是 pytest 给出的原始报错长相。
+
+**修复**：把被依赖的 fixture 提升到相同或更大作用域；如果清理逻辑必须保持 function 级，就把它移到测试函数体内，或用独立的 autouse fixture 承担清理。
+
+### 坑7：把 fixture 当普通函数调用
+
+```text
+Failed: Fixture "db_connection" called directly. Fixtures are not meant to be called directly,
+but are created automatically when test functions request them as parameters.
+```
+
+**根因**：代码里写了 `db_connection()` 这样的直接调用。fixture 只有通过测试函数参数声明才会被注入，直接调用拿到的是一个错误对象而不是数据。
+
+**修复**：在测试函数签名里声明参数；如果确实要在非测试代码里复用 fixture 的逻辑，把这段逻辑抽成普通函数，让 fixture 和测试代码都调用它。
+
 ### 调试技巧
 
 ```bash
@@ -655,6 +712,7 @@ pytest --durations=10
 ### Q1: fixture 的四种 scope 有什么区别？什么时候用哪个？
 
 **回答骨架**：
+
 - 说明四种 scope：function、class、module、session
 - 解释生命周期：function 每个测试都创建，session 整个会话只创建一次
 - 举例场景：session 用于数据库连接池，function 用于测试数据
@@ -663,6 +721,7 @@ pytest --durations=10
 ### Q2: 如何处理测试之间的依赖关系？
 
 **回答骨架**：
+
 - 原则：测试应该独立，不依赖执行顺序
 - 如果确实需要，用 fixture 的依赖注入来共享资源
 - 用 `pytest-dependency` 插件可以显式声明依赖（不推荐）
@@ -671,6 +730,7 @@ pytest --durations=10
 ### Q3: 你们项目是怎么组织测试代码的？
 
 **回答骨架**：
+
 - 按测试类型分层：unit / integration / e2e
 - 用 conftest.py 管理 fixture，按功能模块拆分
 - 用标记区分：smoke / regression / slow
@@ -679,6 +739,7 @@ pytest --durations=10
 ### Q4: 参数化测试有什么优缺点？
 
 **回答骨架**：
+
 - 优点：DRY、覆盖边界值方便、失败时自动显示具体参数
 - 缺点：过度参数化导致测试难以理解、错误参数组合会隐藏逻辑问题
 - 建议：一个参数化函数只测一个维度，复杂场景拆分多个测试
@@ -686,37 +747,92 @@ pytest --durations=10
 ### Q5: 如何提高测试执行速度？
 
 **回答骨架**：
+
 - 并行执行：pytest-xdist
 - 按标记分层：CI 中先跑 smoke，再跑全量
 - 合理设置 fixture scope：session 复用昂贵资源
 - 避免不必要的 I/O：用 mock 替代真实网络/数据库
 - 分布式执行：配合 pytest-testmon 只跑受影响的测试
 
+### Q6：fixture 的 teardown 什么时候不会执行？
+
+**回答骨架**：
+
+- yield 之前的代码抛异常时，该 fixture 自己 yield 之后的清理不会执行——所以"创建资源"要尽量前移，让异常尽早暴露
+- 已完成 setup 的上级/兄弟 fixture 的 teardown 仍会正常执行，pytest 保证资源不泄漏
+- 测试被 Ctrl-C 强杀或进程崩溃时，清理可能不执行，这就是为什么数据库清理除了靠 fixture 回滚，还要有兜底的定时清理任务
+
+### Q7：用例规模到几千条后，怎么维持执行速度和稳定性？
+
+**回答骨架**：
+
+- 并行：xdist `-n auto`，但要知道 session fixture 每个 worker 各一份，跨进程共享资源要重新设计
+- 分层：PR 只跑 smoke，全量放合并后，夜间跑带 slow/integration 标记的用例
+- 顺序随机化：pytest-randomly 打乱执行顺序，倒逼用例独立，能提前暴露隐藏的顺序依赖
+- 慢用例治理：`--durations=10` 定期找慢用例，该 mock 的 mock、该合并的合并
+- 重试克制：`--reruns` 只对确认是环境抖动的用例启用，滥用重试会让真正的 bug 被运气掩盖
+
 ## 练习任务
 
 ### 任务1：基础练习
+
 1. 创建一个简单的计算器模块，为加减乘除各写至少 2 个测试
 2. 使用参数化重写测试，覆盖正数、负数、零的情况
 
 ### 任务2：fixture 实践
+
 1. 创建一个 fixture，模拟数据库连接（可以用字典模拟）
 2. 创建 session 级别的 fixture 存放测试数据
 3. 编写测试验证 fixture 的作用域行为
 
 ### 任务3：标记与筛选
+
 1. 为测试添加 smoke、regression 标记
 2. 配置 pytest.ini 注册自定义标记
 3. 练习使用 -m 和 -k 参数筛选测试
 
 ### 任务4：进阶挑战
+
 1. 编写一个 conftest.py，实现测试数据的自动清理
 2. 使用 pytest-mock 模拟 API 调用
 3. 生成 HTML 测试报告并配置失败截图
 
 ### 任务5：项目实战
+
 1. 搭建一个完整的测试项目结构
 2. 配置 CI/CD 流水线运行测试
 3. 实现覆盖率阈值检查（如低于 80% 则失败）
+
+## 性能与规模化
+
+用例数量从百级到千级，pytest 工程要做一轮系统性升级，核心是让"并行、分层、反馈"三者同时成立：
+
+**1. 并行：pytest-xdist 的工作方式**
+
+```bash
+# 按 worker 进程并行，auto 等于 CPU 核数
+pytest -n auto
+
+# 同一文件的用例固定分给同一个 worker，
+# 适合 module 内有共享状态的存量用例
+pytest -n 4 --dist loadfile
+
+# 与耗时均衡分片配合，CI 多节点各跑一份
+pytest --splits 4 --group 2
+```
+
+关键边界：xdist 是多进程，每个 worker 独立复制一份 session 级 fixture；依赖"全局只初始化一次"的逻辑（监听端口、内存计数）在并行下会出问题，要么改成进程安全，要么用 `--dist loadfile` 把相关用例黏到同一个进程。
+
+**2. 分层执行矩阵**
+
+| 场景     | 命令                              | 目标       |
+| -------- | --------------------------------- | ---------- |
+| 本地开发 | `pytest tests/unit -x -q`         | 秒级反馈   |
+| PR 门禁  | `pytest -m "not slow" -n auto`    | 5 分钟内   |
+| 主干合并 | `pytest -n auto --cov=src`        | 20 分钟内  |
+| 夜间回归 | `pytest -m "slow or integration"` | 覆盖率兜底 |
+
+**3. 稳定性机制**：`--timeout=60` 防止单条用例挂死整个流水线；`--lf`（last-failed）修复时只跑失败集；随机顺序插件常态化运行，保证用例无顺序依赖——这三件事做完，并行和分层才敢真正收紧门禁。
 
 ## 关联内容
 
@@ -729,4 +845,4 @@ pytest --durations=10
 
 ---
 
-*Pytest 是测试工程师的瑞士军刀，掌握它意味着掌握了高效测试的钥匙。从简单的 assert 开始，逐步深入 fixture、参数化、插件，最终形成完整的测试工程化能力。*
+_Pytest 是测试工程师的瑞士军刀，掌握它意味着掌握了高效测试的钥匙。从简单的 assert 开始，逐步深入 fixture、参数化、插件，最终形成完整的测试工程化能力。_

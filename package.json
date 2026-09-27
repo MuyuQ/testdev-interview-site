@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "npm run format && npm run lint && npm run typecheck && npm run build",
+    "check": "npm run format && npm run lint && npm run typecheck && npm run build && npm run check:links",
+    "check:links": "node scripts/check-links.mjs",
     "typecheck": "astro sync && tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -37,6 +38,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.70.1",
     "vitest": "^3.2.2"
   },
   "engines": {

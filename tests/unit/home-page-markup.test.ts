@@ -15,7 +15,7 @@ describe("home page markup", () => {
   });
 
   it("should present the homepage as a learning decision workbench", () => {
-    expect(source).toContain("找到下一步，把测试开发能力练出来");
+    expect(source).toContain("找到下一步，<br />把测试开发能力练出来");
     expect(source).toContain("data-learning-path");
     expect(source).toContain("四层能力地图");
   });

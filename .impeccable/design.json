@@ -8,25 +8,61 @@
         "role": "primary",
         "displayName": "行动蓝",
         "canonical": "#3b82f6",
-        "tonalRamp": ["#172554", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#93c5fd", "#dbeafe", "#eff6ff"]
+        "tonalRamp": [
+          "#172554",
+          "#1e3a8a",
+          "#1d4ed8",
+          "#2563eb",
+          "#3b82f6",
+          "#93c5fd",
+          "#dbeafe",
+          "#eff6ff"
+        ]
       },
       "prompt-amber": {
         "role": "secondary",
         "displayName": "提示琥珀",
         "canonical": "#f59e0b",
-        "tonalRamp": ["#451a03", "#78350f", "#b45309", "#d97706", "#f59e0b", "#fcd34d", "#fef3c7", "#fffbeb"]
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#b45309",
+          "#d97706",
+          "#f59e0b",
+          "#fcd34d",
+          "#fef3c7",
+          "#fffbeb"
+        ]
       },
       "progress-green": {
         "role": "tertiary",
         "displayName": "进度绿",
         "canonical": "#10b981",
-        "tonalRamp": ["#022c22", "#064e3b", "#047857", "#059669", "#10b981", "#6ee7b7", "#d1fae5", "#ecfdf5"]
+        "tonalRamp": [
+          "#022c22",
+          "#064e3b",
+          "#047857",
+          "#059669",
+          "#10b981",
+          "#6ee7b7",
+          "#d1fae5",
+          "#ecfdf5"
+        ]
       },
       "body-ink": {
         "role": "neutral",
         "displayName": "正文墨色",
         "canonical": "#111827",
-        "tonalRamp": ["#030712", "#111827", "#1f2937", "#374151", "#6b7280", "#d1d5db", "#f3f4f6", "#f9fafb"]
+        "tonalRamp": [
+          "#030712",
+          "#111827",
+          "#1f2937",
+          "#374151",
+          "#6b7280",
+          "#d1d5db",
+          "#f3f4f6",
+          "#f9fafb"
+        ]
       }
     },
     "typographyMeta": {
@@ -129,10 +165,26 @@
       "卡片仅用于需要独立点击或对比的内容，不能成为默认布局。"
     ],
     "rules": [
-      { "name": "The One Action Rule", "body": "每个视觉区域只能有一个最强的行动蓝目标。", "section": "colors" },
-      { "name": "The Meaningful Color Rule", "body": "颜色必须表达行动、提示、进度或错误，禁止把色彩当作无意义装饰。", "section": "colors" },
-      { "name": "The Teaching First Rule", "body": "新手教程的标题必须帮助用户理解学习顺序和产出，不能只复述技术名词。", "section": "typography" },
-      { "name": "The Flat By Default Rule", "body": "静态内容默认无阴影，深度必须来自真实交互或结构层级。", "section": "elevation" }
+      {
+        "name": "The One Action Rule",
+        "body": "每个视觉区域只能有一个最强的行动蓝目标。",
+        "section": "colors"
+      },
+      {
+        "name": "The Meaningful Color Rule",
+        "body": "颜色必须表达行动、提示、进度或错误，禁止把色彩当作无意义装饰。",
+        "section": "colors"
+      },
+      {
+        "name": "The Teaching First Rule",
+        "body": "新手教程的标题必须帮助用户理解学习顺序和产出，不能只复述技术名词。",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat By Default Rule",
+        "body": "静态内容默认无阴影，深度必须来自真实交互或结构层级。",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do 先帮助用户判断下一步，再展示完整模块范围。",

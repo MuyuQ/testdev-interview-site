@@ -6,7 +6,8 @@ stage: "practice"
 estimatedMinutes: 29
 difficulty: "interview"
 interviewWeight: 3
-tags: ["接口测试", "HTTP协议", "requests库", "断言设计", "数据驱动", "自动化测试"]
+tags:
+  ["接口测试", "HTTP协议", "requests库", "断言设计", "数据驱动", "自动化测试"]
 prerequisites:
   - "beginner-course/http-api-basics"
   - "beginner-course/pytest-first-test"
@@ -15,7 +16,8 @@ outcomes:
   - "能写出状态码与业务字段的分层断言"
   - "能设计参数缺失、类型错误的异常用例"
   - "能用 requests 跑通带断言的接口测试"
-relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "scenario/login-auth"]
+relatedSlugs:
+  ["glossary/api-assertion", "coding/assertion-wrapper", "scenario/login-auth"]
 selfTests:
   - id: "api-testing-http-method"
     question: "以下哪个 HTTP 方法通常用于获取资源而不修改服务器状态？"
@@ -24,14 +26,37 @@ selfTests:
     explanation: "GET 方法是幂等的，用于获取资源，不会修改服务器状态。POST 用于创建资源，DELETE 用于删除，PATCH 用于部分更新，这些都会改变服务器状态。"
   - id: "api-testing-assertion-design"
     question: "设计接口断言时，以下哪项做法最合理？"
-    options: ["只检查状态码是否为 200", "检查响应体中的关键字段和业务逻辑", "不需要断言，只要请求发出就行", "把整个响应体转为字符串比较"]
+    options:
+      [
+        "只检查状态码是否为 200",
+        "检查响应体中的关键字段和业务逻辑",
+        "不需要断言，只要请求发出就行",
+        "把整个响应体转为字符串比较",
+      ]
     correctIndex: 1
     explanation: "合理的断言应覆盖状态码、响应体关键字段（如业务状态码、数据结构）以及业务逻辑验证。只检查 200 可能漏掉业务错误；字符串比较不够灵活且难以维护。"
   - id: "api-testing-data-driven"
     question: "数据驱动测试的核心优势是什么？"
-    options: ["减少代码编写量", "测试数据和测试逻辑分离，便于维护和扩展", "让测试运行更快", "避免使用断言"]
+    options:
+      [
+        "减少代码编写量",
+        "测试数据和测试逻辑分离，便于维护和扩展",
+        "让测试运行更快",
+        "避免使用断言",
+      ]
     correctIndex: 1
     explanation: "数据驱动测试将测试数据与测试逻辑分离，新增测试场景只需添加数据，无需修改代码。这提高了可维护性，便于覆盖更多边界场景，也适合团队协作。"
+  - id: "api-testing-q4"
+    question: "防止接口测试因偶发网络抖动而误报失败，以下哪种做法最合理？"
+    options:
+      [
+        "在每个请求前加 time.sleep",
+        "按幂等性配置自动重试，并分阶段设置超时",
+        "去掉响应时间断言即可",
+        "用 try-except 把断言包起来不报错",
+      ]
+    correctIndex: 1
+    explanation: "网络抖动应通过重试机制缓解，但只有幂等方法（GET/PUT/DELETE）适合自动重试，POST 等非幂等请求重试可能造成重复下单。超时要分连接与读取两个阶段设置，盲目加长超时只会拖慢反馈，吞掉断言则掩盖真实问题。"
 ---
 
 ## 接口测试解决什么问题
@@ -60,12 +85,12 @@ selfTests:
 
 开始接口测试前，建议掌握：
 
-| 前置知识 | 掌握程度 | 说明 |
-|---------|---------|------|
-| Python 基础 | 熟练 | 函数、模块、异常处理 |
-| HTTP 协议概念 | 了解 | 请求方法、状态码、请求头响应体结构 |
-| JSON 格式 | 熟悉 | 接口数据交换的主流格式 |
-| Pytest 基础 | 了解 | 测试框架组织与运行 |
+| 前置知识      | 掌握程度 | 说明                               |
+| ------------- | -------- | ---------------------------------- |
+| Python 基础   | 熟练     | 函数、模块、异常处理               |
+| HTTP 协议概念 | 了解     | 请求方法、状态码、请求头响应体结构 |
+| JSON 格式     | 熟悉     | 接口数据交换的主流格式             |
+| Pytest 基础   | 了解     | 测试框架组织与运行                 |
 
 可先学习 [beginner-course/http-api-basics](/testdev-interview-site/beginner-course/http-api-basics/) 补充 HTTP 基础。
 
@@ -76,6 +101,7 @@ selfTests:
 HTTP 是接口测试的底层协议，理解以下概念至关重要：
 
 **请求结构**：
+
 ```
 GET /api/users/123 HTTP/1.1
 Host: example.com
@@ -87,15 +113,16 @@ Content-Type: application/json
 
 **常见 HTTP 方法**：
 
-| 方法 | 用途 | 特点 |
-|-----|------|-----|
-| GET | 获取资源 | 幂等，参数在 URL |
-| POST | 创建资源 | 非幂等，参数在请求体 |
-| PUT | 全量更新 | 幂等，替换整个资源 |
-| PATCH | 部分更新 | 非幂等，修改部分字段 |
-| DELETE | 删除资源 | 幂等 |
+| 方法   | 用途     | 特点                 |
+| ------ | -------- | -------------------- |
+| GET    | 获取资源 | 幂等，参数在 URL     |
+| POST   | 创建资源 | 非幂等，参数在请求体 |
+| PUT    | 全量更新 | 幂等，替换整个资源   |
+| PATCH  | 部分更新 | 非幂等，修改部分字段 |
+| DELETE | 删除资源 | 幂等                 |
 
 **关键状态码**：
+
 - `200 OK`：成功
 - `201 Created`：创建成功
 - `400 Bad Request`：请求参数错误
@@ -133,6 +160,7 @@ elapsed = response.elapsed.total_seconds()  # 响应耗时
 ```
 
 **常用参数说明**：
+
 - `params`：URL 查询参数，自动拼接到 URL
 - `json`：请求体 JSON 数据，自动序列化并设置 Content-Type
 - `headers`：请求头字典
@@ -164,6 +192,7 @@ def test_get_user_success():
 ```
 
 **断言分层策略**：
+
 1. **状态码层**：基础可用性验证
 2. **结构层**：响应格式符合契约
 3. **业务层**：具体数据值正确
@@ -201,9 +230,64 @@ def test_login_scenarios(username, password, expected_status, expected_message):
 ```
 
 **数据驱动优势**：
+
 - 新增测试场景只需添加数据行
 - 便于覆盖边界值、异常场景
 - 测试逻辑稳定，维护成本低
+
+### 会话与连接池复用
+
+并发跑接口用例时，每次 `requests.get/post` 都新建 TCP 连接，握手开销会拖慢整体速度，登录态也要手动传。用 `Session` + `HTTPAdapter` 统一管理：
+
+```python
+import requests
+from requests.adapters import HTTPAdapter
+
+def build_session(token: str) -> requests.Session:
+    """构建带连接池与登录态的会话，全项目复用"""
+    session = requests.Session()
+    # 连接池大小：与并行 worker 数匹配，默认 10 个连接容易打满
+    adapter = HTTPAdapter(pool_connections=20, pool_maxsize=20)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    session.headers.update({"Authorization": f"Bearer {token}"})
+    return session
+
+session = build_session("test_token")
+# 同一 Session 内自动复用 TCP 连接、自动携带公共请求头
+resp = session.get("https://api.example.com/users/1", timeout=(3, 10))
+```
+
+要点：`pool_maxsize` 应不低于并行 worker 数，否则高频并发下连接被丢弃重建，日志里会出现大量 `Connection pool is full` 告警，性能也随之劣化。
+
+### 超时与重试的工程化配置
+
+超时和重试要写进框架层，而不是散落在每个用例里：
+
+```python
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+retry = Retry(
+    total=3,                           # 总重试次数
+    backoff_factor=0.5,                # 重试间隔：0.5s、1s、2s 递增
+    status_forcelist=[502, 503, 504],  # 只对这些状态码重试
+    allowed_methods=["GET", "PUT", "DELETE"],  # 只重试幂等方法
+)
+adapter = HTTPAdapter(max_retries=retry)
+session = requests.Session()
+session.mount("https://", adapter)
+
+# 超时用元组区分两阶段：(连接超时, 读取超时)
+resp = session.get("https://api.example.com/users", timeout=(3, 10))
+```
+
+三条边界必须记住：
+
+- `timeout=(3, 10)` 表示连接 3 秒、读取 10 秒，只传一个数字则同一值作用于两个阶段
+- **POST 不放进 `allowed_methods`**：非幂等请求自动重试可能造成重复下单、重复扣款，支付类接口要靠服务端幂等键兜底，而不是客户端重试
+- 4xx 属于业务错误，重试没有意义，`status_forcelist` 只收 5xx 与网络类异常
 
 ## 最小可运行示例
 
@@ -370,27 +454,61 @@ response = requests.get("https://slow-api.example.com/data")
 response = requests.get("https://slow-api.example.com/data", timeout=5)
 ```
 
+### 陷阱五：自签名证书导致 SSL 校验失败
+
+```text
+requests.exceptions.SSLError: HTTPSConnectionPool(host='api.internal.example.com', port=443):
+Max retries exceeded with url: /users (Caused by SSLError(SSLCertVerificationError(1,
+'[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1006)')))
+```
+
+**根因**：公司内网常用自签名证书或抓包代理，requests 默认校验证书链，找不到受信 CA 就直接拒绝连接。
+
+**修复**：
+
+```python
+# 方式一（推荐）：指定内部 CA 证书包
+response = requests.get(url, verify="/path/to/internal-ca.pem")
+
+# 方式二（仅临时调试）：跳过校验，会触发 InsecureRequestWarning
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+response = requests.get(url, verify=False)
+```
+
+**排查思路**：先区分是证书链不受信还是主机名不匹配（报错信息里 `hostname mismatch` 对应后者）。`verify=False` 禁止提交到主干，环境级问题应通过 `REQUESTS_CA_BUNDLE` 环境变量注入内部 CA 统一解决。
+
 ## 面试追问与回答骨架
 
 **Q1：你们项目接口测试覆盖了哪些场景？**
 
 回答骨架：
+
 > 我们主要覆盖三类场景：一是正向场景，验证接口在合法参数下的正确响应；二是异常场景，包括参数缺失、格式错误、权限不足等；三是边界场景，如空值、超长字符串、特殊字符等。登录模块覆盖率最高，达到 90%以上。
 
 **Q2：HTTP 401 和 403 有什么区别？遇到怎么排查？**
 
 回答骨架：
+
 > 401 表示未认证，需要提供身份凭证；403 表示已认证但无权限访问该资源。排查时先检查 token 是否正确携带，再看 token 是否过期，最后确认用户角色是否有对应操作权限。
 
 **Q3：数据驱动测试的数据怎么管理？**
 
 回答骨架：
+
 > 我们用 YAML 文件管理测试数据，按模块组织。每个测试类对应一个数据文件，包含正向、异常、边界三类数据组。运行时通过 pytest parametrize 加载，新增场景只需加数据行，不改测试代码。
 
 **Q4：接口测试怎么集成到 CI/CD？**
 
 回答骨架：
+
 > 在流水线的构建阶段后、部署阶段前执行。用 pytest 运行接口测试集，失败则阻断部署。关键接口失败会触发告警，非关键接口失败标记为不稳定用例供后续分析。
+
+**Q5：接口偶发超时，你怎么区分是测试脚本问题还是服务问题？**
+
+回答骨架：
+
+> 先看服务监控和日志定位耗时点：如果服务 P95 正常而脚本偶发超时，大概率是脚本侧连接池打满或没设超时导致悬挂；如果服务 P95 同步变差，再看是下游依赖变慢还是自身容量不足。测试侧要固定变量——用同一 Session、固定并发数、分阶段超时，排除脚本因素后再升级给服务端。
 
 ## 练习任务
 
@@ -412,6 +530,7 @@ def test_login_assertion_design():
 ### 任务二：实现数据驱动登录测试
 
 使用 pytest parametrize 实现 4 种登录场景的数据驱动测试：
+
 - 正确用户名密码
 - 错误密码
 - 用户名为空
@@ -420,29 +539,59 @@ def test_login_assertion_design():
 ### 任务三：封装一个接口类
 
 选择一个熟悉的公开 API（如 GitHub API），封装一个包含 3 个方法的接口类：
+
 - `get_repo_info(repo_name)`：获取仓库信息
 - `list_user_repos(username)`：获取用户仓库列表
 - `create_issue(repo, title)`：创建 issue（需认证）
 
+## 版本与生态
+
+Python HTTP 客户端的主流选择与边界：
+
+| 库       | 定位                     | 适合场景                          | 注意点                             |
+| -------- | ------------------------ | --------------------------------- | ---------------------------------- |
+| requests | 同步、生态最成熟         | 常规接口自动化、CI 回归           | 不支持 HTTP/2，异步需换库          |
+| httpx    | 同步 + 异步、支持 HTTP/2 | 需要并发异步请求、HTTP/2 特性验证 | API 与 requests 相近，迁移成本低   |
+| aiohttp  | 纯异步、性能高           | 异步框架项目、大规模并发探测      | 写法与 requests 差异大，学习成本高 |
+
+选型原则：测试团队默认 requests，遇到明确瓶颈（数千级并发、必须 HTTP/2）再评估 httpx，不要为了"新"迁移。响应体校验可引入 `jsonschema` 或 `pydantic`，把"字段存在 + 类型正确"沉淀成 schema 在多个用例间复用，契约维护成本远低于逐条手写断言。
+
+## 性能与规模化
+
+接口用例从几十条涨到上千条后，速度和稳定性比"多写用例"更重要：
+
+1. **分层执行**：用标记把用例分成 smoke / regression，PR 只跑 smoke（1-3 分钟），合并后跑全量，失败反馈周期从半小时压到几分钟
+2. **并行执行**：`pytest -n auto` 多进程并行；并行时用例必须数据隔离，共享账号或同一条订单数据会互相覆盖
+3. **连接复用**：Session + 连接池（见上文"会话与连接池复用"），千级请求场景能省 30% 以上的握手耗时
+4. **响应时间断言克制使用**：只在关键链路接口上断言耗时（如 P95 控制在 200ms 内）；共享 CI runner 上对全量接口断言性能会产生大量误报——runner 资源抖动不是接口的问题
+5. **失败治理**：区分"确定性失败"（代码问题，必须修）和"环境抖动"（超时类，可重试）；反复抖动的用例标记 quarantine 单独跑，避免污染主干门禁
+
+一个可参考的组合：CI 门禁用 `pytest -m smoke -n 4 --timeout=30` 快速反馈，夜间全量 `pytest -n auto` 配 Allure 报告做回归分析。完整工程模板参考 [接口自动化模板](/testdev-interview-site/practice-template/api-automation-template/)。
+
 ## 关联内容
 
 ### 术语补充
+
 - [glossary/api-assertion](../../glossary/api-assertion) - API 断言术语详解
 - HTTP 状态码速查 - HTTP 协议状态码术语参考（常用清单见上方"关键状态码"）
 
 ### 练习模板
+
 - [coding/assertion-wrapper](../../coding/assertion-wrapper) - 断言工具函数封装练习
 
 ### 应用场景
+
 - [scenario/login-auth](../../scenario/login-auth) - 登录认证完整测试方案
 
 ### 技术深入
+
 - [tech/mock-framework](../mock-framework) - Mock 框架与接口 Mock 策略
 - [tech/ci-cd](../ci-cd) - CI/CD 流水线集成
 
 ## 下一步
 
 掌握接口测试基础后，建议学习：
+
 1. **Mock 框架**：学会隔离外部依赖，独立测试接口逻辑
 2. **接口契约测试**：使用 Swagger/OpenAPI 进行契约验证
 3. **接口性能测试**：扩展到并发、压测场景

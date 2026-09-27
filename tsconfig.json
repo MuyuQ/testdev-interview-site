@@ -15,9 +15,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*", "scripts/**/*", "tests/**/*", "astro.config.mjs", ".astro/types.d.ts"],
+  "include": [
+    "src/**/*",
+    "scripts/**/*",
+    "tests/**/*",
+    "astro.config.mjs",
+    ".astro/types.d.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

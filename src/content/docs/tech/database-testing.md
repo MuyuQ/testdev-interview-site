@@ -15,23 +15,53 @@ outcomes:
   - "能写验证落库记录的数据库断言"
   - "能用事务回滚保证测试间数据隔离"
   - "能排查接口成功但数据未落库的问题"
-relatedSlugs: ["glossary/api-assertion", "coding/assertion-wrapper", "tech/api-testing"]
+relatedSlugs:
+  ["glossary/api-assertion", "coding/assertion-wrapper", "tech/api-testing"]
 selfTests:
   - id: "database-testing-q1"
     question: "在自动化测试中，直接连接生产数据库进行验证的做法是否正确？"
-    options: ["正确，生产数据最真实", "错误，应使用测试环境数据库", "无所谓，都可以", "只读操作可以"]
+    options:
+      [
+        "正确，生产数据最真实",
+        "错误，应使用测试环境数据库",
+        "无所谓，都可以",
+        "只读操作可以",
+      ]
     correctIndex: 1
     explanation: "测试应避免直接操作生产数据库，应在独立的测试环境进行，防止数据污染和安全风险。"
   - id: "database-testing-q2"
     question: "数据库测试中，哪种数据准备方式最推荐用于集成测试？"
-    options: ["手动插入测试数据", "使用数据库事务回滚", "从生产环境复制数据", "不准备数据直接测试"]
+    options:
+      [
+        "手动插入测试数据",
+        "使用数据库事务回滚",
+        "从生产环境复制数据",
+        "不准备数据直接测试",
+      ]
     correctIndex: 1
     explanation: "使用事务回滚可以在测试后自动清理数据，保证测试隔离性和可重复性，是集成测试的最佳实践。"
   - id: "database-testing-q3"
     question: "验证数据库字段是否正确更新时，以下哪种断言方式最全面？"
-    options: ["只验证返回值", "只验证数据库记录", "同时验证返回值和数据库记录", "不需要验证"]
+    options:
+      [
+        "只验证返回值",
+        "只验证数据库记录",
+        "同时验证返回值和数据库记录",
+        "不需要验证",
+      ]
     correctIndex: 2
     explanation: "API返回成功不代表数据库一定更新正确，需要同时验证返回值和数据库记录，确保数据一致性。"
+  - id: "database-testing-q4"
+    question: "接口返回创建成功，但数据库里查不到记录，最可能的原因是？"
+    options:
+      [
+        "前端没有刷新页面",
+        "事务未提交或后续被回滚",
+        "数据库磁盘满了必然如此",
+        "接口根本没被调用",
+      ]
+    correctIndex: 1
+    explanation: "API 响应成功只代表应用层处理完成，若事务隔离不当、异步落库延迟或事务最终回滚，数据库中不会有记录。排查时应先确认查询用的连接与事务边界，再看应用日志里的提交与回滚记录。"
 ---
 
 ## 解决什么问题
@@ -80,12 +110,12 @@ selfTests:
 
 ### 数据准备方式
 
-| 方式 | 优点 | 缺点 | 适用场景 |
-|------|------|------|----------|
-| 事务回滚 | 自动清理、隔离性好 | 不支持跨事务场景 | 单元测试、集成测试 |
-| 测试数据库 | 真实环境、无风险 | 需维护环境 | 端到端测试 |
-| 内存数据库 | 速度快、无状态 | 与真实DB有差异 | 单元测试 |
-| Fixture数据 | 可复用、易维护 | 需提前准备 | 回归测试 |
+| 方式        | 优点               | 缺点             | 适用场景           |
+| ----------- | ------------------ | ---------------- | ------------------ |
+| 事务回滚    | 自动清理、隔离性好 | 不支持跨事务场景 | 单元测试、集成测试 |
+| 测试数据库  | 真实环境、无风险   | 需维护环境       | 端到端测试         |
+| 内存数据库  | 速度快、无状态     | 与真实DB有差异   | 单元测试           |
+| Fixture数据 | 可复用、易维护     | 需提前准备       | 回归测试           |
 
 ### 测试隔离原则
 
@@ -236,6 +266,44 @@ class DatabaseHelper:
 4. **定时清理**：定期清理测试数据库中的过期数据
 5. **监控告警**：对测试数据库连接、查询性能进行监控
 
+### CI 中的数据库测试
+
+流水线里跑数据库测试，用 GitHub Actions 的 services 直接拉起一个干净的 MySQL：
+
+```yaml
+jobs:
+  db-test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=5s
+          --health-timeout=3s
+          --health-retries=10
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run DB tests
+        env:
+          DB_HOST: 127.0.0.1
+        run: pytest tests/integration -m db
+```
+
+三个关键点：
+
+- `--health-cmd` 健康检查保证 MySQL 就绪后才跑用例，否则首批用例必然连接失败
+- 每次流水线都是全新容器，天然数据隔离，配合事务回滚做到用例级隔离
+- 数据库版本要和测试环境一致：MySQL 5.7 和 8.0 的默认字符集、认证插件都有差异，版本漂移会产生"本地过 CI 挂"的假故障
+
+多服务编排的完整方案见 [Docker 测试](/testdev-interview-site/tech/docker-testing/)。
+
 ## 常见坑
 
 ### 坑1：只验证API返回，忽略数据库验证
@@ -316,6 +384,52 @@ SELECT * FROM orders WHERE create_time LIKE '2024-01%'
    - 在CI/CD中如何管理测试数据库？
    - 如何处理多环境（开发、测试、生产）的数据库配置？
    - 数据库测试的执行效率如何优化？
+
+### 参考回答精选
+
+**问：如何保证测试的数据隔离？**
+
+回答骨架：
+
+> 分三层做：用例层用事务回滚，setup 开启事务、teardown 回滚，适合单测和轻量集成测试；并行层按 worker 隔离数据集，每个进程用独立的数据前缀或独立 schema，避免锁冲突；环境层用每次流水线新建的容器化数据库，从源头保证干净。所有清理动作都写在 fixture teardown 里，不依赖用例自己清理。
+
+**问：什么场景下必须做数据库验证，而不是只验证 API 响应？**
+
+回答骨架：
+
+> 三类场景必须下库验证：一是异步落库，接口立即返回但数据经消息队列异步写入，API 响应根本不含最终状态；二是多表联动，如下单扣库存、支付改余额，必须验证关联表一致；三是软删除与状态机，数据是否真的标记删除、状态流转是否符合预期，都要查库确认。其余简单查询类接口可以只验证响应。
+
+## 踩坑实录
+
+### 坑1：CI 容器连不上 MySQL，Access denied
+
+```text
+pymysql.err.OperationalError: (1045, "Access denied for user 'test_user'@'172.17.0.5' (using password: YES)")
+```
+
+**根因**：密码从环境变量注入时末尾带了换行符，或 MySQL 用户只授权了 `@localhost` 而容器走网络连接，来源 IP 对不上。两个原因都报 1045，极难一眼区分。
+
+**修复**：先在同网络环境用 `mysql -h host -u test_user -p` 手动登录验证；授权改为 `CREATE USER 'test_user'@'%'` 并限制在内网网段；环境变量注入前做 `strip()` 处理。
+
+### 坑2：并行跑用例触发死锁
+
+```text
+pymysql.err.OperationalError: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+```
+
+**根因**：pytest-xdist 多个进程同时操作同一行库存记录，两个事务以不同顺序更新同一批行，MySQL 检测到死锁后回滚其中一方，用例随即失败。单进程永远复现不了，并行后偶发，是典型的"加并行就出事"。
+
+**修复**：每个 worker 使用独立数据集（按 worker id 分配不同的商品 ID 段）是根治方案；无法隔离时，捕获 1213 错误做有限次重试，并把测试事务尽量缩短、不在事务内做断言之外的等待。
+
+### 坑3：大批量造数时连接中断
+
+```text
+pymysql.err.OperationalError: (2013, 'Lost connection to MySQL server during query')
+```
+
+**根因**：单条 SQL 一次性 INSERT 几十万行，超过 `max_allowed_packet` 限制，服务端直接断开连接；也可能是连接空闲超过 `wait_timeout` 被服务端回收，再用时才发现已断。
+
+**修复**：造数改用 `executemany` 分批执行（每批 500-1000 行）；长测试执行前 `conn.ping(reconnect=True)` 探活；把 `wait_timeout` 纳入环境检查清单，避免归因到网络抖动。
 
 ## 练习
 

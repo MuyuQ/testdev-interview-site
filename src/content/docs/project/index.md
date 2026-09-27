@@ -15,48 +15,86 @@ category: "project"
 
 ## 适合谁
 
-| 用户类型 | 使用方式 | 推荐入口 |
-|---------|---------|---------|
-| 零基础初学者 | 先完成新手教程和练习模板，再选择项目故事 | [新手教程](/testdev-interview-site/beginner-course/) |
-| 有项目经历者 | 查看同类项目的故事模板，学习表达技巧 | [支付项目](/testdev-interview-site/project/payment-project/) |
-| 面试冲刺者 | 快速掌握项目表达的五步结构，准备追问应对 | [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) |
-| 进阶测试开发 | 深入复杂项目的技术难点表达 | 微服务架构项目 |
+| 用户类型     | 使用方式                                 | 推荐入口                                                                          |
+| ------------ | ---------------------------------------- | --------------------------------------------------------------------------------- |
+| 零基础初学者 | 先完成新手教程和练习模板，再选择项目故事 | [新手教程](/testdev-interview-site/beginner-course/)                              |
+| 有项目经历者 | 查看同类项目的故事模板，学习表达技巧     | [支付项目](/testdev-interview-site/project/payment-project/)                      |
+| 面试冲刺者   | 快速掌握项目表达的五步结构，准备追问应对 | [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) |
+| 进阶测试开发 | 深入复杂项目的技术难点表达               | 微服务架构项目                                                                    |
 
 ## 推荐学习顺序
 
 建议按以下顺序学习，从选择项目到掌握表达再到追问应对：
 
-| 序号 | 文章 | 学习目标 | 预计时间 |
-|-----|------|---------|---------|
-| 1 | [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) | 掌握项目表达的五步结构 | 45 分钟 |
-| 2 | [支付项目详解](/testdev-interview-site/project/payment-project/) | 学习支付项目的故事示例 | 60 分钟 |
-| 3 | [电商项目详解](/testdev-interview-site/project/ecommerce-project/) | 学习电商项目的故事示例 | 60 分钟 |
-| 4 | [管理后台项目](/testdev-interview-site/project/admin-platform/) | 学习后台管理项目的故事示例 | 50 分钟 |
-| 5 | [移动端项目](/testdev-interview-site/project/mobile-app-project/) | 学习移动端项目的故事示例 | 50 分钟 |
-| 6 | 支付场景追问链 | 训练支付项目追问应对 | 40 分钟 |
-| 7 | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) | 训练电商项目追问应对 | 40 分钟 |
+| 序号 | 文章                                                                              | 学习目标                   | 预计时间 |
+| ---- | --------------------------------------------------------------------------------- | -------------------------- | -------- |
+| 1    | [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) | 掌握项目表达的五步结构     | 45 分钟  |
+| 2    | [支付项目详解](/testdev-interview-site/project/payment-project/)                  | 学习支付项目的故事示例     | 60 分钟  |
+| 3    | [电商项目详解](/testdev-interview-site/project/ecommerce-project/)                | 学习电商项目的故事示例     | 60 分钟  |
+| 4    | [管理后台项目](/testdev-interview-site/project/admin-platform/)                   | 学习后台管理项目的故事示例 | 50 分钟  |
+| 5    | [移动端项目](/testdev-interview-site/project/mobile-app-project/)                 | 学习移动端项目的故事示例   | 50 分钟  |
+| 6    | 支付场景追问链                                                                    | 训练支付项目追问应对       | 40 分钟  |
+| 7    | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) | 训练电商项目追问应对       | 40 分钟  |
 
 ## 如何选择适合的项目故事
 
 ### 根据你的实际经历选择
 
-| 你的经历类型 | 推荐项目故事 | 表达重点 |
-|------------|-------------|---------|
-| 有电商或交易类经验 | [电商项目](/testdev-interview-site/project/ecommerce-project/) | 订单流程、支付幂等性、并发扣减 |
-| 有支付或金融类经验 | [支付项目](/testdev-interview-site/project/payment-project/) | 支付回调、资金安全、对账机制 |
-| 有后台管理类经验 | [管理后台项目](/testdev-interview-site/project/admin-platform/) | 权限控制、数据校验、操作日志 |
-| 有移动端测试经验 | [移动端项目](/testdev-interview-site/project/mobile-app-project/) | 多端兼容、安装测试、推送验证 |
-| 有平台工具类经验 | 数据平台项目 | 数据管道、报表验证、定时任务 |
+| 你的经历类型       | 推荐项目故事                                                      | 表达重点                       |
+| ------------------ | ----------------------------------------------------------------- | ------------------------------ |
+| 有电商或交易类经验 | [电商项目](/testdev-interview-site/project/ecommerce-project/)    | 订单流程、支付幂等性、并发扣减 |
+| 有支付或金融类经验 | [支付项目](/testdev-interview-site/project/payment-project/)      | 支付回调、资金安全、对账机制   |
+| 有后台管理类经验   | [管理后台项目](/testdev-interview-site/project/admin-platform/)   | 权限控制、数据校验、操作日志   |
+| 有移动端测试经验   | [移动端项目](/testdev-interview-site/project/mobile-app-project/) | 多端兼容、安装测试、推送验证   |
+| 有平台工具类经验   | 数据平台项目                                                      | 数据管道、报表验证、定时任务   |
 
 ### 根据你想展示的能力选择
 
-| 想展示的能力 | 推荐项目故事 | 核心亮点 |
-|------------|-------------|---------|
+| 想展示的能力   | 推荐项目故事                                                   | 核心亮点                            |
+| -------------- | -------------------------------------------------------------- | ----------------------------------- |
 | 自动化框架能力 | [电商项目](/testdev-interview-site/project/ecommerce-project/) | 三层架构设计、数据驱动、Fixture策略 |
-| 专项测试能力 | [支付项目](/testdev-interview-site/project/payment-project/) | 幂等性测试、资金安全、对账验证 |
-| 工程化能力 | 微服务项目 | CI集成、契约测试、Mock服务 |
-| 业务理解能力 | [电商项目](/testdev-interview-site/project/ecommerce-project/) | 业务流程、风险分析、测试策略 |
-| 复杂场景能力 | 第三方集成项目 | 外部依赖、故障模拟、补偿机制 |
+| 专项测试能力   | [支付项目](/testdev-interview-site/project/payment-project/)   | 幂等性测试、资金安全、对账验证      |
+| 工程化能力     | 微服务项目                                                     | CI集成、契约测试、Mock服务          |
+| 业务理解能力   | [电商项目](/testdev-interview-site/project/ecommerce-project/) | 业务流程、风险分析、测试策略        |
+| 复杂场景能力   | 第三方集成项目                                                 | 外部依赖、故障模拟、补偿机制        |
+
+### 按背景选型：四类人的具体建议
+
+上两张表解决"从哪个维度选"，这一节直接给结论。
+
+**应届生 / 零基础转行**：优先选 [电商项目](/testdev-interview-site/project/ecommerce-project/) 包装。理由：电商业务人人能听懂，面试官不需要你解释背景；链路长（浏览、下单、支付、发货），随便一个环节都能铺开讲自动化用例设计；和 [接口自动化第一课](/testdev-interview-site/beginner-course/pytest-api-first-case/) 直接衔接，学完就能往项目上挂。避坑：不要一上来就选支付项目，资金安全、对账这些话题对应届生是深水区，被追问两层容易露馅。
+
+**功能测试转测试开发**：优先选 [管理后台项目](/testdev-interview-site/project/admin-platform/)。你的存量经验（权限、配置、批量操作）就在后台系统里，转述时业务部分零成本，重点补自动化框架、权限矩阵这类工程化表达；表达框架可以参考 [第一个项目怎么说](/testdev-interview-site/beginner-course/interview-expression-for-first-project/)。想往交易方向跳，再用电商项目做第二故事。
+
+**有 1-3 年经验的在职测开**：支付项目是最优解。这个背景的候选人面试必然被深挖技术细节，[支付项目](/testdev-interview-site/project/payment-project/) 有状态机、幂等、对账、Mock 渠道这些"经得起三层追问"的硬货；配合 [支付回调场景](/testdev-interview-site/scenario/payment-callback/) 提前训练追问，不容易被问穿。
+
+**App 测试 / 客户端背景**：选 [移动端项目](/testdev-interview-site/project/mobile-app-project/)，但要刻意补工程化短板：App 测试出身容易被默认"不会写代码"，所以表达里要把 Appium 框架分层、flaky 治理数据、双端抽象设计讲透，再准备一个接口自动化项目兜底。
+
+### 四个项目一句话对比
+
+| 项目                                                              | 技术关键词                    | 追问深度                   | 适合谁                 |
+| ----------------------------------------------------------------- | ----------------------------- | -------------------------- | ---------------------- |
+| [电商项目](/testdev-interview-site/project/ecommerce-project/)    | 全链路、并发扣减、数据工厂    | 中（业务面广，深度可自选） | 应届生、转行者入门首选 |
+| [支付项目](/testdev-interview-site/project/payment-project/)      | 状态机、幂等、对账、Mock 渠道 | 深（资金安全必被深挖）     | 有经验的测开冲深度     |
+| [管理后台项目](/testdev-interview-site/project/admin-platform/)   | 权限矩阵、批量幂等、配置预演  | 中（组合多但模型清晰）     | 功能转测开的跳板       |
+| [移动端项目](/testdev-interview-site/project/mobile-app-project/) | 兼容矩阵、弱网、flaky 治理    | 中（专项性强）             | 有 App 经历者的加分项  |
+
+### 选型决策的三个原则
+
+1. **选能撑住三层追问的，不选听起来最大的**。项目故事的寿命取决于第几层追问开始答不上来。"日均50万订单"讲不下去的时候，不如"权限矩阵回归从人工半天压到 15 分钟"实在。
+2. **选和目标岗位 JD 匹配的**。JD 写支付、交易，就优先准备支付项目；写中后台、B 端，就优先管理后台。项目故事是为目标岗位定制的，不是通用货。
+3. **一主一辅**。主项目按上面原则选，辅项目选技术栈差异大的（主项目做接口自动化，辅项目就选移动端），应对"还有别的项目吗"和不同面试官的偏好。
+
+### 没有对应经历怎么"合理包装"
+
+包装的边界是"做过的事换个讲法"，不是"没做过的事编细节"：
+
+- **可以**：把公司内部系统按管理后台的框架重新组织表达，把参与过的模块往权限、批量上靠
+- **可以**：用 [API 自动化模板](/testdev-interview-site/practice-template/api-automation-template/) 自己搭一个和目标项目同构的练手项目，简历上所有数字都是真的
+- **不可以**：虚构没接触过的资金链路细节——支付类追问（对账差异怎么归类、幂等键怎么设计）编不出经得起追问的答案
+- **不可以**：把团队成果整体说成个人成果——被追问"你具体负责哪部分"时会自相矛盾
+
+拿不准的项目故事，先用 [项目故事模板](/testdev-interview-site/practice-template/project-story-template/) 写出来自查一遍。
 
 ## 内容分组
 
@@ -184,11 +222,11 @@ category: "project"
 
 每个项目都应该能连接到场景题和追问链：
 
-| 项目类型 | 关联场景 | 关联追问链 |
-|---------|---------|-----------|
-| 支付项目 | [支付回调场景](/testdev-interview-site/scenario/payment-callback/) | 支付场景追问链 |
-| 电商项目 | 秒杀场景 | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) |
-| 后台项目 | 权限变更场景 | [测试框架追问链](/testdev-interview-site/interview-chains/test-framework/) |
+| 项目类型 | 关联场景                                                           | 关联追问链                                                                        |
+| -------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| 支付项目 | [支付回调场景](/testdev-interview-site/scenario/payment-callback/) | 支付场景追问链                                                                    |
+| 电商项目 | 秒杀场景                                                           | [电商订单追问链](/testdev-interview-site/interview-chains/ecommerce-order-chain/) |
+| 后台项目 | 权限变更场景                                                       | [测试框架追问链](/testdev-interview-site/interview-chains/test-framework/)        |
 
 建议的学习路径：
 

@@ -15,23 +15,53 @@ outcomes:
   - "能按成本选对 fixture 的作用域"
   - "能用工厂 fixture 自动清理测试数据"
   - "能讲清并行下 fixture 隔离的注意点"
-relatedSlugs: ["tech/api-testing", "glossary/api-assertion", "glossary/mock-stub"]
+relatedSlugs:
+  ["tech/api-testing", "glossary/api-assertion", "glossary/mock-stub"]
 selfTests:
   - id: "fixture-strategy-q1"
     question: "fixture 的 function 作用域有什么特点？"
-    options: ["每个测试函数执行前后都会创建和销毁", "整个模块只创建一次", "整个会话只创建一次", "手动控制创建时机"]
+    options:
+      [
+        "每个测试函数执行前后都会创建和销毁",
+        "整个模块只创建一次",
+        "整个会话只创建一次",
+        "手动控制创建时机",
+      ]
     correctIndex: 0
     explanation: "function 作用域是默认值，每个测试函数都会触发 fixture 的 setup 和 teardown。"
   - id: "fixture-strategy-q2"
     question: "如何实现 fixture 的依赖注入？"
-    options: ["在 fixture 参数中声明其他 fixture 名称", "使用 import 导入", "通过全局变量共享", "使用类继承"]
+    options:
+      [
+        "在 fixture 参数中声明其他 fixture 名称",
+        "使用 import 导入",
+        "通过全局变量共享",
+        "使用类继承",
+      ]
     correctIndex: 0
     explanation: "Pytest 通过参数声明实现依赖注入，在 fixture 函数的参数中声明需要的 fixture 名称即可自动注入。"
   - id: "fixture-strategy-q3"
     question: "autouse=True 的 fixture 适用什么场景？"
-    options: ["所有测试都需要的前置条件", "仅部分测试需要", "性能敏感场景", "需要参数化的场景"]
+    options:
+      [
+        "所有测试都需要的前置条件",
+        "仅部分测试需要",
+        "性能敏感场景",
+        "需要参数化的场景",
+      ]
     correctIndex: 0
     explanation: "autouse=True 适用于全局性的前置条件，如数据库连接、测试数据准备等所有测试都需要的场景。"
+  - id: "fixture-strategy-q4"
+    question: "测试失败时，fixture 中 yield 之后的清理代码还会执行吗？"
+    options:
+      [
+        "不会，测试失败就直接跳过清理",
+        "会，pytest 保证测试结束后执行 yield 之后的 teardown",
+        "只有写在 try/finally 里才会执行",
+        "取决于 fixture 作用域大小",
+      ]
+    correctIndex: 1
+    explanation: "pytest 保证 yield 之后的 teardown 在测试结束后执行，无论测试本身是否失败。但如果清理代码自身可能抛异常，仍建议用 try/finally 兜底，避免资源泄漏或清理中断。"
 ---
 
 ## 1. 题目描述
@@ -49,11 +79,13 @@ selfTests:
 ## 3. 输入输出
 
 **输入：**
+
 - 测试用例集合，每个用例有特定的资源需求
 - 资源配置（数据库连接串、API 地址等）
 - 作用域约束（部分资源需要跨测试共享）
 
 **输出：**
+
 - 正确初始化的测试环境
 - 隔离的测试数据
 - 测试结束后资源正确清理
@@ -62,13 +94,13 @@ selfTests:
 
 五种作用域决定了 fixture 的 setup/teardown 触发时机。**结论先行**：作用域越大，创建次数越少、执行越快，但多个测试会共享同一份资源，隔离性越差；作用域越小，隔离越好，但重复初始化会带来性能开销。选型本质是「隔离成本」与「初始化成本」的权衡。
 
-| 作用域 | setup 触发时机 | teardown 触发时机 | 典型场景 | 主要风险 |
-|--------|---------------|------------------|---------|---------|
-| `function` | 每个测试函数前 | 每个测试函数后 | 测试数据、临时文件 | 高频初始化拖慢执行 |
-| `class` | 每个测试类前 | 每个测试类后 | 类内共享的登录态 | 类内测试互相污染 |
-| `module` | 每个模块前 | 每个模块后 | 模块级客户端、连接池 | 模块内测试共享状态 |
-| `package` | 每个包前 | 每个包后 | 跨模块的共享配置 | 作用域过大，难调试 |
-| `session` | 整个会话前（一次） | 整个会话后（一次） | 数据库、Web 服务进程 | 状态跨测试残留 |
+| 作用域     | setup 触发时机     | teardown 触发时机  | 典型场景             | 主要风险           |
+| ---------- | ------------------ | ------------------ | -------------------- | ------------------ |
+| `function` | 每个测试函数前     | 每个测试函数后     | 测试数据、临时文件   | 高频初始化拖慢执行 |
+| `class`    | 每个测试类前       | 每个测试类后       | 类内共享的登录态     | 类内测试互相污染   |
+| `module`   | 每个模块前         | 每个模块后         | 模块级客户端、连接池 | 模块内测试共享状态 |
+| `package`  | 每个包前           | 每个包后           | 跨模块的共享配置     | 作用域过大，难调试 |
+| `session`  | 整个会话前（一次） | 整个会话后（一次） | 数据库、Web 服务进程 | 状态跨测试残留     |
 
 - **作用域嵌套规则**：子作用域的 fixture 可以注入父作用域的 fixture（如 `function` 用 `session` 的资源），但反过来不行。pytest 会按依赖图自动排序 setup，逆序执行 teardown。
 - **边界陷阱**：`module`/`session` 级别的 fixture 若修改了共享资源（如往数据库插数据却不清理），会导致「本用例单独跑通过、整轮跑却失败」的经典 flaky 问题。
@@ -202,6 +234,70 @@ def order_factory(api_client) -> Callable:
     # 清理所有创建的订单
     for order in orders:
         api_client.delete_order(order["id"])
+```
+
+### 代码走查：面试官看这段代码的打分点
+
+1. **依赖链命名**：`app_config → api_client → test_data` 形成一条自解释的依赖链，fixture 名与它返回的东西一致（`test_data` 返回数据、`api_client` 返回客户端）。面试官第一眼扫的就是命名，链路清晰等于白拿风格分。
+2. **作用域显式标注**：即使 `function` 是默认值，每个 fixture 都显式写出 scope，说明作者考虑过作用域选择而不是随手写的。这是低成本高回报的表达动作。
+3. **类型注解**：`Generator[dict, None, None]`、`Callable` 表明作者理解 fixture「既是函数也是资源」的双重身份。小瑕疵：`api_client` 的注解只写了裸 `Generator`，统一写成 `Generator[APIClient, None, None]` 更严谨，走查时会被提一句。
+4. **teardown 完整性（必被追问）**：`test_data` 的 setup 里先建 `user` 再建 `order`，如果 `create_order` 抛异常，已创建的 `user` 不会被清理——setup 中途失败时 yield 之后的代码根本不会执行。修正思路是把数据创建交给 `order_factory` 这类工厂 fixture 按需创建，或 setup 内部自己 try/except 回滚。
+5. **可测性**：所有依赖都通过参数注入，没有全局变量、没有模块级状态，测试随时可以用 mock 替换任意一层。
+
+### 常见错误实现与修正
+
+错误实现一：想清理，却把清理写在了 return 之后
+
+```python
+@pytest.fixture
+def api_client_bad():
+    client = APIClient("http://localhost:8080")
+    return client
+    client.close()  # 永远不会执行：return 之后的代码不可达
+```
+
+问题：
+
+1. `return` 之后是死代码，清理逻辑形同虚设，资源随用例数量线性泄漏
+2. 更隐蔽的变体：作者其实记得「yield 之后写清理」，却把资源创建写成了 `return`，pytest 不会报错，问题要到连接池打满才暴露
+
+修正版——`yield` 分隔 setup/teardown，并用 `try/finally` 兜底：
+
+```python
+@pytest.fixture
+def api_client_fixed():
+    client = APIClient("http://localhost:8080")
+    try:
+        yield client   # 测试拿到的就是 client
+    finally:
+        client.close() # 即使测试失败也保证释放
+```
+
+错误实现二：大作用域里造有状态数据——单跑通过、整轮失败
+
+```python
+@pytest.fixture(scope="session")
+def admin_user(api_client):
+    # session 作用域里创建业务数据，整轮只建一次
+    return api_client.create_user(name="admin", role="admin")
+```
+
+问题：
+
+1. `admin_user` 全会话共享，任何一个用例修改它（改密码、禁用账号），后面依赖它的用例集体失败——这就是「本用例单独跑通过、整轮跑却挂」的经典 flaky 来源
+2. 并行（pytest-xdist）下每个 worker 进程各初始化一份 session fixture：如果业务上用户名唯一，第二个 worker 建重名用户直接报错；即便不报错，两个 worker 也各改各的，状态互不可见
+
+修正版——大作用域只放无状态只读资源（连接池、配置），业务数据一律 function 级创建并回收：
+
+```python
+import uuid
+
+@pytest.fixture(scope="function")
+def admin_user(api_client):
+    # 名字带随机后缀，避免并行下撞唯一约束
+    user = api_client.create_user(name=f"admin_{uuid.uuid4().hex[:8]}", role="admin")
+    yield user
+    api_client.delete_user(user["id"])
 ```
 
 ## 7. 测试用例
@@ -350,6 +446,16 @@ def test_xxx(): ...
 # 用 -m "not slow" 可在 CI 中跳过重型 fixture
 ```
 
+### 6. 复杂度与规模化：用例数上来之后哪里先崩
+
+按 50 → 500 → 5000 条用例的顺序，本文的结构会依次撞到三堵墙：
+
+1. **50 条以上：function 级真实建删数据成为耗时大头。** 每个用例都走一遍「创建 + 清理」的完整 HTTP 往返，套件时间随用例数线性膨胀。缓解：只读数据（用户资料模板、商品目录）下沉到 session/module 作用域；接口支持批量创建就用工厂一次造一批，teardown 也批量删。
+2. **500 条以上：清理型 fixture 开始互相踩。** teardown 逻辑变复杂后自身出错概率上升，一个 teardown 抛异常会让它管理的资源滞留，污染下一个用例，失败开始「传染」。缓解：所有清理写进 `try/finally`；清理失败单独记录成 warning 而不是静默吞掉，让泄漏可见。
+3. **5000 条以上：根 conftest.py 变成垃圾场 + xdist 数据竞争。** 所有 fixture 堆在根 conftest，没人敢删没人在用；多个 worker 共写同一张真实表，随机失败率随 worker 数上涨。缓解：conftest 按目录分层（对应扩展点 4）；每个 worker 用独立 schema 或表名加 worker 前缀（这是「并行测试」追问的落地动作）。
+
+再往后就是环境架构问题：测试环境按 session 拉起容器、结果缓存跳过未变更模块——已超出 fixture 范畴，面试里点到「我知道边界在哪」即可，不要展开编造没做过的方案。
+
 ## 9. 面试讲解
 
 "在测试框架设计中，我非常重视 Fixture 策略的设计。核心思路是通过合理的作用域选择、依赖注入和数据隔离来提高测试的可维护性和执行效率。
@@ -385,6 +491,21 @@ def test_xxx(): ...
 5. **并行测试（pytest-xdist）下 fixture 隔离要注意什么？**
    - 多进程下 `session` 级 fixture 在每个 worker 进程里各初始化一份，不是全局唯一；不能用它做跨 worker 的计数或锁。
    - function 级数据隔离是并行安全的前提；若依赖同一张真实表，需给每个 worker 分配独立 schema 或加 worker id 前缀。
+
+6. **fixture 和 setup_method/teardown_method 怎么选？**
+   - xUnit 风格的 `setup_method` 绑定在测试类上，没有依赖注入、没有作用域可选，跨类复用只能靠继承，继承层级一深就难维护。
+   - fixture 可以跨文件共享（conftest.py 自动发现）、可以组合嵌套、可以参数化，需要「同一个前置被多个测试类复用」时几乎总是更优解。
+   - 例外：团队已有统一的 xUnit 风格且逻辑只在单个类内使用，不必为了「先进」强行迁移，一致性比工具先进性重要。
+
+7. **fixture 里能不能写断言？**
+   - 技术上可以，比如断言「测试环境已就绪」，但要克制：setup 阶段的断言失败会被 pytest 标记为 error 而不是 failure，报告语义完全不同，聚合统计时会被误读。
+   - 更好的做法是把前置健康检查做成显式的 fixture（如 `ready_env`），依赖它的用例在环境损坏时整体标记 error，其余用例照常执行，问题边界一眼可见。
+   - teardown 里同理：清理代码里放断言会让「清理失败」掩盖不了什么，反而制造噪音，清理失败用 warning 日志记录即可。
+
+8. **如何调试一个「时灵时不灵」的 fixture？**
+   - 第一步定作用域：单独跑这条用例能复现吗？单跑通过、整轮失败，基本锁定大作用域共享状态被前面的用例改了。
+   - 第二步看 teardown：加 `-l` 显示失败时的局部变量，在 teardown 里打时间戳日志确认清理顺序，排查「清理顺序依赖」类问题。
+   - 第三步看并行：用 `-p xdist -n 1` 先排除并行因素，再逐个加回 worker 复现；怀疑与 worker 共享有关时，把可疑 fixture 从 session 降到 function 做对照实验。
 
 ## 11. 关联技术和场景
 
